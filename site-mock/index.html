@@ -23,7 +23,9 @@
 :root {
   --ink: #111;
   --paper: #ffffff;
-  --link: #0b4fa8; /* hyperref blue */
+  --link: #0b4fa8;   /* hyperref urlcolor blue */
+  --maroon: #8b1a1a; /* hyperref linkcolor, internal refs */
+  --green: #00693e;  /* hyperref citecolor, citations */
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { background: var(--paper); scroll-behavior: smooth; }
@@ -36,7 +38,7 @@ body {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
-u { text-decoration-thickness: .8px; text-underline-offset: 2.5px; }
+u { text-decoration-thickness: 1px; text-underline-offset: 2.5px; text-decoration-color: var(--maroon); }
 
 /* running head = navbar, in the paper's own language */
 nav.runhead {
@@ -56,14 +58,14 @@ nav.runhead {
   border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
   transition: border-color 150ms ease;
 }
-.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
-.rh-links a.active { border-bottom-color: var(--ink); }
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--maroon); color: var(--maroon); }
+.rh-links a.active { border-bottom-color: var(--maroon); }
 .rh-links a.rh-join {
   background: var(--ink); color: var(--paper);
   padding: .12rem .8rem .18rem .8rem; border-bottom: none;
   transition: background 150ms ease;
 }
-.rh-links a.rh-join:hover { background: #000; }
+.rh-links a.rh-join:hover { background: var(--maroon); color: var(--paper); }
 
 .sheet { max-width: 1080px; margin: 0 auto; padding: 2.6rem 24px 3rem 24px; }
 
@@ -104,7 +106,7 @@ p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
   border-radius: 0; outline: none;
   transition: border-color 150ms ease;
 }
-.field input:focus, .field select:focus { border-bottom-color: var(--ink); }
+.field input:focus, .field select:focus { border-bottom-color: var(--link); }
 .cvline { margin: .9rem 0; font-size: 14px; }
 .cvline .tex { font-family: monospace; font-size: 12.5px; }
 .consent { font-size: 13px; margin-top: .9rem; }
@@ -116,7 +118,7 @@ button.submit {
   margin-top: 1rem; cursor: pointer;
   transition: background 150ms ease;
 }
-button.submit:hover { background: #000; }
+button.submit:hover { background: var(--maroon); }
 
 /* table 1: booktabs, sized to content */
 table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; }
@@ -136,10 +138,10 @@ tbody tr:last-child { border-bottom: 1px solid var(--ink); }
   margin-bottom: .75rem;
   break-inside: avoid;
 }
-.bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; }
+.bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; color: var(--green); }
 .bib .co { font-variant: small-caps; }
 .bib .pos { font-style: italic; }
-.bib .meta { color: #333; }
+.bib .meta { color: var(--green); }
 
 /* footnote + page number */
 .footnote { margin-top: 2.4rem; width: 55%; font-size: 12.5px; color: #222; }
