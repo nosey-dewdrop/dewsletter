@@ -20,7 +20,11 @@
   src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-italic.woff2') format('woff2');
   font-weight: normal; font-style: italic; font-display: swap;
 }
-:root { --ink: #111; --paper: #ffffff; --link: #0b4fa8; }
+:root {
+  --ink: #111; --paper: #ffffff; --link: #0b4fa8;
+  --red: #c22a1e; --orange: #d2600a; --ochre: #b8860b;
+  --green: #1a7a3c; --blue: #0b4fa8; --violet: #6b2fa8;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { background: var(--paper); scroll-behavior: smooth; }
 body {
@@ -43,23 +47,28 @@ nav.runhead {
 .rh-left .rh-sub { font-style: italic; color: #333; margin-left: .7rem; }
 .rh-links { display: flex; gap: 1.15rem; align-items: baseline; }
 .rh-links a {
-  color: var(--ink); font-variant: small-caps;
+  font-variant: small-caps;
   border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
   transition: border-color 150ms ease;
 }
-.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
-.rh-links a.active { border-bottom-color: var(--ink); }
+.rh-links a:nth-child(1) { color: var(--red); }
+.rh-links a:nth-child(2) { color: var(--orange); }
+.rh-links a:nth-child(3) { color: var(--ochre); }
+.rh-links a:nth-child(4) { color: var(--green); }
+.rh-links a:nth-child(5) { color: var(--blue); }
+.rh-links a:hover { text-decoration: none; border-bottom-color: currentColor; }
+.rh-links a.active { border-bottom-color: currentColor; }
 .rh-links a.rh-join {
-  background: var(--ink); color: var(--paper);
+  background: var(--violet); color: var(--paper);
   padding: .12rem .8rem .18rem .8rem; border-bottom: none;
   transition: background 150ms ease;
 }
-.rh-links a.rh-join:hover { background: #000; }
+.rh-links a.rh-join:hover { background: var(--ink); }
 
 .sheet { max-width: 1080px; margin: 0 auto; padding: 2.4rem 24px 3rem 24px; }
 
 .apphead { margin-bottom: 1.8rem; }
-.apphead h1 { font-size: 22px; font-weight: bold; margin-bottom: .5rem; }
+.apphead h1 { font-size: 22px; font-weight: bold; margin-bottom: .5rem; color: var(--blue); }
 .apphead p { text-align: justify; hyphens: auto; font-size: 14.5px; max-width: 62ch; }
 
 table { border-collapse: collapse; font-size: 13.8px; width: 100%; }

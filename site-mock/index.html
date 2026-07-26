@@ -23,9 +23,13 @@
 :root {
   --ink: #111;
   --paper: #ffffff;
-  --link: #0b4fa8;   /* hyperref urlcolor blue */
-  --maroon: #8b1a1a; /* hyperref linkcolor, internal refs */
-  --green: #00693e;  /* hyperref citecolor, citations */
+  --link: #0b4fa8; /* hyperref urlcolor blue */
+  --red: #c22a1e;
+  --orange: #d2600a;
+  --ochre: #b8860b;
+  --green: #1a7a3c;
+  --blue: #0b4fa8;
+  --violet: #6b2fa8;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { background: var(--paper); scroll-behavior: smooth; }
@@ -38,7 +42,9 @@ body {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
-u { text-decoration-thickness: 1px; text-underline-offset: 2.5px; text-decoration-color: var(--maroon); }
+u { text-decoration-thickness: 1px; text-underline-offset: 2.5px; }
+#why u { text-decoration-color: var(--red); }
+#how u { text-decoration-color: var(--orange); }
 
 /* running head = navbar, in the paper's own language */
 nav.runhead {
@@ -54,18 +60,23 @@ nav.runhead {
 .rh-left .rh-sub { font-style: italic; color: #333; margin-left: .7rem; }
 .rh-links { display: flex; gap: 1.15rem; align-items: baseline; }
 .rh-links a {
-  color: var(--ink); font-variant: small-caps;
+  font-variant: small-caps;
   border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
   transition: border-color 150ms ease;
 }
-.rh-links a:hover { text-decoration: none; border-bottom-color: var(--maroon); color: var(--maroon); }
-.rh-links a.active { border-bottom-color: var(--maroon); }
+.rh-links a:nth-child(1) { color: var(--red); }
+.rh-links a:nth-child(2) { color: var(--orange); }
+.rh-links a:nth-child(3) { color: var(--ochre); }
+.rh-links a:nth-child(4) { color: var(--green); }
+.rh-links a:nth-child(5) { color: var(--blue); }
+.rh-links a:hover { text-decoration: none; border-bottom-color: currentColor; }
+.rh-links a.active { border-bottom-color: currentColor; }
 .rh-links a.rh-join {
-  background: var(--ink); color: var(--paper);
+  background: var(--violet); color: var(--paper);
   padding: .12rem .8rem .18rem .8rem; border-bottom: none;
   transition: background 150ms ease;
 }
-.rh-links a.rh-join:hover { background: var(--maroon); color: var(--paper); }
+.rh-links a.rh-join:hover { background: var(--ink); color: var(--paper); }
 
 .sheet { max-width: 1080px; margin: 0 auto; padding: 2.6rem 24px 3rem 24px; }
 
@@ -90,13 +101,16 @@ section { margin-bottom: 2rem; }
 h2.abs { text-align: center; font-size: 14.5px; font-weight: bold; margin-bottom: .6rem; }
 .abstract p { font-size: 14px; text-align: justify; hyphens: auto; }
 h3.sec { font-size: 17px; font-weight: bold; margin-bottom: .7rem; }
-h3.sec .no { margin-right: .9rem; }
+#why h3.sec { color: var(--red); }
+#how h3.sec { color: var(--orange); }
+#data h3.sec { color: var(--ochre); }
+#matches h3.sec { color: var(--green); }
 p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
 
 /* algorithm float = the signup form, top right, first viewport */
 .algo { margin-bottom: 2.4rem; }
 .algo-cap { font-size: 15px; margin-bottom: 1.1rem; }
-.algo-cap b { font-weight: bold; }
+.algo-cap b { font-weight: bold; color: var(--violet); }
 .field { display: grid; grid-template-columns: 30mm 1fr; align-items: baseline; margin-bottom: .9rem; }
 .field label { font-style: italic; font-size: 14.5px; }
 .field input[type=text], .field input[type=email], .field select {
@@ -113,12 +127,12 @@ p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
 .consent input { margin-right: .45rem; }
 button.submit {
   font-family: inherit; font-size: 14.5px; font-variant: small-caps;
-  background: var(--ink); color: var(--paper);
+  background: var(--violet); color: var(--paper);
   border: none; border-radius: 0; padding: .4rem 1.5rem;
   margin-top: 1rem; cursor: pointer;
   transition: background 150ms ease;
 }
-button.submit:hover { background: var(--maroon); }
+button.submit:hover { background: var(--ink); }
 
 /* table 1: booktabs, sized to content */
 table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; }
@@ -138,10 +152,16 @@ tbody tr:last-child { border-bottom: 1px solid var(--ink); }
   margin-bottom: .75rem;
   break-inside: avoid;
 }
-.bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; color: var(--green); }
+.bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; }
+.bib li:nth-child(6n+1)::before { color: var(--red); }
+.bib li:nth-child(6n+2)::before { color: var(--orange); }
+.bib li:nth-child(6n+3)::before { color: var(--ochre); }
+.bib li:nth-child(6n+4)::before { color: var(--green); }
+.bib li:nth-child(6n+5)::before { color: var(--blue); }
+.bib li:nth-child(6n+6)::before { color: var(--violet); }
 .bib .co { font-variant: small-caps; }
 .bib .pos { font-style: italic; }
-.bib .meta { color: var(--green); }
+.bib .meta { color: #444; }
 
 /* footnote + page number */
 .footnote { margin-top: 2.4rem; width: 55%; font-size: 12.5px; color: #222; }
