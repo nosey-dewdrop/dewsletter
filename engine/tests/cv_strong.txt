@@ -1,0 +1,18 @@
+Jane Doe
+Ankara, Turkey · jane@example.com · github.com/janedoe · janedoe.dev
+
+EDUCATION
+BS Computer Science, Bilkent University, 2024-2028. GPA 3.6/4.0.
+
+PROJECTS
+- Built an agentic AI pipeline that files GitHub issues from failing CI logs; automated 120 issues/month, cut triage time 63%. Python, Docker, FastAPI. github.com/janedoe/triage-agent
+- Trained a computer vision model (PyTorch) for fruit-ripeness detection; 91% accuracy on 4,200 images, deployed on-device at 22 fps. github.com/janedoe/ripeness
+- Wrote a deterministic LLM eval harness benchmarking 3 models on 500 prompts; reduced eval cost 40% via caching. Published results.
+- Shipped an iOS study app (SwiftUI) with 1,800 downloads and 4.7 rating; measured retention with a 14-day cohort.
+
+EXPERIENCE
+- Machine learning research intern, university NLP lab: reproduced 2 papers, reported F1 within 0.8 of published; wrote the data pipeline in Python and SQL.
+- Led a 5-person team for a campus hackathon; deployed on AWS, won 1st of 42 teams.
+
+SKILLS
+Python, C++, SQL, PyTorch, TensorFlow, Docker, Git, Linux, FastAPI, React
