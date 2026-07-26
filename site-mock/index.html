@@ -36,6 +36,7 @@ body {
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
+u { text-decoration-thickness: .8px; text-underline-offset: 2.5px; }
 
 /* running head = navbar, in the paper's own language */
 nav.runhead {
@@ -158,11 +159,11 @@ td:last-child, th:last-child { text-align: right; padding-right: 0; }
   <div class="rh-inner">
     <div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
     <div class="rh-links">
-      <a href="#abstract" data-sec="abstract">abstract</a>
-      <a href="#method" data-sec="method">method</a>
+      <a href="#why" data-sec="why">why</a>
+      <a href="#how" data-sec="how">how</a>
       <a href="#data" data-sec="data">data</a>
       <a href="#matches" data-sec="matches">matches</a>
-      <a href="jobs.html">appendix a</a>
+      <a href="jobs.html">all listings</a>
       <a href="#join" class="rh-join">join</a>
     </div>
   </div>
@@ -177,35 +178,37 @@ td:last-child, th:last-child { text-align: right; padding-right: 0; }
 </div>
 
 <p class="pitch">You write down what you can do. Every morning the engine reads
-<b>494</b> live AI/ML internship listings, scores each one against your profile, and
-mails you only the new matches. Every match carries its named reasons, so you can see
-exactly why it was sent. When nothing new fits, no mail is sent.</p>
+<b>494 live AI/ML internship listings</b>, scores each one against your profile, and
+<b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
+you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 
 <div class="grid">
 
   <div>
-    <section id="abstract" class="abstract">
-      <h2 class="abs">Abstract</h2>
-      <p>Internship listings are scattered, stale and noisy. This site maintains a curated,
-      daily-refreshed dataset of 494 AI/ML internships suitable for students
-      (single-applicant, no referrals required), and matches them to your profile with a
-      fully deterministic scoring engine: no black box, no language model. Submit a profile
-      in Algorithm 1; results arrive by mail as new positions appear.</p>
+    <section id="why">
+      <h3 class="sec">Why should this exist?</h3>
+      <p>Listings are scattered, stale and noisy, but that is not the real problem. The real
+      problem: <b>people still fail to find internships</b>. The one who wins is usually not
+      the best candidate. It is <u>the most alert one</u>, the one who saw the posting first,
+      the one with <u>the most connections</u>. This site exists to <b>delete that
+      advantage</b>. The engine reads every listing every morning, for everyone, so nobody
+      wins just by watching job boards harder than you.</p>
     </section>
 
-    <section id="method">
-      <h3 class="sec"><span class="no">1</span>Method</h3>
-      <p>Sources are parsed into a single schema every morning. Each listing carries company,
-      position, location, remote flag, salary when public, and the application link. A listing
-      with no link still enters, marked <i>link not found, search it yourself</i>. Your profile
-      (interests, skills, level, location) is scored against every listing; a point is never
-      awarded without a reason string attached. The engine contains no language model.</p>
+    <section id="how">
+      <h3 class="sec">How does it work?</h3>
+      <p>Sources are parsed into <b>a single schema</b> every morning. Each listing carries
+      company, position, location, remote flag, salary when public, and the application link.
+      A listing with no link still enters, marked <i>link not found, search it yourself</i>.
+      Your profile (interests, skills, level, location) is scored against every listing;
+      <b>a point is never awarded without a reason string attached</b>. <u>No black box, no
+      language model.</u></p>
     </section>
   </div>
 
   <div>
     <div class="algo" id="join">
-      <div class="algo-cap"><b>Algorithm 1</b>&ensp;submit a profile, receive matches</div>
+      <div class="algo-cap"><b>Submit a profile, receive matches.</b></div>
       <form>
         <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
         <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
@@ -224,25 +227,24 @@ exactly why it was sent. When nothing new fits, no mail is sent.</p>
     </div>
 
     <section id="data">
-      <h3 class="sec"><span class="no">2</span>Current dataset</h3>
+      <h3 class="sec">The dataset today</h3>
       <table>
-        <caption><b>Table 1:</b> live inventory, July 26, 2026</caption>
         <thead><tr><th>segment</th><th>count</th></tr></thead>
         <tbody>
           <tr><td>USA internships</td><td>195</td></tr>
           <tr><td>International internships</td><td>299</td></tr>
           <tr><td>remote positions</td><td>32</td></tr>
-          <tr><td>matched for the sample profile in §3</td><td>105</td></tr>
+          <tr><td>matched for the sample profile below</td><td>105</td></tr>
         </tbody>
       </table>
-      <p class="tabnote">The full listing is public: <a href="jobs.html">Appendix A, all 494 rows</a>.</p>
+      <p class="tabnote">The full listing is public: <a href="jobs.html">all 494 rows</a>, refreshed daily.</p>
     </section>
   </div>
 
 </div>
 
 <section id="matches">
-  <h3 class="sec"><span class="no">3</span>Sample matches <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
+  <h3 class="sec">Sample matches <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
   <div class="twocol">
     <ol class="bib">
       <li><span class="co">Cotiviti</span>. <span class="pos">Intern - Generative AI / Agentic AI / Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/18929/intern---generative-ai-agentic-ai-research/job">apply</a>. <span class="meta">score 15: agentic + generative-ai in title, remote.</span></li>
