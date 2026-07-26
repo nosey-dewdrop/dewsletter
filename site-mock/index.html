@@ -26,41 +26,112 @@
   --link: #0b4fa8; /* hyperref blue */
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { background: var(--paper); }
+html { background: var(--paper); scroll-behavior: smooth; }
 body {
   font-family: 'Latin Modern', 'Computer Modern', Georgia, serif;
   color: var(--ink);
   background: var(--paper);
-  max-width: 210mm;               /* A4 text block */
-  margin: 0 auto;
-  padding: 14mm 20mm 26mm 20mm;
   font-size: 15.5px;
   line-height: 1.42;
 }
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* running head = navbar, in the paper's own language */
+nav.runhead {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--paper);
+  border-bottom: .6px solid var(--ink);
+  font-size: 13.5px;
+}
+.rh-inner {
+  max-width: 1080px; margin: 0 auto; padding: .45rem 20px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+}
+.rh-left .wordmark { font-variant: small-caps; font-size: 15px; color: var(--ink); letter-spacing: .02em; }
+.rh-left .rh-sub { font-style: italic; color: #333; margin-left: .7rem; }
+.rh-links { display: flex; gap: 1.15rem; align-items: baseline; }
+.rh-links a {
+  color: var(--ink); font-variant: small-caps;
+  border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
+  transition: border-color 150ms ease;
+}
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
+.rh-links a.active { border-bottom-color: var(--ink); }
+.rh-links a.rh-join {
+  background: var(--ink); color: var(--paper);
+  padding: .12rem .8rem .18rem .8rem; border-bottom: none;
+  transition: background 150ms ease;
+}
+.rh-links a.rh-join:hover { background: #000; }
+
+.sheet { max-width: 1080px; margin: 0 auto; padding: 1.5rem 20px 2rem 20px; }
+
 /* \maketitle */
-.maketitle { text-align: center; margin-bottom: 1.6rem; }
-.maketitle h1 { font-size: 22px; font-weight: bold; line-height: 1.3; margin-bottom: .8rem; }
+.maketitle { text-align: center; margin-bottom: 1.1rem; }
+.maketitle h1 { font-size: 24px; font-weight: bold; line-height: 1.3; margin-bottom: .7rem; }
 .maketitle .author { font-size: 15.5px; margin-bottom: .2rem; }
 .maketitle .date { font-style: italic; font-size: 14px; }
 
-/* abstract */
-.abstract { margin: 0 10mm 1.4rem 10mm; }
-.abstract h2 { text-align: center; font-size: 14.5px; font-weight: bold; margin-bottom: .4rem; }
-.abstract p { font-size: 14px; text-align: justify; hyphens: auto; }
+/* the one paragraph anyone understands, standfirst size */
+.pitch {
+  font-size: 17.5px; line-height: 1.45;
+  text-align: justify; hyphens: auto;
+  margin: 0 0 1.3rem 0;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: .6px solid var(--ink);
+  padding: .6rem 0 .65rem 0;
+}
 
-/* sections */
-section { margin-top: 1.35rem; }
-h3.sec { font-size: 16.5px; font-weight: bold; margin-bottom: .55rem; }
+/* two-column paper body */
+.grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 0 9mm; align-items: start; }
+
+section { margin-bottom: 1.15rem; }
+h2.abs { text-align: center; font-size: 14.5px; font-weight: bold; margin-bottom: .4rem; }
+.abstract p { font-size: 14px; text-align: justify; hyphens: auto; }
+h3.sec { font-size: 16.5px; font-weight: bold; margin-bottom: .5rem; }
 h3.sec .no { margin-right: .9rem; }
 p { text-align: justify; hyphens: auto; margin-bottom: .55rem; }
 
-/* two column zone for listing */
-.twocol { column-count: 2; column-gap: 8mm; margin-top: .3rem; }
+/* algorithm float = the signup form, top right, first viewport */
+.algo { border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); padding: .45rem .1rem .8rem .1rem; margin-bottom: 1.15rem; }
+.algo-cap { font-size: 14px; border-bottom: .6px solid var(--ink); padding-bottom: .35rem; margin-bottom: .7rem; }
+.algo-cap b { font-weight: bold; }
+.field { display: grid; grid-template-columns: 30mm 1fr; align-items: baseline; margin-bottom: .55rem; }
+.field label { font-style: italic; font-size: 14.5px; }
+.field input[type=text], .field input[type=email], .field select {
+  font-family: inherit; font-size: 14.5px; color: var(--ink);
+  border: none; border-bottom: .8px solid var(--ink);
+  background: transparent; padding: .1rem 0; width: 100%;
+  border-radius: 0; outline: none;
+  transition: border-bottom-width 150ms ease;
+}
+.field input:focus, .field select:focus { border-bottom-width: 1.5px; }
+.cvline { margin: .6rem 0; font-size: 14px; }
+.cvline .tex { font-family: monospace; font-size: 12.5px; }
+.consent { font-size: 13px; margin-top: .6rem; }
+.consent input { margin-right: .45rem; }
+button.submit {
+  font-family: inherit; font-size: 14.5px; font-variant: small-caps;
+  background: var(--ink); color: var(--paper);
+  border: none; border-radius: 0; padding: .35rem 1.4rem;
+  margin-top: .7rem; cursor: pointer;
+  transition: background 150ms ease;
+}
+button.submit:hover { background: #000; }
 
-/* bibliography-style job entries */
+/* table 1: booktabs */
+table { border-collapse: collapse; margin: .4rem 0 .3rem 0; font-size: 14px; width: 100%; }
+caption { caption-side: top; font-size: 13.5px; margin-bottom: .35rem; text-align: left; }
+caption b { font-weight: bold; }
+th, td { padding: .18rem .9rem .18rem 0; text-align: left; }
+td:last-child, th:last-child { text-align: right; padding-right: 0; }
+thead tr { border-top: 1.5px solid var(--ink); border-bottom: .8px solid var(--ink); }
+tbody tr:last-child { border-bottom: 1.5px solid var(--ink); }
+.tabnote { font-size: 13px; }
+
+/* bibliography-style match entries, two column like a references page */
+.twocol { column-count: 2; column-gap: 9mm; margin-top: .3rem; }
 .bib { list-style: none; counter-reset: bib; font-size: 13.8px; }
 .bib li {
   counter-increment: bib;
@@ -71,46 +142,38 @@ p { text-align: justify; hyphens: auto; margin-bottom: .55rem; }
 .bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; }
 .bib .co { font-variant: small-caps; }
 .bib .pos { font-style: italic; }
-.bib .loc { }
 .bib .meta { color: #333; }
 
-/* table 1: the engine numbers */
-table { border-collapse: collapse; margin: .5rem auto .3rem auto; font-size: 14px; }
-caption { caption-side: top; font-size: 13.5px; margin-bottom: .35rem; }
-caption b { font-weight: bold; }
-th, td { padding: .18rem 1.1rem; text-align: left; }
-thead tr { border-top: 1.5px solid var(--ink); border-bottom: .8px solid var(--ink); }
-tbody tr:last-child { border-bottom: 1.5px solid var(--ink); }
+/* footnote + page number */
+.footnote { margin-top: 1.6rem; border-top: .6px solid var(--ink); padding-top: .4rem; width: 55%; font-size: 12.5px; color: #222; }
+.pagenum { text-align: center; margin-top: 1.6rem; font-size: 13px; }
 
-/* section 4 signup form styled as definitions */
-form { margin-top: .4rem; }
-.field { display: grid; grid-template-columns: 34mm 1fr; align-items: baseline; margin-bottom: .55rem; }
-.field label { font-style: italic; font-size: 14.5px; }
-.field input[type=text], .field input[type=email], .field select {
-  font-family: inherit; font-size: 14.5px; color: var(--ink);
-  border: none; border-bottom: .8px solid var(--ink);
-  background: transparent; padding: .1rem 0; width: 100%;
-  border-radius: 0; outline: none;
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; }
+  .twocol { column-count: 1; }
+  .rh-inner { flex-wrap: wrap; }
+  .rh-left .rh-sub { display: none; }
+  .footnote { width: 100%; }
 }
-.field input:focus { border-bottom-width: 1.5px; }
-.cvline { margin: .7rem 0; font-size: 14.5px; }
-.cvline .tex { font-family: monospace; font-size: 13px; }
-.consent { font-size: 13px; margin-top: .7rem; }
-.consent input { margin-right: .45rem; }
-button.submit {
-  font-family: inherit; font-size: 14.5px; font-variant: small-caps;
-  background: var(--ink); color: var(--paper);
-  border: none; border-radius: 0; padding: .35rem 1.4rem;
-  margin-top: .8rem; cursor: pointer;
-}
-button.submit:hover { background: #000; }
-
-/* footnote */
-.footnote { margin-top: 2rem; border-top: .6px solid var(--ink); padding-top: .4rem; width: 60%; font-size: 12.5px; color: #222; }
-.pagenum { text-align: center; margin-top: 1.8rem; font-size: 13px; }
 </style>
 </head>
 <body>
+
+<nav class="runhead">
+  <div class="rh-inner">
+    <div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+    <div class="rh-links">
+      <a href="#abstract" data-sec="abstract">abstract</a>
+      <a href="#method" data-sec="method">method</a>
+      <a href="#data" data-sec="data">data</a>
+      <a href="#matches" data-sec="matches">matches</a>
+      <a href="jobs.html">appendix a</a>
+      <a href="#join" class="rh-join">join</a>
+    </div>
+  </div>
+</nav>
+
+<div class="sheet">
 
 <div class="maketitle">
   <h1>Deterministic Matching of Student Profiles<br>to Startup Internships</h1>
@@ -118,70 +181,83 @@ button.submit:hover { background: #000; }
   <div class="date">July 26, 2026 · updated daily at 09:00 UTC+3</div>
 </div>
 
-<div class="abstract">
-  <h2>Abstract</h2>
-  <p>Internship listings are scattered, stale and noisy. This site maintains a curated,
-  daily-refreshed dataset of <b>494</b> AI/ML internships suitable for students
-  (single-applicant, no referrals required), and matches them to your profile with a
-  fully deterministic scoring engine — every match ships with its named reasons, no
-  black box. Upload a CV or fill the profile below; matching results arrive by mail
-  when new positions appear. Nothing is sent when nothing is new.</p>
+<p class="pitch">You write down what you can do. Every morning the engine reads
+<b>494</b> live AI/ML internship listings, scores each one against your profile, and
+mails you only the new matches. Every match carries its named reasons, so you can see
+exactly why it was sent. When nothing new fits, no mail is sent.</p>
+
+<div class="grid">
+
+  <div>
+    <section id="abstract" class="abstract">
+      <h2 class="abs">Abstract</h2>
+      <p>Internship listings are scattered, stale and noisy. This site maintains a curated,
+      daily-refreshed dataset of 494 AI/ML internships suitable for students
+      (single-applicant, no referrals required), and matches them to your profile with a
+      fully deterministic scoring engine: no black box, no language model. Submit a profile
+      in Algorithm 1; results arrive by mail as new positions appear.</p>
+    </section>
+
+    <section id="method">
+      <h3 class="sec"><span class="no">1</span>Method</h3>
+      <p>Sources are parsed into a single schema every morning. Each listing carries company,
+      position, location, remote flag, salary when public, and the application link. A listing
+      with no link still enters, marked <i>link not found, search it yourself</i>. Your profile
+      (interests, skills, level, location) is scored against every listing; a point is never
+      awarded without a reason string attached. The engine contains no language model.</p>
+    </section>
+  </div>
+
+  <div>
+    <div class="algo" id="join">
+      <div class="algo-cap"><b>Algorithm 1</b>&ensp;submit a profile, receive matches</div>
+      <form>
+        <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
+        <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
+        <div class="field"><label>level</label>
+          <select><option>BS student</option><option>MS student</option><option>PhD student</option></select>
+        </div>
+        <div class="field"><label>interests</label><input type="text" placeholder="ai infra, agents, devtools, …"></div>
+        <div class="cvline">or upload a CV and the profile fills itself:
+          <span class="tex">\includegraphics{your_cv.pdf}</span>
+          <a href="#">choose file</a></div>
+        <div class="consent">
+          <label><input type="checkbox"> I consent to receiving match mails. Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR text<a href="#">*</a>).</label>
+        </div>
+        <button class="submit" type="button">submit profile</button>
+      </form>
+    </div>
+
+    <section id="data">
+      <h3 class="sec"><span class="no">2</span>Current dataset</h3>
+      <table>
+        <caption><b>Table 1:</b> live inventory, July 26, 2026</caption>
+        <thead><tr><th>segment</th><th>count</th></tr></thead>
+        <tbody>
+          <tr><td>USA internships</td><td>195</td></tr>
+          <tr><td>International internships</td><td>299</td></tr>
+          <tr><td>remote positions</td><td>32</td></tr>
+          <tr><td>matched for the sample profile in §3</td><td>105</td></tr>
+        </tbody>
+      </table>
+      <p class="tabnote">The full listing is public: <a href="jobs.html">Appendix A, all 494 rows</a>.</p>
+    </section>
+  </div>
+
 </div>
 
-<section>
-  <h3 class="sec"><span class="no">1</span>Method</h3>
-  <p>Sources are parsed into a single schema every morning. Each listing carries company,
-  position, location, remote flag, salary when public, and the application link — a listing
-  with no link still enters, marked <i>link not found, search it yourself</i>. Your profile
-  (interests, skills, level, location) is scored against every listing; a point is never
-  awarded without a reason string attached. The engine contains no language model.</p>
-</section>
-
-<section>
-  <h3 class="sec"><span class="no">2</span>Current dataset</h3>
-  <table>
-    <caption><b>Table 1:</b> live inventory, July 26, 2026</caption>
-    <thead><tr><th>segment</th><th>count</th></tr></thead>
-    <tbody>
-      <tr><td>USA internships</td><td>195</td></tr>
-      <tr><td>International internships</td><td>299</td></tr>
-      <tr><td>remote positions</td><td>32</td></tr>
-      <tr><td>matched for a sample profile</td><td>105</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section>
+<section id="matches">
   <h3 class="sec"><span class="no">3</span>Sample matches <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
   <div class="twocol">
     <ol class="bib">
-      <li><span class="co">Cotiviti</span>. <span class="pos">Intern — Generative AI / Agentic AI / Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/18929/intern---generative-ai-agentic-ai-research/job">apply</a>. <span class="meta">score 15: agentic + generative-ai in title, remote.</span></li>
-      <li><span class="co">Euronext</span>. <span class="pos">Internship — Smart Automation &amp; Agentic AI Dev.</span> <span class="loc">Paris, France.</span> <a href="https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/Internship-Smart-Automation---Agentic-AI-Dev_R27643">apply</a>. <span class="meta">score 12: agentic + automation in title.</span></li>
+      <li><span class="co">Cotiviti</span>. <span class="pos">Intern - Generative AI / Agentic AI / Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/18929/intern---generative-ai-agentic-ai-research/job">apply</a>. <span class="meta">score 15: agentic + generative-ai in title, remote.</span></li>
+      <li><span class="co">Euronext</span>. <span class="pos">Internship - Smart Automation &amp; Agentic AI Dev.</span> <span class="loc">Paris, France.</span> <a href="https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/Internship-Smart-Automation---Agentic-AI-Dev_R27643">apply</a>. <span class="meta">score 12: agentic + automation in title.</span></li>
       <li><span class="co">DataRobot</span>. <span class="pos">Agentic AI Intern.</span> <span class="loc">Remote, Boston MA.</span> <a href="https://datarobot.wd1.myworkdayjobs.com/en-US/datarobot_external_careers/job/Boston-Massachusetts-US/Agentic-AI-Intern_R-102729">apply</a>. <span class="meta">score 11: agentic in title, remote.</span></li>
       <li><span class="co">Campbell Soup</span>. <span class="pos">Agentic AI Engineer Co-Op.</span> <span class="loc">Remote, USA.</span> <a href="https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---Remote/Agentic-AI-Engineer-Co-Op_Req-66015">apply</a>. <span class="meta">score 11: agentic in title, remote.</span></li>
-      <li><span class="co">Cotiviti</span>. <span class="pos">Intern — Agentic AI Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/19416/intern---agentic-ai-research/job">apply</a>. <span class="meta">score 11: agentic in title, remote.</span></li>
+      <li><span class="co">Cotiviti</span>. <span class="pos">Intern - Agentic AI Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/19416/intern---agentic-ai-research/job">apply</a>. <span class="meta">score 11: agentic in title, remote.</span></li>
       <li><span class="co">Astreya</span>. <span class="pos">AI Infrastructure DC Design Intern.</span> <span class="loc">Remote.</span> <a href="https://astreya.wd5.myworkdayjobs.com/en-US/life-at-astreya-opportunities/job/Remote-CA/AI-Infrastructure-DC-Design-Intern_R0015746">apply</a>. <span class="meta">score 11: ai-infrastructure in title, remote.</span></li>
     </ol>
   </div>
-</section>
-
-<section>
-  <h3 class="sec"><span class="no">4</span>Join</h3>
-  <form>
-    <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
-    <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
-    <div class="field"><label>level</label>
-      <select><option>BS student</option><option>MS student</option><option>PhD student</option></select>
-    </div>
-    <div class="field"><label>interests</label><input type="text" placeholder="ai infra, agents, devtools, …"></div>
-    <div class="cvline">or upload a CV and the profile fills itself:
-      <span class="tex">\includegraphics[width=\textwidth]{your_cv.pdf}</span>
-      <a href="#">choose file</a></div>
-    <div class="consent">
-      <label><input type="checkbox"> I consent to receiving match mails. Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR text<a href="#">*</a>).</label>
-    </div>
-    <button class="submit" type="button">submit profile</button>
-  </form>
 </section>
 
 <div class="footnote">
@@ -189,6 +265,21 @@ button.submit:hover { background: #000; }
   when a new listing matches your profile.
 </div>
 <div class="pagenum">1</div>
+
+</div>
+
+<script>
+const links = document.querySelectorAll('.rh-links a[data-sec]');
+const secs = [...links].map(a => document.getElementById(a.dataset.sec));
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(a => a.classList.toggle('active', a.dataset.sec === e.target.id));
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+secs.forEach(s => s && io.observe(s));
+</script>
 
 </body>
 </html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix A: the full listing · the engine</title>
+<style>
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-regular.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-bold.woff2') format('woff2');
+  font-weight: bold; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-italic.woff2') format('woff2');
+  font-weight: normal; font-style: italic; font-display: swap;
+}
+:root { --ink: #111; --paper: #ffffff; --link: #0b4fa8; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--paper); scroll-behavior: smooth; }
+body {
+  font-family: 'Latin Modern', 'Computer Modern', Georgia, serif;
+  color: var(--ink); background: var(--paper);
+  font-size: 15.5px; line-height: 1.42;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+nav.runhead {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--paper); border-bottom: .6px solid var(--ink); font-size: 13.5px;
+}
+.rh-inner {
+  max-width: 1080px; margin: 0 auto; padding: .45rem 20px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+}
+.rh-left .wordmark { font-variant: small-caps; font-size: 15px; color: var(--ink); letter-spacing: .02em; }
+.rh-left .rh-sub { font-style: italic; color: #333; margin-left: .7rem; }
+.rh-links { display: flex; gap: 1.15rem; align-items: baseline; }
+.rh-links a {
+  color: var(--ink); font-variant: small-caps;
+  border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
+  transition: border-color 150ms ease;
+}
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
+.rh-links a.active { border-bottom-color: var(--ink); }
+.rh-links a.rh-join {
+  background: var(--ink); color: var(--paper);
+  padding: .12rem .8rem .18rem .8rem; border-bottom: none;
+  transition: background 150ms ease;
+}
+.rh-links a.rh-join:hover { background: #000; }
+
+.sheet { max-width: 1080px; margin: 0 auto; padding: 1.5rem 20px 2rem 20px; }
+
+.apphead { margin-bottom: 1rem; }
+.apphead h1 { font-size: 21px; font-weight: bold; margin-bottom: .35rem; }
+.apphead p { text-align: justify; hyphens: auto; font-size: 14.5px; }
+
+table { border-collapse: collapse; font-size: 13.8px; width: 100%; }
+caption { caption-side: top; font-size: 13.5px; margin-bottom: .4rem; text-align: left; }
+caption b { font-weight: bold; }
+th, td { padding: .22rem 1rem .22rem 0; text-align: left; vertical-align: baseline; }
+th:last-child, td:last-child { padding-right: 0; }
+thead tr { border-top: 1.5px solid var(--ink); border-bottom: .8px solid var(--ink); }
+tbody tr:last-child { border-bottom: 1.5px solid var(--ink); }
+td.co { font-variant: small-caps; white-space: nowrap; }
+td.pos { font-style: italic; }
+td.num { white-space: nowrap; }
+tr.more td { font-style: italic; padding-top: .4rem; }
+
+.backline { margin-top: 1.1rem; font-size: 14px; }
+.pagenum { text-align: center; margin-top: 1.6rem; font-size: 13px; }
+
+@media (max-width: 860px) {
+  .rh-inner { flex-wrap: wrap; }
+  .rh-left .rh-sub { display: none; }
+  td.pos { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="runhead">
+  <div class="rh-inner">
+    <div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+    <div class="rh-links">
+      <a href="index.html#abstract">abstract</a>
+      <a href="index.html#method">method</a>
+      <a href="index.html#data">data</a>
+      <a href="index.html#matches">matches</a>
+      <a href="jobs.html" class="active">appendix a</a>
+      <a href="index.html#join" class="rh-join">join</a>
+    </div>
+  </div>
+</nav>
+
+<div class="sheet">
+
+<div class="apphead">
+  <h1>Appendix A&ensp;·&ensp;The full listing</h1>
+  <p>All 494 live internships, refreshed daily at 09:00 UTC+3. The mock below shows the
+  first 30 rows; the live version renders every row with sort and filter. A listing with
+  no application link is kept and marked, not dropped.</p>
+</div>
+
+<table>
+  <caption><b>Table 2:</b> live listings, July 26, 2026 (first 30 of 494)</caption>
+  <thead><tr><th>#</th><th>company</th><th>position</th><th>location</th><th>salary</th><th>age</th><th></th></tr></thead>
+  <tbody>
+    <tr><td class="num">1</td><td class="co">Microsoft</td><td class="pos">Applied Science: PhD Microsoft AI Internship Opportunities - Redmond</td><td>Washington, DC</td><td class="num">$52/hr</td><td class="num">3d</td><td><a href="https://apply.careers.microsoft.com/careers/job/1970393556868271">apply</a></td></tr>
+    <tr><td class="num">2</td><td class="co">TikTok</td><td class="pos">Strategy &amp; Operations Project Intern - Monetization AI - 2026 Start - MBA</td><td>New York City, NY</td><td class="num">$60/hr</td><td class="num">10d</td><td><a href="https://lifeattiktok.com/search/7662811565604800773">apply</a></td></tr>
+    <tr><td class="num">3</td><td class="co">Meta</td><td class="pos">Research Scientist Intern - Monetization Computer Vision - PhD</td><td>Menlo Park, CA</td><td class="num">$50/hr</td><td class="num">15d</td><td><a href="https://www.metacareers.com/jobs/2281218542616482">apply</a></td></tr>
+    <tr><td class="num">4</td><td class="co">TikTok</td><td class="pos">Applied Scientist Intern - Recommendation AI Lab - 2026 Start - PhD</td><td>San Jose, CA</td><td class="num">$60/hr</td><td class="num">19d</td><td><a href="https://lifeattiktok.com/search/7659527183984019765">apply</a></td></tr>
+    <tr><td class="num">5</td><td class="co">Meta</td><td class="pos">Research Scientist Intern - NMR Analysis Automation</td><td>Redmond, WA</td><td class="num">$50/hr</td><td class="num">23d</td><td><a href="https://www.metacareers.com/jobs/1418337243438665">apply</a></td></tr>
+    <tr><td class="num">6</td><td class="co">NVIDIA</td><td class="pos">Applied Research Intern - NLP - Fall 2026</td><td>Santa Clara, CA</td><td class="num">$62/hr</td><td class="num">25d</td><td><a href="https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Applied-Research-Intern--NLP---Fall-2026_JR2010488">apply</a></td></tr>
+    <tr><td class="num">7</td><td class="co">Netflix</td><td class="pos">AI/ML Scientist Intern - AIMS AI Foundations - PhD - Fall 2026</td><td>Los Gatos, CA</td><td class="num">$63/hr</td><td class="num">33d</td><td><a href="https://netflix.wd108.myworkdayjobs.com/en-US/netflix/job/Los-Gatos/AI-ML-Scientist-Intern--AIMS-AI-Foundations--PhD----Fall-2026_JR41270">apply</a></td></tr>
+    <tr><td class="num">8</td><td class="co">Netflix</td><td class="pos">AI/ML Scientist Intern - AIMS AI Foundations - PhD - Fall 2026</td><td>Los Gatos, CA</td><td class="num">$63/hr</td><td class="num">34d</td><td><a href="https://explore.jobs.netflix.net/careers/job/790316547536">apply</a></td></tr>
+    <tr><td class="num">9</td><td class="co">Meta</td><td class="pos">Research Scientist Intern - State Estimation for Dexterous Manipulation - PhD</td><td>Redmond, WA</td><td class="num">$50/hr</td><td class="num">43d</td><td><a href="https://www.metacareers.com/jobs/2774289902955470">apply</a></td></tr>
+    <tr><td class="num">10</td><td class="co">Rivian</td><td class="pos">Data Engineering Intern - AI &amp; Analytics - Fall 2026</td><td>Palo Alto, CA</td><td class="num">$51/hr</td><td class="num">52d</td><td><a href="https://jobs.ashbyhq.com/rivianvw.tech/3864f83a-7b29-4c96-b00e-436d60c0508a">apply</a></td></tr>
+    <tr><td class="num">11</td><td class="co">TikTok</td><td class="pos">Data Science Project Intern - TikTok Shop-Supply Chain &amp; Logistics - 2026 Start - BS/MS</td><td>Seattle, WA</td><td class="num">$60/hr</td><td class="num">59d</td><td><a href="https://lifeattiktok.com/search/7644719084681234741">apply</a></td></tr>
+    <tr><td class="num">12</td><td class="co">NVIDIA</td><td class="pos">PhD Research Intern - Generative AI - 2026</td><td>Santa Clara, CA</td><td class="num">$62/hr</td><td class="num">60d</td><td><a href="https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/PhD-Research-Intern--Generative-AI---2026_JR2016035">apply</a></td></tr>
+    <tr><td class="num">13</td><td class="co">TikTok</td><td class="pos">Research Intern - Efficient ML Engineer - AI Platform- 2026 Start - PhD</td><td>San Jose, CA</td><td class="num">$60/hr</td><td class="num">64d</td><td><a href="https://lifeattiktok.com/search/7642827146549446965">apply</a></td></tr>
+    <tr><td class="num">14</td><td class="co">Microsoft</td><td class="pos">Research Intern - Self-Improving AI</td><td>Cambridge, MA +1</td><td class="num">$52/hr</td><td class="num">68d</td><td><a href="https://apply.careers.microsoft.com/careers/job/1970393556867858">apply</a></td></tr>
+    <tr><td class="num">15</td><td class="co">NVIDIA</td><td class="pos">Applied Deep Learning PhD Research Intern - Reinforcement Learning for LLMs - Fall 2026</td><td>Santa Clara, CA</td><td class="num">$62/hr</td><td class="num">81d</td><td><a href="https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Applied-Deep-Learning-PhD-Research-Intern--Reinforcement-Learning-for-LLMs---Fall-2026_JR2012398">apply</a></td></tr>
+    <tr><td class="num">16</td><td class="co">TikTok</td><td class="pos">Supplier Management And Data Analyst Project Intern - Partnership Management - 2026 Start</td><td>Singapore</td><td class="num"></td><td class="num">3d</td><td><a href="https://lifeattiktok.com/search/7665629115644627205">apply</a></td></tr>
+    <tr><td class="num">17</td><td class="co">TikTok</td><td class="pos">AI Automation Project Intern - TnS-OPS-Automation &amp; Business Insights - 2026 Start</td><td>Singapore</td><td class="num"></td><td class="num">6d</td><td><a href="https://lifeattiktok.com/search/7664538232974559493">apply</a></td></tr>
+    <tr><td class="num">18</td><td class="co">TikTok</td><td class="pos">Data Analyst Project Intern - Eco &amp; Social Creation - 2026 Start - BS/MS</td><td>Singapore</td><td class="num"></td><td class="num">16d</td><td><a href="https://lifeattiktok.com/search/7660813794880604469">apply</a></td></tr>
+    <tr><td class="num">19</td><td class="co">TikTok</td><td class="pos">Data Operations - AI Data Operations Project Intern - PGC &amp; Emerging Products - 2026 Start - BS/MS）</td><td>Singapore</td><td class="num"></td><td class="num">17d</td><td><a href="https://lifeattiktok.com/search/7660430492630616373">apply</a></td></tr>
+    <tr><td class="num">20</td><td class="co">TikTok</td><td class="pos">Intelligent Audio Algorithm Research Intern - Audio Innovation - 2027 Start - PhD</td><td>Sydney, Australia</td><td class="num"></td><td class="num">23d</td><td><a href="https://lifeattiktok.com/search/7658100508675148085">apply</a></td></tr>
+    <tr><td class="num">21</td><td class="co">Microsoft</td><td class="pos">Data Science INTERN</td><td>India</td><td class="num"></td><td class="num">26d</td><td><a href="https://apply.careers.microsoft.com/careers/job/1970393556917520">apply</a></td></tr>
+    <tr><td class="num">22</td><td class="co">TikTok</td><td class="pos">LLM &amp; Agent Algorithm Project Intern - Search - 2026 Start - PhD</td><td>Singapore</td><td class="num"></td><td class="num">32d</td><td><a href="https://lifeattiktok.com/search/7654832152997742853">apply</a></td></tr>
+    <tr><td class="num">23</td><td class="co">Meta</td><td class="pos">Research Scientist Intern - Photorealistic Telepresence - PhD</td><td>London, United Kingdom</td><td class="num"></td><td class="num">39d</td><td><a href="https://www.metacareers.com/jobs/924149567345400">apply</a></td></tr>
+    <tr><td class="num">24</td><td class="co">TikTok</td><td class="pos">AI Data Project Intern - AI Data Service and Operations - Eco &amp; Social Creation - 2026 Start - BS/MS</td><td>Singapore</td><td class="num"></td><td class="num">41d</td><td><a href="https://lifeattiktok.com/search/7651452649767930117">apply</a></td></tr>
+    <tr><td class="num">25</td><td class="co">TikTok</td><td class="pos">Data Analyst Project Intern - TikTok Live - 2026 Start - BS/MS</td><td>London, United Kingdom</td><td class="num"></td><td class="num">66d</td><td><a href="https://lifeattiktok.com/search/7642264645810292997">apply</a></td></tr>
+    <tr><td class="num">26</td><td class="co">TikTok</td><td class="pos">Project Management Project Intern - AI Data - Eco Operations - 2026 Start - BS/MS</td><td>Singapore</td><td class="num"></td><td class="num">76d</td><td><a href="https://lifeattiktok.com/search/7638511888540600581">apply</a></td></tr>
+    <tr><td class="num">27</td><td class="co">TikTok</td><td class="pos">Data Analyst Project Intern - Automation &amp; Business Insights - 2026 Start - BS/MS）</td><td>Singapore</td><td class="num"></td><td class="num">79d</td><td><a href="https://lifeattiktok.com/search/7637462393886411061">apply</a></td></tr>
+    <tr><td class="num">28</td><td class="co">TikTok</td><td class="pos">Talent Acquisition Project Intern - AI Data Service and Operations - 2026 Start - BS/MS</td><td>Singapore</td><td class="num"></td><td class="num">83d</td><td><a href="https://lifeattiktok.com/search/7635893526559377717">apply</a></td></tr>
+    <tr><td class="num">29</td><td class="co">TikTok</td><td class="pos">AI Product Designer Project Intern - TikTok-Design-UX - 2026 Start - BS/MS</td><td>Singapore</td><td class="num"></td><td class="num">90d</td><td><a href="https://lifeattiktok.com/search/7633323482907248949">apply</a></td></tr>
+    <tr><td class="num">30</td><td class="co">TikTok</td><td class="pos">Data Analyst Project Intern - TikTok Shop - EMEA Data Science - 2026 Start - BS/MS）</td><td>London, United Kingdom</td><td class="num"></td><td class="num">97d</td><td><a href="https://lifeattiktok.com/search/7630767896739154229">apply</a></td></tr>
+    <tr class="more"><td></td><td colspan="6">… 464 more rows in the live version.</td></tr>
+  </tbody>
+</table>
+
+<div class="backline"><a href="index.html#join">← back to the paper, submit a profile</a></div>
+
+<div class="pagenum">2</div>
+
+</div>
+
+</body>
+</html>
