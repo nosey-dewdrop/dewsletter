@@ -83,8 +83,14 @@ def main() -> None:
             continue
         seen.add(key)
         deduped.append(job)
-    print(f"duplicates removed: {len(flat) - len(deduped)}")
+    removed = len(flat) - len(deduped)
+    print(f"duplicates removed: {removed}")
     flat = deduped
+    (out_dir / "fetch_meta.json").write_text(json.dumps({
+        "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "raw_rows": len(flat) + removed,
+        "duplicates_removed": removed,
+    }))
     out_file = out_dir / "jobs.json"
     out_file.write_text(json.dumps(flat, ensure_ascii=False, indent=1))
     missing = sum(1 for j in flat if j["link_missing"])

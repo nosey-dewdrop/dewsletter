@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Static site generator: jobs.json -> hundreds of plain HTML pages.
+"""Static site generator: jobs.json -> the engine's site. No LLM.
 
-LaTeX flavor (Latin Modern, numbered sections, booktabs tables) on a real
-site skeleton: navbar, columns, footer. No framework, no LLM.
+Design source of truth: site-mock/ (Damla-iterated, 26 Jul 2026).
+Laws: LaTeX paper aesthetic, Latin Modern, flat white, NO horizontal rules
+except booktabs table anatomy, question headings end with "?", per-letter
+rainbow on important lines, real numbers only.
 
-Output:
-  site/dist/index.html            front page (journal masthead + columns)
-  site/dist/jobs/index.html       full listing, three-column bibliography
-  site/dist/jobs/<slug>.html      one page PER listing (SEO surface)
-  site/dist/style.css, sitemap.xml, robots.txt
+Output (docs/, served by GitHub Pages):
+  docs/index.html          front page: pitch, why?, how?, form, data, matches
+  docs/cv.html             sample CV report generated live by cv_critique
+  docs/jobs/index.html     full listing, every row
+  docs/jobs/<slug>.html    one page per listing (SEO surface)
+  docs/sitemap.xml, robots.txt
 """
 import html
 import json
@@ -17,271 +20,487 @@ import unicodedata
 from datetime import date
 from pathlib import Path
 
-BASE_URL = "https://jobs.noseydewdrop.com"  # placeholder until domain is chosen
-BRAND = "the engine 👾"                      # placeholder until Damla names it
-ROOT = Path(__file__).parent.parent / "site" / "dist"
-TODAY = date.today().isoformat()
+import cv_critique
+import match
 
-CSS = """
+BASE_URL = "https://nosey-dewdrop.github.io/sightstone"
+ROOT = Path(__file__).parent.parent / "docs"
+TODAY = date.today().strftime("%B %d, %Y")
+TODAY_ISO = date.today().isoformat()
+VERSION = f"v2 · built {TODAY_ISO}"
+
+FONTS = """
 @font-face { font-family:'Latin Modern'; src:url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-regular.woff2') format('woff2'); font-weight:normal; font-style:normal; font-display:swap; }
 @font-face { font-family:'Latin Modern'; src:url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-bold.woff2') format('woff2'); font-weight:bold; font-style:normal; font-display:swap; }
 @font-face { font-family:'Latin Modern'; src:url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-italic.woff2') format('woff2'); font-weight:normal; font-style:italic; font-display:swap; }
-:root { --ink:#111; --paper:#fff; --link:#0b4fa8; --hair:#111; }
+"""
+
+CSS = FONTS + """
+:root { --ink:#111; --paper:#fff; --link:#0b4fa8;
+  --red:#c22a1e; --orange:#d2600a; --ochre:#b8860b;
+  --green:#1a7a3c; --blue:#0b4fa8; --violet:#6b2fa8; }
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Latin Modern','Computer Modern',Georgia,serif; color:var(--ink); background:var(--paper); font-size:15.5px; line-height:1.45; }
+html { background:var(--paper); scroll-behavior:smooth; }
+body { font-family:'Latin Modern','Computer Modern',Georgia,serif; color:var(--ink);
+  background:var(--paper); font-size:15.5px; line-height:1.52; }
 a { color:var(--link); text-decoration:none; }
 a:hover { text-decoration:underline; }
-.wrap { max-width:1100px; margin:0 auto; padding:0 24px; }
+u { text-decoration-thickness:1px; text-underline-offset:2.5px; }
+#why u { text-decoration-color:var(--red); }
+#how u { text-decoration-color:var(--orange); }
+.rb1{color:var(--red)} .rb2{color:var(--orange)} .rb3{color:var(--ochre)}
+.rb4{color:var(--green)} .rb5{color:var(--blue)} .rb6{color:var(--violet)}
 
-/* navbar */
-nav { border-bottom:1.5px solid var(--hair); }
-nav .wrap { display:flex; align-items:baseline; gap:1.6rem; padding:.7rem 24px; }
-nav .brand { font-weight:bold; font-size:18px; margin-right:auto; }
-nav a.item { color:var(--ink); font-size:14.5px; }
-nav a.item:hover { text-decoration:underline; color:var(--link); }
-nav .count { color:#444; font-size:13px; }
-nav .stamp { font-style:italic; font-size:13px; color:#333; }
+nav.runhead { position:sticky; top:0; z-index:10; background:var(--paper); font-size:13.5px; }
+.rh-inner { max-width:1080px; margin:0 auto; padding:.8rem 24px .6rem 24px;
+  display:flex; justify-content:space-between; align-items:baseline; gap:1rem; }
+.rh-left .wordmark { font-variant:small-caps; font-size:15px; color:var(--ink); letter-spacing:.02em; }
+.rh-left .rh-sub { font-style:italic; color:#333; margin-left:.7rem; }
+.rh-links { display:flex; gap:1.15rem; align-items:baseline; }
+.rh-links a { color:var(--ink); font-variant:small-caps;
+  border-bottom:1.5px solid transparent; padding-bottom:.1rem; transition:border-color 150ms ease; }
+.rh-links a:hover { text-decoration:none; border-bottom-color:var(--ink); }
+.rh-links a.active { border-bottom-color:var(--ink); }
+.rh-links a.rh-join { background:var(--ink); color:var(--paper);
+  padding:.12rem .8rem .18rem .8rem; border-bottom:none; transition:background 150ms ease; }
+.rh-links a.rh-join:hover { background:#000; }
 
-/* masthead (front page) */
-.masthead { text-align:center; padding:2.2rem 0 1.4rem; border-bottom:.8px solid var(--hair); }
-.masthead h1 { font-size:34px; line-height:1.2; margin-bottom:.5rem; }
-.masthead .sub { font-style:italic; font-size:15px; }
+.sheet { max-width:1080px; margin:0 auto; padding:2.6rem 24px 3rem 24px; }
 
-/* column grids */
-.grid { display:grid; gap:0 34px; padding:1.4rem 0; }
-.grid.two { grid-template-columns:1.4fr 1fr; }
-.colrule { border-left:.8px solid var(--hair); padding-left:34px; }
-@media (max-width:760px){ .grid.two { grid-template-columns:1fr; } .colrule { border-left:none; padding-left:0; } }
+.maketitle { text-align:center; margin-bottom:2.2rem; }
+.maketitle h1 { font-size:25px; font-weight:bold; line-height:1.3; margin-bottom:.9rem; }
+.maketitle .author { font-size:15.5px; margin-bottom:.25rem; }
+.maketitle .date { font-style:italic; font-size:14px; }
 
-h3.sec { font-size:17px; margin:0 0 .55rem; }
-h3.sec .no { margin-right:.9rem; }
-p { text-align:justify; hyphens:auto; margin-bottom:.55rem; }
-.block { margin-bottom:1.5rem; }
+.pitch { font-size:17.5px; line-height:1.55; text-align:justify; hyphens:auto; margin:0 0 2.6rem 0; }
 
-/* bibliography entries */
-.threecol { column-count:3; column-gap:30px; }
-@media (max-width:1000px){ .threecol { column-count:2; } }
-@media (max-width:660px){ .threecol { column-count:1; } }
-.bib { list-style:none; counter-reset:bib; font-size:13.6px; }
-.bib li { counter-increment:bib; padding-left:2em; text-indent:-2em; margin-bottom:.5rem; break-inside:avoid; }
-.bib li::before { content:"[" counter(bib) "]"; margin-right:.6em; }
-.co { font-variant:small-caps; }
-.pos { font-style:italic; }
-.meta { color:#333; }
+.grid { display:grid; grid-template-columns:1.02fr .98fr; column-gap:16mm; row-gap:3rem; align-items:start; }
+.grid > section, .grid > .algo { margin-bottom:0; }
+section { margin-bottom:2rem; }
+h3.sec { font-size:17px; font-weight:bold; margin-bottom:.7rem; }
+h1.page { font-size:23px; font-weight:bold; margin-bottom:.6rem; }
+p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
+.lede { font-size:16.5px; max-width:68ch; margin-bottom:2rem; }
 
-/* tables, booktabs */
-table { border-collapse:collapse; margin:.4rem 0; font-size:14px; width:100%; }
-caption { caption-side:top; font-size:13.5px; margin-bottom:.35rem; text-align:left; }
-th,td { padding:.2rem .9rem .2rem 0; text-align:left; }
-thead tr { border-top:1.5px solid var(--ink); border-bottom:.8px solid var(--ink); }
-tbody tr:last-child { border-bottom:1.5px solid var(--ink); }
+.algo { margin-bottom:2.4rem; }
+.algo-cap { font-size:15px; margin-bottom:1.1rem; }
+.algo-cap b { font-weight:bold; }
+.field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }
+.field label { font-style:italic; font-size:14.5px; }
+.field input[type=text], .field input[type=email], .field select {
+  font-family:inherit; font-size:14.5px; color:var(--ink);
+  border:none; border-bottom:.8px solid #b5b5b5; background:transparent;
+  padding:.1rem 0; width:100%; border-radius:0; outline:none; transition:border-color 150ms ease; }
+.field input:focus, .field select:focus { border-bottom-color:var(--link); }
+.cvline { margin:.9rem 0; font-size:14px; }
+.cvline .tex, .tex { font-family:monospace; font-size:12.5px; }
+.consent { font-size:13px; margin-top:.9rem; }
+.consent input { margin-right:.45rem; }
+button.submit { font-family:inherit; font-size:14.5px; font-variant:small-caps;
+  background:var(--ink); color:var(--paper); border:none; border-radius:0;
+  padding:.4rem 1.5rem; margin-top:1rem; cursor:pointer; transition:background 150ms ease; }
+button.submit:hover { background:#000; }
 
-.crumb { font-size:13px; margin:1rem 0; }
-.applyline { margin:.9rem 0; font-size:16.5px; }
-.pill-not-a-pill { font-variant:small-caps; }
+table { border-collapse:collapse; margin:.3rem 0 .4rem 0; font-size:14px; }
+th { font-weight:bold; }
+th, td { padding:.3rem 0 .3rem 3rem; text-align:right; }
+td:first-child, th:first-child { padding-left:0; text-align:left; }
+thead tr { border-top:1px solid var(--ink); border-bottom:.6px solid var(--ink); }
+tbody tr:last-child { border-bottom:1px solid var(--ink); }
+.tabnote { font-size:13px; margin-top:.6rem; }
 
-/* footer */
-footer { border-top:1.5px solid var(--hair); margin-top:2.5rem; }
-footer .wrap { display:flex; gap:1.6rem; padding:.8rem 24px; font-size:13px; }
-footer .right { margin-left:auto; font-style:italic; }
+table.wide { width:100%; font-size:13.8px; }
+table.wide th, table.wide td { padding:.3rem 1.1rem .3rem 0; text-align:left; vertical-align:baseline; }
+table.wide th:last-child, table.wide td:last-child { padding-right:0; }
+td.co { font-variant:small-caps; white-space:nowrap; }
+td.pos { font-style:italic; }
+td.num { white-space:nowrap; }
+
+.twocol { column-count:2; column-gap:16mm; margin-top:.6rem; }
+.bib { list-style:none; counter-reset:bib; font-size:13.8px; }
+.bib li { counter-increment:bib; padding-left:2.1em; text-indent:-2.1em;
+  margin-bottom:.75rem; break-inside:avoid; }
+.bib li::before { content:"[" counter(bib) "]"; margin-right:.7em; }
+.bib li:nth-child(6n+1)::before { color:var(--red); }
+.bib li:nth-child(6n+2)::before { color:var(--orange); }
+.bib li:nth-child(6n+3)::before { color:var(--ochre); }
+.bib li:nth-child(6n+4)::before { color:var(--green); }
+.bib li:nth-child(6n+5)::before { color:var(--blue); }
+.bib li:nth-child(6n+6)::before { color:var(--violet); }
+.bib .co { font-variant:small-caps; }
+.bib .pos { font-style:italic; }
+.bib .meta { color:#333; }
+
+.scoreline { font-size:30px; font-weight:bold; margin-bottom:.3rem; }
+.reachline { font-size:15px; font-style:italic; margin-bottom:1.2rem; }
+.flagline { font-size:14.5px; margin-bottom:2.4rem; }
+.flagline .opt { font-variant:small-caps; margin-right:1.1rem; color:var(--ink);
+  border-bottom:1.5px solid transparent; padding-bottom:.1rem; cursor:pointer; }
+.flagline .opt.on { border-bottom-color:var(--ink); font-weight:bold; }
+.heartnote { margin-top:2.4rem; width:60%; font-size:13.5px; }
+.heartnote .star { color:var(--red); }
+
+.footnote { margin-top:2.4rem; width:55%; font-size:12.5px; color:#222; }
+.pagenum { text-align:center; margin-top:2.2rem; font-size:13px; }
+.version { text-align:center; font-size:11.5px; color:#666; margin-top:.4rem; }
+
+@media (max-width:860px) {
+  .grid { grid-template-columns:1fr; }
+  .twocol { column-count:1; }
+  .rh-inner { flex-wrap:wrap; }
+  .rh-left .rh-sub { display:none; }
+  .footnote, .heartnote { width:100%; }
+  td.pos { font-size:13px; }
+}
 """
 
-PAGE = """<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<meta name="description" content="{description}">
-<link rel="canonical" href="{canonical}">
-<link rel="stylesheet" href="{csspath}">
-{extra_head}
-</head>
-<body>
-<nav><div class="wrap">
-  <span class="brand"><a href="{rootpath}index.html" style="color:var(--ink)">{brand}</a></span>
-  <a class="item" href="{rootpath}jobs/index.html">listings <span class="count">({njobs})</span></a>
-  <a class="item" href="{rootpath}index.html#method">method 👩🏻‍💻</a>
-  <a class="item" href="{rootpath}index.html#join">join</a>
-  <span class="stamp">refreshed {today}</span>
-</div></nav>
-<div class="wrap">
-{body}
-</div>
-<footer><div class="wrap">
-  <span>🐞 curated for students &middot; single-applicant &middot; no referral required</span>
-  <span class="right">updated daily &middot; deterministic engine, no black box</span>
-</div></footer>
-</body>
-</html>
+RAINBOW_JS = """
+document.querySelectorAll('.rainbow').forEach(el => {
+  let i = 0;
+  el.innerHTML = [...el.textContent].map(ch =>
+    ch === ' ' ? ' ' : `<span class="rb${(i++ % 6) + 1}">${ch}</span>`
+  ).join('');
+});
 """
+
+
+def esc(s):
+    return html.escape(str(s) if s is not None else "", quote=True)
 
 
 def slugify(text: str) -> str:
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
-    text = re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
-    return text[:80]
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:80]
 
 
-def esc(s):
-    return html.escape(s or "", quote=True)
+def nav(root: str, active: str) -> str:
+    def link(href, label, key, cls=""):
+        c = ("active " if key == active else "") + cls
+        attr = f' class="{c.strip()}"' if c.strip() else ""
+        return f'<a href="{href}"{attr}>{label}</a>'
+    return f"""<nav class="runhead"><div class="rh-inner">
+<div class="rh-left"><a class="wordmark" href="{root}index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+<div class="rh-links">
+{link(root + 'index.html#why', 'why', 'why')}
+{link(root + 'index.html#how', 'how', 'how')}
+{link(root + 'index.html#data', 'data', 'data')}
+{link(root + 'cv.html', 'cv report', 'cv')}
+{link(root + 'jobs/index.html', 'all listings', 'jobs')}
+{link(root + 'index.html#join', 'join', 'join', 'rh-join')}
+</div></div></nav>"""
 
 
-def render(title, description, canonical, csspath, rootpath, body, njobs, extra_head=""):
-    return PAGE.format(title=esc(title), description=esc(description), canonical=canonical,
-                       csspath=csspath, rootpath=rootpath, body=body, njobs=njobs,
-                       brand=BRAND, today=TODAY, extra_head=extra_head)
+def page(title, description, canonical, root, active, body, extra_head="", script=""):
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(description)}">
+<link rel="canonical" href="{canonical}">
+<link rel="stylesheet" href="{root}style.css">
+{extra_head}
+</head>
+<body>
+{nav(root, active)}
+<div class="sheet">
+{body}
+</div>
+<script>{RAINBOW_JS}{script}</script>
+</body>
+</html>"""
 
 
-def job_jsonld(job: dict, canonical: str) -> str:
-    data = {
-        "@context": "https://schema.org/",
-        "@type": "JobPosting",
-        "title": job["position"],
-        "datePosted": job.get("first_seen") or TODAY,
-        "employmentType": "INTERN",
-        "hiringOrganization": {"@type": "Organization", "name": job["company"],
-                               "sameAs": job.get("company_url")},
-        "jobLocation": {"@type": "Place", "address": job.get("location") or "unspecified"},
-        "directApply": bool(job.get("link")),
-        "url": canonical,
-    }
+FORM_HTML = """<div class="algo" id="join">
+  <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
+  <form action="#" onsubmit="return false">
+    <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
+    <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
+    <div class="field"><label>level</label>
+      <select><option>BS student</option><option>MS student</option><option>PhD student</option></select>
+    </div>
+    <div class="field"><label>interests</label><input type="text" placeholder="ai infra, agents, devtools, &hellip;"></div>
+    <div class="cvline">or upload a CV and the profile fills itself:
+      <span class="tex">\\includegraphics{your_cv.pdf}</span> <a href="cv.html">see what it reads</a></div>
+    <div class="consent"><label><input type="checkbox"> I consent to receiving match mails.
+      Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR).</label></div>
+    <button class="submit" type="button" onclick="this.textContent='opens with the next release'">submit profile</button>
+  </form>
+</div>"""
+
+
+def bib_entry(r: dict, href: str) -> str:
+    reason = "; ".join(r["reasons"][:4]).replace(" in title", " in title")
+    reason = re.sub(r"(interest|skill) '([^']+)' in title", r"\2 in title", reason)
+    link = f'<a href="{esc(href)}">apply</a>' if r.get("link") else "<i>link not found, search it yourself</i>"
+    return (f'<li><span class="co">{esc(r["company"])}</span>. '
+            f'<span class="pos">{esc(r["position"])}.</span> '
+            f'{esc(r.get("location") or "location unlisted")}. {link}. '
+            f'<span class="meta">score {r["score"]}: {esc(reason)}.</span></li>')
+
+
+def build_index(jobs, results, stats, dupes_removed):
+    usa = sum(1 for j in jobs if j["source"].endswith("usa"))
+    intl = sum(1 for j in jobs if j["source"].endswith("intl"))
+    remote = sum(1 for j in jobs if j["remote"])
+    n = len(jobs)
+    matches_html = "".join(bib_entry(r, r.get("link") or "") for r in results[:6])
+
+    body = f"""
+<div class="maketitle">
+  <h1>Deterministic Matching of Student Profiles<br>to Startup Internships</h1>
+  <div class="author">the engine, <a href="https://noseydewdrop.com">noseydewdrop.com</a></div>
+  <div class="date">{TODAY} &middot; updated daily at 09:00 UTC+3</div>
+</div>
+
+<p class="pitch">You write down what you can do. Every morning the engine reads
+<b>{n} live AI/ML internship listings</b>, scores each one against your profile, and
+<b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
+you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
+
+<div class="grid">
+  <section id="why">
+    <h3 class="sec rainbow">Why should this exist?</h3>
+    <p>Listings are scattered, stale and noisy ({dupes_removed} duplicates deleted just this
+    morning), but that is not the real problem. The real problem:
+    <b>people still fail to find internships</b>. The one who wins is usually not the best
+    candidate. It is <u>the most alert one</u>, the one who saw the posting first, the one
+    with <u>the most connections</u>. This site exists to <b>delete that advantage</b>.
+    The engine reads every listing every morning, for everyone, so nobody wins just by
+    watching job boards harder than you.</p>
+  </section>
+
+  {FORM_HTML}
+
+  <section id="how">
+    <h3 class="sec rainbow">How does it work?</h3>
+    <p>Sources are parsed into <b>a single schema</b> every morning. Each listing carries
+    company, position, location, remote flag, salary when public, and the application link.
+    A listing with no link still enters, marked <i>link not found, search it yourself</i>.
+    Your profile (interests, skills, level, location) is scored against every listing;
+    <b>a point is never awarded without a reason string attached</b>. <u>No black box, no
+    language model.</u></p>
+  </section>
+
+  <section id="data">
+    <h3 class="sec rainbow">The dataset today</h3>
+    <table>
+      <thead><tr><th>segment</th><th>count</th></tr></thead>
+      <tbody>
+        <tr><td>USA internships</td><td>{usa}</td></tr>
+        <tr><td>International internships</td><td>{intl}</td></tr>
+        <tr><td>remote positions</td><td>{remote}</td></tr>
+        <tr><td>duplicates removed this morning</td><td>{dupes_removed}</td></tr>
+        <tr><td>matched for the sample profile below</td><td>{stats["matched"]}</td></tr>
+      </tbody>
+    </table>
+    <p class="tabnote">The full listing is public: <a href="jobs/index.html">all {n} rows</a>, refreshed daily.</p>
+  </section>
+</div>
+
+<section id="matches">
+  <h3 class="sec"><span class="rainbow">Sample matches</span>
+  <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
+  <div class="twocol"><ol class="bib">{matches_html}</ol></div>
+</section>
+
+<div class="footnote">* The dataset is public; your profile is not. Mails are sent only
+when a new listing matches your profile.</div>
+<div class="pagenum">1</div>
+<div class="version">{VERSION}</div>
+"""
+    return page("Deterministic student internship matching",
+                f"Curated, daily-refreshed dataset of {n} AI/ML student internships with deterministic profile matching and named reasons.",
+                f"{BASE_URL}/", "", "index", body)
+
+
+def build_cv_page(total_jobs: int):
+    fixture = (Path(__file__).parent / "tests" / "cv_strong.txt").read_text()
+    v = cv_critique.critique_text(fixture, found_job=False)
+    score_rows = ""
+    for part in v["score_parts"]:
+        m = re.match(r"(.+?) (-?\d+/\d+|-\d+) ?(?:\((.+)\))?$", part)
+        if m:
+            name, pts, evid = m.group(1), m.group(2), m.group(3) or "present"
+            score_rows += f"<tr><td>{esc(name)}</td><td>{esc(evid)}</td><td>{esc(pts)}</td></tr>"
+    demand_rows = "".join(f"<tr><td>{esc(t)}</td><td>{c}</td></tr>" for t, c in v["demand_top"])
+    findings = "".join(f"<li>{esc(line)}</li>" for line in v["lines"])
+    note = esc(v["note"] or "")
+
+    body = f"""
+<h1 class="page rainbow">Can your CV even be seen?</h1>
+<p class="lede">Upload a CV and the engine reads it the way the market does: against
+every live internship title, counting what it finds. No taste, no vibes, no model.
+Every sentence below carries a measured number, and every gap comes with the exact
+move that closes it. It is blunt because the market is blunt; it is useful because
+the market is not.</p>
+
+<div class="cvline"><span class="tex">\\includegraphics{{your_cv.pdf}}</span>
+  <a href="index.html#join">upload opens with the next release</a></div>
+<div class="flagline">after reading, tell it one thing:
+  <span class="opt" data-note="for once, both the CV and the network did their job.">i found a job</span>
+  <span class="opt on" data-note="{note}">i did not find a job</span>
+</div>
+
+<div class="grid">
+  <section>
+    <p style="font-style:italic; font-size:13.5px; margin-bottom:1rem">below: a sample
+    report, generated by the engine from a student CV against this morning's dataset.</p>
+    <h3 class="sec rainbow">The score</h3>
+    <div class="scoreline">{v["score"]} / 100</div>
+    <div class="reachline">your vocabulary reaches {v["matched"]} of {v["total"]} live
+    internships. the other {v["total"] - v["matched"]} cannot even see you.</div>
+    <table>
+      <thead><tr><th>component</th><th>evidence counted</th><th>points</th></tr></thead>
+      <tbody>{score_rows}</tbody>
+    </table>
+  </section>
+  <section>
+    <h3 class="sec rainbow">What the market wants right now</h3>
+    <p>Counted over {v["total"]} live internship titles this morning. This column is why
+    the findings are not opinions.</p>
+    <table>
+      <thead><tr><th>term</th><th>live titles</th></tr></thead>
+      <tbody>{demand_rows}</tbody>
+    </table>
+  </section>
+</div>
+
+<section style="margin-top:3rem">
+  <h3 class="sec rainbow">Findings</h3>
+  <ol class="bib">{findings}</ol>
+</section>
+
+<div class="heartnote"><span class="star">*</span> <span id="heartnote-text">{note}</span></div>
+<div class="pagenum">3</div>
+<div class="version">{VERSION}</div>
+"""
+    script = """
+document.querySelectorAll('.flagline .opt').forEach(o => o.addEventListener('click', () => {
+  document.querySelectorAll('.flagline .opt').forEach(x => x.classList.remove('on'));
+  o.classList.add('on');
+  document.getElementById('heartnote-text').textContent = o.dataset.note;
+}));
+"""
+    return page("Can your CV even be seen? · the engine",
+                f"Deterministic CV critique against {total_jobs} live internships: measured gaps, concrete moves, no black box.",
+                f"{BASE_URL}/cv.html", "", "cv", body, script=script)
+
+
+def build_jobs_index(jobs):
+    n = len(jobs)
+    rows = ""
+    for i, j in enumerate(jobs, 1):
+        loc = esc(j["location"] or "")
+        link = (f'<a href="{slugify(j["company"] + "-" + j["position"])}.html">details</a>'
+                if True else "")
+        apply_ = (f'<a href="{esc(j["link"])}" rel="nofollow">apply</a>' if j.get("link")
+                  else "<i>link not found</i>")
+        rows += (f'<tr><td class="num">{i}</td><td class="co">{esc(j["company"])}</td>'
+                 f'<td class="pos">{esc(j["position"])}</td><td>{loc}</td>'
+                 f'<td class="num">{esc(j["salary"] or "")}</td><td class="num">{esc(j["age"] or "")}</td>'
+                 f'<td>{link} &middot; {apply_}</td></tr>')
+    body = f"""
+<h1 class="page rainbow">The full listing</h1>
+<p class="lede">All {n} live internships, refreshed daily at 09:00 UTC+3. A listing with
+no application link is kept and marked, not dropped.</p>
+<table class="wide">
+  <caption>live listings, {TODAY}</caption>
+  <thead><tr><th>#</th><th>company</th><th>position</th><th>location</th><th>salary</th><th>age</th><th></th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+<div class="tabnote" style="margin-top:1.4rem"><a href="../index.html#join">&larr; back to the paper, submit a profile</a></div>
+<div class="pagenum">2</div>
+<div class="version">{VERSION}</div>
+"""
+    return page(f"All {n} listings · the engine",
+                f"{n} curated AI/ML student internships, one page per listing, refreshed daily.",
+                f"{BASE_URL}/jobs/", "../", "jobs", body)
+
+
+def job_jsonld(job, canonical):
+    data = {"@context": "https://schema.org/", "@type": "JobPosting",
+            "title": job["position"], "datePosted": TODAY_ISO, "employmentType": "INTERN",
+            "hiringOrganization": {"@type": "Organization", "name": job["company"],
+                                   "sameAs": job.get("company_url")},
+            "jobLocation": {"@type": "Place", "address": job.get("location") or "unspecified"},
+            "directApply": bool(job.get("link")), "url": canonical}
     if job.get("remote"):
         data["jobLocationType"] = "TELECOMMUTE"
     return '<script type="application/ld+json">' + json.dumps(data) + "</script>"
 
 
-def bib_entry(job: dict, href: str) -> str:
-    loc = esc(job.get("location") or "location unlisted")
-    sal = f' <span class="meta">{esc(job["salary"])}.</span>' if job.get("salary") else ""
-    return (f'<li><span class="co">{esc(job["company"])}</span>. '
-            f'<span class="pos"><a href="{href}">{esc(job["position"])}</a>.</span> '
-            f'<span class="loc">{loc}.</span>{sal}</li>')
-
-
-def job_page(job: dict, slug: str, njobs: int) -> str:
+def build_job_page(job, slug):
     canonical = f"{BASE_URL}/jobs/{slug}.html"
     apply_html = (f'<a href="{esc(job["link"])}" rel="nofollow">apply at the source &rarr;</a>'
                   if job.get("link") else
-                  f'link not found &mdash; search it yourself: <i>{esc(job["company"])} {esc(job["position"])}</i>')
-    rows = "".join(
-        f"<tr><td>{k}</td><td>{esc(str(v))}</td></tr>"
-        for k, v in [("company", job["company"]), ("location", job.get("location") or "unlisted"),
-                     ("remote", "yes" if job.get("remote") else "no"),
-                     ("salary", job.get("salary") or "not public"), ("listed", job.get("age") or "?"),
-                     ("source", job["source"])] )
+                  f'link not found, search it yourself: <i>{esc(job["company"])} {esc(job["position"])}</i>')
+    rows = "".join(f"<tr><td>{k}</td><td>{esc(v)}</td></tr>" for k, v in [
+        ("company", job["company"]), ("location", job.get("location") or "unlisted"),
+        ("remote", "yes" if job.get("remote") else "no"),
+        ("salary", job.get("salary") or "not public"),
+        ("listed", job.get("age") or "?"), ("source", job["source"])])
     body = f"""
-<div class="crumb"><a href="../index.html">index</a> &middot; <a href="index.html">all listings</a></div>
-<div class="grid two">
-  <div>
-    <h1 style="font-size:26px; line-height:1.25; margin-bottom:.4rem">{esc(job["position"])}</h1>
-    <div style="font-size:17px; margin-bottom:1rem"><span class="co">{esc(job["company"])}</span></div>
-    <p class="applyline">{apply_html}</p>
+<div class="tabnote" style="margin:0 0 1.4rem 0"><a href="../index.html">index</a> &middot; <a href="index.html">all listings</a></div>
+<div class="grid">
+  <section>
+    <h1 class="page">{esc(job["position"])}</h1>
+    <div style="font-size:17px; margin-bottom:1rem"><span class="co" style="font-variant:small-caps">{esc(job["company"])}</span></div>
+    <p style="font-size:16.5px">{apply_html}</p>
     <p style="font-size:13.5px; color:#333">internship listing &middot; retrieved {TODAY}</p>
-  </div>
-  <div class="colrule">
+  </section>
+  <section>
     <table>
-    <caption><b>Table 1:</b> listing facts</caption>
-    <thead><tr><th>field</th><th>value</th></tr></thead>
-    <tbody>{rows}</tbody>
+      <thead><tr><th>field</th><th>value</th></tr></thead>
+      <tbody>{rows}</tbody>
     </table>
-  </div>
+  </section>
 </div>
+<div class="version">{VERSION}</div>
 """
-    title = f'{job["company"]} — {job["position"]} (internship)'
-    desc = f'{job["position"]} internship at {job["company"]}, {job.get("location") or "location unlisted"}. Student-suitable, refreshed {TODAY}.'
-    return render(title, desc, canonical, "../style.css", "../", body, njobs,
-                  extra_head=job_jsonld(job, canonical))
+    title = f'{job["company"]} - {job["position"]} (internship)'
+    desc = f'{job["position"]} internship at {job["company"]}, {job.get("location") or "location unlisted"}. Student-suitable, refreshed {TODAY_ISO}.'
+    return page(title, desc, canonical, "../", "jobs", body, extra_head=job_jsonld(job, canonical))
 
 
 def main() -> None:
-    jobs = json.loads((Path(__file__).parent / "data" / "jobs.json").read_text())
-    n = len(jobs)
+    data_dir = Path(__file__).parent / "data"
+    jobs = json.loads((data_dir / "jobs.json").read_text())
+    jobs, build_dupes = match.dedupe(jobs)
+    meta_file = data_dir / "fetch_meta.json"
+    dupes_removed = (json.loads(meta_file.read_text())["duplicates_removed"]
+                     if meta_file.exists() else build_dupes)
+    profile = json.loads((Path(__file__).parent.parent / "profile.json").read_text())
+    results, stats = match.run(profile, jobs)
+
     (ROOT / "jobs").mkdir(parents=True, exist_ok=True)
     (ROOT / "style.css").write_text(CSS)
+    (ROOT / "index.html").write_text(build_index(jobs, results, stats, dupes_removed))
+    (ROOT / "cv.html").write_text(build_cv_page(len(jobs)))
+    (ROOT / "jobs" / "index.html").write_text(build_jobs_index(jobs))
 
-    slugs, entries, urls = set(), [], []
+    slugs, urls = set(), [f"{BASE_URL}/", f"{BASE_URL}/cv.html", f"{BASE_URL}/jobs/"]
     for job in jobs:
         base = slugify(f'{job["company"]}-{job["position"]}')
         slug, k = base, 2
         while slug in slugs:
             slug, k = f"{base}-{k}", k + 1
         slugs.add(slug)
-        (ROOT / "jobs" / f"{slug}.html").write_text(job_page(job, slug, n))
-        entries.append(bib_entry(job, f"{slug}.html"))
+        (ROOT / "jobs" / f"{slug}.html").write_text(build_job_page(job, slug))
         urls.append(f"{BASE_URL}/jobs/{slug}.html")
 
-    listing_body = f"""
-<div class="crumb"><a href="../index.html">index</a></div>
-<h1 style="font-size:26px; margin:.4rem 0 .2rem">All Listings 👾</h1>
-<p style="font-size:14px; font-style:italic; margin-bottom:1.1rem">{n} student internships &middot; refreshed {TODAY}</p>
-<div class="threecol"><ol class="bib">{''.join(entries)}</ol></div>
-"""
-    (ROOT / "jobs" / "index.html").write_text(render(
-        f"All listings ({n}) — student internships",
-        f"{n} curated AI/ML student internships, one page per listing, refreshed {TODAY}.",
-        f"{BASE_URL}/jobs/", "../style.css", "../", listing_body, n))
-
-    remote = sum(1 for j in jobs if j.get("remote"))
-    fresh = [j for j in jobs if (j.get("age") or "99d").rstrip("d").isdigit()
-             and int((j.get("age") or "99d").rstrip("d")) <= 7]
-    fresh_entries = "".join(bib_entry(j, f'jobs/{slugify(j["company"] + "-" + j["position"])}.html')
-                            for j in sorted(fresh, key=lambda x: int(x["age"].rstrip("d")))[:12])
-    cover_body = f"""
-<div class="masthead">
-  <h1>Deterministic Matching of Student Profiles<br>to Startup Internships</h1>
-  <div class="sub">a curated, daily-refreshed map of {n} AI/ML internships &middot; <a href="https://noseydewdrop.com">noseydewdrop.com</a></div>
-</div>
-<div class="grid two">
-  <div>
-    <div class="block" id="method">
-      <h3 class="sec"><span class="no">1</span>Method 👩🏻‍💻</h3>
-      <p>Sources are parsed into a single schema every morning; each listing gets its own page.
-      Profiles are matched with a fully deterministic engine &mdash; every point carries a named
-      reason, no black box, no language model. A listing with no application link still enters,
-      marked <i>link not found, search it yourself</i>.</p>
-    </div>
-    <div class="block" id="join">
-      <h3 class="sec"><span class="no">2</span>Join</h3>
-      <p>Fill a profile or upload a CV; interests are extracted and matched nightly.
-      Mail arrives only when a new listing matches you &mdash; nothing new, no mail.
-      <i>Membership opens with the next release.</i></p>
-    </div>
-    <div class="block">
-      <h3 class="sec"><span class="no">3</span>Dataset 🐞</h3>
-      <table style="max-width:340px">
-      <caption><b>Table 1:</b> live inventory</caption>
-      <thead><tr><th>segment</th><th>count</th></tr></thead>
-      <tbody>
-      <tr><td><a href="jobs/index.html">all listings</a></td><td>{n}</td></tr>
-      <tr><td>remote positions</td><td>{remote}</td></tr>
-      <tr><td>added last 7 days</td><td>{len(fresh)}</td></tr>
-      </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="colrule">
-    <h3 class="sec">Fresh this week</h3>
-    <ol class="bib">{fresh_entries}</ol>
-    <p style="font-size:13.5px"><a href="jobs/index.html">all {n} listings &rarr;</a></p>
-  </div>
-</div>
-"""
-    (ROOT / "index.html").write_text(render(
-        "Deterministic student internship matching",
-        f"Curated, daily-refreshed dataset of {n} AI/ML student internships with deterministic profile matching.",
-        f"{BASE_URL}/", "style.css", "", cover_body, n))
-
-    urls = [f"{BASE_URL}/", f"{BASE_URL}/jobs/"] + urls
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>',
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    sitemap += [f"<url><loc>{esc(u)}</loc><lastmod>{TODAY}</lastmod></url>" for u in urls]
+    sitemap += [f"<url><loc>{esc(u)}</loc><lastmod>{TODAY_ISO}</lastmod></url>" for u in urls]
     sitemap.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(sitemap))
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
+    (ROOT / ".nojekyll").write_text("")
 
     n_files = sum(1 for _ in ROOT.rglob("*.html"))
-    print(f"html pages: {n_files} | sitemap urls: {len(urls)} | fresh this week: {len(fresh)}")
+    print(f"jobs: {len(jobs)} (dupes removed: {dupes_removed}) | matches: {stats['matched']} | "
+          f"html pages: {n_files} | sitemap urls: {len(urls)}")
 
 
 if __name__ == "__main__":

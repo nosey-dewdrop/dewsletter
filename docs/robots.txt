@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nosey-dewdrop.github.io/sightstone/sitemap.xml
