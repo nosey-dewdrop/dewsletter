@@ -64,19 +64,15 @@ nav.runhead {
   border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
   transition: border-color 150ms ease;
 }
-.rh-links a:nth-child(1) { color: var(--red); }
-.rh-links a:nth-child(2) { color: var(--orange); }
-.rh-links a:nth-child(3) { color: var(--ochre); }
-.rh-links a:nth-child(4) { color: var(--green); }
-.rh-links a:nth-child(5) { color: var(--blue); }
-.rh-links a:hover { text-decoration: none; border-bottom-color: currentColor; }
-.rh-links a.active { border-bottom-color: currentColor; }
+.rh-links a { color: var(--ink); }
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
+.rh-links a.active { border-bottom-color: var(--ink); }
 .rh-links a.rh-join {
-  background: var(--violet); color: var(--paper);
+  background: var(--ink); color: var(--paper);
   padding: .12rem .8rem .18rem .8rem; border-bottom: none;
   transition: background 150ms ease;
 }
-.rh-links a.rh-join:hover { background: var(--ink); color: var(--paper); }
+.rh-links a.rh-join:hover { background: #000; }
 
 .sheet { max-width: 1080px; margin: 0 auto; padding: 2.6rem 24px 3rem 24px; }
 
@@ -101,16 +97,19 @@ section { margin-bottom: 2rem; }
 h2.abs { text-align: center; font-size: 14.5px; font-weight: bold; margin-bottom: .6rem; }
 .abstract p { font-size: 14px; text-align: justify; hyphens: auto; }
 h3.sec { font-size: 17px; font-weight: bold; margin-bottom: .7rem; }
-#why h3.sec { color: var(--red); }
-#how h3.sec { color: var(--orange); }
-#data h3.sec { color: var(--ochre); }
-#matches h3.sec { color: var(--green); }
+/* rainbow lives INSIDE important lines: each word its own color, base stays ink */
+.rb1 { color: var(--red); }
+.rb2 { color: var(--orange); }
+.rb3 { color: var(--ochre); }
+.rb4 { color: var(--green); }
+.rb5 { color: var(--blue); }
+.rb6 { color: var(--violet); }
 p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
 
 /* algorithm float = the signup form, top right, first viewport */
 .algo { margin-bottom: 2.4rem; }
 .algo-cap { font-size: 15px; margin-bottom: 1.1rem; }
-.algo-cap b { font-weight: bold; color: var(--violet); }
+.algo-cap b { font-weight: bold; }
 .field { display: grid; grid-template-columns: 30mm 1fr; align-items: baseline; margin-bottom: .9rem; }
 .field label { font-style: italic; font-size: 14.5px; }
 .field input[type=text], .field input[type=email], .field select {
@@ -127,12 +126,12 @@ p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
 .consent input { margin-right: .45rem; }
 button.submit {
   font-family: inherit; font-size: 14.5px; font-variant: small-caps;
-  background: var(--violet); color: var(--paper);
+  background: var(--ink); color: var(--paper);
   border: none; border-radius: 0; padding: .4rem 1.5rem;
   margin-top: 1rem; cursor: pointer;
   transition: background 150ms ease;
 }
-button.submit:hover { background: var(--ink); }
+button.submit:hover { background: #000; }
 
 /* table 1: booktabs, sized to content */
 table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; }
@@ -208,7 +207,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 <div class="grid">
 
     <section id="why">
-      <h3 class="sec">Why should this exist?</h3>
+      <h3 class="sec rainbow">Why should this exist?</h3>
       <p>Listings are scattered, stale and noisy, but that is not the real problem. The real
       problem: <b>people still fail to find internships</b>. The one who wins is usually not
       the best candidate. It is <u>the most alert one</u>, the one who saw the posting first,
@@ -218,7 +217,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     </section>
 
     <div class="algo" id="join">
-      <div class="algo-cap"><b>Submit a profile, receive matches.</b></div>
+      <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
       <form>
         <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
         <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
@@ -237,7 +236,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     </div>
 
     <section id="how">
-      <h3 class="sec">How does it work?</h3>
+      <h3 class="sec rainbow">How does it work?</h3>
       <p>Sources are parsed into <b>a single schema</b> every morning. Each listing carries
       company, position, location, remote flag, salary when public, and the application link.
       A listing with no link still enters, marked <i>link not found, search it yourself</i>.
@@ -247,7 +246,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     </section>
 
     <section id="data">
-      <h3 class="sec">The dataset today</h3>
+      <h3 class="sec rainbow">The dataset today</h3>
       <table>
         <thead><tr><th>segment</th><th>count</th></tr></thead>
         <tbody>
@@ -263,7 +262,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 </div>
 
 <section id="matches">
-  <h3 class="sec">Sample matches <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
+  <h3 class="sec"><span class="rainbow">Sample matches</span> <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
   <div class="twocol">
     <ol class="bib">
       <li><span class="co">Cotiviti</span>. <span class="pos">Intern - Generative AI / Agentic AI / Research.</span> <span class="loc">Remote, USA.</span> <a href="https://careers-cotiviti.icims.com/jobs/18929/intern---generative-ai-agentic-ai-research/job">apply</a>. <span class="meta">score 15: agentic + generative-ai in title, remote.</span></li>
@@ -285,6 +284,14 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 </div>
 
 <script>
+// her harf bir renk, deterministik dongu
+document.querySelectorAll('.rainbow').forEach(el => {
+  let i = 0;
+  el.innerHTML = [...el.textContent].map(ch =>
+    ch === ' ' ? ' ' : `<span class="rb${(i++ % 6) + 1}">${ch}</span>`
+  ).join('');
+});
+
 const links = document.querySelectorAll('.rh-links a[data-sec]');
 const secs = [...links].map(a => document.getElementById(a.dataset.sec));
 const io = new IntersectionObserver(entries => {

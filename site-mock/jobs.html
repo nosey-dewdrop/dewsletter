@@ -51,24 +51,26 @@ nav.runhead {
   border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
   transition: border-color 150ms ease;
 }
-.rh-links a:nth-child(1) { color: var(--red); }
-.rh-links a:nth-child(2) { color: var(--orange); }
-.rh-links a:nth-child(3) { color: var(--ochre); }
-.rh-links a:nth-child(4) { color: var(--green); }
-.rh-links a:nth-child(5) { color: var(--blue); }
-.rh-links a:hover { text-decoration: none; border-bottom-color: currentColor; }
-.rh-links a.active { border-bottom-color: currentColor; }
+.rh-links a { color: var(--ink); }
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
+.rh-links a.active { border-bottom-color: var(--ink); }
 .rh-links a.rh-join {
-  background: var(--violet); color: var(--paper);
+  background: var(--ink); color: var(--paper);
   padding: .12rem .8rem .18rem .8rem; border-bottom: none;
   transition: background 150ms ease;
 }
-.rh-links a.rh-join:hover { background: var(--ink); }
+.rh-links a.rh-join:hover { background: #000; }
 
 .sheet { max-width: 1080px; margin: 0 auto; padding: 2.4rem 24px 3rem 24px; }
 
 .apphead { margin-bottom: 1.8rem; }
-.apphead h1 { font-size: 22px; font-weight: bold; margin-bottom: .5rem; color: var(--blue); }
+.apphead h1 { font-size: 22px; font-weight: bold; margin-bottom: .5rem; }
+.rb1 { color: var(--red); }
+.rb2 { color: var(--orange); }
+.rb3 { color: var(--ochre); }
+.rb4 { color: var(--green); }
+.rb5 { color: var(--blue); }
+.rb6 { color: var(--violet); }
 .apphead p { text-align: justify; hyphens: auto; font-size: 14.5px; max-width: 62ch; }
 
 table { border-collapse: collapse; font-size: 13.8px; width: 100%; }
@@ -113,7 +115,7 @@ tr.more td { font-style: italic; padding-top: .7rem; }
 <div class="sheet">
 
 <div class="apphead">
-  <h1>The full listing</h1>
+  <h1 class="rainbow">The full listing</h1>
   <p>All 494 live internships, refreshed daily at 09:00 UTC+3. The mock below shows the
   first 30 rows; the live version renders every row with sort and filter. A listing with
   no application link is kept and marked, not dropped.</p>
@@ -162,6 +164,15 @@ tr.more td { font-style: italic; padding-top: .7rem; }
 <div class="pagenum">2</div>
 
 </div>
+
+<script>
+document.querySelectorAll('.rainbow').forEach(el => {
+  let i = 0;
+  el.innerHTML = [...el.textContent].map(ch =>
+    ch === ' ' ? ' ' : `<span class="rb${(i++ % 6) + 1}">${ch}</span>`
+  ).join('');
+});
+</script>
 
 </body>
 </html>
