@@ -80,8 +80,9 @@ nav.runhead {
   margin: 0 0 2.6rem 0;
 }
 
-/* two-column paper body */
-.grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 0 16mm; align-items: start; }
+/* two-column paper body: columns AND rows aligned */
+.grid { display: grid; grid-template-columns: 1.02fr .98fr; column-gap: 16mm; row-gap: 3rem; align-items: start; }
+.grid > section, .grid > .algo { margin-bottom: 0; }
 
 section { margin-bottom: 2rem; }
 h2.abs { text-align: center; font-size: 14.5px; font-weight: bold; margin-bottom: .6rem; }
@@ -184,7 +185,6 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 
 <div class="grid">
 
-  <div>
     <section id="why">
       <h3 class="sec">Why should this exist?</h3>
       <p>Listings are scattered, stale and noisy, but that is not the real problem. The real
@@ -195,18 +195,6 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
       wins just by watching job boards harder than you.</p>
     </section>
 
-    <section id="how">
-      <h3 class="sec">How does it work?</h3>
-      <p>Sources are parsed into <b>a single schema</b> every morning. Each listing carries
-      company, position, location, remote flag, salary when public, and the application link.
-      A listing with no link still enters, marked <i>link not found, search it yourself</i>.
-      Your profile (interests, skills, level, location) is scored against every listing;
-      <b>a point is never awarded without a reason string attached</b>. <u>No black box, no
-      language model.</u></p>
-    </section>
-  </div>
-
-  <div>
     <div class="algo" id="join">
       <div class="algo-cap"><b>Submit a profile, receive matches.</b></div>
       <form>
@@ -226,6 +214,16 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
       </form>
     </div>
 
+    <section id="how">
+      <h3 class="sec">How does it work?</h3>
+      <p>Sources are parsed into <b>a single schema</b> every morning. Each listing carries
+      company, position, location, remote flag, salary when public, and the application link.
+      A listing with no link still enters, marked <i>link not found, search it yourself</i>.
+      Your profile (interests, skills, level, location) is scored against every listing;
+      <b>a point is never awarded without a reason string attached</b>. <u>No black box, no
+      language model.</u></p>
+    </section>
+
     <section id="data">
       <h3 class="sec">The dataset today</h3>
       <table>
@@ -239,7 +237,6 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
       </table>
       <p class="tabnote">The full listing is public: <a href="jobs.html">all 494 rows</a>, refreshed daily.</p>
     </section>
-  </div>
 
 </div>
 
