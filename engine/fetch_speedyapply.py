@@ -75,6 +75,16 @@ def main() -> None:
     out_dir = Path(__file__).parent / "data"
     out_dir.mkdir(exist_ok=True)
     flat = [job for _, rows in all_jobs for job in rows]
+    # same company + position twice = same job re-posted; keep first (newest)
+    seen, deduped = set(), []
+    for job in flat:
+        key = (job["company"].lower(), job["position"].lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(job)
+    print(f"duplicates removed: {len(flat) - len(deduped)}")
+    flat = deduped
     out_file = out_dir / "jobs.json"
     out_file.write_text(json.dumps(flat, ensure_ascii=False, indent=1))
     missing = sum(1 for j in flat if j["link_missing"])

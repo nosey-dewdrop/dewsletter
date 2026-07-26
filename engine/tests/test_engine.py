@@ -7,6 +7,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 import cv_critique  # noqa: E402
+import match  # noqa: E402
 
 HERE = Path(__file__).parent
 STRONG = (HERE / "cv_strong.txt").read_text()
@@ -59,6 +60,61 @@ class CVCritique(unittest.TestCase):
         """Sharp claims must carry a number or a named fact."""
         for line in self.empty["lines"]:
             self.assertTrue(re.search(r"\d|github|verb", line), f"unbacked claim: {line}")
+
+
+def job(**kw):
+    base = {"company": "Acme", "position": "AI Intern", "location": "Remote - USA",
+            "remote": True, "salary": None, "link": "https://x", "age": "3d"}
+    base.update(kw)
+    return base
+
+
+PROFILE = {
+    "identity": {"name": "t", "location": "Ankara, Turkey"},
+    "education": ["BS Computer Science"],
+    "skills": {"languages": ["Python", "C++"]},
+    "direction_and_motivation": {"target_field": "AI infra; agent platforms; LLM systems"},
+}
+
+
+class Matcher(unittest.TestCase):
+    def test_parse_age_days(self):
+        cases = {"3d": 3, "2w": 14, "2mo": 60, "1y": 365, "5h": 0, None: None, "?": None}
+        for raw, want in cases.items():
+            self.assertEqual(match.parse_age_days(raw), want, raw)
+
+    def test_dedupe_keeps_newest_first(self):
+        a, b = job(age="3d"), job(age="40d")
+        out, removed = match.dedupe([a, b])
+        self.assertEqual(removed, 1)
+        self.assertEqual(out, [a])
+
+    def test_phd_only_excluded_for_bs(self):
+        results, stats = match.run(PROFILE, [job(position="Research Intern - PhD")])
+        self.assertEqual(stats["phd_only"], 1)
+        self.assertEqual(results, [])
+
+    def test_us_auth_excluded_for_non_us(self):
+        results, stats = match.run(PROFILE, [job(position="AI Intern - US Citizenship Required")])
+        self.assertEqual(stats["us_work_auth"], 1)
+
+    def test_ms_penalty_not_exclusion(self):
+        results, _ = match.run(PROFILE, [job(position="Agentic AI Intern - MS preferred")])
+        self.assertEqual(len(results), 1)
+        self.assertIn("listing prefers MS", results[0]["reasons"])
+
+    def test_reasons_are_english_and_scored(self):
+        results, _ = match.run(PROFILE, [job(position="Agentic AI Infrastructure Intern")])
+        r = results[0]
+        self.assertGreater(r["score"], 0)
+        self.assertTrue(any("in title" in x for x in r["reasons"]))
+        self.assertIn("remote", r["reasons"])
+        self.assertTrue(any("fresh" in x for x in r["reasons"]))
+
+    def test_stale_penalty(self):
+        fresh, _ = match.run(PROFILE, [job(position="Agentic AI Intern", age="3d")])
+        stale, _ = match.run(PROFILE, [job(position="Agentic AI Intern", age="6mo")])
+        self.assertGreater(fresh[0]["score"], stale[0]["score"])
 
 
 if __name__ == "__main__":
