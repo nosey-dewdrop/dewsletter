@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can your CV even be seen? · the engine</title>
+<style>
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-regular.woff2') format('woff2');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-bold.woff2') format('woff2');
+  font-weight: bold; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Latin Modern';
+  src: url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-italic.woff2') format('woff2');
+  font-weight: normal; font-style: italic; font-display: swap;
+}
+:root {
+  --ink: #111; --paper: #ffffff; --link: #0b4fa8;
+  --red: #c22a1e; --orange: #d2600a; --ochre: #b8860b;
+  --green: #1a7a3c; --blue: #0b4fa8; --violet: #6b2fa8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--paper); scroll-behavior: smooth; }
+body {
+  font-family: 'Latin Modern', 'Computer Modern', Georgia, serif;
+  color: var(--ink); background: var(--paper);
+  font-size: 15.5px; line-height: 1.52;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.rb1 { color: var(--red); } .rb2 { color: var(--orange); } .rb3 { color: var(--ochre); }
+.rb4 { color: var(--green); } .rb5 { color: var(--blue); } .rb6 { color: var(--violet); }
+
+nav.runhead { position: sticky; top: 0; z-index: 10; background: var(--paper); font-size: 13.5px; }
+.rh-inner {
+  max-width: 1080px; margin: 0 auto; padding: .8rem 24px .6rem 24px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+}
+.rh-left .wordmark { font-variant: small-caps; font-size: 15px; color: var(--ink); letter-spacing: .02em; }
+.rh-left .rh-sub { font-style: italic; color: #333; margin-left: .7rem; }
+.rh-links { display: flex; gap: 1.15rem; align-items: baseline; }
+.rh-links a {
+  color: var(--ink); font-variant: small-caps;
+  border-bottom: 1.5px solid transparent; padding-bottom: .1rem;
+  transition: border-color 150ms ease;
+}
+.rh-links a:hover { text-decoration: none; border-bottom-color: var(--ink); }
+.rh-links a.active { border-bottom-color: var(--ink); }
+.rh-links a.rh-join {
+  background: var(--ink); color: var(--paper);
+  padding: .12rem .8rem .18rem .8rem; border-bottom: none;
+  transition: background 150ms ease;
+}
+.rh-links a.rh-join:hover { background: #000; }
+
+.sheet { max-width: 1080px; margin: 0 auto; padding: 2.4rem 24px 3rem 24px; }
+
+h1.page { font-size: 23px; font-weight: bold; margin-bottom: .6rem; }
+.lede { font-size: 16.5px; max-width: 68ch; text-align: justify; hyphens: auto; margin-bottom: 2rem; }
+
+/* upload row, form language of the paper */
+.uploadrow { display: flex; gap: 2.2rem; align-items: baseline; margin-bottom: .9rem; flex-wrap: wrap; }
+.uploadrow .tex { font-family: monospace; font-size: 13px; }
+.flagline { font-size: 14.5px; margin-bottom: 2.4rem; }
+.flagline .opt { font-variant: small-caps; margin-right: 1.1rem; color: var(--ink);
+  border-bottom: 1.5px solid transparent; padding-bottom: .1rem; cursor: pointer; }
+.flagline .opt.on { border-bottom-color: var(--ink); font-weight: bold; }
+
+.grid { display: grid; grid-template-columns: 1.02fr .98fr; column-gap: 16mm; row-gap: 3rem; align-items: start; }
+section { margin-bottom: 0; }
+h3.sec { font-size: 17px; font-weight: bold; margin-bottom: .7rem; }
+p { text-align: justify; hyphens: auto; margin-bottom: .7rem; }
+
+.scoreline { font-size: 30px; font-weight: bold; margin-bottom: .3rem; }
+.reachline { font-size: 15px; font-style: italic; margin-bottom: 1.2rem; }
+
+table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; }
+th { font-weight: bold; }
+th, td { padding: .3rem 0 .3rem 3rem; text-align: right; }
+td:first-child, th:first-child { padding-left: 0; text-align: left; }
+td:nth-child(2), th:nth-child(2) { text-align: left; }
+thead tr { border-top: 1px solid var(--ink); border-bottom: .6px solid var(--ink); }
+tbody tr:last-child { border-bottom: 1px solid var(--ink); }
+
+.bib { list-style: none; counter-reset: bib; font-size: 14px; }
+.bib li { counter-increment: bib; padding-left: 2.1em; text-indent: -2.1em; margin-bottom: .75rem; }
+.bib li::before { content: "[" counter(bib) "]"; margin-right: .7em; }
+.bib li:nth-child(6n+1)::before { color: var(--red); }
+.bib li:nth-child(6n+2)::before { color: var(--orange); }
+.bib li:nth-child(6n+3)::before { color: var(--ochre); }
+.bib li:nth-child(6n+4)::before { color: var(--green); }
+.bib li:nth-child(6n+5)::before { color: var(--blue); }
+.bib li:nth-child(6n+6)::before { color: var(--violet); }
+
+.heartnote { margin-top: 2.4rem; width: 60%; font-size: 13.5px; }
+.heartnote .star { color: var(--red); }
+.pagenum { text-align: center; margin-top: 2.2rem; font-size: 13px; }
+
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; }
+  .rh-inner { flex-wrap: wrap; }
+  .rh-left .rh-sub { display: none; }
+  .heartnote { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<nav class="runhead">
+  <div class="rh-inner">
+    <div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+    <div class="rh-links">
+      <a href="index.html#why">why</a>
+      <a href="index.html#how">how</a>
+      <a href="index.html#data">data</a>
+      <a href="index.html#matches">matches</a>
+      <a href="cv.html" class="active">cv report</a>
+      <a href="jobs.html">all listings</a>
+      <a href="index.html#join" class="rh-join">join</a>
+    </div>
+  </div>
+</nav>
+
+<div class="sheet">
+
+<h1 class="page rainbow">Can your CV even be seen?</h1>
+<p class="lede">Upload a CV and the engine reads it the way the market does: against
+every live internship title, counting what it finds. No taste, no vibes, no model.
+Every sentence below carries a measured number, and every gap comes with the exact
+move that closes it. It is blunt because the market is blunt; it is useful because
+the market is not.</p>
+
+<div class="uploadrow">
+  <span class="tex">\includegraphics{your_cv.pdf}</span>
+  <a href="#">choose file</a>
+</div>
+<div class="flagline">after reading, tell it one thing:
+  <span class="opt" data-note="for once, both the CV and the network did their job.">i found a job</span>
+  <span class="opt on" data-note="the CV is not the problem. you probably had no connections &lt;3">i did not find a job</span>
+</div>
+
+<div class="grid">
+
+  <section>
+    <p style="font-style:italic; font-size:13.5px; margin-bottom:1rem">below: a sample report,
+    generated by the engine from a student CV against this morning's dataset.</p>
+    <h3 class="sec rainbow">The score</h3>
+    <div class="scoreline">95 / 100</div>
+    <div class="reachline">your vocabulary reaches 323 of 453 live internships. the other 130 cannot even see you.</div>
+    <table>
+      <thead><tr><th>component</th><th>evidence counted</th><th>points</th></tr></thead>
+      <tbody>
+        <tr><td>market coverage</td><td>7 of 8 top demand terms present</td><td>30/30</td></tr>
+        <tr><td>quantified claims</td><td>13 numbers with units</td><td>20/20</td></tr>
+        <tr><td>named tools</td><td>12 recognizable tools</td><td>15/15</td></tr>
+        <tr><td>github link</td><td>present</td><td>10/10</td></tr>
+        <tr><td>action-verb bullets</td><td>5 found</td><td>10/10</td></tr>
+        <tr><td>projects section</td><td>present</td><td>10/10</td></tr>
+        <tr><td>length sanity</td><td>143 words, too thin</td><td>0/5</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3 class="sec rainbow">What the market wants right now</h3>
+    <p>Counted over 453 live internship titles this morning. This column is why the
+    findings are not opinions.</p>
+    <table>
+      <thead><tr><th>term</th><th></th><th>live titles</th></tr></thead>
+      <tbody>
+        <tr><td>ai</td><td></td><td>214</td></tr>
+        <tr><td>research</td><td></td><td>79</td></tr>
+        <tr><td>machine learning</td><td></td><td>52</td></tr>
+        <tr><td>data science</td><td></td><td>46</td></tr>
+        <tr><td>automation</td><td></td><td>25</td></tr>
+        <tr><td>generative ai</td><td></td><td>16</td></tr>
+        <tr><td>data engineering</td><td></td><td>15</td></tr>
+        <tr><td>agentic ai</td><td></td><td>14</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+
+<section style="margin-top:3rem">
+  <h3 class="sec rainbow">Findings</h3>
+  <ol class="bib">
+    <li>your vocabulary reaches 323 of 453 live internships. the other 130 cannot even see you.</li>
+    <li>'data science' appears in 46 live titles; your CV has zero evidence of it.
+        move: one dataset, one question, one chart, one number, linked notebook.</li>
+    <li>143 words total. dense is good, thin is not: a recruiter cannot lose you in it,
+        but the market cannot find you in it either. one more measured project fixes both.</li>
+  </ol>
+</section>
+
+<div class="heartnote">
+  <span class="star">*</span> <span id="heartnote-text">the CV is not the problem. you probably had no connections &lt;3</span>
+</div>
+
+<div class="pagenum">3</div>
+
+</div>
+
+<script>
+document.querySelectorAll('.rainbow').forEach(el => {
+  let i = 0;
+  el.innerHTML = [...el.textContent].map(ch =>
+    ch === ' ' ? ' ' : `<span class="rb${(i++ % 6) + 1}">${ch}</span>`
+  ).join('');
+});
+document.querySelectorAll('.flagline .opt').forEach(o => o.addEventListener('click', () => {
+  document.querySelectorAll('.flagline .opt').forEach(x => x.classList.remove('on'));
+  o.classList.add('on');
+  document.getElementById('heartnote-text').textContent = o.dataset.note;
+}));
+</script>
+
+</body>
+</html>
