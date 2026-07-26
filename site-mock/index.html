@@ -118,14 +118,14 @@ button.submit {
 }
 button.submit:hover { background: #000; }
 
-/* table 1: no rules, whitespace + weight only */
-table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; width: 100%; }
-caption { caption-side: top; font-size: 13.5px; margin-bottom: .5rem; text-align: left; }
-caption b { font-weight: bold; }
+/* table 1: booktabs, sized to content */
+table { border-collapse: collapse; margin: .3rem 0 .4rem 0; font-size: 14px; }
 th { font-weight: bold; }
-th, td { padding: .22rem .9rem .22rem 0; text-align: left; }
-td:last-child, th:last-child { text-align: right; padding-right: 0; }
-.tabnote { font-size: 13px; margin-top: .5rem; }
+th, td { padding: .3rem 0 .3rem 3.5rem; text-align: right; }
+td:first-child, th:first-child { padding-left: 0; text-align: left; }
+thead tr { border-top: 1px solid var(--ink); border-bottom: .6px solid var(--ink); }
+tbody tr:last-child { border-bottom: 1px solid var(--ink); }
+.tabnote { font-size: 13px; margin-top: .6rem; }
 
 /* bibliography-style match entries, two column like a references page */
 .twocol { column-count: 2; column-gap: 16mm; margin-top: .6rem; }
