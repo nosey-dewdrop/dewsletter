@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "purpose": "Single source of truth for custom job/internship applications. Built from CV, damla.md, repo scan, memory. Update when CV or projects change.",
+    "updated": "2026-07-26",
+    "cv_pdf": "~/damla_projects_2026/cv/DamlaSuBilge_CV.pdf",
+    "cv_html": "~/damla_projects_2026/cv/DamlaSuBilge_CV_2026-07.html"
+  },
+  "identity": {
+    "name": "Damla Su Bilge",
+    "positioning": "LLM system engineer. Designs the whole system and writes its hard parts herself: limits the model to structured specs, writes the deterministic engines that do the real work, builds the judge layers and benchmarks that decide what ships. Proves every claim with benchmarks.",
+    "self_definition": "Not an inventor, a shrewd integrator: uses existing technology best and scales it. Builds real products, not demos.",
+    "email": "su.bilge@ug.bilkent.edu.tr",
+    "portfolio": "https://noseydewdrop.com",
+    "github": "https://github.com/nosey-dewdrop",
+    "linkedin": "https://www.linkedin.com/in/damla-su-bilge-278841278/",
+    "location": "Ankara, Turkey (Bilkent University)"
+  },
+  "education": [
+    {"school": "Bilkent University", "degree": "B.Sc. Computer Science", "years": "2023-present"},
+    {"school": "Istanbul Medipol University", "degree": "Faculty of Medicine, GPA 91/100, left by choice for CS", "years": "2020-2023"}
+  ],
+  "headline_numbers": {
+    "repos": "60+",
+    "live_products": "7+ live, web + iOS",
+    "solo": "everything designed, built and shipped by one person",
+    "agent_usage_analyzed": "16B tokens of own agent usage analyzed to redesign workflow",
+    "monthly_peak": "49.32B tokens, 266 hours at the machine in a single month"
+  },
+  "flagship_projects": [
+    {
+      "name": "stitchu",
+      "what": "Photo to sewing pattern engine. Garment photo or prompt + 7 body measurements -> made-to-measure sewable A4 PDF. First pattern was sewn and worn.",
+      "stack": "C++17, WebAssembly (Emscripten), JavaScript, Cloudflare Workers, AI Vision API",
+      "proof": "70,200-draft regression matrix on every change; 54-case sewability benchmark public (27/54, climbing); vision accuracy 51/54 (94.4%); byte-identical golden tests; measurements never leave the browser; B2B-ready REST API with zero per-call LLM cost",
+      "live": "https://stitchu.noseydewdrop.com",
+      "showcase": "https://github.com/nosey-dewdrop/stitchu-showcase"
+    },
+    {
+      "name": "gymgyme",
+      "what": "In-browser computer vision form coach (PWA). Counts reps, scores form 0-100 in real time, all on-device.",
+      "stack": "C++17, WebAssembly, MediaPipe, JavaScript, Supabase",
+      "proof": "190+ native tests with regression locks; bone-length variance 5% -> 0.00%; low-light jitter 5.0 -> 2.3 degrees; One Euro + Kalman filtering, anatomical IK limits, multi-person identity lock",
+      "live": "https://gymgyme.noseydewdrop.com",
+      "showcase": "https://github.com/nosey-dewdrop/gymgyme-showcase"
+    },
+    {
+      "name": "ir-globe",
+      "what": "Geopolitics intelligence globe. 13 relation layers, 198 countries, started as a paid commission.",
+      "stack": "JavaScript, three.js/WebGL, Node.js, ONNX, GitHub Actions",
+      "proof": "~4,500 headlines ingested every 6 hours; custom deterministic NLP (gazetteer NER, CAMEO event coding) + local ONNX dedup; audited accuracy 80-85% published as honest range; false-merge rate 0.35%; monthly infra cost $0",
+      "live": "https://ir-globe.noseydewdrop.com",
+      "showcase": "https://github.com/nosey-dewdrop/ir-globe-showcase"
+    },
+    {
+      "name": "seviyorsevmiyor",
+      "what": "On-device chat subtext analyzer. Answers with quoted evidence, own trained model, cloud fallback only for unsure cases.",
+      "stack": "Python, JavaScript, Tesseract OCR, Cloudflare Workers",
+      "proof": "Own logistic regression model, inference ported to browser JS with 1e-16 feature parity; held-out accuracy 72.2% -> 75.9% via synthetic data distillation",
+      "showcase": "https://github.com/nosey-dewdrop/seviyorsevmiyor-showcase"
+    },
+    {
+      "name": "rabadon",
+      "what": "CURRENT WORK. Reliability runtime for AI-agent pipelines: bounds runaway loops, verifies each step's output against intent, repairs broken steps while running. Infrastructure for people building with LLMs.",
+      "stack": "JavaScript runtime, core + demo in repo",
+      "proof": "Born from recurring failures across 20+ solo projects; runs won't start without declared bounds",
+      "repo": "https://github.com/nosey-dewdrop/rabadon"
+    },
+    {
+      "name": "inf-baseline-kernel",
+      "what": "AI-infra fundamentals track: SIMD/AVX-512 matmul kernel + benchmark harness, measured against OpenBLAS/Eigen. Early stage.",
+      "stack": "C++ or Rust (decision open), perf stat, GFLOP/s methodology",
+      "proof": "Proof protocol: correctness first, real measurement, honest percent-of-reference"
+    },
+    {
+      "name": "dewbrain",
+      "what": "Personal decision core research: Modern Hopfield retrieval + conformal-prediction abstain + neuro-functional architecture. Code public, data private.",
+      "repo": "https://github.com/nosey-dewdrop/dewbrain"
+    }
+  ],
+  "experience": [
+    {"role": "Software Engineering Intern", "org": "Persona Software", "when": "Mar 2026 - present", "note": "front-end + database, two final projects end to end"},
+    {"role": "PR and Social Relations Coordinator", "org": "IEEE Bilkent Student Branch", "when": "2025-2026"},
+    {"role": "Teaching Assistant, CS115 Python", "org": "Bilkent University", "when": "2025"},
+    {"role": "Spark Fellow", "org": "Fab Startup Fellowship, Istanbul cohort", "when": "Feb-Mar 2026", "note": "customer interviews, two live web products shipped in 4 weeks"},
+    {"role": "Barista", "org": "Hound Coffee Group", "when": "2024-present", "note": "also built the shop's interactive digital coffee menu"},
+    {"role": "Clubs", "org": "5-6 clubs led/board over the years; IEEE latest. Sociology Club, TEMA, Innovation and Research Society, Music Club, Crochet Club, ACM member"}
+  ],
+  "skills": {
+    "agent_orchestration": "multi-agent engineering loops with judge layers, regression gates and rollback",
+    "languages": ["C++", "Python", "Swift", "JavaScript", "TypeScript", "Java", "SQL", "SystemVerilog"],
+    "llm_cv": ["LLM system architecture (structured specs, judge layers, validation)", "Anthropic Claude API", "distillation", "ONNX on-device inference", "MediaPipe", "Kalman filtering", "inverse kinematics", "benchmark design"],
+    "frameworks": ["WebAssembly/Emscripten", "Next.js", "React", "three.js", "PWA", "SwiftUI", "SwiftData", "StoreKit 2", "Node.js"],
+    "infra": ["Cloudflare Workers", "Supabase (RLS)", "GitHub Actions CI/CD", "Vercel", "KVKK/GDPR compliance"],
+    "spoken": {"turkish": "native", "english": "C1", "german": "A2"}
+  },
+  "direction_and_motivation": {
+    "what_she_seeks": "Startup internships, opportunities and fellowships. She is a CS STUDENT (do not oversell her as a senior founder; ambition is real but tone stays student-level with strong proof-of-work). Targets: early-stage startup internships (remote or Turkey or summer), builder fellowships and residencies, ambassador/community programs at VCs and startups, case-study competitions that lead to internships. Corporate rotational programs are not the target.",
+    "building_own_startup": true,
+    "why_apply_anywhere": "Hands-on experience inside real startups for the startup she is building. Not for a CV line.",
+    "target_field": "AI infra / DevTools / LLM systems; agent platforms; on-device and CPU-efficient ML",
+    "long_term": "SF-grade company, YC-scale ambition; wants to build her own path without connections",
+    "growth_belief": "experience is what makes a person grow; fields she has not shipped in yet are draws, not blockers"
+  },
+  "constraints": {
+    "status": "full-time CS student in Ankara; internships must fit around the semester or be summer/remote",
+    "relocation_now": "not possible mid-degree without a planned sabbatical; no employer visa sponsorship assumed",
+    "red_lines": ["dark patterns / manipulation products", "ad-stuffed junk apps", "selling or diluting her brand", "long-term agency work on someone else's vision (short startup internships for learning are fine)", "team/group-based programs (Damla applies and works SOLO; programs requiring team formation are out)", "programs that run on connections/nepotism (merit-based selection only; if torpil is the currency, Damla is out)"]
+  },
+  "match_signals_for_job_search": {
+    "strong_yes": ["agent-first products", "LLM infra / reliability / evals / benchmarks", "on-device ML, WASM, privacy-first inference", "developer tools", "early-stage startups where interns touch the core", "data pipelines with measured quality"],
+    "weak_no": ["pure frontend/agency roles", "big-corp rotational programs", "roles requiring immediate relocation/visa", "wrapper products with no engine underneath"]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "purpose": "Damla's application-writing style, distilled from dewrites_verified.md, the Marx Finance letter session (2026-07-26) and voice memory. Every custom application letter must pass these rules.",
+    "sources": ["~/damla_projects_2026/icerik/dewrites_verified.md", "memory feedback_damla_ses_NEFRETLER.md", "Marx Finance letter final (sent 2026-07-26)"],
+    "updated": "2026-07-26"
+  },
+  "process": {
+    "owner": "Damla is the SPEC. Claude asks motivation questions FIRST, drafts only from her seed sentences, she edits, Claude fixes only grammar and repetitions afterwards.",
+    "never": "Never write a motivation letter without asking her motivation. Never invent facts (no 'I joined the session' if she did not).",
+    "after_edit": "When she edits, report exactly what was changed and what was not, item by item.",
+    "before_writing": "Read 1-2 relevant verified pieces from dewrites_verified.md, take rhythm from there, not from training-data letter templates."
+  },
+  "structure": {
+    "greeting": "Dear Mr./Ms. {LastName}, (formal surname form; 'Hi {FirstName}' is too loose for first contact)",
+    "p1_giris": "Why I am writing (the application) + what I want (be inside startups) + the personal engine (hands-on experience for the startup I am building) + why THIS company in one sentence.",
+    "p2_orta": "Her story: what she has built (areas + concrete products), the gap turned into motivation, current work (one line), concrete LLM/shipped proof the announcement asks for, portfolio link.",
+    "p3_kapanis": "My CV is attached. You can search me on LinkedIn, GitHub or Google.",
+    "signoff": "Best regards, Damla Su Bilge",
+    "length": "3 short paragraphs, never more. Kisa tutulur."
+  },
+  "persuasion_rules": {
+    "no_unsolicited_confessions": "Never volunteer a deficiency that was not asked ('I missed the session' = wrong; silence is honest too).",
+    "single_gap_as_power": "At most ONE gap, always converted to motivation with her pattern: 'I have never worked on X, and I fully believe that experience is what makes a person grow.'",
+    "confidence_first": "Never 'I do not have X projects'. Instead '60+ repos, only X missing'. Power first, gap as a tail.",
+    "presuppose_the_meeting": "Not 'open to discussion' but 'when we talk'. The meeting is assumed, not begged for.",
+    "own_startup_as_engine": "Her strongest motivation line: gaining hands-on experience for the startup she is building. Founders respect founders.",
+    "match_their_ask": "Map the announcement's explicit requests (e.g. 'mention LLM work') and answer each one concretely. If they say 'be concrete', give shipped products with one-line proofs."
+  },
+  "language_rules": {
+    "banned_absolute": ["em dash (—)", "colon (:) in body text", "aphorism/poster closing lines", "symmetric antithesis 'not X, it is Y' as rhetoric", "signpost sentences 'That is the X'", "curiosity-gap hooks", "CTA/engagement bait", "fake humility", "cuteness", "term-stacking without explanation", "emoji"],
+    "allowed": ["periods, commas, parentheses", "'->' pipelines in technical EN text", "numbers as natural brags (60+ repos, 70,200 drafts, 94.4%)", "slightly broken, asymmetric rhythm (over-polish smells fake)"],
+    "voice": "Flowing paragraphs, direct first sentence, no metaphors, real terms used when they carry the work (C++, WASM, benchmark), every claim backed by a number or a live link."
+  },
+  "claude_known_failure_modes": {
+    "note": "Diagnosed 2026-07-26 from the Marx letter session (4 rejected drafts vs Damla's accepted final). Claude self-checks against these BEFORE producing any letter.",
+    "1_no_motivation_material": "The core material of a motivation letter is the writer's real want. Claude does not possess it and synthesizes plausible motivation instead (even fabricated 'I joined the session'). FIX: always ask Damla's motivation first; without her seeds, do not draft.",
+    "2_writes_to_impress": "Claude leads with the cleverest connection (analyst insight, pitch smell). Damla writes plain wants and beliefs. FIX: wants and beliefs first; clever bridges only if Damla herself says them.",
+    "3_her_words_my_architecture": "Even with Damla's verbatim seeds, Claude arranges them with rhetorical composition logic (confession stacks, contrast frames) and the text smells like Claude. FIX: keep her sentence ORDER and function, not just her words.",
+    "4_pendulum_rule_lock": "Claude turns each correction into a mechanical rule and over-applies it, deleting things Damla wanted (removed her agent-first confession after the 'no confessions' lesson). FIX: hold all constraints simultaneously; when two collide, ask which wins.",
+    "5_assembly_without_intent": "Claude assembles approved fragments and loses the letter's spine (once delivered a letter with no opening purpose). FIX: start every draft from 'why does this letter exist, what does she want', then place fragments.",
+    "root": "Claude writes to be evaluated well (polish, balance, safe cleverness). Damla writes to say what she means. Her roughness reads as trust; Claude's smoothness reads as fake."
+  },
+  "sentence_mechanics": {
+    "note": "How Damla actually builds sentences, extracted verbatim from dewrites_verified. Imitate THIS, not native-polished letter English.",
+    "openers": "Sentences freely start with So, And, Still, Somehow, Then. 'So' is her most frequent connector, sometimes two sentences in a row ('So I needed a solution for that. So, I am building Rabadon!').",
+    "chains": "Long additive comma-chains that keep attaching clauses with 'and'/'so' instead of splitting ('the website talks to it through WASM, the test harness talks to it headlessly and can draft 2805 patterns at a time, and when iOS comes back one day it will not be a rewrite, only a new frontend').",
+    "flat_break": "CORRECTED BY DAMLA (26 Tem): she HATES the short dramatic punch sentence ('It never did.' / 'Then everything changed.') — that is LinkedIn beat-drop style, banned even inside a paragraph. A short sentence is allowed ONLY as a sincere statement of feeling or want ('I just love to be me.'), never as a rhythm device or emphasis hit.",
+    "intensifiers": "just, really, actually, even — used generously ('the imaginative work I actually wanted to do', 'making it really work with real needs').",
+    "self_quote": "Quotes her own inner voice mid-sentence ('hoped \"this is it!\"', 'kept calling it \"progress\"').",
+    "repetition_unafraid": "Repeats a word for rhythm instead of finding synonyms ('Still, even if... my pipelines still broke', 'my only friend, my only investor, the only one who believes in me is me').",
+    "q_and_a": "Asks a question and answers it herself ('So which one is true? All of them and none of them.').",
+    "that_is_why": "'That's why I must speak for myself' — cause stated plainly with that's why / so.",
+    "superlative_pattern": "'the hardest and the most important part for me' — doubled superlatives with a personal tail (for me).",
+    "aside": "Self-aware aside with 'but' ('It sounds a bit much, but I did all this just to make my own life easier.').",
+    "closing_wish": "Ends with a wish, slightly nonstandard phrasing kept ('I wish all the LinkedIn people creative and happy days.', 'I wish everyone building something gets to own the core of it').",
+    "texture": "Turkish-inflected English stays; do NOT nativize to perfect polish. Exclamation marks allowed when genuinely excited. Numbers sit inside the sentence flow. Rare CAPS for emphasis ('respect YOU').",
+    "test": "Read the draft aloud. If every sentence is balanced and smooth, it is not Damla. At least one chain must run a little long. And if any short sentence lands like a dramatic punch, cut it — that is LinkedIn, not Damla."
+  },
+  "seed_phrases_verbatim": [
+    "I want to take part in startups not only for the internship experience, but to gain hands-on experience for the startup I am building.",
+    "I fully believe that experience is what makes a person grow.",
+    "So far I have built projects in many areas, web and iOS products, C++ engines, ML tools.",
+    "On the LLM side I have shipped real things.",
+    "You can check them or see their progress on my personal portfolio, www.noseydewdrop.com.",
+    "My CV is attached. You can search me on LinkedIn, GitHub or Google.",
+    "born from my own struggles while building 60+ projects on my own",
+    "some are made for fun, some are real engineering"
+  ],
+  "reference_letter_sent": {
+    "company": "Marx Finance",
+    "date": "2026-07-26",
+    "text": "Dear Mr. Apaydın,\n\nI am writing to apply for the internship at Marx Finance. I want to take part in startups not only for the internship experience, but to gain hands-on experience for the startup I am building. What makes Marx especially interesting to me is that it is agent-first, which is an area I have not experienced yet.\n\nSo far I have built projects in many areas, web and iOS products, C++ engines, ML tools. Now I want to learn by being inside such a different field. In my development journey, I have never worked on finance, and I fully believe that experience is what makes a person grow. I have been developing SaaS products, and right now I am working on an infrastructure project, a reliability runtime for AI-agent pipelines. On the LLM side I have shipped real things, a news product with an ML summarizer running in production, and a chat analysis product that runs my own model on the user's device. You can check them or see their progress on my personal portfolio, www.noseydewdrop.com. I am also publishing benchmarks for a few of my projects that have multiple different layers and engines.\n\nMy CV is attached. You can search me on LinkedIn, GitHub or Google.\n\nBest regards,\nDamla Su Bilge"
+  }
+}
