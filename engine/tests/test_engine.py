@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Golden tests for the deterministic engines. Run: python3 -m unittest discover engine/tests -v"""
+import json
 import re
 import sys
 import unittest
@@ -60,6 +61,38 @@ class CVCritique(unittest.TestCase):
         """Sharp claims must carry a number or a named fact."""
         for line in self.empty["lines"]:
             self.assertTrue(re.search(r"\d|github|verb", line), f"unbacked claim: {line}")
+
+
+class BrowserEngineParity(unittest.TestCase):
+    """The JS port must give IDENTICAL scores to the Python engine."""
+
+    @classmethod
+    def setUpClass(cls):
+        import shutil
+        import subprocess
+        import tempfile
+        if not shutil.which("node"):
+            raise unittest.SkipTest("node not available")
+        import cv_engine_js
+        cls.tmp = Path(tempfile.mkdtemp()) / "cv-engine.js"
+        cv_engine_js.emit(cls.tmp)
+        script = f"""
+const {{critique}} = require({json.dumps(str(cls.tmp))});
+const fs = require('fs');
+const out = {{}};
+for (const f of {json.dumps([str(HERE / 'cv_strong.txt'), str(HERE / 'cv_empty.txt')])})
+  out[f] = (v => ({{score: v.score, matched: v.matched, total: v.total}}))(critique(fs.readFileSync(f, 'utf8'), false));
+console.log(JSON.stringify(out));
+"""
+        cls.js = json.loads(subprocess.run(["node", "-e", script],
+                                           capture_output=True, text=True, check=True).stdout)
+
+    def test_scores_match_python(self):
+        for path, text in [(str(HERE / "cv_strong.txt"), STRONG), (str(HERE / "cv_empty.txt"), EMPTY)]:
+            py = cv_critique.critique_text(text, found_job=False)
+            self.assertEqual(self.js[path]["score"], py["score"], path)
+            self.assertEqual(self.js[path]["matched"], py["matched"], path)
+            self.assertEqual(self.js[path]["total"], py["total"], path)
 
 
 def job(**kw):
