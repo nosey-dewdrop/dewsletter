@@ -34,10 +34,15 @@ SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 
 
 def fetch_subscribers(service_key: str) -> list[dict]:
+    # legacy service_role keys are JWTs ("eyJ...") and need the Bearer header;
+    # new-format secret keys ("sb_secret_...") authenticate via apikey alone.
+    headers = {"apikey": service_key}
+    if service_key.startswith("eyJ"):
+        headers["Authorization"] = f"Bearer {service_key}"
     req = urllib.request.Request(
         f"{SUPABASE_URL}/rest/v1/sightstone_subscribers"
         "?unsubscribed_at=is.null&select=email,name,level,interests,location,unsubscribe_token",
-        headers={"apikey": service_key, "Authorization": f"Bearer {service_key}"})
+        headers=headers)
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.loads(resp.read().decode())
 
