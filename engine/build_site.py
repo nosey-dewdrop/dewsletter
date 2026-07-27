@@ -83,7 +83,9 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .lede { font-size:16.5px; max-width:68ch; margin-bottom:2rem; }
 
 .algo { margin-bottom:2.4rem; }
-.algo-cap { font-size:15px; margin-bottom:1.1rem; }
+.algo-cap { font-size:15px; margin-bottom:.5rem; }
+.seatline { font-size:13.5px; margin-bottom:1.1rem; }
+.seatline b { font-weight:bold; }
 .algo-cap b { font-weight:bold; }
 .field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }
 .field label { font-style:italic; font-size:14.5px; }
@@ -214,6 +216,8 @@ def page(title, description, canonical, root, active, body, extra_head="", scrip
 
 FORM_HTML = """<div class="algo" id="join">
   <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
+  <div class="seatline">membership is capped at <b>{capacity}</b> people, so every mail
+  stays personally scored. <b>{left} seats left</b>. one person leaves, one seat opens.</div>
   <form action="#" onsubmit="return false">
     <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
     <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
@@ -222,7 +226,7 @@ FORM_HTML = """<div class="algo" id="join">
     </div>
     <div class="field"><label>interests</label><input type="text" placeholder="ai infra, agents, devtools, &hellip;"></div>
     <div class="cvline">or upload a CV and the profile fills itself:
-      <span class="tex">\\includegraphics{your_cv.pdf}</span> <a href="cv.html">see what it reads</a></div>
+      <span class="tex">\\includegraphics{{your_cv.pdf}}</span> <a href="cv.html">see what it reads</a></div>
     <div class="consent"><label><input type="checkbox"> I consent to receiving match mails.
       Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR).</label></div>
     <button class="submit" type="button" onclick="this.textContent='opens with the next release'">submit profile</button>
@@ -240,12 +244,14 @@ def bib_entry(r: dict, href: str) -> str:
             f'<span class="meta">score {r["score"]}: {esc(reason)}.</span></li>')
 
 
-def build_index(jobs, results, stats, dupes_removed):
+def build_index(jobs, results, stats, dupes_removed, seats):
     usa = sum(1 for j in jobs if j["source"].endswith("usa"))
     intl = sum(1 for j in jobs if j["source"].endswith("intl"))
     remote = sum(1 for j in jobs if j["remote"])
     n = len(jobs)
     matches_html = "".join(bib_entry(r, r.get("link") or "") for r in results[:6])
+    form_html = FORM_HTML.format(capacity=seats["capacity"],
+                                 left=seats["capacity"] - seats["taken"])
 
     body = f"""
 <div class="maketitle">
@@ -271,7 +277,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     watching job boards harder than you.</p>
   </section>
 
-  {FORM_HTML}
+  {form_html}
 
   <section id="how">
     <h3 class="sec rainbow">How does it work?</h3>
@@ -474,9 +480,13 @@ def main() -> None:
     profile = json.loads((Path(__file__).parent.parent / "profile.json").read_text())
     results, stats = match.run(profile, jobs)
 
+    seats_file = data_dir / "seats.json"
+    seats = (json.loads(seats_file.read_text()) if seats_file.exists()
+             else {"capacity": 100, "taken": 1})
+
     (ROOT / "jobs").mkdir(parents=True, exist_ok=True)
     (ROOT / "style.css").write_text(CSS)
-    (ROOT / "index.html").write_text(build_index(jobs, results, stats, dupes_removed))
+    (ROOT / "index.html").write_text(build_index(jobs, results, stats, dupes_removed, seats))
     (ROOT / "cv.html").write_text(build_cv_page(len(jobs)))
     (ROOT / "jobs" / "index.html").write_text(build_jobs_index(jobs))
 

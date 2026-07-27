@@ -50,7 +50,9 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .lede { font-size:16.5px; max-width:68ch; margin-bottom:2rem; }
 
 .algo { margin-bottom:2.4rem; }
-.algo-cap { font-size:15px; margin-bottom:1.1rem; }
+.algo-cap { font-size:15px; margin-bottom:.5rem; }
+.seatline { font-size:13.5px; margin-bottom:1.1rem; }
+.seatline b { font-weight:bold; }
 .algo-cap b { font-weight:bold; }
 .field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }
 .field label { font-style:italic; font-size:14.5px; }

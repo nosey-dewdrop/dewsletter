@@ -1,0 +1,46 @@
+{
+  "project": "sightstone",
+  "bash": [
+    {
+      "id": "force-push-main",
+      "deny": "git\\s+push\\b(?=.*(--force|\\s-f\\b))(?=.*\\b(main|master)\\b)",
+      "why": "baseline law: force push to main destroys shared history"
+    },
+    {
+      "id": "rm-rf-outside-project",
+      "deny": "rm\\s+-\\w*r\\w*\\s+(-\\w+\\s+)*[\"']?(~|\\$HOME|\\.\\.|/\\s*$|/(bin|boot|dev|etc|home|lib|opt|sbin|srv|sys|usr|var|Users|Applications|Library|System)\\b)",
+      "why": "baseline law: recursive delete pointed outside the project tree"
+    },
+    {
+      "id": "reset-hard-shared",
+      "deny": "git\\s+reset\\s+--hard\\s+\\S*\\b(main|master)\\b",
+      "why": "baseline law: hard reset against a shared branch rewrites shared history"
+    },
+    {
+      "id": "no-coauthor-commit",
+      "deny": "git\\s+commit[\\s\\S]*co-authored-by",
+      "why": "global git law: commit messages lowercase english, co-author ASLA"
+    },
+    {
+      "id": "no-llm-deps-in-engine",
+      "deny": "(pip3?|uv)\\s+(pip\\s+)?(install|add)\\b.*\\b(openai|anthropic|litellm|langchain|google-generativeai)\\b",
+      "why": "law 'Motor LLM'siz': engine is a deterministic named-reason matcher; installing an LLM SDK breaks the core design (wrapper=flop)"
+    }
+  ],
+  "protectedPaths": [
+    {
+      "id": "jobs-data-generated",
+      "match": "engine[\\\\/]data[\\\\/]jobs\\.json$",
+      "why": "jobs.json is produced by the speedyapply fetcher — change the fetcher, never hand-edit the data"
+    },
+    {
+      "id": "build-site-mock-contract",
+      "match": "engine[\\\\/]build_site\\.py$",
+      "why": "law 'mockup = kontrat, onaysız taşınmaz': the mock port into build_site.py is gated on Damla's approval, which has not happened"
+    }
+  ],
+  "codePaths": [
+    "engine[\\\\/].*\\.(py|sql)$"
+  ],
+  "generatedBy": "rabadon guard (claude code cli)"
+}
