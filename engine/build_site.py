@@ -394,10 +394,10 @@ Every sentence below carries a measured number, and every gap comes with the exa
 move that closes it. It is blunt because the market is blunt; it is useful because
 the market is not.</p>
 
-<div class="cvline"><span class="tex">\\includegraphics{{your_cv.txt}}</span>
-  <label style="cursor:pointer"><u>choose a .txt / .md file</u><input id="cv-file" type="file"
-    accept=".txt,.md,text/plain" style="display:none"></label>
-  &ensp;or paste the text below. <i>pdf support is next; paste for now.</i></div>
+<div class="cvline"><span class="tex">\\includegraphics{{your_cv.pdf}}</span>
+  <label style="cursor:pointer"><u>choose a .pdf / .txt / .md file</u><input id="cv-file" type="file"
+    accept=".pdf,.txt,.md,application/pdf,text/plain" style="display:none"></label>
+  &ensp;or paste the text below. <i>the file is read inside your browser; nothing is uploaded.</i></div>
 <textarea id="cv-input" rows="7" placeholder="paste your CV text here. it never leaves this page: no upload, no server, no model reads it."
   style="width:100%; font-family:inherit; font-size:14px; color:var(--ink); background:transparent;
   border:none; border-bottom:.8px solid #b5b5b5; outline:none; resize:vertical; padding:.3rem 0"></textarea>
@@ -500,13 +500,54 @@ document.getElementById('cv-run').addEventListener('click', () => {
   document.getElementById('cv-score').scrollIntoView({behavior: 'smooth', block: 'center'});
 });
 
-document.getElementById('cv-file').addEventListener('change', e => {
+function loadScript(src) {
+  return new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+
+async function extractPdf(file) {
+  if (!window.pdfjsLib) {
+    await loadScript('vendor/pdf.min.js');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
+  }
+  const doc = await pdfjsLib.getDocument({data: await file.arrayBuffer()}).promise;
+  const lines = [];
+  let cur = [];
+  for (let i = 1; i <= doc.numPages; i++) {
+    const tc = await (await doc.getPage(i)).getTextContent();
+    let lastY = null;
+    for (const it of tc.items) {
+      const y = it.transform[5];
+      if (lastY !== null && Math.abs(y - lastY) > 2) { lines.push(cur.join('')); cur = []; }
+      cur.push(it.str);
+      if (it.hasEOL) { lines.push(cur.join('')); cur = []; lastY = null; } else lastY = y;
+    }
+    lines.push(cur.join('')); cur = [];
+  }
+  return lines.join('\n');
+}
+
+document.getElementById('cv-file').addEventListener('change', async e => {
   const f = e.target.files[0];
   if (!f) return;
-  f.text().then(t => {
-    document.getElementById('cv-input').value = t;
-    document.getElementById('cv-run').click();
-  });
+  const note = document.getElementById('cv-samplenote');
+  let text;
+  if (f.name.toLowerCase().endsWith('.pdf') || f.type === 'application/pdf') {
+    note.textContent = 'reading the pdf inside your browser…';
+    try { text = await extractPdf(f); }
+    catch (err) { note.textContent = 'could not parse this pdf. paste the text instead.'; return; }
+    if (text.trim().length < 40) {
+      note.textContent = 'this pdf has no text layer (a scanned image?). paste the text instead.';
+      return;
+    }
+  } else {
+    text = await f.text();
+  }
+  document.getElementById('cv-input').value = text;
+  document.getElementById('cv-run').click();
 });
 """
     return page("Can your CV even be seen? · the engine",
