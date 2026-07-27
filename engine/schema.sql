@@ -82,3 +82,45 @@ create policy matches_own_read on matches for select
   using (exists (select 1 from profiles p where p.id = profile_id and p.auth_user = auth.uid()));
 
 -- sent_mails: no client access (service role only)
+
+-- ------------------------------------------------------------------ v2 (27 Jul)
+-- mail collection WITHOUT auth: the join form inserts directly with the anon key.
+-- RLS: anon may INSERT a consenting profile, may never SELECT/UPDATE/DELETE.
+-- 100-seat cap: joins take a seat, unsubscribes free one.
+
+alter table profiles add column if not exists unsubscribed_at timestamptz;
+alter table profiles alter column auth_user drop not null;
+
+drop policy if exists profiles_anon_signup on profiles;
+create policy profiles_anon_signup on profiles for insert to anon
+  with check (
+    mail_consent = true
+    and kvkk_accepted_at is not null
+    and auth_user is null
+  );
+
+create or replace function enforce_seat_cap() returns trigger
+language plpgsql security definer as $$
+begin
+  if (select count(*) from profiles where unsubscribed_at is null) >= 100 then
+    raise exception 'no seats left';
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists seat_cap on profiles;
+create trigger seat_cap before insert on profiles
+  for each row execute function enforce_seat_cap();
+
+-- public seat counter for the site: exposes ONLY the two numbers, never rows
+create or replace function seats() returns json
+language sql security definer stable as $$
+  select json_build_object(
+    'capacity', 100,
+    'taken', (select count(*) from profiles where unsubscribed_at is null)
+  );
+$$;
+grant execute on function seats() to anon;
+
+-- one-click unsubscribe: token-addressed update via edge function later;
+-- until then service role handles unsubscribe requests.
