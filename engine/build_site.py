@@ -24,6 +24,10 @@ import cv_critique
 import match
 
 BASE_URL = "https://nosey-dewdrop.github.io/sightstone"
+SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
+SUPABASE_ANON = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhqd"
+                 "G1xbmNmaHVpZGN0eGd0aGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTQ5NTcsImV4cCI6"
+                 "MjA5OTQ3MDk1N30.xQ2-SY7gT1BsI7isodRgKtaqyDSIzjDbgHyjOYMt_8g")  # public by design, RLS protects
 ROOT = Path(__file__).parent.parent / "docs"
 TODAY = date.today().strftime("%B %d, %Y")
 TODAY_ISO = date.today().isoformat()
@@ -217,21 +221,68 @@ def page(title, description, canonical, root, active, body, extra_head="", scrip
 FORM_HTML = """<div class="algo" id="join">
   <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
   <div class="seatline">membership is capped at <b>{capacity}</b> people, so every mail
-  stays personally scored. <b>{left} seats left</b>. one person leaves, one seat opens.</div>
-  <form action="#" onsubmit="return false">
-    <div class="field"><label>name</label><input type="text" autocomplete="name"></div>
-    <div class="field"><label>e-mail</label><input type="email" autocomplete="email"></div>
+  stays personally scored. <b id="seats-left">{left} seats left</b>. one person leaves, one seat opens.</div>
+  <form id="join-form">
+    <div class="field"><label>name</label><input id="f-name" type="text" autocomplete="name"></div>
+    <div class="field"><label>e-mail</label><input id="f-email" type="email" autocomplete="email" required></div>
     <div class="field"><label>level</label>
-      <select><option>BS student</option><option>MS student</option><option>PhD student</option></select>
+      <select id="f-level"><option value="bs">BS student</option><option value="ms">MS student</option><option value="phd">PhD student</option></select>
     </div>
-    <div class="field"><label>interests</label><input type="text" placeholder="ai infra, agents, devtools, &hellip;"></div>
+    <div class="field"><label>interests</label><input id="f-interests" type="text" placeholder="ai infra, agents, devtools, &hellip;"></div>
     <div class="cvline">or upload a CV and the profile fills itself:
       <span class="tex">\\includegraphics{{your_cv.pdf}}</span> <a href="cv.html">see what it reads</a></div>
-    <div class="consent"><label><input type="checkbox"> I consent to receiving match mails.
+    <div class="consent"><label><input id="f-consent" type="checkbox"> I consent to receiving match mails.
       Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR).</label></div>
-    <button class="submit" type="button" onclick="this.textContent='opens with the next release'">submit profile</button>
+    <button class="submit" type="submit">submit profile</button>
+    <div id="join-msg" class="tabnote"></div>
   </form>
 </div>"""
+
+JOIN_JS = """
+const SB = '%(url)s';
+const SBK = '%(key)s';
+const sbHeaders = {apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'};
+
+fetch(SB + '/rest/v1/rpc/sightstone_seats', {method: 'POST', headers: sbHeaders, body: '{}'})
+  .then(r => r.json())
+  .then(j => { const el = document.getElementById('seats-left');
+    if (el && j.capacity) el.textContent = (j.capacity - j.taken) + ' seats left'; })
+  .catch(() => {});
+
+document.getElementById('join-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = document.getElementById('join-msg');
+  const email = document.getElementById('f-email').value.trim();
+  if (!document.getElementById('f-consent').checked) {
+    msg.textContent = 'the consent box is not decoration; the engine cannot mail you without it.';
+    return;
+  }
+  if (!email) { msg.textContent = 'an e-mail address is the one thing the engine cannot infer.'; return; }
+  const body = {
+    email: email,
+    name: document.getElementById('f-name').value.trim() || null,
+    level: document.getElementById('f-level').value,
+    interests: document.getElementById('f-interests').value.split(',').map(s => s.trim()).filter(Boolean),
+    mail_consent: true,
+    kvkk_accepted_at: new Date().toISOString()
+  };
+  msg.textContent = 'submitting…';
+  const r = await fetch(SB + '/rest/v1/sightstone_subscribers', {
+    method: 'POST', headers: sbHeaders, body: JSON.stringify(body)});
+  if (r.status === 201) {
+    msg.textContent = 'you are in. the first mail arrives when something new matches you.';
+    document.querySelector('#join-form .submit').disabled = true;
+    const el = document.getElementById('seats-left');
+    const m = el.textContent.match(/\\d+/);
+    if (m) el.textContent = (parseInt(m[0]) - 1) + ' seats left';
+  } else {
+    const t = await r.text();
+    if (r.status === 409) msg.textContent = 'this e-mail is already in.';
+    else if (t.includes('no seats left')) msg.textContent = 'no seats left. one person has to leave first.';
+    else msg.textContent = 'could not save (' + r.status + '). try again in a minute.';
+  }
+});
+"""
 
 
 def bib_entry(r: dict, href: str) -> str:
@@ -318,7 +369,8 @@ when a new listing matches your profile.</div>
 """
     return page("Deterministic student internship matching",
                 f"Curated, daily-refreshed dataset of {n} AI/ML student internships with deterministic profile matching and named reasons.",
-                f"{BASE_URL}/", "", "index", body)
+                f"{BASE_URL}/", "", "index", body,
+                script=JOIN_JS % {"url": SUPABASE_URL, "key": SUPABASE_ANON})
 
 
 def build_cv_page(total_jobs: int):
@@ -392,6 +444,34 @@ document.querySelectorAll('.flagline .opt').forEach(o => o.addEventListener('cli
     return page("Can your CV even be seen? · the engine",
                 f"Deterministic CV critique against {total_jobs} live internships: measured gaps, concrete moves, no black box.",
                 f"{BASE_URL}/cv.html", "", "cv", body, script=script)
+
+
+def build_unsubscribe():
+    body = """
+<h1 class="page rainbow">Leaving?</h1>
+<p class="lede" id="unsub-msg">one moment, the engine is checking your link&hellip;</p>
+<p class="tabnote"><a href="index.html">back to the paper</a> &middot; a seat opens the moment you leave.</p>
+<div class="version">""" + VERSION + """</div>
+"""
+    script = f"""
+const SB = '{SUPABASE_URL}';
+const SBK = '{SUPABASE_ANON}';
+const token = new URLSearchParams(location.search).get('token');
+const msg = document.getElementById('unsub-msg');
+if (!token) {{ msg.textContent = 'no token in the link. use the link from your mail.'; }}
+else fetch(SB + '/rest/v1/rpc/sightstone_unsubscribe', {{
+  method: 'POST',
+  headers: {{apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'}},
+  body: JSON.stringify({{token: token}})
+}}).then(r => r.json()).then(ok => {{
+  msg.textContent = ok
+    ? 'done. no more mail, and your seat just opened for someone else.'
+    : 'this link was already used or never existed.';
+}}).catch(() => {{ msg.textContent = 'could not reach the database. try again in a minute.'; }});
+"""
+    return page("Unsubscribe · the engine", "One-click unsubscribe.",
+                f"{BASE_URL}/unsubscribe.html", "", "", body,
+                extra_head='<meta name="robots" content="noindex">', script=script)
 
 
 def build_jobs_index(jobs):
@@ -488,6 +568,7 @@ def main() -> None:
     (ROOT / "style.css").write_text(CSS)
     (ROOT / "index.html").write_text(build_index(jobs, results, stats, dupes_removed, seats))
     (ROOT / "cv.html").write_text(build_cv_page(len(jobs)))
+    (ROOT / "unsubscribe.html").write_text(build_unsubscribe())
     (ROOT / "jobs" / "index.html").write_text(build_jobs_index(jobs))
 
     slugs, urls = set(), [f"{BASE_URL}/", f"{BASE_URL}/cv.html", f"{BASE_URL}/jobs/"]
