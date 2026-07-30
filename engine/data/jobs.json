@@ -1,6 +1,21 @@
 [
  {
   "source": "speedyapply-intern-usa",
+  "company": "TikTok",
+  "company_url": "https://www.tiktok.com",
+  "position": "Machine Learning Engineer Intern - TikTok-Data-Search-Search Quality - 2026 Start - PhD",
+  "location": "San Jose, CA",
+  "remote": false,
+  "salary": "$60/hr",
+  "link": "https://lifeattiktok.com/search/7667690418804902149",
+  "link_missing": false,
+  "age": "0d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:24+00:00"
+ },
+ {
+  "source": "speedyapply-intern-usa",
   "company": "Microsoft",
   "company_url": "https://www.microsoft.com",
   "position": "Applied Science: PhD Microsoft AI Internship Opportunities - Redmond",
@@ -9,10 +24,10 @@
   "salary": "$52/hr",
   "link": "https://apply.careers.microsoft.com/careers/job/1970393556868271",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -24,10 +39,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7662811565604800773",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -39,10 +54,10 @@
   "salary": "$50/hr",
   "link": "https://www.metacareers.com/jobs/2281218542616482",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -54,10 +69,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7659527183984019765",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -69,10 +84,10 @@
   "salary": "$50/hr",
   "link": "https://www.metacareers.com/jobs/1418337243438665",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -84,10 +99,10 @@
   "salary": "$62/hr",
   "link": "https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Applied-Research-Intern--NLP---Fall-2026_JR2010488",
   "link_missing": false,
-  "age": "27d",
+  "age": "28d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -99,10 +114,10 @@
   "salary": "$63/hr",
   "link": "https://explore.jobs.netflix.net/careers/job/790316547536",
   "link_missing": false,
-  "age": "36d",
+  "age": "37d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -114,10 +129,10 @@
   "salary": "$50/hr",
   "link": "https://www.metacareers.com/jobs/2774289902955470",
   "link_missing": false,
-  "age": "45d",
+  "age": "46d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -132,7 +147,7 @@
   "age": "55d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -144,10 +159,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7644719084681234741",
   "link_missing": false,
-  "age": "61d",
+  "age": "62d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -159,10 +174,10 @@
   "salary": "$62/hr",
   "link": "https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/PhD-Research-Intern--Generative-AI---2026_JR2016035",
   "link_missing": false,
-  "age": "62d",
+  "age": "63d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -174,10 +189,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7642827146549446965",
   "link_missing": false,
-  "age": "66d",
+  "age": "67d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -189,10 +204,10 @@
   "salary": "$52/hr",
   "link": "https://apply.careers.microsoft.com/careers/job/1970393556867858",
   "link_missing": false,
-  "age": "70d",
+  "age": "71d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -204,10 +219,10 @@
   "salary": "$62/hr",
   "link": "https://nvidia.wd5.myworkdayjobs.com/en-US/nvidiaexternalcareersite/job/US-CA-Santa-Clara/Applied-Deep-Learning-PhD-Research-Intern--Reinforcement-Learning-for-LLMs---Fall-2026_JR2012398",
   "link_missing": false,
-  "age": "83d",
+  "age": "84d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -219,10 +234,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7633670871815670069",
   "link_missing": false,
-  "age": "91d",
+  "age": "92d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -234,10 +249,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7633668061979543813",
   "link_missing": false,
-  "age": "91d",
+  "age": "92d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -249,10 +264,10 @@
   "salary": "$63/hr",
   "link": "https://netflix.wd108.myworkdayjobs.com/en-US/netflix/job/Los-Gatos/Video-Algorithms-Intern--Video-Coding--Gaussian-Splatting---Fall-2026_JR40251",
   "link_missing": false,
-  "age": "92d",
+  "age": "93d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -264,25 +279,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7631599293708126517",
   "link_missing": false,
-  "age": "96d",
+  "age": "97d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "TikTok",
-  "company_url": "https://www.tiktok.com",
-  "position": "Applied Scientist Intern - Business Integrity - Global Frontier Tech Recruitment Program - 2027 Start - PhD",
-  "location": "San Jose, CA",
-  "remote": false,
-  "salary": "$60/hr",
-  "link": "https://lifeattiktok.com/search/7631063087262419205",
-  "link_missing": false,
-  "age": "98d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -294,25 +294,25 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7631062649025857797",
   "link_missing": false,
-  "age": "98d",
+  "age": "99d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
   "company": "TikTok",
   "company_url": "https://www.tiktok.com",
-  "position": "Research Scientist Intern- E-commerce Recommendation- LLM Applications - Global Frontier Tech Recruitment Program - 2027 Start - PhD",
+  "position": "Applied Scientist Intern - Business Integrity - Global Frontier Tech Recruitment Program - 2027 Start - PhD",
   "location": "San Jose, CA",
   "remote": false,
   "salary": "$60/hr",
-  "link": "https://lifeattiktok.com/search/7629187524074342709",
+  "link": "https://lifeattiktok.com/search/7631063087262419205",
   "link_missing": false,
-  "age": "103d",
+  "age": "99d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -324,10 +324,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7629250876813642037",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -339,10 +339,25 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7629248119245261061",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
+ },
+ {
+  "source": "speedyapply-intern-usa",
+  "company": "TikTok",
+  "company_url": "https://www.tiktok.com",
+  "position": "Research Scientist Intern- E-commerce Recommendation- LLM Applications - Global Frontier Tech Recruitment Program - 2027 Start - PhD",
+  "location": "Seattle, WA",
+  "remote": false,
+  "salary": "$60/hr",
+  "link": "https://lifeattiktok.com/search/7629188397976586501",
+  "link_missing": false,
+  "age": "104d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -354,10 +369,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7625930920206272773",
   "link_missing": false,
-  "age": "112d",
+  "age": "113d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -369,10 +384,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7625929879091300613",
   "link_missing": false,
-  "age": "112d",
+  "age": "113d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -384,10 +399,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7625928030560700725",
   "link_missing": false,
-  "age": "112d",
+  "age": "113d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -399,10 +414,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7623531261580036405",
   "link_missing": false,
-  "age": "118d",
+  "age": "119d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -414,40 +429,10 @@
   "salary": "$60/hr",
   "link": "https://lifeattiktok.com/search/7623531249253255429",
   "link_missing": false,
-  "age": "118d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "TikTok",
-  "company_url": "https://www.tiktok.com",
-  "position": "Machine Learning Engineer Intern - App Ads - 2026 Fall - BS/MS",
-  "location": "San Jose, CA",
-  "remote": false,
-  "salary": "$60/hr",
-  "link": "https://lifeattiktok.com/search/7623166673809770757",
-  "link_missing": false,
   "age": "119d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "TikTok",
-  "company_url": "https://www.tiktok.com",
-  "position": "Machine Learning Engineer Intern - Search Ads - 2026 Fall - BS/MS",
-  "location": "San Jose, CA",
-  "remote": false,
-  "salary": "$60/hr",
-  "link": "https://lifeattiktok.com/search/7623166667125508357",
-  "link_missing": false,
-  "age": "119d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -459,10 +444,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadel.com/careers/details/machine-learning-researcher-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -474,10 +459,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadel.com/careers/details/quantitative-researcher-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -489,10 +474,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadel.com/careers/details/quantitative-trader-equity-quantitative-research-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -504,10 +489,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadel.com/careers/details/quantitative-research-engineer-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -519,10 +504,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadel.com/careers/details/quantitative-research-analyst-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -534,10 +519,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-engineer-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -549,10 +534,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-trader-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -564,10 +549,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-researcher-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -579,10 +564,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadelsecurities.com/careers/details/machine-learning-researcher-phd-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -594,10 +579,10 @@
   "salary": "$125/hr",
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-analyst-intern-us/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -609,10 +594,10 @@
   "salary": "$144/hr",
   "link": "https://job-boards.greenhouse.io/fiveringsllc/jobs/5139668008",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -624,10 +609,10 @@
   "salary": "$144/hr",
   "link": "https://job-boards.greenhouse.io/fiveringsllc/jobs/5349219008",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -639,10 +624,10 @@
   "salary": "$75/hr",
   "link": "https://www.akunacapital.com/careers/job/8036614/?gh_jid=8036614",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -654,10 +639,10 @@
   "salary": "$75/hr",
   "link": "https://www.akunacapital.com/careers/job/8021481/?gh_jid=8021481",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -669,10 +654,10 @@
   "salary": "$145/hr",
   "link": "https://www.hudsonrivertrading.com/careers/job/?gh_jid=7964062",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -684,10 +669,10 @@
   "salary": "$145/hr",
   "link": "https://www.hudsonrivertrading.com/careers/job/?gh_jid=8059837",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -699,10 +684,10 @@
   "salary": "$120/hr",
   "link": "https://www.janestreet.com/join-jane-street/position/8631973002",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -714,10 +699,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=7982648",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -729,10 +714,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=7848371",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -744,10 +729,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8052281",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -759,10 +744,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8052338",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -774,10 +759,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8052351",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -789,10 +774,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8002998",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -804,10 +789,10 @@
   "salary": "$138/hr",
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8049938",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -819,10 +804,10 @@
   "salary": "$120/hr",
   "link": "https://www.janestreet.com/join-jane-street/position/8611307002",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -834,10 +819,10 @@
   "salary": "$120/hr",
   "link": "https://www.janestreet.com/join-jane-street/position/8617344002",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -849,10 +834,10 @@
   "salary": "$120/hr",
   "link": "https://www.janestreet.com/join-jane-street/position/8384490002",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -864,10 +849,10 @@
   "salary": "$120/hr",
   "link": "https://www.janestreet.com/join-jane-street/position/8498547002",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -879,10 +864,10 @@
   "salary": "$125/hr",
   "link": "https://www.optiver.com/join-us/jobs/8451782002/?gh_jid=8451782002",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -894,10 +879,10 @@
   "salary": "$125/hr",
   "link": "https://www.optiver.com/join-us/jobs/8402215002/?gh_jid=8402215002",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -909,10 +894,10 @@
   "salary": "$127/hr",
   "link": "https://www.deshaw.com/careers/5890",
   "link_missing": false,
-  "age": "90d",
+  "age": "91d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -924,10 +909,40 @@
   "salary": "$127/hr",
   "link": "https://www.deshaw.com/careers/5891",
   "link_missing": false,
-  "age": "90d",
+  "age": "91d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
+ },
+ {
+  "source": "speedyapply-intern-usa",
+  "company": "Modal",
+  "company_url": "https://modal.com/",
+  "position": "ML Research Intern",
+  "location": "New York City, NY +1",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.ashbyhq.com/modal/38888294-6bc7-4dab-b072-6d0f0c2ed79a",
+  "link_missing": false,
+  "age": "0d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:24+00:00"
+ },
+ {
+  "source": "speedyapply-intern-usa",
+  "company": "KBR",
+  "company_url": "https://www.kbr.com",
+  "position": "Intern - Distributed Spacecraft Autonomy",
+  "location": "Mountain View, CA",
+  "remote": false,
+  "salary": null,
+  "link": "https://kbr.wd5.myworkdayjobs.com/en-US/kbr_careers/job/Mountain-View-California/Intern--Distributed-Spacecraft-Autonomy_R2127411",
+  "link_missing": false,
+  "age": "1d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -939,10 +954,10 @@
   "salary": null,
   "link": "https://cccis.wd1.myworkdayjobs.com/en-US/broadbean_external/job/Chicago-Green-St-IL/Applied-AI-Engineering-Intern_0014827",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -954,10 +969,10 @@
   "salary": null,
   "link": "https://copart.wd12.myworkdayjobs.com/en-US/copart/job/Dallas-TX---Headquarters/Data-Engineering-Intern_JR110075",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -969,25 +984,10 @@
   "salary": null,
   "link": "https://careers-eastpennmanufacturing.icims.com/jobs/30007/data-engineering-intern/job",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "Intel",
-  "company_url": "https://www.intel.com",
-  "position": "AI Applied intern",
-  "location": "Hillsboro, OR",
-  "remote": false,
-  "salary": null,
-  "link": "https://intel.wd1.myworkdayjobs.com/en-US/external/job/US-Oregon-Hillsboro/AI-Applied-intern_JR0285916",
-  "link_missing": false,
-  "age": "1d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -999,10 +999,10 @@
   "salary": null,
   "link": "https://nelnet.wd1.myworkdayjobs.com/en-US/mynelnet/job/Lincoln-NE/Intern-Program---Agentic-AI_R22904",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1014,10 +1014,10 @@
   "salary": null,
   "link": "https://sentara.wd1.myworkdayjobs.com/en-US/scs/job/Virginia-Beach-VA/Enterprise-Data---AI-Intern--Fall-2026-Internship_JR-102685",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1029,10 +1029,10 @@
   "salary": null,
   "link": "https://www.nextiva.com/company/careers-listing?gh_jid=8639480002",
   "link_missing": false,
-  "age": "3d",
+  "age": "4d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1044,10 +1044,10 @@
   "salary": null,
   "link": "https://coreandmain.wd1.myworkdayjobs.com/en-US/coreandmain/job/Saint-Louis-MO-63146/Intern---Data-Engineering----Corp_45804",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1059,10 +1059,10 @@
   "salary": null,
   "link": "https://magna.wd3.myworkdayjobs.com/en-US/magna/job/Troy-Michigan-US/R-D--Computer-Vision-Engineering-Intern_R00253444-1",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1074,10 +1074,10 @@
   "salary": null,
   "link": "https://sentara.wd1.myworkdayjobs.com/en-US/scs/job/Virginia-Beach-VA/Data---AI-Finance-Strategy-Intern---Fall-2026-Internship-Remote_JR-103073",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1089,10 +1089,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/submittable/jobs/6123387004",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1104,10 +1104,10 @@
   "salary": null,
   "link": "https://bmc.wd1.myworkdayjobs.com/en-US/bmc/job/Remote/Cybersecurity---AI-Data-Governance-Intern_50294",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1119,10 +1119,10 @@
   "salary": null,
   "link": "https://group1001wd.wd5.myworkdayjobs.com/en-US/careers/job/Stamford-Connecticut/Quantitative-Analysis-Intern_R26_0405",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1134,10 +1134,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/opusclip/1966160d-8b4a-40f8-96c5-39a6d81122c2",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1149,10 +1149,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/RedBull/744000139168339-2026-internship-fall-data-science?oga=true",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1164,10 +1164,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/virtu/jobs/8624424002",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1179,10 +1179,10 @@
   "salary": null,
   "link": "https://careers-cadent.icims.com/jobs/1406/enterprise-ai-intern/job",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1194,10 +1194,10 @@
   "salary": null,
   "link": "https://decisions.com/jobs-listing/5192047007?gh_jid=5192047007",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1209,10 +1209,10 @@
   "salary": null,
   "link": "https://uscareers-lennox.icims.com/jobs/54120/ai-engineering-fall-co-op/job",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1224,25 +1224,25 @@
   "salary": null,
   "link": "https://cat.wd5.myworkdayjobs.com/en-US/solarturbines/job/San-Diego-California/XMLNAME-2027-Internship--Gas-Compressor-Data-Analyst_R0000375786",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
   "company": "Virtu Financial",
   "company_url": "https://www.virtu.com",
-  "position": "Internship - Quantitative Trading",
+  "position": "2027 Internship - Quantitative Trading",
   "location": "Austin, TX +2",
   "remote": false,
   "salary": null,
   "link": "https://job-boards.greenhouse.io/virtu/jobs/8624408002",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1254,10 +1254,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/acds/01fdf41b-a835-4e00-8d01-0275677a8f08",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1269,10 +1269,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/ctccampusboard/jobs/4708188005",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1284,10 +1284,10 @@
   "salary": null,
   "link": "https://jobs.eu.lever.co/cirrus/f85c944c-d437-4685-9f04-c7b79ae65ecb",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1299,10 +1299,10 @@
   "salary": null,
   "link": "https://capitalone.wd12.myworkdayjobs.com/en-US/capital_one/job/McLean-VA/Current-PhD---Data-Science-Internship---Summer-2027_R244287-1",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1314,10 +1314,10 @@
   "salary": null,
   "link": "https://capitalone.wd12.myworkdayjobs.com/en-US/capital_one/job/McLean-VA/Current-Master-s---Data-Science-Internship---Summer-2027_R244285-1",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1329,10 +1329,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/output/da2723ca-a418-49f1-b7da-a4f383dd8239",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1344,10 +1344,10 @@
   "salary": null,
   "link": "https://globalhr.wd5.myworkdayjobs.com/en-US/rec_rtx_ext_gateway/job/US-CT-EAST-HARTFORD-RTRC-K--411-Silver-Ln--RTRC-K/Fall-2026--Intern-Coop--Machine-Learning-Researcher_01860050",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1359,10 +1359,10 @@
   "salary": null,
   "link": "http://sourcebooks.applytojob.com/apply/k8AKRLuFOz/Fall-Internship-Data-Analytics-Remote",
   "link_missing": false,
-  "age": "10d",
+  "age": "11d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1374,10 +1374,10 @@
   "salary": null,
   "link": "https://ensemblehp.wd5.myworkdayjobs.com/en-US/ensemblehealthpartnerscareers/job/Remote---Nationwide/Data-Scientist--AI_R048077",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1389,10 +1389,10 @@
   "salary": null,
   "link": "https://stevens.wd5.myworkdayjobs.com/en-US/external/job/Hoboken-NJ---Main-Campus/Summer-2026-Intern---Cyber-Security-and-Reliable-AI-for-UAS-and-Contested-Environments_RQ30408-1",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1404,10 +1404,10 @@
   "salary": null,
   "link": "https://moog.wd5.myworkdayjobs.com/en-US/moog_external_career_site/job/Buffalo-NY/Intern--IT-Computer-Science---Data-Analytics_R-26-17145",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1419,10 +1419,10 @@
   "salary": null,
   "link": "https://datarobot.wd1.myworkdayjobs.com/en-US/datarobot_external_careers/job/Boston-Massachusetts-US/Agentic-AI-Intern_R-102729",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1434,10 +1434,10 @@
   "salary": null,
   "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/US-California-Palo-Alto/Research-Intern---Video-World-Models--Research---ML-Systems-_R107752-1",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1449,10 +1449,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/acds/41bee5e2-6477-428f-b359-34b4071d545f",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1464,10 +1464,10 @@
   "salary": null,
   "link": "https://careers-cpicardgroup.icims.com/jobs/11215/intern-ai-automation-%26-process-analyst/job",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1479,10 +1479,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/drweng/jobs/7668776",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1494,10 +1494,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/drweng/jobs/7818540",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1509,10 +1509,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/xsolla/5d5fd6b3-d82f-437a-b251-abf4674ac874",
   "link_missing": false,
-  "age": "17d",
+  "age": "18d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1524,10 +1524,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/faradayfuture/jobs/7799326003",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1539,10 +1539,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/fireworkhq/30defeef-fd18-4a43-aa77-3462cca3a859",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1554,10 +1554,10 @@
   "salary": null,
   "link": "https://careers-cotiviti.icims.com/jobs/19531/intern---ai-engineer/job",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1569,10 +1569,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/eulerity/jobs/4695806006",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1584,10 +1584,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/flowtraders/jobs/8047166",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1599,10 +1599,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/honehealth/jobs/5308958008",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1614,10 +1614,10 @@
   "salary": null,
   "link": "https://www.bluerivertechnology.com/job/?gh_jid=7947246",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1629,10 +1629,10 @@
   "salary": null,
   "link": "https://www.tower-research.com/open-positions/?gh_jid=8024128",
   "link_missing": false,
-  "age": "22d",
+  "age": "23d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1644,10 +1644,10 @@
   "salary": null,
   "link": "https://www.tower-research.com/open-positions/?gh_jid=8024138",
   "link_missing": false,
-  "age": "22d",
+  "age": "23d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1659,10 +1659,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/saronic/c95c2e3a-4c67-47b0-a03d-0e0317ac11a3",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1674,10 +1674,10 @@
   "salary": null,
   "link": "https://centific.wd1.myworkdayjobs.com/en-US/centific_global/job/Remote-Work-USA/Research-Intern---Applied-Reinforcement-Learning_JR106882",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1689,10 +1689,10 @@
   "salary": null,
   "link": "https://apply.workable.com/connectprep/j/C0CA13664F/",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1704,10 +1704,10 @@
   "salary": null,
   "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/US-California-Palo-Alto/Hunyuan-Multimodal-Reinforcement-Learning-Research-Intern_R107084-1",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1717,12 +1717,12 @@
   "location": "Palo Alto, CA",
   "remote": false,
   "salary": null,
-  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/US-California-Palo-Alto/Hunyuan-Multimodal-Algorithm-Researcher-Intern-Omni-Modal---_R107051",
+  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/US-California-Palo-Alto/Hunyuan-Multimodal-Algorithm-Researcher-intern-Omni-Modal---_R106650",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1734,10 +1734,10 @@
   "salary": null,
   "link": "https://nelnet.wd1.myworkdayjobs.com/en-US/mynelnet/job/Lincoln-NE/Intern---AI-Engineer_R22763",
   "link_missing": false,
-  "age": "27d",
+  "age": "28d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1749,10 +1749,10 @@
   "salary": null,
   "link": "https://ancestry.wd501.myworkdayjobs.com/en-US/careers/job/Remote/Data-Science---AI-Document-Understanding--Co-op_R003371",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1764,10 +1764,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/acds/fc0a6fad-f85e-4c9c-b5f2-1a7a2c23204d",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1779,10 +1779,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/deuna/060457fb-42c4-4150-a8fa-e2c312a88e6a",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1794,10 +1794,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/eulerity/jobs/4693128006",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1809,10 +1809,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/lilasciences/jobs/4289387009",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1824,10 +1824,10 @@
   "salary": null,
   "link": "https://sonyglobal.wd1.myworkdayjobs.com/en-US/sonyglobalcareers/job/Remote---New-York/Research-Intern-on-Generative-and-Protective-AI-for-Content-Creation_JR-119335",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1839,10 +1839,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/lilasciences/jobs/4294212009",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1854,10 +1854,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/pointc/jobs/5282753008",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1869,10 +1869,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/prior-labs/09410424-8e94-4747-8155-bbcd0b1d4f6e",
   "link_missing": false,
-  "age": "33d",
+  "age": "34d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1884,10 +1884,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/centerfield/916dcf42-d69a-4f00-875a-f8fe630e0f33",
   "link_missing": false,
-  "age": "35d",
+  "age": "36d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1899,10 +1899,10 @@
   "salary": null,
   "link": "https://boards.greenhouse.io/cloudflare/jobs/8020830?gh_jid=8020830",
   "link_missing": false,
-  "age": "35d",
+  "age": "36d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1914,10 +1914,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/acds/d0d04e55-9fbe-4c07-9710-f6550032b6bb",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1929,10 +1929,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/exowatt/2f9e8254-401b-4f77-adcb-c4f01734c8fb",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1944,10 +1944,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/msfcareers/jobs/5271141008",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1957,12 +1957,12 @@
   "location": "Remote - USA",
   "remote": true,
   "salary": null,
-  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---Remote/Agentic-AI-Engineer-Co-Op_Req-66015",
+  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---Remote/Agentic-AI-Engineer-Co-Op_Req-66014",
   "link_missing": false,
-  "age": "42d",
+  "age": "43d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1974,10 +1974,10 @@
   "salary": null,
   "link": "https://magna.wd3.myworkdayjobs.com/en-US/magna/job/Goleta-California-US/Intern---Infrared-Imaging---Algorithms_R00247602",
   "link_missing": false,
-  "age": "42d",
+  "age": "43d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -1989,10 +1989,10 @@
   "salary": null,
   "link": "https://careers-cotiviti.icims.com/jobs/19416/intern---agentic-ai-research/job",
   "link_missing": false,
-  "age": "43d",
+  "age": "44d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2004,10 +2004,10 @@
   "salary": null,
   "link": "https://careers-cotiviti.icims.com/jobs/19341/intern---generative-ai-research-engineer/job",
   "link_missing": false,
-  "age": "43d",
+  "age": "44d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2019,25 +2019,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/ifm-us/3eec355c-6dde-4a3e-8cdf-b2a8930d5678",
   "link_missing": false,
-  "age": "45d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "Campbell Soup",
-  "company_url": "https://www.campbells.com",
-  "position": "Data Engineer - Operational Support - Co-op",
-  "location": "USA",
-  "remote": false,
-  "salary": null,
-  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---NJ---Camden/Data-Engineer---Operational-Support--Co-op-_Req-65842",
-  "link_missing": false,
   "age": "46d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2047,12 +2032,12 @@
   "location": "USA",
   "remote": false,
   "salary": null,
-  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---NJ---Camden/Data-Engineer--DA-AI-Co-Op_Req-65839",
+  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---NJ---Camden/Data-Engineer--DA-AI-Co-Op_Req-65837",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2062,12 +2047,12 @@
   "location": "Remote - USA",
   "remote": true,
   "salary": null,
-  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---Remote/Business-Analyst--Co-op---DA-AI_Req-65914",
+  "link": "https://campbellsoup.wd5.myworkdayjobs.com/en-US/externalcareers_globalsite/job/USA---Remote/Business-Analyst--Co-op---DA-AI_Req-65915",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2079,10 +2064,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/lilasciences/jobs/4280809009",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2094,10 +2079,10 @@
   "salary": null,
   "link": "https://www.tripleringtech.com/careers?gh_jid=4705074005",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2109,10 +2094,10 @@
   "salary": null,
   "link": "https://careers-magnera.icims.com/jobs/27241/it-data-analyst-intern/job",
   "link_missing": false,
-  "age": "48d",
+  "age": "49d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2124,10 +2109,10 @@
   "salary": null,
   "link": "https://ancestry.wd501.myworkdayjobs.com/en-US/careers/job/Remote/Machine-Learning-Engineer--Co-op_R003378",
   "link_missing": false,
-  "age": "50d",
+  "age": "51d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2139,10 +2124,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/scaleai/jobs/4703343005",
   "link_missing": false,
-  "age": "52d",
+  "age": "53d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2154,10 +2139,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/xpengmotors/jobs/8581353002",
   "link_missing": false,
-  "age": "52d",
+  "age": "53d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2169,10 +2154,10 @@
   "salary": null,
   "link": "https://careers-peraton.icims.com/jobs/167460/generative-ai-engineering-intern-%28graduate%29/job",
   "link_missing": false,
-  "age": "53d",
+  "age": "54d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2184,10 +2169,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/phonic/a6c8c3d2-250a-4c2f-8a20-e4667ca38e41",
   "link_missing": false,
-  "age": "55d",
+  "age": "56d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2199,10 +2184,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/eragon/0b90ea4a-8684-4ae1-a7cc-c998db6e862e",
   "link_missing": false,
-  "age": "56d",
+  "age": "57d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2214,10 +2199,10 @@
   "salary": null,
   "link": "https://apply.workable.com/pony-dot-ai/j/4C1F53EF5D/",
   "link_missing": false,
-  "age": "61d",
+  "age": "62d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2229,10 +2214,10 @@
   "salary": null,
   "link": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/external/job/USA---Texas---Austin/Human-Resources-Intern--HR-Shared-Services--Summer-2026-_JR-2503145",
   "link_missing": false,
-  "age": "63d",
+  "age": "64d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2244,10 +2229,10 @@
   "salary": null,
   "link": "https://astreya.wd5.myworkdayjobs.com/en-US/life-at-astreya-opportunities/job/Remote-CA/AI-Infrastructure-DC-Design-Intern_R0015746",
   "link_missing": false,
-  "age": "65d",
+  "age": "66d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2259,10 +2244,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/egra/6f295102-6330-4a9e-9fc4-9b414e620003",
   "link_missing": false,
-  "age": "65d",
+  "age": "66d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2274,10 +2259,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/scm/jobs/721895",
   "link_missing": false,
-  "age": "65d",
+  "age": "66d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2289,10 +2274,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/evrealty-us/0274f48f-9b19-4bed-bf6a-5e02a2b1e865",
   "link_missing": false,
-  "age": "66d",
+  "age": "67d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2304,10 +2289,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/plus-2/58d77886-bf3a-4707-8af8-e1af47162e2e",
   "link_missing": false,
-  "age": "66d",
+  "age": "67d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2319,10 +2304,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/plus-2/c143df6e-66c2-4498-b19b-8323f9954ca9",
   "link_missing": false,
-  "age": "66d",
+  "age": "67d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2334,10 +2319,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/plus-2/2f2c1cd9-f099-483a-9717-0da83a391333",
   "link_missing": false,
-  "age": "66d",
+  "age": "67d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2349,10 +2334,10 @@
   "salary": null,
   "link": "https://apply.workable.com/quadric-dot-i-o-inc/j/870833317E/",
   "link_missing": false,
-  "age": "67d",
+  "age": "68d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2364,25 +2349,10 @@
   "salary": null,
   "link": "https://apply.workable.com/quadric-dot-i-o-inc/j/6BEF4752B5/",
   "link_missing": false,
-  "age": "67d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "Plus",
-  "company_url": "https://plus.ai",
-  "position": "Machine Learning Engineer Intern - Planning",
-  "location": "Santa Clara, CA",
-  "remote": false,
-  "salary": null,
-  "link": "https://jobs.lever.co/plus-2/91a07eb1-2244-48bf-a65b-dc166a327ddc",
-  "link_missing": false,
   "age": "68d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2394,10 +2364,25 @@
   "salary": null,
   "link": "https://jobs.lever.co/plus-2/5d71c173-fef1-409f-b3f0-750e3b828266",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
+ },
+ {
+  "source": "speedyapply-intern-usa",
+  "company": "Plus",
+  "company_url": "https://plus.ai",
+  "position": "Machine Learning Engineer Intern - Planning",
+  "location": "Santa Clara, CA",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.lever.co/plus-2/91a07eb1-2244-48bf-a65b-dc166a327ddc",
+  "link_missing": false,
+  "age": "69d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2409,10 +2394,10 @@
   "salary": null,
   "link": "http://focuskpi.applytojob.com/apply/udj57Jky8L/AI-Business-Operations-Intern-Remote-Paid",
   "link_missing": false,
-  "age": "73d",
+  "age": "74d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2424,10 +2409,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/trueplatform/bf96e5c1-2d15-413d-9dfb-54ce314d832f",
   "link_missing": false,
-  "age": "73d",
+  "age": "74d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2439,10 +2424,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/cohere/36d1f52f-8270-4652-adf5-5303a0ff341b",
   "link_missing": false,
-  "age": "75d",
+  "age": "76d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2454,10 +2439,10 @@
   "salary": null,
   "link": "https://apply.workable.com/eluvio/j/F70F3473E7/",
   "link_missing": false,
-  "age": "80d",
+  "age": "81d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2469,10 +2454,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/samsungresearchamericainternship/jobs/8541339002",
   "link_missing": false,
-  "age": "80d",
+  "age": "81d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2484,10 +2469,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/cresta/jobs/5213417008",
   "link_missing": false,
-  "age": "81d",
+  "age": "82d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2499,10 +2484,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/xpengmotors/jobs/8535409002",
   "link_missing": false,
-  "age": "84d",
+  "age": "85d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2514,10 +2499,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/uplane/81f8563e-1159-4600-9167-99279b570e05",
   "link_missing": false,
-  "age": "89d",
+  "age": "90d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2527,12 +2512,12 @@
   "location": "Santa Clara, CA",
   "remote": false,
   "salary": null,
-  "link": "https://marvell.wd1.myworkdayjobs.com/en-US/marvellcareers/job/Santa-Clara-CA/Applied-Machine-Learning-Scientist-Intern---PhD_2502662-1",
+  "link": "https://marvell.wd1.myworkdayjobs.com/en-US/marvellcareers2/job/Santa-Clara-CA/Applied-Machine-Learning-Scientist-Intern---PhD_2502662",
   "link_missing": false,
-  "age": "92d",
+  "age": "93d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2544,10 +2529,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/constellationspace/b763d4ba-7b77-479b-89a0-f632d9d02f4a",
   "link_missing": false,
-  "age": "94d",
+  "age": "95d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2559,10 +2544,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/leland/94347c0b-273b-4c17-9987-563912629633",
   "link_missing": false,
-  "age": "94d",
+  "age": "95d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2574,10 +2559,10 @@
   "salary": null,
   "link": "https://tifin.com/careers/apply/?gh_jid=5981740004",
   "link_missing": false,
-  "age": "94d",
+  "age": "95d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2589,10 +2574,10 @@
   "salary": null,
   "link": "https://apply.workable.com/tmeic-corporation-americas/j/FD4C9770FF/",
   "link_missing": false,
-  "age": "95d",
+  "age": "96d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2604,10 +2589,10 @@
   "salary": null,
   "link": "https://kiongroup.wd3.myworkdayjobs.com/en-US/kion_scs/job/Wauwatosa-WI-United-States/AI-Internships_JR-0088855",
   "link_missing": false,
-  "age": "96d",
+  "age": "97d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2619,10 +2604,10 @@
   "salary": null,
   "link": "https://asmglobal.wd1.myworkdayjobs.com/en-US/careers/job/West-Conshohocken-PA/Automation---AI-Technology-Experience-Intern_R100122152",
   "link_missing": false,
-  "age": "102d",
+  "age": "103d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2634,10 +2619,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/whiterabbit/c4333d64-7fcf-4862-9cf0-c6b090ca8ca1",
   "link_missing": false,
-  "age": "102d",
+  "age": "103d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2649,10 +2634,10 @@
   "salary": null,
   "link": "https://careers-cotiviti.icims.com/jobs/18929/intern---generative-ai-agentic-ai-research/job",
   "link_missing": false,
-  "age": "104d",
+  "age": "105d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2664,10 +2649,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/xterra%20ai/bc481f5a-3365-4048-8533-0c7728db512b",
   "link_missing": false,
-  "age": "104d",
+  "age": "105d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2679,10 +2664,10 @@
   "salary": null,
   "link": "https://cmegroup.wd1.myworkdayjobs.com/en-US/cme_careers/job/New-York---300-Vesey-Street/Quant-Risk-Management-Intern---Year-Round_34278",
   "link_missing": false,
-  "age": "106d",
+  "age": "107d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2694,10 +2679,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/radixuniversity/jobs/8500265002",
   "link_missing": false,
-  "age": "109d",
+  "age": "110d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2709,10 +2694,10 @@
   "salary": null,
   "link": "https://www.workato.com/careers?gh_jid=8492935002#open-roles",
   "link_missing": false,
-  "age": "109d",
+  "age": "110d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2724,10 +2709,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/get-vocal-pbc/8b47bb53-956d-4aea-b617-bed262d419a6",
   "link_missing": false,
-  "age": "112d",
+  "age": "113d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2739,10 +2724,10 @@
   "salary": null,
   "link": "https://interdigital.wd5.myworkdayjobs.com/en-US/interdigital_intern/job/Conshohocken-PA/Generative-AI-Implementation-Intern_REQ26-1093",
   "link_missing": false,
-  "age": "116d",
+  "age": "117d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2754,10 +2739,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/sharkninjaoperatingllc/jobs/4669676006",
   "link_missing": false,
-  "age": "116d",
+  "age": "117d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2769,10 +2754,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/aquaticcapitalmanagement/jobs/8489186002",
   "link_missing": false,
-  "age": "117d",
+  "age": "118d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-usa",
@@ -2784,25 +2769,10 @@
   "salary": null,
   "link": "https://psu.wd1.myworkdayjobs.com/en-US/psu_staff/job/Penn-State-University-Park/AI-ML-Research-and-Development-Intern_REQ_0000077083-1",
   "link_missing": false,
-  "age": "117d",
+  "age": "118d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-usa",
-  "company": "Bank of China  Limited, New York  Branch",
-  "company_url": "https://www.bocusa.com",
-  "position": "Internal Audit Department Data Analytics Audit Intern",
-  "location": "New York City, NY",
-  "remote": false,
-  "salary": null,
-  "link": "https://careers-bocusa.icims.com/jobs/4114/internal-audit-department-data-analytics-audit-intern/job",
-  "link_missing": false,
-  "age": "119d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:24+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2814,10 +2784,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7665629115644627205",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2829,10 +2799,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7664538232974559493",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2844,10 +2814,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7660813794880604469",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2859,10 +2829,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7660430492630616373",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2874,10 +2844,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7658100508675148085",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2889,10 +2859,10 @@
   "salary": null,
   "link": "https://apply.careers.microsoft.com/careers/job/1970393556917520",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2904,10 +2874,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7654832152997742853",
   "link_missing": false,
-  "age": "34d",
+  "age": "35d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2919,10 +2889,10 @@
   "salary": null,
   "link": "https://www.metacareers.com/jobs/924149567345400",
   "link_missing": false,
-  "age": "41d",
+  "age": "42d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2934,10 +2904,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7651452649767930117",
   "link_missing": false,
-  "age": "43d",
+  "age": "44d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2949,10 +2919,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7642264645810292997",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2964,10 +2934,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7638511888540600581",
   "link_missing": false,
-  "age": "78d",
+  "age": "79d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2979,10 +2949,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7637462393886411061",
   "link_missing": false,
-  "age": "81d",
+  "age": "82d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -2994,10 +2964,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7635893526559377717",
   "link_missing": false,
-  "age": "85d",
+  "age": "86d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3009,10 +2979,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7633323482907248949",
   "link_missing": false,
-  "age": "92d",
+  "age": "93d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3024,10 +2994,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7630767896739154229",
   "link_missing": false,
-  "age": "99d",
+  "age": "100d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3039,10 +3009,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7629211028353616133",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3054,10 +3024,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7629211025884154165",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3069,10 +3039,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7629209701593139461",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3084,10 +3054,10 @@
   "salary": null,
   "link": "https://lifeattiktok.com/search/7629203247547959557",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3099,10 +3069,10 @@
   "salary": null,
   "link": "https://www.optiver.com/join-us/jobs/8642260002/?gh_jid=8642260002",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3114,10 +3084,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-analyst-intern-bs-ms-europe-2/",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3129,10 +3099,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/quantitative-researcher-phd-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3144,10 +3114,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/sector-data-analyst-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3159,10 +3129,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/quantitative-research-analyst-intern-bs-ms-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3174,10 +3144,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/quantitative-research-analyst-intern-bs-ms-europe/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3189,10 +3159,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/quantitative-research-engineer-phd-intern-europe/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3204,10 +3174,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/quantitative-researcher-phd-intern-europe/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3219,10 +3189,10 @@
   "salary": null,
   "link": "https://www.citadel.com/careers/details/machine-learning-researcher-phd-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3234,10 +3204,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-trading-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3249,10 +3219,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-researcher-phd-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3264,10 +3234,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-researcher-phd-intern-europe/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3279,10 +3249,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-phd-intern-australia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3294,10 +3264,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-trading-intern-australia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3309,10 +3279,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-trading-intern-europe/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3324,10 +3294,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-analyst-intern-bs-ms-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3339,10 +3309,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/machine-learning-researcher-phd-intern-asia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3354,10 +3324,10 @@
   "salary": null,
   "link": "https://www.citadelsecurities.com/careers/details/quantitative-research-analyst-intern-bs-ms-australia/",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3369,10 +3339,10 @@
   "salary": null,
   "link": "https://www.jumptrading.com/hr/job?gh_jid=7976964",
   "link_missing": false,
-  "age": "15d",
+  "age": "16d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3384,10 +3354,10 @@
   "salary": null,
   "link": "https://www.jumptrading.com/hr/job?gh_jid=7977145",
   "link_missing": false,
-  "age": "15d",
+  "age": "16d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3399,10 +3369,10 @@
   "salary": null,
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8059384",
   "link_missing": false,
-  "age": "15d",
+  "age": "16d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3414,10 +3384,10 @@
   "salary": null,
   "link": "https://www.jumptrading.com/hr/job?gh_jid=8010307",
   "link_missing": false,
-  "age": "15d",
+  "age": "16d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3429,10 +3399,55 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/schonfeld/jobs/7950797",
   "link_missing": false,
-  "age": "67d",
+  "age": "68d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Nexaminds",
+  "company_url": "https://nexaminds.ai/",
+  "position": "AI Solutions Intern - 3-6 Month Internship",
+  "location": "Mexico",
+  "remote": false,
+  "salary": null,
+  "link": "https://nexaminds.ai/careers?gh_jid=5198061007",
+  "link_missing": false,
+  "age": "0d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Analog Devices",
+  "company_url": "https://www.analog.com",
+  "position": "AI Applications Intern",
+  "location": "Limerick, Ireland",
+  "remote": false,
+  "salary": null,
+  "link": "https://analogdevices.wd1.myworkdayjobs.com/en-US/external/job/Ireland-Limerick/AI-Applications-Intern_R257332",
+  "link_missing": false,
+  "age": "1d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Aptura",
+  "company_url": "https://aptura.ai/",
+  "position": "AI Operations Intern",
+  "location": "London, United Kingdom",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.ashbyhq.com/aptura/e1629145-7052-4939-a2d7-6f70dd4ac0a7",
+  "link_missing": false,
+  "age": "1d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3444,10 +3459,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/later/jobs/8647385002",
   "link_missing": false,
-  "age": "0d",
+  "age": "1d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3457,12 +3472,12 @@
   "location": "Warsaw, Poland +4",
   "remote": false,
   "salary": null,
-  "link": "https://accenture.wd103.myworkdayjobs.com/en-US/AccentureCareers/job/Warsaw/Data-Engineer---Data-Analyst-Internship-Program--She-He-They-_R00287786",
+  "link": "https://accenture.wd103.myworkdayjobs.com/en-US/accenturecareers/job/Warsaw/Data-Engineer---Data-Analyst-Internship-Program--She-He-They-_R00287786",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3474,10 +3489,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/BoschGroup/744000139971749--internship-data-and-ai-intern-data-focused-?oga=true",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3489,10 +3504,10 @@
   "salary": null,
   "link": "https://gehc.wd5.myworkdayjobs.com/en-US/gehc_externalsite/job/IND19-01-Bengaluru-EPIP-122-Phase-II/Research-Intern---AI_R4043882-1",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3504,10 +3519,10 @@
   "salary": null,
   "link": "https://hp.wd5.myworkdayjobs.com/en-US/exteu-ac-careersite/job/Singapore-South-West-Singapore/College-Intern---Data-Analytics-in-Supply-Chain_UNI4036",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3519,10 +3534,10 @@
   "salary": null,
   "link": "https://psu.wd1.myworkdayjobs.com/en-US/psu_staff/job/Penn-State-University-Park/AI-ML-Research-Support-Intern_REQ_0000080506-1",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3534,25 +3549,10 @@
   "salary": null,
   "link": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Amsterdam/Data-Analytics-Graduate-Internship_587665",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "PwC",
-  "company_url": "https://www.pwc.com",
-  "position": "Intern - Deals - Data Analytics CoE",
-  "location": "Kuala Lumpur, Malaysia",
-  "remote": false,
-  "salary": null,
-  "link": "https://pwc.wd3.myworkdayjobs.com/en-US/nonpublic_postings/job/Kuala-Lumpur/Intern---Deals--Data-Analytics-CoE_747594WD",
-  "link_missing": false,
-  "age": "1d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3564,10 +3564,10 @@
   "salary": null,
   "link": "https://roche.wd3.myworkdayjobs.com/en-US/roche-ext/job/Basel/RiSM-Internship-for-students-in-Pharmaceutical-Sciences--Pharmaceutical-Technology--Data-Sciences--Cheminformatics-or-Chemistry--Basel--6-months-_202607-119048",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3579,10 +3579,10 @@
   "salary": null,
   "link": "https://jobs.eu.lever.co/tomtom/155a8983-aacd-40c7-97e0-f2ab320a5a13",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3594,25 +3594,10 @@
   "salary": null,
   "link": "https://wf.wd1.myworkdayjobs.com/en-US/wellsfargojobs/job/Bengaluru-India/XMLNAME-2027-Quantitative-Analytics-Program-Intern_R-558426",
   "link_missing": false,
-  "age": "1d",
+  "age": "2d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "ASML",
-  "company_url": "https://www.asml.com",
-  "position": "Physics - Materials Science internship: ai-driven experimental insights",
-  "location": "Eindhoven, The Netherlands",
-  "remote": false,
-  "salary": null,
-  "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Eindhoven-Netherlands/Physics---Materials-Science-internship--ai-driven-experimental-insights_J-00348041",
-  "link_missing": false,
-  "age": "4d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3624,10 +3609,25 @@
   "salary": null,
   "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Eindhoven-Netherlands/Data-Science---AI-internship--Spatiotemporal-forecasting-methods_J-00345362",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "ASML",
+  "company_url": "https://www.asml.com",
+  "position": "Physics - Materials Science internship: ai-driven experimental insights",
+  "location": "Eindhoven, The Netherlands",
+  "remote": false,
+  "salary": null,
+  "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Eindhoven-Netherlands/Physics---Materials-Science-internship--ai-driven-experimental-insights_J-00348041",
+  "link_missing": false,
+  "age": "5d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3639,10 +3639,10 @@
   "salary": null,
   "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Eindhoven-Netherlands/Data-Science---AI-Internship--Reinforcement-Learning_J-00345364",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3654,10 +3654,10 @@
   "salary": null,
   "link": "https://assurant.wd1.myworkdayjobs.com/en-US/assurant_careers/job/Buenos-Aires-Butty/Data-Analytics-Intern_R-114247-1",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3669,10 +3669,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/certifyos/4bcdec99-9f2e-416c-8e26-498c94c5898a",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3684,10 +3684,10 @@
   "salary": null,
   "link": "https://hitachi.wd1.myworkdayjobs.com/en-US/hitachi/job/Krakow-Lesser-Poland-Poland/Internship---Machine-Learning---Data-Science_R0139066-1",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3699,10 +3699,10 @@
   "salary": null,
   "link": "https://micron.wd1.myworkdayjobs.com/en-US/external/job/Fab-10NX-Singapore/Intern---NAND-Device-Engineering-AI_JR104750",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3714,10 +3714,10 @@
   "salary": null,
   "link": "https://miele.wd3.myworkdayjobs.com/en-US/miele-jobs/job/Gtersloh/Internship-AI-Engineer--m-f-d-_R4026",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3729,10 +3729,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/mistral.ai/60fcc44d-4d96-469d-a96c-d6a9bbfe8edd",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3744,10 +3744,10 @@
   "salary": null,
   "link": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Gratkorn/Internship---Digital-Design---Generative-AI-Support--m-f-d-_R-10064592",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3759,10 +3759,10 @@
   "salary": null,
   "link": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Gratkorn/Internship---Digital-Verification---Generative-AI-Support--m-f-d-_R-10064593",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3774,10 +3774,10 @@
   "salary": null,
   "link": "https://pg.wd5.myworkdayjobs.com/en-US/1000/job/JIJONA-PLANT/Data-Engineer-Internship--m-f-x-_R000156073",
   "link_missing": false,
-  "age": "4d",
+  "age": "5d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3789,10 +3789,10 @@
   "salary": null,
   "link": "https://bdo.wd3.myworkdayjobs.com/en-US/bdo/job/Toronto---Bay-St/Co-op-or-Intern--Data---Analytics--September-2026-_JR6295",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3804,55 +3804,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/enpal/0a5d0faf-a511-43d1-be99-448fac19fc39",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "G-Research",
-  "company_url": "http://www.gresearch.com/",
-  "position": "Data Science Internship",
-  "location": "London, United Kingdom",
-  "remote": false,
-  "salary": null,
-  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Data-Science-Internship_R3679",
-  "link_missing": false,
-  "age": "5d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "G-Research",
-  "company_url": "http://www.gresearch.com/",
-  "position": "Quant Research Internship",
-  "location": "London, United Kingdom",
-  "remote": false,
-  "salary": null,
-  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Quant-Research-Internship_R3691",
-  "link_missing": false,
-  "age": "5d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "G-Research",
-  "company_url": "http://www.gresearch.com/",
-  "position": "Natural Language Processing Internship",
-  "location": "London, United Kingdom",
-  "remote": false,
-  "salary": null,
-  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Natural-Language-Processing-Internship_R3686",
-  "link_missing": false,
-  "age": "5d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3864,10 +3819,55 @@
   "salary": null,
   "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Machine-Learning-Research-Internship_R3682",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "G-Research",
+  "company_url": "http://www.gresearch.com/",
+  "position": "Quant Research Internship",
+  "location": "London, United Kingdom",
+  "remote": false,
+  "salary": null,
+  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Quant-Research-Internship_R3691",
+  "link_missing": false,
+  "age": "6d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "G-Research",
+  "company_url": "http://www.gresearch.com/",
+  "position": "Natural Language Processing Internship",
+  "location": "London, United Kingdom",
+  "remote": false,
+  "salary": null,
+  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Natural-Language-Processing-Internship_R3686",
+  "link_missing": false,
+  "age": "6d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "G-Research",
+  "company_url": "http://www.gresearch.com/",
+  "position": "Data Science Internship",
+  "location": "London, United Kingdom",
+  "remote": false,
+  "salary": null,
+  "link": "https://gresearch.wd103.myworkdayjobs.com/en-US/g-research/job/London-UK/Data-Science-Internship_R3679",
+  "link_missing": false,
+  "age": "6d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3879,10 +3879,10 @@
   "salary": null,
   "link": "https://gsk-us-earlytalent.icims.com/jobs/10503/fall-co-op-ai-portfolio/job",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3894,10 +3894,10 @@
   "salary": null,
   "link": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Eindhoven/Internship-Thesis---Signal-Processing-and-AI-for-autonomous-driving-_R-10064090",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3909,10 +3909,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/onenergy/jobs/4326885009",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3924,10 +3924,10 @@
   "salary": null,
   "link": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Shanghai/---_578274",
   "link_missing": false,
-  "age": "5d",
+  "age": "6d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3939,25 +3939,25 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/appier/jobs/8076158",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
   "company": "Aptura",
   "company_url": "https://aptura.ai/",
-  "position": "Finance Intern - AI Evaluation",
+  "position": "Investment Banking Intern - AI Evaluation",
   "location": "London, United Kingdom",
   "remote": false,
   "salary": null,
   "link": "https://jobs.ashbyhq.com/aptura/44d8b5f7-bbb9-434b-8374-7ea1a9426910",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3969,10 +3969,10 @@
   "salary": null,
   "link": "https://fis.wd5.myworkdayjobs.com/en-US/searchjobs/job/TUN-ARIA-150/Test-Automation--Playwright----AI--Summer-Intern_JR0308359",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3984,10 +3984,10 @@
   "salary": null,
   "link": "https://careers-here.icims.com/jobs/81882/internship-%e2%80%93-ai-%26-market-signals/job",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -3999,10 +3999,10 @@
   "salary": null,
   "link": "https://micron.wd1.myworkdayjobs.com/en-US/external/job/Fab-10NX-Singapore/AI--Data---Digital-Solutions-Internship--Singapore-_JR106776",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4014,10 +4014,10 @@
   "salary": null,
   "link": "https://pg.wd5.myworkdayjobs.com/en-US/1000/job/PARIS-GO-ASNIERES-SUR-SEINE/Data-Engineering-Intern_R000155891",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4029,10 +4029,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/shyftlabs/4f389ea7-9b98-4ed0-99c2-b25ea8cc2dcd",
   "link_missing": false,
-  "age": "6d",
+  "age": "7d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4044,10 +4044,10 @@
   "salary": null,
   "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Veldhoven-Netherlands/Data-Science-Internship--Industrialize-Robust-Design-AI-agent_J-00344311",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4059,10 +4059,10 @@
   "salary": null,
   "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-FI-FLORENCE-VIA-FELICE-MATTEUCCI-2/Intern---AI---Structural-Optimization-Engineer---Florence--Italy---2026--M-F-D-_R167089",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4074,10 +4074,10 @@
   "salary": null,
   "link": "https://cadence.wd1.myworkdayjobs.com/en-US/external_careers/job/FELDKIRCHEN-Munich/Intern-Agentic-AI-Workflow-Development---Validation-for-Digital-Design--f-m-d-_R55597",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4089,10 +4089,10 @@
   "salary": null,
   "link": "https://apply.workable.com/covergo/j/A868769DF2/",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4104,10 +4104,10 @@
   "salary": null,
   "link": "https://hitachi.wd1.myworkdayjobs.com/en-US/hitachi/job/Krakow-Lesser-Poland-Poland/Internship---AI-and-Test-Automation-Research_R0138114-2",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4119,10 +4119,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/xsolla/1c60d455-ff66-4eaa-97b8-743d0d6e79d1",
   "link_missing": false,
-  "age": "7d",
+  "age": "8d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4134,10 +4134,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/42dot/c4af7536-c24f-4754-9fe9-d92d237403f3",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4147,12 +4147,12 @@
   "location": "Lausanne, Switzerland",
   "remote": false,
   "salary": null,
-  "link": "https://medtronic.wd1.myworkdayjobs.com/en-US/medtroniccareers/job/Lausanne-Vaud-Switzerland/Intern-AI-Vision-for-Equipment-Development_R72173-1",
+  "link": "https://medtronic.wd1.myworkdayjobs.com/en-US/redeploymentmedtroniccareers/job/Lausanne-Vaud-Switzerland/Intern-AI-Vision-for-Equipment-Development_R72173",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4164,10 +4164,10 @@
   "salary": null,
   "link": "https://www.payoneer.com/careers/position/8068946/?gh_jid=8068946",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4179,10 +4179,10 @@
   "salary": null,
   "link": "https://alliancewd.wd3.myworkdayjobs.com/en-US/renault-group-careers/job/Bucuresti/XMLNAME--Internship--Dezvoltarea-plan-validare-FrCam-pe-banc-ADAS-prin-integrarea-AI--F-M-_JOBREQ_50272444",
   "link_missing": false,
-  "age": "8d",
+  "age": "9d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4194,10 +4194,10 @@
   "salary": null,
   "link": "https://dupont.wd5.myworkdayjobs.com/en-US/jobs/job/Marina-Bay-Central-Region/Data-Analytics-Internship--6-month-program-_249767W",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4209,10 +4209,10 @@
   "salary": null,
   "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Belgium-Wavre/Internship--GenAI-Data-Analyst--Belgium---2026_444913",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4224,10 +4224,10 @@
   "salary": null,
   "link": "https://magna.wd3.myworkdayjobs.com/en-US/magna/job/Milton-Ontario-CA/AI-Engineering-Co-Op-Student--4-months-_R00252238",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4239,10 +4239,10 @@
   "salary": null,
   "link": "http://careers.neolytix.com/apply/WiqEhGIH4z/HR-Intern-Business-Process-AI",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4254,25 +4254,25 @@
   "salary": null,
   "link": "https://pwc.wd3.myworkdayjobs.com/en-US/nonpublic_postings/job/Auckland---NZL/PwC-Intern-Programme---Internal-Firm-Services---AI-Centre-of-Excellence--Auckland-_745452WD-1",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
-  "company": "Tencent",
-  "company_url": "https://www.tencent.com",
-  "position": "AI Product Manager Intern",
-  "location": "",
+  "company": "Virtu Financial",
+  "company_url": "https://www.virtu.com",
+  "position": "Internship - Quantitative Trading",
+  "location": "Singapore",
   "remote": false,
   "salary": null,
-  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Netherlands-Amsterdam/AI-Product-Manager-Intern_R107776",
+  "link": "https://job-boards.greenhouse.io/virturecruitinghidden/jobs/8636356002",
   "link_missing": false,
-  "age": "11d",
+  "age": "12d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4284,10 +4284,10 @@
   "salary": null,
   "link": "https://ag.wd3.myworkdayjobs.com/en-US/airbus/job/Immenstaad-am-Bodensee/Internship--d-f-m--in-AI-for-Functional-Avionics_JR10417809",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4299,10 +4299,10 @@
   "salary": null,
   "link": "https://apply.workable.com/bolderapps/j/F325014EF9/",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4314,10 +4314,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/BoschGroup/744000138133489-internship-for-thesis-advanced-data-analytics-for-functional-safety-validation?oga=true",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4329,25 +4329,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/bree/5e79b2fd-164c-4e72-91ef-1b8fd1c5518a",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Equativ",
-  "company_url": "https://equativ.com/careers/",
-  "position": "AI Engineer Intern - GenAI Internal Automation - GAIA",
-  "location": "Paris, France",
-  "remote": false,
-  "salary": null,
-  "link": "https://jobs.lever.co/equativ/43f7b6c8-476b-4226-bbec-1e1b3dfb35b2",
-  "link_missing": false,
-  "age": "12d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4359,10 +4344,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/equativ/28b0ea9f-092e-4e31-aae6-b327e6887b31",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4374,10 +4359,10 @@
   "salary": null,
   "link": "https://hp.wd5.myworkdayjobs.com/en-US/externalcareersite/job/Sant-Cugat-del-Valles-Barcelona-Spain/Data-Analytics---Procurement-Intern---EMEA-Supply-Chain-and-Logistics_UNI3037-1",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4389,10 +4374,10 @@
   "salary": null,
   "link": "https://unilever.wd3.myworkdayjobs.com/en-US/tmicc/job/Ice-Cream-Company-Headquarters/Ice-Cream--Customer-Development-Data---Analytics-Internship-26-_R-1185497",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4404,10 +4389,10 @@
   "salary": null,
   "link": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Best/Internship--Data---AI-Reporting-Analyst--Trade-Data-_587226",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4419,10 +4404,10 @@
   "salary": null,
   "link": "https://pwc.wd3.myworkdayjobs.com/en-US/nonpublic_postings/job/Singapore---Marina-One/Risk-Services---AI-Factory-Data-Scientist-Internship--Jul---Dec-26-_688966WD-1",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4434,10 +4419,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/zuru/16d4cc04-a913-495f-a835-f6dd1275384c",
   "link_missing": false,
-  "age": "12d",
+  "age": "13d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4449,25 +4434,10 @@
   "salary": null,
   "link": "https://abb.wd3.myworkdayjobs.com/en-US/external_career_page/job/Xiamen-Fujian-China/---ERPAI--Intern---ERP---AI-Digital-Transformation-_JR00041253",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Motorola Solutions",
-  "company_url": "https://www.motorolasolutions.com",
-  "position": "Data Analyst Co-Op",
-  "location": "Remote - Ontario, Canada",
-  "remote": true,
-  "salary": null,
-  "link": "https://motorolasolutions.wd5.myworkdayjobs.com/en-US/careers/job/Ontario-Remote-Work/Data-Analyst-Co-Op_R65918",
-  "link_missing": false,
-  "age": "13d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4479,10 +4449,25 @@
   "salary": null,
   "link": "https://motorolasolutions.wd5.myworkdayjobs.com/en-US/careers/job/Ontario-Remote-Work/Data-Engineering-Co-Op_R65916",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Motorola Solutions",
+  "company_url": "https://www.motorolasolutions.com",
+  "position": "Data Analyst Co-Op",
+  "location": "Remote - Ontario, Canada",
+  "remote": true,
+  "salary": null,
+  "link": "https://motorolasolutions.wd5.myworkdayjobs.com/en-US/careers/job/Ontario-Remote-Work/Data-Analyst-Co-Op_R65918",
+  "link_missing": false,
+  "age": "14d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4494,25 +4479,10 @@
   "salary": null,
   "link": "https://roche.wd3.myworkdayjobs.com/en-US/roche-ext/job/Shanghai/AI---Data-Science-Intern_202607-117587",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Susquehanna International Group",
-  "company_url": "https://sig.com",
-  "position": "Quantitative Systematic Trading Internship: Summer 2027",
-  "location": "",
-  "remote": false,
-  "salary": null,
-  "link": "https://careers-sig.icims.com/jobs/11006/quantitative-systematic-trading-internship%3a-summer-2027/job",
-  "link_missing": false,
-  "age": "13d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4524,10 +4494,25 @@
   "salary": null,
   "link": "https://careers-sig.icims.com/jobs/10843/quantitative-research-internship%3a-summer-2027/job",
   "link_missing": false,
-  "age": "13d",
+  "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Susquehanna International Group",
+  "company_url": "https://sig.com",
+  "position": "Quantitative Systematic Trading Internship: Summer 2027",
+  "location": "",
+  "remote": false,
+  "salary": null,
+  "link": "https://careers-sig.icims.com/jobs/11006/quantitative-systematic-trading-internship%3a-summer-2027/job",
+  "link_missing": false,
+  "age": "14d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4539,25 +4524,10 @@
   "salary": null,
   "link": "https://careers-sig.icims.com/jobs/10839/quantitative-trading-internship%3a-summer-2027/job",
   "link_missing": false,
-  "age": "13d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "ABB",
-  "company_url": "https://global.abb/",
-  "position": "Internship - m/f/d - AI and domain-aware audio Processing",
-  "location": "Remote - Mannheim, Germany",
-  "remote": true,
-  "salary": null,
-  "link": "https://abb.wd3.myworkdayjobs.com/en-US/external_career_page/job/Mannheim-Baden-Wurttemberg-Germany/Internship--m-f-d----AI-and-domain-aware-audio-Processing_JR00040688-1",
-  "link_missing": false,
   "age": "14d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4569,10 +4539,25 @@
   "salary": null,
   "link": "https://abb.wd3.myworkdayjobs.com/en-US/external_career_page/job/Krakow-Lesser-Poland-Poland/Intern-in-Global-IS-Sourcing-Team_JR00041420-1",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "ABB",
+  "company_url": "https://global.abb/",
+  "position": "Internship - m/f/d - AI and domain-aware audio Processing",
+  "location": "Remote - Mannheim, Germany",
+  "remote": true,
+  "salary": null,
+  "link": "https://abb.wd3.myworkdayjobs.com/en-US/external_career_page/job/Mannheim-Baden-Wurttemberg-Germany/Internship--m-f-d----AI-and-domain-aware-audio-Processing_JR00040688-1",
+  "link_missing": false,
+  "age": "15d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4584,10 +4569,10 @@
   "salary": null,
   "link": "https://transamerica.wd5.myworkdayjobs.com/en-US/nld-aegon/job/NLD-Schiphol/Strategy---Operations-AI-Intern_R20062197-1",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4599,10 +4584,10 @@
   "salary": null,
   "link": "https://cmegroup.wd1.myworkdayjobs.com/en-US/cme_careers/job/Bangalore---Bagmane-Tridib/Quant-Risk-Intern_34590",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4614,10 +4599,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/drweng/jobs/7991171",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4629,10 +4614,10 @@
   "salary": null,
   "link": "https://mckesson.wd3.myworkdayjobs.com/en-US/external_careers/job/CAN-ON-Mississauga/AI---Strategic-Analytics-Intern---Fall-2026_JR0150114",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4644,10 +4629,10 @@
   "salary": null,
   "link": "https://parexel.wd1.myworkdayjobs.com/en-US/parexel_external_careers/job/Malaysia-Petaling-Jaya/Intern-Clinical-Data-Analyst--CDA-_R0000043538",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4659,10 +4644,10 @@
   "salary": null,
   "link": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Amsterdam/AI-Strategy---Business-Operations-MBA-Intern_587182-1",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4674,10 +4659,10 @@
   "salary": null,
   "link": "https://philips.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Shanghai/IT-AI-Solution-Analyst-Intern_587508",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4689,10 +4674,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/RoboticAssistanceDevices/e8363dcb-95fb-48cd-ab68-c6bf8b626b8b",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4704,10 +4689,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/scopely/jobs/5341537008?gh_jid=5341537008",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4719,25 +4704,25 @@
   "salary": null,
   "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Singapore-CapitaSky/Data-Scientist-Intern_R107754",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
   "company": "Virtu Financial",
   "company_url": "https://www.virtu.com",
-  "position": "2027 Internship - Quantitative Strategist and Research Intern",
+  "position": "2027 Internship - Quantitative Researcher - Master or PhD",
   "location": "Dublin, Ireland",
   "remote": false,
   "salary": null,
   "link": "https://job-boards.greenhouse.io/virtu/jobs/8631180002",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4749,10 +4734,10 @@
   "salary": null,
   "link": "https://welocalize.wd1.myworkdayjobs.com/en-US/welocalize/job/Thessaloniki/AI-Machine-Learning-Engineering-Intern_R0007804",
   "link_missing": false,
-  "age": "14d",
+  "age": "15d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4764,10 +4749,10 @@
   "salary": null,
   "link": "https://hitachi.wd1.myworkdayjobs.com/en-US/hitachi/job/DEAI-DS-VN-Danang-City/Talented-AI-Engineer-Intern_R0136992",
   "link_missing": false,
-  "age": "15d",
+  "age": "16d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4779,10 +4764,10 @@
   "salary": null,
   "link": "http://rodanenergysolutionsinc.applytojob.com/apply/cGazgwLfqg/Data-Services-AI-Coop-Student",
   "link_missing": false,
-  "age": "17d",
+  "age": "18d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4794,10 +4779,10 @@
   "salary": null,
   "link": "http://rodanenergysolutionsinc.applytojob.com/apply/hKQA66W5Ad/AI-Solutions-Specialist-Coop-Student",
   "link_missing": false,
-  "age": "17d",
+  "age": "18d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4809,25 +4794,10 @@
   "salary": null,
   "link": "http://rodanenergysolutionsinc.applytojob.com/apply/6Zif3yjncr/Data-Science-Coop-Student",
   "link_missing": false,
-  "age": "17d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Euronext",
-  "company_url": "https://www.euronext.com",
-  "position": "AI & Automation Intern",
-  "location": "Paris, France +2",
-  "remote": false,
-  "salary": null,
-  "link": "https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/AI---Automation-Intern_R27985",
-  "link_missing": false,
   "age": "18d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4839,25 +4809,25 @@
   "salary": null,
   "link": "https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/Internship-Smart-Automation---Agentic-AI-Dev_R27643",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
-  "company": "Tencent",
-  "company_url": "https://www.tencent.com",
-  "position": "Data & AI Analytics Intern",
-  "location": "",
+  "company": "Euronext",
+  "company_url": "https://www.euronext.com",
+  "position": "AI & Automation Intern",
+  "location": "Paris, France +2",
   "remote": false,
   "salary": null,
-  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Singapore-CapitaSky/Data---AI-Analytics-Intern_R107767",
+  "link": "https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/AI---Automation-Intern_R27985",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4869,10 +4839,25 @@
   "salary": null,
   "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Singapore-CapitaSky/Data-Science-Intern--Safety-Strategies-_R107768",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Tencent",
+  "company_url": "https://www.tencent.com",
+  "position": "Data & AI Analytics Intern",
+  "location": "",
+  "remote": false,
+  "salary": null,
+  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Singapore-CapitaSky/Data---AI-Analytics-Intern_R107767",
+  "link_missing": false,
+  "age": "19d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4884,10 +4869,10 @@
   "salary": null,
   "link": "https://thomsonreuters.wd5.myworkdayjobs.com/en-US/external_career_site/job/Mexico-Mexico-City/Engineering-Intern---Data---AI-Automation_JREQ201944",
   "link_missing": false,
-  "age": "18d",
+  "age": "19d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4899,10 +4884,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/aizon/b1b56fee-07d8-47b9-8594-5b19b7a24443",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4914,10 +4899,10 @@
   "salary": null,
   "link": "https://asml.wd3.myworkdayjobs.com/en-US/asmlext1/job/Veldhoven-Netherlands/HR-Tech---AI-Innovation-internship--Agent-Development---Enablement_J-00346786",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4929,10 +4914,10 @@
   "salary": null,
   "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-BA-BARI-STRADA-PROVINCIALE-PER-MODUGNO-10C613/Emerging-Talent--Data-Analyst---Customer-Application-Engineering-Intern-2026-Opportunities--Bari-_R163809",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4944,10 +4929,10 @@
   "salary": null,
   "link": "https://mercedesbenztechinnovation.wd3.myworkdayjobs.com/en-US/mbti_jobportal/job/Ulm/Praktikant-AI---Data-Engineering--d-m-w-x-_R0006786",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4959,10 +4944,25 @@
   "salary": null,
   "link": "https://sanofi.wd3.myworkdayjobs.com/en-US/sanoficareers/job/Paris/Data-Science-Interne_R2863887",
   "link_missing": false,
-  "age": "19d",
+  "age": "20d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Tencent",
+  "company_url": "https://www.tencent.com",
+  "position": "AI Infra Intern",
+  "location": "",
+  "remote": false,
+  "salary": null,
+  "link": "https://tencent.wd1.myworkdayjobs.com/en-US/tencent_careers/job/Singapore-CapitaSky/AI-Infra-Intern_R107682",
+  "link_missing": false,
+  "age": "20d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4974,10 +4974,10 @@
   "salary": null,
   "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Singapore---Jurong/Internship---Digital-Data-Analytics--Singapore--January-to-June-2027-_444672",
   "link_missing": false,
-  "age": "20d",
+  "age": "21d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -4989,10 +4989,10 @@
   "salary": null,
   "link": "https://mckesson.wd3.myworkdayjobs.com/en-US/external_careers/job/CAN-ON-Mississauga/Sales-Enablement---AI-Intern---Fall-2026_JR0149803",
   "link_missing": false,
-  "age": "20d",
+  "age": "21d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5004,10 +5004,10 @@
   "salary": null,
   "link": "https://pg.wd5.myworkdayjobs.com/en-US/1000/job/Brussels/Data-Science-Internship_R000145698",
   "link_missing": false,
-  "age": "20d",
+  "age": "21d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5017,12 +5017,12 @@
   "location": "Bucharest, Romania",
   "remote": false,
   "salary": null,
-  "link": "https://alliancewd.wd3.myworkdayjobs.com/en-US/renault-group-careers/job/Bucuresti/XMLNAME--Internship--Optimizare-procese-cu-AI--F-M-_JOBREQ_50271296",
+  "link": "https://alliancewd.wd3.myworkdayjobs.com/en-US/renault-group-careers/job/Bucuresti/XMLNAME--Internship--Optimizare-procese-cu-AI--F-M-_JOBREQ_50271293",
   "link_missing": false,
-  "age": "20d",
+  "age": "21d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5034,10 +5034,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/alphagrepsecurities/jobs/8622004002",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5049,25 +5049,10 @@
   "salary": null,
   "link": "https://bmo.wd3.myworkdayjobs.com/en-US/external/job/Toronto-ON-CAN/Data-Scientist--Fall-2026---Co-op-Internship----12-months_R260019879",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "GSK",
-  "company_url": "https://www.gsk.com",
-  "position": "Internship - Data Analytics and Gen AI for Audit & Assurance - Singapore - January to June 2027",
-  "location": "Singapore",
-  "remote": false,
-  "salary": null,
-  "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Singapore---Rochester-Park/Internship---Data-Analytics-and-Gen-AI-for-Audit---Assurance--Singapore--January-to-June-2027-_444466-1",
-  "link_missing": false,
-  "age": "21d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5079,10 +5064,25 @@
   "salary": null,
   "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Singapore---Rochester-Park/Internship--Digital--Data-and-AI--Asia-R-D--Singapore--January-to-June-2027-_444475-1",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "GSK",
+  "company_url": "https://www.gsk.com",
+  "position": "Internship - Data Analytics and Gen AI for Audit & Assurance - Singapore - January to June 2027",
+  "location": "Singapore",
+  "remote": false,
+  "salary": null,
+  "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Singapore---Rochester-Park/Internship---Data-Analytics-and-Gen-AI-for-Audit---Assurance--Singapore--January-to-June-2027-_444466-1",
+  "link_missing": false,
+  "age": "22d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5094,10 +5094,10 @@
   "salary": null,
   "link": "https://hitachi.wd1.myworkdayjobs.com/en-US/hitachi/job/Singapore-Central-Singapore-Singapore/UXUI---AI-Transformation-Intern_R1010137-1",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5109,10 +5109,10 @@
   "salary": null,
   "link": "https://kla.wd1.myworkdayjobs.com/en-US/search/job/Newport-United-Kingdom/AI-Summer-Intern_2638689",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5124,10 +5124,10 @@
   "salary": null,
   "link": "https://roche.wd3.myworkdayjobs.com/en-US/roche-ext/job/Shanghai/Data-Scientist-Intern_202607-117570",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5139,10 +5139,10 @@
   "salary": null,
   "link": "https://www.taboola.com/careers/job/8041366?gh_jid=8041366",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5154,10 +5154,10 @@
   "salary": null,
   "link": "https://zeissgroup.wd3.myworkdayjobs.com/en-US/external/job/Oberkochen/Internship-or-Working-Student-in-3D-Computer-Vision_JR_1023225-3",
   "link_missing": false,
-  "age": "21d",
+  "age": "22d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5169,40 +5169,10 @@
   "salary": null,
   "link": "https://aptiv.wd5.myworkdayjobs.com/en-US/aptiv_careers/job/Krakow-Poland/Algorithm-Verification-Intern_J000700641",
   "link_missing": false,
-  "age": "22d",
+  "age": "23d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Cloudflare",
-  "company_url": "https://www.cloudflare.com",
-  "position": "AI Transformation Intern - Global Customer Engineering - Service Sales - Fall 2026",
-  "location": "London, United Kingdom",
-  "remote": false,
-  "salary": null,
-  "link": "https://boards.greenhouse.io/cloudflare/jobs/8044395?gh_jid=8044395",
-  "link_missing": false,
-  "age": "22d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Mistral AI",
-  "company_url": "https://mistral.ai/",
-  "position": "Applied Scientist / Research Engineer - Internship",
-  "location": "Paris, France",
-  "remote": false,
-  "salary": null,
-  "link": "https://jobs.ashbyhq.com/mistral.ai/de46ba8b-00cb-4618-83df-66e15a78434e",
-  "link_missing": false,
-  "age": "24d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5214,10 +5184,25 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/mistral.ai/fcdb8407-20b9-4179-81b6-f2ca2c79a39b",
   "link_missing": false,
-  "age": "24d",
+  "age": "25d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Mistral AI",
+  "company_url": "https://mistral.ai/",
+  "position": "Applied Scientist / Research Engineer - Internship",
+  "location": "Paris, France",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.ashbyhq.com/mistral.ai/de46ba8b-00cb-4618-83df-66e15a78434e",
+  "link_missing": false,
+  "age": "25d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5229,10 +5214,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/shifttechnology/jobs/7794260003",
   "link_missing": false,
-  "age": "24d",
+  "age": "25d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5244,10 +5229,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/BoschGroup/744000135674088-internship-ai-lighthouse-data-engineering?oga=true",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5259,10 +5244,10 @@
   "salary": null,
   "link": "https://lombardodier.wd3.myworkdayjobs.com/en-US/lombard_odier_careers/job/Geneva/Internship----Data-Scientist_R0007203",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5274,10 +5259,10 @@
   "salary": null,
   "link": "https://prysmiangroup.wd3.myworkdayjobs.com/en-US/careers/job/Sorocaba/Intern---Data-Analysis-and-Artificial-Intelligence_R-34993",
   "link_missing": false,
-  "age": "25d",
+  "age": "26d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5289,10 +5274,10 @@
   "salary": null,
   "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-FI-FLORENCE-VIA-FELICE-MATTEUCCI-2/Emerging-Talent---Data-Analytics-Intern-2026-Opportunities--Florence-_R164944",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5304,10 +5289,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/celonis/jobs/7767090003?gh_jid=7767090003",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5319,10 +5304,10 @@
   "salary": null,
   "link": "https://db.wd3.myworkdayjobs.com/en-US/dbwebsite/job/Brussels-Avenue-Marnix-13-15/Internship---Artificial-Intelligence--f-m-x-_R0439589",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5334,10 +5319,10 @@
   "salary": null,
   "link": "https://msd.wd5.myworkdayjobs.com/en-US/searchjobs/job/NLD---North-Brabant---Boxmeer/Intern---Data-Science---BioStatistics--Manufacturing_R390572-1",
   "link_missing": false,
-  "age": "26d",
+  "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5349,55 +5334,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/provectus/397ff529-e2e9-4774-9219-5d3060cb6df2",
   "link_missing": false,
-  "age": "26d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "The Fork",
-  "company_url": "https://careers.thefork.com",
-  "position": "B2B Marketing Content & AI Intern",
-  "location": "Barcelona, Spain",
-  "remote": false,
-  "salary": null,
-  "link": "https://job-boards.greenhouse.io/thefork/jobs/8043047",
-  "link_missing": false,
-  "age": "26d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Tripadvisor",
-  "company_url": "https://www.tripadvisor.com",
-  "position": "B2B Marketing Content & AI Intern",
-  "location": "Barcelona, Spain",
-  "remote": false,
-  "salary": null,
-  "link": "https://job-boards.greenhouse.io/tripadvisor/jobs/8043141",
-  "link_missing": false,
-  "age": "26d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Barclays",
-  "company_url": "https://home.barclays/",
-  "position": "Quantitative Analytics Associate Off Cycle Internship 2027 Hong Kong",
-  "location": "Hong Kong",
-  "remote": false,
-  "salary": null,
-  "link": "https://barclays.wd3.myworkdayjobs.com/en-US/external_career_site_barclays/job/Hong-Kong-Cheung-Kong-Center/Quantitative-Analytics-Associate-Off-Cycle-Internship-2027-Hong-Kong_JR-0000117565",
-  "link_missing": false,
   "age": "27d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5409,10 +5349,25 @@
   "salary": null,
   "link": "https://barclays.wd3.myworkdayjobs.com/en-US/external_career_site_barclays/job/Singapore-Marina-Bay-Financial-Tower-2/Quantitative-Analytics-Associate-Off-Cycle-Internship-2027-Singapore_JR-0000117563",
   "link_missing": false,
-  "age": "27d",
+  "age": "28d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Barclays",
+  "company_url": "https://home.barclays/",
+  "position": "Quantitative Analytics Associate Off Cycle Internship 2027 Hong Kong",
+  "location": "Hong Kong",
+  "remote": false,
+  "salary": null,
+  "link": "https://barclays.wd3.myworkdayjobs.com/en-US/external_career_site_barclays/job/Hong-Kong-Cheung-Kong-Center/Quantitative-Analytics-Associate-Off-Cycle-Internship-2027-Hong-Kong_JR-0000117565",
+  "link_missing": false,
+  "age": "28d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5424,10 +5379,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/BoschGroup/744000135165246-intern-ai-hvac-research?oga=true",
   "link_missing": false,
-  "age": "27d",
+  "age": "28d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5439,25 +5394,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/BoschGroup/744000135165209-intern-ai-research-?oga=true",
   "link_missing": false,
-  "age": "27d",
+  "age": "28d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Virtu Financial",
-  "company_url": "https://www.virtu.com",
-  "position": "2027 Internship - Quantitative Trading",
-  "location": "Dublin, Ireland",
-  "remote": false,
-  "salary": null,
-  "link": "https://job-boards.greenhouse.io/virtu/jobs/8547254002",
-  "link_missing": false,
-  "age": "27d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5469,10 +5409,10 @@
   "salary": null,
   "link": "https://biibhr.wd3.myworkdayjobs.com/en-US/external/job/Solothurn-Switzerland/Advanced-Process-Data-Analytics-and-Modeling-Internship_REQ23652",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5484,10 +5424,10 @@
   "salary": null,
   "link": "https://lombardodier.wd3.myworkdayjobs.com/en-US/lombard_odier_careers/job/Geneva/Internship---Enhancing-Financial-Knowledge-Access-with-Generative-AI_R0007258",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5499,10 +5439,10 @@
   "salary": null,
   "link": "https://razer.wd3.myworkdayjobs.com/en-US/careers/job/Singapore/AI-Engineer-Intern_JR2026006947",
   "link_missing": false,
-  "age": "28d",
+  "age": "29d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5514,10 +5454,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/enpal/04a4eabe-88f2-4e0a-aa2f-7e4d6081c98b",
   "link_missing": false,
-  "age": "29d",
+  "age": "30d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5529,10 +5469,10 @@
   "salary": null,
   "link": "https://damen.wd3.myworkdayjobs.com/en-US/damen_careers/job/Gorinchem/Internship--Data---Analytics_JR0017123",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5544,10 +5484,10 @@
   "salary": null,
   "link": "https://huntsman.wd1.myworkdayjobs.com/en-US/huntsman/job/Malaysia---Kuala-Lumpur/Data-Analyst-Intern_J-019998",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5559,10 +5499,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/partly.com/49cc37df-a604-4c7e-910b-e4e9bcf35e46",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5574,10 +5514,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/partly.com/89e575f0-c26d-4caf-beec-d98840eb2619",
   "link_missing": false,
-  "age": "32d",
+  "age": "33d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5589,25 +5529,10 @@
   "salary": null,
   "link": "https://rockwellautomation.wd1.myworkdayjobs.com/en-US/external_rockwell_automation/job/Katowice-Poland/Intern--Powerhouse-Maintenance-Team--RPA--AI--BI-_R26-4833",
   "link_missing": false,
-  "age": "33d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Baker Hughes",
-  "company_url": "https://www.bakerhughes.com",
-  "position": "Emerging Talent - Data Analyst Intern 2026 Opportunities - Florence - M/F/D",
-  "location": "",
-  "remote": false,
-  "salary": null,
-  "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-FI-FLORENCE-VIA-FELICE-MATTEUCCI-2/Emerging-Talent---Data-Analyst-Intern-2026-Opportunities--Florence---M-F-D-_R165879",
-  "link_missing": false,
   "age": "34d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5619,10 +5544,25 @@
   "salary": null,
   "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-FI-FLORENCE-VIA-FELICE-MATTEUCCI-2/Emerging-Talent---AI-and-Computer-engineering-Intern-2026-Opportunities--Florence-_R161407",
   "link_missing": false,
-  "age": "34d",
+  "age": "35d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Baker Hughes",
+  "company_url": "https://www.bakerhughes.com",
+  "position": "Emerging Talent - Data Analyst Intern 2026 Opportunities - Florence - M/F/D",
+  "location": "",
+  "remote": false,
+  "salary": null,
+  "link": "https://bakerhughes.wd5.myworkdayjobs.com/en-US/bakerhughes/job/IT-FI-FLORENCE-VIA-FELICE-MATTEUCCI-2/Emerging-Talent---Data-Analyst-Intern-2026-Opportunities--Florence---M-F-D-_R165879",
+  "link_missing": false,
+  "age": "35d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5634,10 +5574,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/enova/jobs/8023514",
   "link_missing": false,
-  "age": "34d",
+  "age": "35d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5649,10 +5589,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/later/jobs/8604889002",
   "link_missing": false,
-  "age": "34d",
+  "age": "35d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5664,10 +5604,10 @@
   "salary": null,
   "link": "https://pg.wd5.myworkdayjobs.com/en-US/1000/job/Brussels/Engineering-Internship---Automation-Mechanical-Mechatronic-Data-Science-Chemical_R000154036",
   "link_missing": false,
-  "age": "34d",
+  "age": "35d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5679,25 +5619,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/artefactlinkedin/jobs/7306842002",
   "link_missing": false,
-  "age": "35d",
+  "age": "36d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Enpal",
-  "company_url": "https://www.enpal.com/",
-  "position": "AI Data & Automation Intern - f/m/x",
-  "location": "Milan, Italy",
-  "remote": false,
-  "salary": null,
-  "link": "https://jobs.ashbyhq.com/enpal/24ebfa69-5689-49f1-bf69-f7224d6b2ff4",
-  "link_missing": false,
-  "age": "35d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5709,10 +5634,25 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/enpal/1748035a-8c48-4a8e-87a5-6ee34d6393f0",
   "link_missing": false,
-  "age": "35d",
+  "age": "36d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Enpal",
+  "company_url": "https://www.enpal.com/",
+  "position": "AI Data & Automation Intern - f/m/x",
+  "location": "Milan, Italy",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.ashbyhq.com/enpal/24ebfa69-5689-49f1-bf69-f7224d6b2ff4",
+  "link_missing": false,
+  "age": "36d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5724,10 +5664,10 @@
   "salary": null,
   "link": "https://motional.com/open-positions/?gh_jid=7779679003#/7779679003",
   "link_missing": false,
-  "age": "35d",
+  "age": "36d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5739,10 +5679,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/shopback-2/b216d68c-48b0-4fa5-8f1e-9e0375b993e1",
   "link_missing": false,
-  "age": "36d",
+  "age": "37d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5754,10 +5694,10 @@
   "salary": null,
   "link": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Nijmegen/Internship---Product-Engineering--Data-Science--Machine-Learning-Analyst-_R-10064265-1",
   "link_missing": false,
-  "age": "37d",
+  "age": "38d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5769,10 +5709,10 @@
   "salary": null,
   "link": "https://nxp.wd3.myworkdayjobs.com/en-US/careers/job/Nijmegen/Internship---Product-Engineering--ML-Model-Development-_R-10064264-1",
   "link_missing": false,
-  "age": "37d",
+  "age": "38d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5784,25 +5724,25 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/enpal/d06dc868-734e-4815-8821-2c497a6382fd",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
   "company": "Marsh McLennan",
-  "company_url": "https://careers.mmc.com/",
+  "company_url": "https://www.marshmclennan.com",
   "position": "Oliver Wyman - Data & Analytics Internship - Italy",
   "location": "Milan, Italy",
   "remote": false,
   "salary": null,
-  "link": "https://mmc.wd1.myworkdayjobs.com/en-US/mmc/job/Milan---Broletto/Oliver-Wyman---Data---Analytics-Internship---Italy_R_314029",
+  "link": "https://mmc.wd1.myworkdayjobs.com/en-US/careers/job/Milan---Broletto/Oliver-Wyman---Data---Analytics-Internship---Italy_R_314029-2",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5814,25 +5754,10 @@
   "salary": null,
   "link": "https://nio.wd3.myworkdayjobs.com/en-US/nio_careers/job/San-Jose-US/AI-Robotics-Researcher-Intern--Dexterous-Manipulation-_R-000144",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Santander",
-  "company_url": "https://www.santanderbank.com",
-  "position": "AI Data Scientist - Internship",
-  "location": "Turin, Italy",
-  "remote": false,
-  "salary": null,
-  "link": "https://santander.wd3.myworkdayjobs.com/en-US/santandercareers/job/TORINO/AI-Data-Scientist---Internship_Req1588274",
-  "link_missing": false,
-  "age": "39d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5844,10 +5769,10 @@
   "salary": null,
   "link": "http://techinsights.applytojob.com/apply/RVCXkgZULm/Research-Scientist-Semiconductor-Process-Chemistry-Coop-Student-Fall-2026",
   "link_missing": false,
-  "age": "39d",
+  "age": "40d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5859,10 +5784,10 @@
   "salary": null,
   "link": "https://thales.wd3.myworkdayjobs.com/en-US/careers/job/Gorgonzola/AI-Engineer---Internship--Open-also-to-Protected-Categories--Law-68-99-_R0332137",
   "link_missing": false,
-  "age": "40d",
+  "age": "41d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5874,10 +5799,10 @@
   "salary": null,
   "link": "https://zeissgroup.wd3.myworkdayjobs.com/en-US/external/job/Mnchen/Internship-Machine-Learning--Synthetic-Data-Generation---f-m-x-_JR_1050687",
   "link_missing": false,
-  "age": "40d",
+  "age": "41d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5889,10 +5814,10 @@
   "salary": null,
   "link": "https://zeissgroup.wd3.myworkdayjobs.com/en-US/external/job/Mnchen/Internship-in-Machine-Learning--Visual-Language--Action--Models--f-m-x-_JR_1050685",
   "link_missing": false,
-  "age": "40d",
+  "age": "41d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5904,10 +5829,10 @@
   "salary": null,
   "link": "https://gsk.wd5.myworkdayjobs.com/en-US/gskcareers/job/Belgium-Rixensart/Internship--Global-Quality-Digital---AI-Transformation---Deployment-Specialist--Belgium---2026_438373",
   "link_missing": false,
-  "age": "41d",
+  "age": "42d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5919,10 +5844,10 @@
   "salary": null,
   "link": "https://jobs.eu.lever.co/tomtom/448069cd-168f-4785-8686-3a6a2f2f86b6",
   "link_missing": false,
-  "age": "41d",
+  "age": "42d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5934,10 +5859,10 @@
   "salary": null,
   "link": "https://fis.wd5.myworkdayjobs.com/en-US/searchjobs/job/SRB-BELG-136B-FLR2/Intern_JR0307341",
   "link_missing": false,
-  "age": "42d",
+  "age": "43d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5949,10 +5874,10 @@
   "salary": null,
   "link": "https://synchronyfinancial.wd5.myworkdayjobs.com/en-US/university/job/Stamford-Hub/BLP-Intern---Data-Analytics_2601688",
   "link_missing": false,
-  "age": "42d",
+  "age": "43d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5964,10 +5889,10 @@
   "salary": null,
   "link": "https://flir.wd1.myworkdayjobs.com/en-US/flircareers/job/France---Grenoble/Internship---Resource--Project---Portfolio-Management--AI-Ready-_REQ34683",
   "link_missing": false,
-  "age": "42d",
+  "age": "43d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5979,10 +5904,10 @@
   "salary": null,
   "link": "https://jobs.eu.lever.co/tomtom/9c678c02-dbe6-4e31-9954-2c3d03a922d1",
   "link_missing": false,
-  "age": "43d",
+  "age": "44d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -5994,25 +5919,10 @@
   "salary": null,
   "link": "https://4flow.wd3.myworkdayjobs.com/en-US/4flow/job/Campinas/Intern---Artificial-Intelligence_R4253",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Edwards Lifesciences",
-  "company_url": "https://www.edwards.com",
-  "position": "Intern - Digital and AI Transformation",
-  "location": "",
-  "remote": false,
-  "salary": null,
-  "link": "https://edwards.wd5.myworkdayjobs.com/en-US/edwardscareers/job/Japan-Tokyo/Intern--Digital-and-AI-Transformation_Req-48653",
-  "link_missing": false,
-  "age": "46d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6024,10 +5934,10 @@
   "salary": null,
   "link": "https://msd.wd5.myworkdayjobs.com/en-US/searchjobs/job/SGP---Singapore---Singapore-Boulevard-Towers/Intern--D-L-Trade-Compliance-Data-Analyst_R400206",
   "link_missing": false,
-  "age": "46d",
+  "age": "47d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6039,10 +5949,10 @@
   "salary": null,
   "link": "https://cae.wd3.myworkdayjobs.com/en-US/career/job/Montreal-St-Laurent/C-FIN-201-Tax-Intern---Tax-Technology---AI-Enablement_121965",
   "link_missing": false,
-  "age": "47d",
+  "age": "48d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6054,10 +5964,10 @@
   "salary": null,
   "link": "https://huntsman.wd1.myworkdayjobs.com/en-US/huntsman/job/Malaysia---Kuala-Lumpur/Artificial-Intelligence---Automation-Intern_J-019938-1",
   "link_missing": false,
-  "age": "47d",
+  "age": "48d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6069,10 +5979,10 @@
   "salary": null,
   "link": "https://apply.workable.com/singulier/j/40E90AAB17/",
   "link_missing": false,
-  "age": "48d",
+  "age": "49d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6084,10 +5994,10 @@
   "salary": null,
   "link": "https://cadence.wd1.myworkdayjobs.com/en-US/external_careers/job/BELO-HORIZONTE/Intern--Application-Engineering---Digital-Simulation-Verification---Agentic-AI_R54884-1",
   "link_missing": false,
-  "age": "49d",
+  "age": "50d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6099,10 +6009,10 @@
   "salary": null,
   "link": "https://mango.wd3.myworkdayjobs.com/en-US/mango_work_your_passion/job/Palau-solit-i-Plegamans-Catalonia-Spain/QUANTITATIVE-RESEARCHER-INTERN_JR135774-1",
   "link_missing": false,
-  "age": "49d",
+  "age": "50d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6114,10 +6024,10 @@
   "salary": null,
   "link": "https://lighting.wd3.myworkdayjobs.com/en-US/jobs-and-careers/job/Madrid/SEO-and-AI-visibility-intern_364548",
   "link_missing": false,
-  "age": "49d",
+  "age": "50d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6129,10 +6039,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/wincent/984bf12c-8d80-431f-9789-04a9739cfc99",
   "link_missing": false,
-  "age": "50d",
+  "age": "51d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6144,10 +6054,10 @@
   "salary": null,
   "link": "https://apply.workable.com/talent3600/j/DC90777CD6/",
   "link_missing": false,
-  "age": "52d",
+  "age": "53d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6159,10 +6069,10 @@
   "salary": null,
   "link": "https://micron.wd1.myworkdayjobs.com/en-US/external/job/Fab-10NX-Singapore/Intern---AI---Data-Science-Engineering_JR102939",
   "link_missing": false,
-  "age": "53d",
+  "age": "54d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6174,10 +6084,10 @@
   "salary": null,
   "link": "https://razer.wd3.myworkdayjobs.com/en-US/careers/job/Singapore/AI-Data-Engineer-Intern_JR2026007475-1",
   "link_missing": false,
-  "age": "53d",
+  "age": "54d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6189,10 +6099,10 @@
   "salary": null,
   "link": "https://astrazeneca.wd3.myworkdayjobs.com/en-US/careers/job/Hong-Kong/XMLNAME-2026-Internship-Program---AI---Digital-Intern--Medical-Intern_R-253498",
   "link_missing": false,
-  "age": "56d",
+  "age": "57d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6204,10 +6114,10 @@
   "salary": null,
   "link": "https://accenture.wd103.myworkdayjobs.com/en-US/avanadecareers/job/Amsterdam/Graduation-Internship-Netherland---AI-Security_R00333393",
   "link_missing": false,
-  "age": "56d",
+  "age": "57d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6219,10 +6129,10 @@
   "salary": null,
   "link": "https://mango.wd3.myworkdayjobs.com/en-US/mango_work_your_passion/job/Palau-solit-i-Plegamans-Catalonia-Spain/Agentic-AI-Engineer-Intern_JR135098",
   "link_missing": false,
-  "age": "56d",
+  "age": "57d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6234,10 +6144,10 @@
   "salary": null,
   "link": "https://www.gsacapital.com/careers/gh/?gh_jid=8570661002",
   "link_missing": false,
-  "age": "59d",
+  "age": "60d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6249,10 +6159,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/bynder/f80ec6d0-3c38-4ca3-b924-8f1af4589fa1",
   "link_missing": false,
-  "age": "60d",
+  "age": "61d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6264,10 +6174,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/finmid.com/279b1d76-e50d-4fe7-991b-2dc904f3c141",
   "link_missing": false,
-  "age": "60d",
+  "age": "61d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6279,10 +6189,10 @@
   "salary": null,
   "link": "https://sumup.com/careers/positions/8285272002?gh_jid=8285272002",
   "link_missing": false,
-  "age": "60d",
+  "age": "61d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6294,10 +6204,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/celonis/jobs/7731854003?gh_jid=7731854003",
   "link_missing": false,
-  "age": "61d",
+  "age": "62d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6309,10 +6219,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/Grab/744000128891259-intern-data-scientist-analytics-mobility?oga=true",
   "link_missing": false,
-  "age": "61d",
+  "age": "62d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6324,10 +6234,10 @@
   "salary": null,
   "link": "https://upenn.wd1.myworkdayjobs.com/en-US/careers-at-penn/job/Van-Pelt-Library/AI-Literacy-Library-Intern_JR00120789",
   "link_missing": false,
-  "age": "61d",
+  "age": "62d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6339,10 +6249,10 @@
   "salary": null,
   "link": "http://bambooworks.applytojob.com/apply/zKObvZz2Sk/AI-Automation-Internship-Remote",
   "link_missing": false,
-  "age": "67d",
+  "age": "68d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6354,10 +6264,10 @@
   "salary": null,
   "link": "https://capitaland.wd3.myworkdayjobs.com/en-US/capitalandinvestmentcareers/job/Singapore-East-Singapore/Intern--Digital---Technology--Data---AI-_JR004465-1",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6369,10 +6279,10 @@
   "salary": null,
   "link": "https://capitaland.wd3.myworkdayjobs.com/en-US/capitalandinvestmentcareers/job/Singapore-East-Singapore/Intern--Digital---Technology--Data---AI---Off-cycle-Jul---Dec-2026-_JR004464",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6384,10 +6294,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/engineersgate/jobs/7946542",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6399,10 +6309,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/proxima-fusion/186e4b2e-c2d9-455a-acc1-6550c65427fc",
   "link_missing": false,
-  "age": "68d",
+  "age": "69d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6414,10 +6324,10 @@
   "salary": null,
   "link": "https://internships-adlittle.icims.com/jobs/2116/data%26ai-analyst-intern/job",
   "link_missing": false,
-  "age": "69d",
+  "age": "70d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6429,10 +6339,10 @@
   "salary": null,
   "link": "https://careers-kinaxis.icims.com/jobs/34766/co-op--intern-engineer%2c-data-%26-analytics/job",
   "link_missing": false,
-  "age": "69d",
+  "age": "70d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6444,10 +6354,10 @@
   "salary": null,
   "link": "https://jobs.smartrecruiters.com/Grab/744000127141409-intern-risk-data-analyst?oga=true",
   "link_missing": false,
-  "age": "70d",
+  "age": "71d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6459,10 +6369,10 @@
   "salary": null,
   "link": "https://zeissgroup.wd3.myworkdayjobs.com/en-US/external/job/Oberkochen/Internship-Opportunity--Startup---AI-Operating-Model---ZEISS--f-m-x-_JR_1049648-1",
   "link_missing": false,
-  "age": "71d",
+  "age": "72d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6474,10 +6384,10 @@
   "salary": null,
   "link": "https://micron.wd1.myworkdayjobs.com/en-US/external/job/Fab-10NX-Singapore/Intern---AI-Driven-Process-Development-Deposition---Ion-implantation_JR100559",
   "link_missing": false,
-  "age": "75d",
+  "age": "76d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6489,10 +6399,10 @@
   "salary": null,
   "link": "https://accenture.wd103.myworkdayjobs.com/en-US/avanadecareers/job/Amsterdam/Graduation-Internship-Data---AI---AI---Gen-AI---AI-Engineering_R00329685",
   "link_missing": false,
-  "age": "77d",
+  "age": "78d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6504,10 +6414,10 @@
   "salary": null,
   "link": "https://hrhub.wd3.myworkdayjobs.com/en-US/euronext_career_page/job/Paris/Equity-Quant-Intern_R24279",
   "link_missing": false,
-  "age": "78d",
+  "age": "79d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6519,10 +6429,10 @@
   "salary": null,
   "link": "https://dow.wd1.myworkdayjobs.com/en-US/externalcareers/job/Terneuzen-NLD/Campus-Internship-2025-2026---Finance--Accounting--Tax--Treasury--Data-Science-_R2066082",
   "link_missing": false,
-  "age": "81d",
+  "age": "82d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6534,10 +6444,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/limetax/87f6edc7-c60f-4bd5-9991-75bca022d43e",
   "link_missing": false,
-  "age": "81d",
+  "age": "82d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6549,10 +6459,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/uplane/49df14a1-3321-4e82-b85f-d0ecc51ef982",
   "link_missing": false,
-  "age": "81d",
+  "age": "82d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6564,10 +6474,10 @@
   "salary": null,
   "link": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/external/job/IND---Karnataka---Bengaluru---North/Intern---SOI-LDMOS-Compact--SPICE--Modeling_JR-2501258",
   "link_missing": false,
-  "age": "82d",
+  "age": "83d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6579,10 +6489,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/wintermute-trading/f512e856-a6e8-4aac-bae1-430b2ed0ea57",
   "link_missing": false,
-  "age": "82d",
+  "age": "83d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6594,10 +6504,10 @@
   "salary": null,
   "link": "https://jobs.lever.co/bigblue/9c276113-679e-47c6-90fa-7cd805b7a667",
   "link_missing": false,
-  "age": "83d",
+  "age": "84d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6609,10 +6519,10 @@
   "salary": null,
   "link": "https://apply.workable.com/bayutdubizzle/j/1876E6B7D8/",
   "link_missing": false,
-  "age": "85d",
+  "age": "86d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6624,10 +6534,10 @@
   "salary": null,
   "link": "https://sabre.wd1.myworkdayjobs.com/en-US/sabrejobs/job/ZonAmerica-Montevideo-Uruguay/Automation---AI-Solutions-Intern_JR107816",
   "link_missing": false,
-  "age": "88d",
+  "age": "89d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6639,10 +6549,10 @@
   "salary": null,
   "link": "https://zeissgroup.wd3.myworkdayjobs.com/en-US/external/job/Mnchen/Internship-Multimodal-AI-for-Video-Understanding--m-f-x-_JR_1049122-2",
   "link_missing": false,
-  "age": "89d",
+  "age": "90d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6654,10 +6564,10 @@
   "salary": null,
   "link": "https://intel.wd1.myworkdayjobs.com/en-US/external/job/Mexico-Guadalajara/AI-Algorithm-Research-Intern---Neuromorphic-Computing_JR0283303",
   "link_missing": false,
-  "age": "91d",
+  "age": "92d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6669,10 +6579,10 @@
   "salary": null,
   "link": "https://jci.wd5.myworkdayjobs.com/en-US/jci/job/Singapore-Singapore-Singapore/Intern--Data-Analytics_WD30266779",
   "link_missing": false,
-  "age": "91d",
+  "age": "92d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6684,10 +6594,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/goalhonduras/jobs/7836868",
   "link_missing": false,
-  "age": "98d",
+  "age": "99d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6699,10 +6609,10 @@
   "salary": null,
   "link": "https://hpe.wd5.myworkdayjobs.com/en-US/jobsathpe/job/Amstelveen-North-Holland-Netherlands/NWE-Intern--Category-Management---Compute--AI---Business-Strategy---Netherlands---Dutch-speaker_1196360-2",
   "link_missing": false,
-  "age": "98d",
+  "age": "99d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6714,10 +6624,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/neura-robotics-gmbh/f8297f12-04d0-4416-b672-2b0debf69ebd",
   "link_missing": false,
-  "age": "99d",
+  "age": "100d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6729,10 +6639,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/neura-robotics-gmbh/570a45d8-ef96-4728-a95e-5909472da55e",
   "link_missing": false,
-  "age": "99d",
+  "age": "100d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6744,10 +6654,10 @@
   "salary": null,
   "link": "https://job-boards.eu.greenhouse.io/axiomaticai/jobs/4845060101",
   "link_missing": false,
-  "age": "101d",
+  "age": "102d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6759,25 +6669,10 @@
   "salary": null,
   "link": "https://globalfoundries.wd1.myworkdayjobs.com/en-US/external/job/SGP---Woodlands/XMLNAME-2H-University-Intern---Digital-Manufacturing--AI---ML-_JR-2502767",
   "link_missing": false,
-  "age": "102d",
-  "student_ok": true,
-  "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
- },
- {
-  "source": "speedyapply-intern-intl",
-  "company": "Gen",
-  "company_url": "https://www.gendigital.com",
-  "position": "Data Engineer - Intern - MoneyLion",
-  "location": "Kuala Lumpur, Malaysia",
-  "remote": false,
-  "salary": null,
-  "link": "https://jobs.ashbyhq.com/gen-digital/ec9dc7d0-9ed2-4421-ad61-158462f59e27",
-  "link_missing": false,
   "age": "103d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6789,10 +6684,25 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/gen-digital/020a42a9-7c79-4e6c-958f-726069ff86f0",
   "link_missing": false,
-  "age": "103d",
+  "age": "104d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
+ },
+ {
+  "source": "speedyapply-intern-intl",
+  "company": "Gen",
+  "company_url": "https://www.gendigital.com",
+  "position": "Data Engineer - Intern - MoneyLion",
+  "location": "Kuala Lumpur, Malaysia",
+  "remote": false,
+  "salary": null,
+  "link": "https://jobs.ashbyhq.com/gen-digital/ec9dc7d0-9ed2-4421-ad61-158462f59e27",
+  "link_missing": false,
+  "age": "104d",
+  "student_ok": true,
+  "deadline": null,
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6804,10 +6714,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/telus-digital/8c55d9eb-4e10-44e8-b323-cbc2146b620f",
   "link_missing": false,
-  "age": "104d",
+  "age": "105d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6819,10 +6729,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/perplexity/71168628-1998-47d3-87a9-be7bc56a430d",
   "link_missing": false,
-  "age": "111d",
+  "age": "112d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6834,10 +6744,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/gardacp/jobs/5843263004",
   "link_missing": false,
-  "age": "117d",
+  "age": "118d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6849,10 +6759,10 @@
   "salary": null,
   "link": "https://jobs.ashbyhq.com/reonic/79d56c30-6b6f-4f1d-9370-2873e2db8b9b",
   "link_missing": false,
-  "age": "117d",
+  "age": "118d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6864,10 +6774,10 @@
   "salary": null,
   "link": "https://job-boards.greenhouse.io/shifttechnology/jobs/7687752003",
   "link_missing": false,
-  "age": "117d",
+  "age": "118d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  },
  {
   "source": "speedyapply-intern-intl",
@@ -6879,9 +6789,9 @@
   "salary": null,
   "link": "https://pwc.wd3.myworkdayjobs.com/en-US/nonpublic_postings/job/Yogyakarta/Consulting---Internship---Strategy---Operations--AI---Data-Science-_718300WD",
   "link_missing": false,
-  "age": "118d",
+  "age": "119d",
   "student_ok": true,
   "deadline": null,
-  "fetched_at": "2026-07-29T08:31:13+00:00"
+  "fetched_at": "2026-07-30T08:15:25+00:00"
  }
 ]
