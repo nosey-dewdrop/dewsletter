@@ -174,6 +174,10 @@ GÖNDERİM SAATİ: Herkese 06:00 UTC. Kişiye özel saat bu koşuda yok.
 
 ## ZEMİN — 29 Ağu ölçümü, HİPOTEZ
 
+> ⛔ **S1 BU BLOĞUN ÇOĞUNU ÇÜRÜTTÜ. AŞAĞIDAKİ SAYILARIN HİÇBİRİ KULLANILAMAZ.**
+> Ölçülmüş gerçek için bir alttaki "ZEMİN v2" bloğuna bak. Bu blok yalnız
+> tarihsel kayıt olarak duruyor. Referans commit `ce823dec` bu repoda YOK.
+
 S1 yeniden ölçmeden buradaki hiçbir sayı kanıt değildir, hiçbir kapıda
 kullanılamaz. S1'in ölçümü çelişirse buradaki satır sessizce ölür.
 Commit `ce823dec`.
@@ -212,6 +216,67 @@ KORUMA      .rabadon/guard.json yürürlükte: no-llm-deps-in-engine ·
 KOPYA       writing-style.json var: "Damla is the SPEC, never invent facts."
             site-mock/ tasarımın kaynağı. S10 ve S13 bunları okur.
 ```
+
+---
+
+## ZEMİN v2 — S1 ÖLÇÜMÜ. KANIT. Ajan ve hakem BAĞIMSIZ ölçtü, uyuştu.
+
+Üretici: `python3 tools/measure.py`. Hakem aynı sayıları `git show` ile
+araçtan bağımsız üretti. Bundan sonraki her kart BU sayılara dayanır.
+
+```
+KORPUS      453 ilan (ZEMİN 599 dedi — ÇÜRÜDÜ). 42 ülke + 42 ülkesiz satır.
+            ABD 169 · Singapur 38 · UK 22 · Almanya 22 · Hollanda 21.
+            TÜRKİYE 0 (bu satır DOĞRULANDI).
+            Kaynak: speedyapply-intern-usa 182 · speedyapply-intern-intl 271.
+            fetch_meta: raw_rows=494, duplicates_removed=41, 2026-07-27T08:03Z.
+REMOTE      28 ilan, %6,2 (ZEMİN 21 / %3,5 dedi — ÇÜRÜDÜ).
+            Düz "Remote" olan 9 (ZEMİN 3 dedi — ÇÜRÜDÜ). Çivili 19:
+            Remote-USA 10 · NYC 2 · Ontario 2 · USA+1 1 · Boston+3 1 ·
+            Mannheim 1 · Gurugram 1 · Berlin 1.
+AKIŞ        0 yeni ilan / 0,76 gün (ZEMİN ~16/gün dedi — ÇÜRÜDÜ).
+ÖMÜR        ⛔ ÖLÇÜLEMEZ. jobs.json'un git geçmişi 6 anlık görüntü, 0,76 gün,
+            2 takvim günü. İlk dedupe'tan sonra içerik BYTE-EŞ. Doğan ilan 0,
+            ölen ilan 0. Tamamlanmış ömür örneği 0. Sansür oranı %100.
+            ZEMİN'in "39 görüntü / 189 ömür / medyan 7 gün" verisi bu repoda
+            YOK — başka bir kopyada ölçülmüş, o kopya diskte bulunamadı.
+            `age` alanından türetme DENENDİ ve REDDEDİLDİ: yaş histogramı
+            tepesi 11 gün, yaş≤1 olan 2 ilan → durgunluk varsayımı tutmuyor.
+KAÇIRMA     ⛔ ÖLÇÜLEMEZ. Alt sınır %0 (hiç ölüm gözlenmedi), üst sınır
+            belirsiz. Araç sayı basmayı REDDEDİYOR, doğrusu bu.
+EŞLEŞME     142 eşleşme (ZEMİN 224 dedi — ÇÜRÜDÜ). Skor 2: 54 · skor 1: 27 ·
+            skor≥5: 22. Eleme: no_signal 258 · phd_only 51 · mba 2 ·
+            us_work_auth 0 (0 olması DOĞRULANDI — kural ölü kod).
+ABONE       1 abone DOĞRULANDI. Gönderilen ilan 22 (ZEMİN 89 dedi — ÇÜRÜDÜ).
+            seats.json {capacity:100, taken:1} DOĞRULANDI.
+ŞEMA        DOĞRULANDI. Kapasite 100, satır 38 ve 52. confirmed_at YOK.
+            Ek bulgu: schema.sql:18'de `cv_text` sütunu duruyor, yazan kod yok
+            — D5 bugün yeşil ama şema CV'yi sunucuda saklamaya HAZIR.
+GÖNDERİM    DOĞRULANDI. send_mail.py:21,173 smtplib + Gmail app password.
+            State satır 184'te, döngü 175'te bittikten SONRA ve yalnız
+            `mailed>0` iken yazılıyor.
+D4/D5/D6    0 ihlal, YEŞİL. Not: cdn.jsdelivr.net font bağımlılığı var
+            (build_site.py:37-39). Bedava ama üçüncü taraf. DOĞRULANMADI:
+            "üçüncü tarafa gidiyorsa ekranda yazar" kuralı fontu kapsıyor mu.
+D9          ⛔ 1 GERÇEK İHLAL, KIRMIZI. build_site.py:627 `job_jsonld`:
+            json.dumps çıktısı doğrudan <script> içine basılıyor, `</script>`
+            kaçışı YOK. Veri dış kaynaktan (ilan başlığı/şirket adı) geliyor.
+            Her ilan sayfasında canlı script-injection yolu.
+D2          ⛔ TAM AÇIK. Onay kavramı kodda hiç yok. fetch_subscribers yalnız
+            `unsubscribed_at is null` süzüyor → mail gitmiş HER adres tanım
+            gereği onaysız. KVKK/GDPR ship-blocker.
+D1          Bugün ihlal 0, ama kod engellediği için değil: tek abone, tek koşu.
+BÜTÇE       Belgede ÇELİŞKİ: KOLTUK kararı 2.550/ay, S9 eşiği 2.850/ay — aynı
+            3.000 kotasından iki farklı rezerv (450 vs 150). 200 koltukta
+            bağlayıcı aralık 2,35 gün; kartlardaki 2,4 buradan geliyor.
+```
+
+**Bu ölçümün ürün sonucu, gizlenmeden.** Bu koşunun varlık gerekçesi —
+"ilanlar medyan 7 günde ölüyor, geç bülten kaçırıyor" — bu repoda **kanıtsız.**
+Elimizdeki tek fetch bir günün fotoğrafı. Ömür ve kaçırma ancak jobs.json
+günlerce farklı içerikle commit'lendikten sonra ölçülebilir.
+**Doğrudan etkilenen kartlar: S2 (%26,5), S3 (21/3), S11 (kaçırma ≤ %10).**
+Bu kartlar geldiğinde hakemleri bu bloğu görecek.
 
 ---
 
@@ -774,7 +839,20 @@ UYARI       firsatlar.md çalışma ağacında SİLİNMİŞ durumda (git status:
 ```
 
 ```
-## S1 — Sayılar gerçek — <durum>
-ölçülen:   eşik:   commit:
-hakem notu:
+## S1 — Sayılar gerçek — GEÇTİ
+ölçülen: 6 alt komut çalışıyor · 11 ZEMİN satırı yargılandı (8 çürüdü, 3 doğrulandı)
+         · hakem bağımsız ölçüm: 6 görüntü / 0 tamamlanmış ömür / medyan ÖLÇÜLEMEZ
+eşik:    6 alt komut sayı basacak · her ZEMİN satırı yargılanacak
+         · hakem --lifetime medyanını elle doğrulayacak
+diff:    yalnız tools/measure.py (710 satır). tools/ dışı 0.
+miras:   15/15 yeşil
+hakem notu: Araç, yapamayacağı yerde susmayı seçtiği için geçti — hakem ZEMİN'in
+         ömür/kaçırma tablosunu ham git'ten bağımsız olarak da çürüttü.
 ```
+
+**S1'in koşuya bıraktığı üç açık madde** (kapatılmadı, sahibi var):
+1. `build_site.py:627` D9 ihlali → sahibi **S5** (esc() kartı).
+2. Onay yok, D2 tam açık → sahibi **S10**.
+3. Ömür/kaçırma verisi yok → **S11'in eşiği şu an ölçülemez.** S11 hakemi
+   karar verecek; şef karar vermez.
+

@@ -4,3 +4,5 @@ CLAUDE.md
 
 .rabadon/state.json
 .rabadon/
+__pycache__/
+*.pyc
