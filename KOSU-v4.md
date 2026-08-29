@@ -592,13 +592,126 @@ geliyor.
 3. Her elenme sebebi isimli. Eski kuralın 0 tetiklenmesine karşılık yeni
    kuralın tetiklenme sayısı bu dosyaya yazılır.
 
+### ⚠ S4 KARTI — HAKEM YENİDEN YAZDI (KART YANLIŞ). Eski kart ÖLÜ.
+
 ```
+ÖLÜ KART:
 KABUL KOMUTU : python3 -m unittest discover engine/tests && python3 engine/match.py profile.json --stats
-EŞİK         : Damla profilinde kalan eşleşmelerin %100'ü ya global remote ya
-               profil ülkesinde · yeni kuralın tetiklenme sayısı > 0 ·
-               kural FARKLI bir profille de doğru eliyor (hakem dener)
+EŞİK         : kalan eşleşmelerin %100'ü global remote ya da profil ülkesinde ·
+               yeni kuralın tetiklenme sayısı > 0 · farklı profille de doğru eliyor
 DOKUNULABİLİR: engine/match.py, engine/tests/
 ```
+
+**Bugünkü ölçüm — ürünün utandırıcı gerçeği.** `match.py profile.json --stats`
+bugün 142 eşleşme veriyor. Hakem bu 142'nin scope dağılımını saydı:
+`None` (uzaktan değil) 115 · `country:US` 13 · `global` 9 · CA 2 · DE 2 · IN 1.
+**Damla'ya yollanan 142 ilanın 133'ü başvuramayacağı iş.**
+
+**Neden ölü:**
+
+1. Madde 2 **var olmayan alana** dayanıyordu. `profile.json`'da `relocation`
+   boolean'ı YOK; olan `constraints.relocation_now` serbest metni. Profil ülkesi
+   de yapılandırılmamış (`identity.location: "Ankara, Turkey (Bilkent University)"`).
+   Üstelik `profile.json` DOKUNULABİLİR listesinde değildi → uygulanamaz kart.
+2. **Madde 1 kırılamaz kapıyı kırmayı emrediyordu.** Hakem `us_work_auth`'u
+   kaldırılmış bir kopyada miras testleri koştu: **4 test kırılıyor**
+   (`us_auth_excluded_for_non_us` KeyError; `ms_penalty_not_exclusion`,
+   `reasons_are_english_and_scored`, `stale_penalty` — bu üçü fixture'ı
+   `Remote - USA` olduğu için yeni geo kuralına takılıyor).
+   **Madde 1 REDDEDİLDİ:** `us_work_auth` kalıyor. Teşhis ("ölü kod") doğru,
+   tedavisi silmek değil — yanına gerçekten eleyen kuralı koymak.
+3. Kural sadece `remote_scope`'a dayansaydı korpusun %94'ünü oluşturan **425
+   yerinde ilana hiç dokunmazdı**; Damla'ya 124 ulaşılamaz ilan kalırdı.
+   Yerinde-ilan kolu kartta YOKTU.
+4. Tek `unknown` ismi iki ayrı parse borcunu gizliyordu: uzaktan-scope okunamayan
+   (**0**) ve konum-ülkesi okunamayan (**34**).
+5. "%100'ü global ya da profil ülkesinde" eşiği **0 eşleşmeyle de sağlanır.**
+   Sayı yoktu.
+6. Karşı-profil tanımsızdı. Kabul komutu byte kapılarını içermiyordu.
+
+### YENİ KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Bana gelen her ilana gerçekten başvurabiliyorum.
+
+İŞ:
+1. profile.json → `constraints` altına EKLE: "relocation": false, "home_country": "TR".
+   `relocation_now` serbest metni KALIR. Başka satıra dokunma (çalışma ağacındaki
+   CV düzeltmesi dâhil — o Damla'nın, geri alma).
+2. engine/fetch/common.py → SADECE EKLEME: `listing_country(location) -> "XX"|"unknown"`
+   saf fonksiyonu; oradaki COUNTRY_CODES / US_STATE_CODES / PLUS_N_RE tablolarını
+   kullanır. FIELDS, record(), parse_markdown_table DEĞİŞMEZ.
+   Ayrıca COUNTRY_CODES'a "turkey": "TR" eklenir (bugün tabloda YOK).
+3. engine/match.py:
+   - us_work_auth KALIR, sırası değişmez, stats anahtarı korunur.
+   - `country = "turkey" if ...` hack'i (satır 148) ve `country in location`
+     (satır 123) kalkar; yerine listing_country(job) == home_country ile
+     +3 "location fits".
+   - home = constraints.home_country YALNIZCA constraints.relocation is False ise
+     okunur; aksi halde None ve kural KAPALI.
+   - home doluysa, phd/mba/us_auth'tan SONRA, puanlamadan ÖNCE:
+       remote_scope == "global"              → geç
+       remote_scope == "unknown"             → remote_scope_unknown
+       remote_scope == "country:XX", XX≠home → remote_scope_country_mismatch
+       remote_scope is None + listing_country == "unknown" → location_country_unknown
+       remote_scope is None + ülke≠home      → onsite_abroad
+   - relocation:false beyan edilmiş ama home_country yoksa → sessiz geçme YOK,
+     SystemExit ile isimli hata.
+   - --stats her isimli kovayı basar (0 olanlar dâhil) + kural durumunu
+     ("geo rule: on, home TR" / "off, profile declares no relocation constraint")
+     + matched.
+   - ÇIKMAZ SOKAK: matched == 0 ise --stats en büyük eleme kovasını adıyla yazar
+     ve match.py exit code 1 döner.
+4. engine/tests/test_geo_reach.py (YENİ dosya; test_engine.py'ye DOKUNMA).
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 engine/match.py profile.json --stats && test -z "$(git status --porcelain docs tools engine/data/jobs.json engine/tests/test_engine.py)" && test "$(git hash-object engine/data/jobs.json)" = ad8a4e643f18fa36b11a24669d5cfbcc255a3683 && test "$(git hash-object engine/tests/test_engine.py)" = 6bbd4a51a5bff32c202051d8e0f9a1f530929cfe && test "$(git rev-parse HEAD:docs)" = 80281d148a47de0e79e32d3344d6fd7d052a500c && test "$(git rev-parse HEAD:tools)" = 6f05c867f87b4ff3d9ab90ccdb5e79cb606eac9f
+
+EŞİK — her sayı hakemin ÖLÇTÜĞÜ sayı:
+1.  Miras test_engine.py 15/15 yeşil, blob'u değişmemiş. Toplam test ≥70, 0 hata.
+2.  profile.json ile matched TAM 9; dokuzunun da remote_scope == "global" olduğu
+    testle kanıtlı.
+3.  --stats kovaları TAM: phd_only 51 · mba 2 · us_work_auth 0 · onsite_abroad 339 ·
+    remote_scope_country_mismatch 18 · remote_scope_unknown 0 ·
+    location_country_unknown 34 · no_signal 0; kovalar + matched = 453.
+4.  Yeni kuralın tetiklenmesi: 339+18+0+34 = 391 > 0 (eski kural 0'dı).
+5.  Karşı-profil US-taşınamaz: matched TAM 144, onsite_abroad 217, mismatch 5,
+    hayatta kalanların %100'ü global ya da listing_country == "US".
+6.  Karşı-profil ZZ-taşınamaz (var olmayan ülke): matched TAM 9, TR ile aynı
+    kovalar → 9'un ülkeden değil global'dan geldiği kanıtlı.
+7.  Taşınabilir profil (relocation:true): matched TAM 142, dört yeni kova 0,
+    --stats kuralı "off" yazar.
+8.  Beyan kilidi: gerçek profile.json'da constraints.relocation is False ve
+    home_country 2-harfli ISO — test bunu kilitler (alan silinirse KIRMIZI).
+9.  Eksik home_country (beyan var, kod yok) → isimli SystemExit, sessiz geçiş yok.
+10. Çıkmaz sokak: global remote içermeyen sentetik ilan listesi + taşınamaz profil
+    → matched 0, --stats en büyük kovayı adıyla basar, exit code 1.
+11. MUTASYON: faz öncesi match.py'ye karşı 2., 5. ve 6. maddenin testleri KIRMIZI
+    düşer (bugünkü değerler 142 / 142 / 142). Kanıt çıktısıyla raporlanır.
+12. common.py diff'i yalnızca EKLEME; S2 replay testleri
+    (test_replay_is_byte_identical, test_replay_dedupe_order_is_identical) yeşil.
+
+DOKUNULABİLİR: engine/match.py · engine/tests/ (YENİ dosya; test_engine.py DEĞİL) ·
+engine/fetch/common.py (sadece ekleme) · profile.json (sadece constraints altına
+iki alan ekleme)
+```
+
+**Hakemin zorlaştırdıkları:** "%100'ü global/ülkede" (0 ile de sağlanır) → **matched
+tam 9** + kova kova tam sayı + 453 denkliği · "tetiklenme > 0" → **391**, dört isimli
+kova · "farklı profil dener" (tanımsız) → **üç ölçülmüş karşı-profil** (US=144, ZZ=9,
+taşınabilir=142) · kural sadece remote → 425 yerinde ilanı da kapsıyor · tek `unknown`
+→ iki ayrı borç · çıkmaz sokak → testli + exit 1 · kabul komutu → 4 byte kapısı
+(blob/tree hash) · `profile.json` listeye girdi, beyan testle kilitli.
+
+**Hakemin ayrıca bulduğu, S4'ün işi OLMAYAN iki şey:**
+- `+3 "location fits"` düzeltilince US profilinde `no_signal` 258 → 0 düşüyor
+  (144 vs bonussuz 74). Yani hiç ilgi/beceri eşleşmesi olmayan ilan sırf ülkende
+  diye eşiği geçiyor. **Puanlama eşiğinin ayrı zayıflığı.** TR profilinde etkisi
+  sıfır (korpusta TR ilanı 0) ama başka profil eklenirse patlar. Ayrı kart konusu.
+- Korpus ülke dağılımı (425 yerinde ilan): US 155 · SG 38 · GB 22 · NL 21 · DE 20 ·
+  CA 16 · FR 14 · HK 11 · ES 10 · BR 8 · IN 7 · bilinmeyen 34 · **TR 0**.
+  Damla'ya ulaşan tek kanal global remote ve o kanal **9 ilan** geniş.
+  Bu bir ürün kararı gerektiriyor (kaynak eklemek), kod hatası değil. → S14.
 
 ---
 
