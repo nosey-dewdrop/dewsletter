@@ -1363,3 +1363,164 @@ A5 olarak yazdı. Kartsız açık madde.
 korpusun dört TikTok ilanını anlatırken hemen altındaki `US_NO_SIGNAL` listesi
 FIXTURE korpusun dört FARKLI ilanını sayıyor. İkisi de doğru, hakem ikisini de
 ayrı ölçtü, ama yan yana yanıltıcı okunuyor. Kayda geçti.
+
+---
+
+## S5a · "KAÇIŞ KAPISI SAĞLAM"
+
+Damla S5'i ikiye böldü: **"kaçış kapısı kırıkken yeni sayfa üretmek ihlali
+çoğaltır."** Kişisel sayfa S5b'dir, bu kartın işi değildir.
+
+### Hakemin ölçümü — taslak 1 ihlal diyordu, gerçek 4
+
+| dosya:satır | bağlam | sorun |
+|---|---|---|
+| `build_site.py:627` | `<script>` JSON | `json.dumps` ham basılıyor, `</script>` kaçışı yok — measure.py'nin gördüğü TEK ihlal |
+| `build_site.py:291` | `href` | `esc()` tırnağı kaçırıyor ama **şemayı kaçırmıyor** → `javascript:` geçiyor |
+| `build_site.py:594` | `href` | aynı |
+| `build_site.py:632` | `href` | aynı |
+
+24 basma noktasının 20'si doğru. `send_mail.py` düz metin üretiyor, D9 kapsamı dışı.
+
+### SÖMÜRÜ — hakem sandbox'ta gerçekten koşturdu
+
+İlan başlığına payload konup `build_site.py` koşuldu, çıktı gerçek HTML parser
+ile ayrıştırıldı. **Her ilan sayfasında dört ayrı çalıştırılabilir yol:**
+
+```
+script #2  body='alert(1)'                          <-- ÇALIŞIR
+script #3  body='alert(4)'                          <-- ÇALIŞIR
+img        {'src':'x', 'onerror':'alert(2)'}        <-- ÇALIŞIR
+href       "javascript:alert(3)"                    <-- ÇALIŞIR
+```
+
+`docs/jobs/index.html`'de de `javascript:` href canlı.
+
+### ⛔ KAPI D9'A ÖZEL DEĞİL — measure.py'nin TAMAMI KIRIK
+
+`tools/measure.py:679-706`: `cmd_invariants()` sayıları **döndürüyor ama
+`main()` onları ATIYOR.** Dosyadaki tek `sys.exit` "hiç alt komut verilmedi"
+hâli için. Sonuç:
+
+- D9 kırmızı → exit 0 · D4/D5/D6 kırmızı olsaydı → **yine exit 0**
+- `--unconfirmed` bugün **"ONAYSIZ ADRESE GONDERIM: 1"** basıyor → exit 0
+- `--double-send` "YAPISAL BULGU SAYISI: 2" basıyor → exit 0
+
+**S1'den beri her fazın "birikimli kapısı" hiçbir şeyi tutmuyordu; komut yalnız
+ekrana yazıyordu.** S5a D4/D5/D6/D9'u bağlar; D1/D2 bilinçli dışarıda (D2 bugün
+1, kart kendi dışındaki bir kusurdan kilitlenmemeli) → **A10 açık maddesi.**
+
+### mock-contract çatışması — hakemin çözümü
+
+"Yalnız yeni fonksiyon" şartı lafzıyla imkânsız (çağrılmayan fonksiyon hiçbir
+şeyi kapatmaz). Hakem şartın **ruhunu makine kontrolüne** çevirdi: 2 yeni
+fonksiyon + 5 çağrı satırının yeniden bağlanması, ve iki sayılabilir kapı —
+(a) `build_site.py`'deki hiçbir string `Constant` literal'i değişmez (`ast` ile
+doğrulanır), (b) 5 yüzeyin sha256'sı sabit. **Kilit "güven bana" ile değil,
+2.096.716 baytlık ölçümle açılıyor.**
+
+Ayrıca ölçüldü: taslağın "docs/ bugünkü hâliyle byte-eş" şartı **düzeltme
+olmadan da tutmuyor** — commit'teki `docs/` 27 Tem tarihli, bugün koşturunca
+462 dosyanın 460'ı zaten farklı (tarih sabitleri + S3/S4 geo kuralı 142→9).
+A/B ölçüldü: düzeltme öncesi/sonrası **462 dosya, 0 fark, 0 bayt.**
+
+### D9'un altı bağlamı — tek `esc()` kuralı D9'u KAPATMAZ
+
+| bağlam | kural | bugün |
+|---|---|---|
+| gövde metni | `esc()` = `html.escape(quote=True)` | 20 sink, doğru |
+| attribute | aynı `esc()`, farklı hata modu (tırnak kırma) | 2 sink, doğru |
+| `<script>` JSON | **`esc()` BURADA YANLIŞ**, JSON'u bozar → `json_in_html`: `< > U+2028 U+2029` → `\uXXXX`, **`&` DOKUNULMAZ** (99 yerde geçiyor, bayt kapısı) | **1 sink, KIRIK** |
+| URL/`href`/`src` | **`esc()` YETMEZ** → `safe_url()` yalnız `https?://`, sonra `esc()` | **3 sink, KIRIK** |
+| XML `<loc>` | `esc()`, girdi `slugify`'dan geçmiş | 1 sink, doğru |
+| inline JS/CSS | **YASAK**, dış metin hiç girmez | 0 sink, sayaç 0'da kalmalı |
+
+### KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Sitede gördüğüm hiçbir metin bana kod çalıştıramaz.
+
+İŞ:
+1. build_site.py'ye YENİ json_in_html(data): json.dumps çıktısında < > U+2028
+   U+2029 → \uXXXX. & DOKUNULMAZ. job_jsonld (627) tek satırda çağırır.
+2. YENİ safe_url(u): yalnız https?:// hayatta kalır, gerisi "". Üç href sink'i
+   (291, 594, 632) esc(safe_url(...)) olur; "link var mı" koşulu da safe_url
+   üzerinden sorulur. job_jsonld'deki sameAs (622) ve directApply (624) de
+   safe_url'den geçer — link düşüp directApply:true kalması tutarsız olur.
+3. tools/measure.py main(): --invariants D4/D5/D6/D9'dan HERHANGİ biri > 0 ise
+   sys.exit(1). D1/D2 kapıya BAĞLANMAZ (D2 bugün 1, ayrı kart).
+4. measure.py D9 tarayıcısı URL bağlamını görecek: FormattedValue'nun hemen
+   öncesindeki literal href=/src=/action= ile bitiyorsa ve ifadede safe_url(
+   veya slugify( yoksa → ihlal. Motor sabitleri beyaz listeye.
+   (Prototiplendi: düzeltme öncesi 7 aday → 3 gerçek ihlal + 4 sabit;
+    düzeltme sonrası 4 sabit, 0 ihlal.)
+5. engine/tests/test_d9_escape.py — 5 test, altı bağlamdan beşi. Ayrıştırma
+   GERÇEK HTML parser ile (html.parser), string `in` araması YASAK
+   (`</SCRIPT >` varyantı string aramasını atlatır).
+   Payload seti en az: </script><script>alert(1)</script> ·
+   </SCRIPT ><img src=x onerror=alert(2)> · javascript:alert(3) ·
+   <svg onload=alert(5)> · Ev"il & <b>Co</b> · U+2028
+6. engine/tests/test_output_frozen.py — DONMUŞ FIXTURE korpusundan (599 ilan)
+   üretilen 5 yüzeyin sha256'sı sabit. TODAY/TODAY_ISO/VERSION 2026-07-27'ye
+   sabitlenir, cv_critique.JOBS fixture'a yönlendirilir.
+   engine/data/jobs.json'a BAĞLANMAZ — bağlansaydı daily.yml her sabah CI'yı
+   kırardı. Ayrıca build_site.py'deki hiçbir string Constant literal'i değişmez.
+7. KAPSAM DIŞI: docs/u/<token>.html (S5b), D1/D2 exit kodu, cv_engine_js.py,
+   schema.sql.
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 tools/measure.py --invariants
+
+EŞİK — her sayı hakemin ÖLÇTÜĞÜ sayı:
+· ≥112 test (bugün 107 + en az 5 yeni), 0 fail 0 error. 107'nin hiçbiri kızarmaz.
+  test_engine.py blob 6bbd4a51… değişmez, 15/15.
+· measure.py --invariants: D4=0 D5=0 D6=0 D9=0, dördü YEŞİL, çıkış kodu 0.
+· KAPI MUTASYONU: json_in_html çağrısı çıkarılınca → D9 ≥ 1 VE çıkış kodu 1.
+  (Bugün aynı mutant D9=1 basıp exit 0 dönüyor — kapının onarıldığının kanıtı budur.)
+· TARAYICI MUTASYONU: 291/594/632'den HERHANGİ birinden safe_url çıkarılınca →
+  D9 ≥ 1, çıkış kodu 1. (Bugünkü tarayıcı üçünü de sessizce geçiriyor.)
+· KAÇIŞ MUTASYONU: hakem koşturdu, düzeltilmemiş koda karşı 3/3 KIRMIZI:
+    AssertionError: 'alert(1)' unexpectedly found ... payload executes as JS
+    AssertionError: [('img','onerror','alert(2)'), ('a','href','javascript:alert(3)')] != []
+    JSON-LD gövdesinde '</' bulundu
+  Düzeltme uygulanınca 3/3 YEŞİL.
+· BAYT DONMASI (fixture korpusu 599, tarih 2026-07-27 sabit) — fark 0:
+    index        8 792 B  6d0f7ceee3224519504355b928062eda1d21927210d59c07cd8b51c56607441c
+    cv           9 295 B  d2de8c1c76e9fee8762dfd69bbdda4f3e95ffb34d162441273bec455621ba6c2
+    jobs_index 265 046 B  ba8a9b5ec6a02b825394ed7533822c0b7de995ccccb296053d589269b8d74b52
+    job_pages 1811 188 B  7cf10d770a0e5bec5ef2f4e56b10a491f6b83e0309f8ed18d3b55c83fd964165
+    unsubscribe  2 395 B  a995b6d1c6613b2031d4672eab9a0a7f24d92b7bec1257c45da74c23a57152b9
+    TOPLAM 2 096 716 BAYT
+· build_site.py string Constant literal'lerinin çok kümesi DEĞİŞMEZ.
+· Ağ 0 çağrı, harici pip paketi 0.
+
+DOKUNULABİLİR:
+· engine/build_site.py — yalnız 2 yeni fonksiyon + 5 çağrı satırının yeniden
+  bağlanması (622, 624, 627, 291, 594, 632). Şablon literal'i, CSS, JS sabiti,
+  gövde metni DEĞİŞMEZ.
+· tools/measure.py — yalnız main() çıkış kodu + D9 tarayıcısına URL kuralı +
+  beyaz liste. Diğer alt komutlara dokunulmaz. (Damla'nın açtığı tek istisna.)
+· engine/tests/test_d9_escape.py (YENİ), engine/tests/test_output_frozen.py (YENİ)
+
+DOKUNULMAZ: engine/data/jobs.json · engine/tests/fixtures/* ·
+engine/tests/test_engine.py · match.py · fetch/ · send_mail.py · schema.sql ·
+cv_engine_js.py · docs/ · site-mock/ · .github/workflows/daily.yml
+```
+
+**Hakemin zorlaştırdıkları:** 1 ihlal → **4** · "D9 exit≠0" → D4/D5/D6/D9'un
+herhangi biri, D1/D2 gerekçeli dışarıda · tarayıcı kapsamı denetlensin (açık
+uçlu) → tarayıcı **büyütülecek**, mutasyonla kanıtlanacak · tek mutasyon → **üç**
+(kaçış + kapı + tarayıcı) · "kaçış kaldırılınca kırmızı" (iddia) → hakem
+koşturdu, **tam fail metni kartta** · "docs/ byte-eş" (ölçülemez) → **5 sabit
+sha256, 2.096.716 bayt, fixture'a bağlı** (CI'yı kırmaz) · tek yerde test →
+**6 bağlam, 4 kaçış kuralı, 5 test, HTML parser zorunlu** · 107 → **≥112 test**.
+
+### S5a'nın ortaya çıkardığı YENİ açık maddeler
+
+| # | ne | sahibi |
+|---|---|---|
+| A10 | **measure.py'nin çıkış kodu TÜM alt komutlarda kırık.** `--unconfirmed` bugün "1" basıp exit 0; `--double-send` "2 yapısal bulgu" basıp exit 0. D1 ve D2'nin hiç kapısı yok. S5a yalnız D4/D5/D6/D9'u bağlıyor. | **kartsız** |
+| A11 | ⛔ **Yayındaki site bugünkü motorun çıktısı DEĞİL.** Canlı site `matched: 142` gösteriyor, bugünkü motor aynı profil+korpusla **9** üretiyor. `docs/` 34 gün eski (27 Tem). Damla siteyi birine gösterecekse bilmesi gereken şey bu. | **S13** |
+| A12 | `build_site.py:304` `FORM_HTML.format(capacity, left)` — `seats.json`'dan **ham** basılıyor, hiç kaçmıyor, measure.py hiç taramıyor. Bugün statik repo dosyası (dış veri değil) ama **Supabase'den beslenmeye başlarsa D9 deliği olur.** | **S6/S13** |
+| A13 | `.rabadon/guard.json` `codePaths` yalnız `engine/.*\.(py\|sql)$` — **`tools/` guard'da hiç korumalı değil.** "tools/ dondu" kuralı yalnız kart düzeyinde yaşıyor. | **S14** |
+| A14 | `SUPABASE_ANON` anahtarı `build_site.py:28-30`'da gömülü ve HTML'e basılıyor. Anon key zaten publiktir, sızıntı değil — ama **RLS politikalarının gerçekten koruduğu DOĞRULANMADI** (canlı DB'ye bakılmadı). | **S6** |
