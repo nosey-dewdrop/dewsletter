@@ -451,12 +451,126 @@ lokasyon string'inde duruyor (`Remote - USA` vs `Remote`), motor okumuyor.
    `remote_scope_unknown` diye AYRI isimlendirilir ki kaç ilanın parse
    eksiğinden düştüğü sayılabilsin.
 
+### ⚠ S3 KARTI — HAKEM YENİDEN YAZDI (KART YANLIŞ). Aşağıdaki eski kart ÖLÜ.
+
 ```
+ÖLÜ KART:
 KABUL KOMUTU : python3 -m unittest discover engine/tests
 EŞİK         : 21 remote ilan doğru sınıflanıyor · global sayısı = 3 ·
                unknown sayısı bu dosyaya yazılıyor
 DOKUNULABİLİR: engine/fetch/, engine/tests/
 ```
+
+**Neden ölü — hakemin bağımsız ölçümü:**
+
+| korpus | remote | düz "Remote" | çivili | parse edilemeyen |
+|---|---|---|---|---|
+| `engine/data/jobs.json` (453) | **28** | **9** | 19 | 0 |
+| `engine/tests/fixtures/` (540 dedupe'lu) | **21** | **3** | 18 | 0 |
+
+Eski kartın "21 / 3" sayıları **fixture'ın** sayılarıydı ama kart onları
+jobs.json'a aitmiş gibi yazmıştı. Diğer kusurlar:
+
+1. Eşik yalnız iki sayı istiyordu. 19 çivili ilanın hangi ülkeye düştüğü hiç
+   sorulmuyor → ajan "Remote" içeren her şeyi US sayıp 28/9'u tutturabilir.
+2. `unknown` iki korpusta da **0**. Yani korpus unknown yolunu HİÇ kanıtlamıyor;
+   kart bunu bilmediği için sentetik test istemiyordu, sessiz default açıkta.
+3. Kart kendi içinde çelişkiliydi: madde 4 `match.py` işi istiyor, DOKUNULABİLİR
+   `match.py`'yi yasaklıyor. Çelişki listeden yana çözüldü, iş **S4'e yazılı
+   borç** olarak geçti.
+4. Asıl çatışma (yeni alan vs BYTE-DONMUŞ jobs.json) ajana bırakılmıştı.
+   **Karara bağlandı: `remote_scope` TÜRETİLMİŞ, diske ASLA yazılmaz.**
+   `common.py:FIELDS` ve `record()` bir harf değişmez. Ayrı defter reddedildi —
+   `alive` gün-be-gün değişen bir DURUM, `remote_scope` saf fonksiyon.
+5. Kabul komutu S2'nin byte kapılarını korumuyordu.
+6. `+N` son eki (`Remote - USA +1`, `Remote - Boston, MA +3`,
+   `Remote - Hong Kong +2`) tanımsızdı — 3 ilan tanımsız bölgede.
+7. "Üç şehre hardcode edilirse KALDI" bir niyet beyanı, mekanik kapı değil.
+
+**Ülke tablosu ölçüldü:** iki korpusun birleşiminde 48 kuyruk token'ı — 47'si
+gerçek ülke/bölge, 1'i (`LATAM`) ülke DEĞİL, `unknown`a düşmek zorunda.
+Ayrıca 27 farklı ABD eyalet kısaltması. stdlib'de ISO 3166 verisi YOK, harici
+paket yasak → repo içi sabit tablo şart.
+
+### YENİ KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Remote seçtiğimde bana Ankara'dan başvurabileceğim ilanlar geliyor.
+
+İŞ:
+1. `remote` boolean AYNEN KALIR. jobs.json'a YENİ ALAN GİRMEZ. common.py:FIELDS ve
+   record() bir harf değişmez. `remote_scope` TÜRETİLMİŞ: common.py'de saf fonksiyon,
+   ağsız, saatsiz, yan etkisiz.
+2. Sözleşme: remote_scope(job) -> str | None
+     job["remote"] False ise → None ("global" DEĞİL, "" DEĞİL)
+     düz "Remote" → "global"
+     "Remote - <yer>" → "country:XX" (ISO 3166-1 alpha-2, BÜYÜK harf)
+     çözülemeyen → "unknown". Tahmin YASAK, en yakın eşleşme YASAK.
+3. Kural ÜLKE KODUNA bakar, şehir listesi YASAK. Çözüm sırası:
+     (a) son virgül-parçası ülke adı tablosunda mı → o kod
+     (b) değilse 2 harfli ABD eyalet/bölge kodu mu → country:US
+     (c) hiçbiri → unknown
+   İKİ sabit dict common.py'de. ABD tablosu 50 eyalet + DC = 51 kodun TAMAMI
+   (korpusta geçen 27 değil). Ülke tablosu ölçülen 47 adın TAMAMI. LATAM bir
+   bölgedir, tabloya GİRMEZ, unknown'a düşer.
+4. `+N` son eki scope'u DEĞİŞTİRMEZ: ilk yazılı yer belirler, +N yok sayılır.
+5. scope_census(jobs) -> dict saf fonksiyonu; fetch/__init__.py:run() özet satırına
+   scope dökümü basılır — unknown sayısı EKRANDA. Sessiz default yasak.
+6. Eleme S3'ün işi DEĞİL. engine/match.py bu turda BİR HARF değişmez.
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests 2>&1 | tail -3 && git diff HEAD --exit-code -- engine/data/jobs.json docs/ engine/match.py engine/tests/test_engine.py engine/build_site.py engine/send_mail.py tools/ && echo GATES-OK
+
+EŞİK:
+A. Test >= 47, hepsi yeşil (bugün 36 → en az 11 yeni). Miras test_engine.py 15/15,
+   DEĞİŞMEMİŞ.
+B. Kabul komutu GATES-OK basar: 7 yol bayt bayt değişmemiş (staged dâhil).
+C. jobs.json census'u TAM SÖZLÜK EŞİTLİĞİ (== , >= değil):
+   {"global":9, "country:US":14, "country:CA":2, "country:DE":2, "country:IN":1,
+    "unknown":0}   toplam remote = 28
+D. fixtures census'u TAM SÖZLÜK EŞİTLİĞİ:
+   {"global":3, "country:US":14, "country:CA":1, "country:BE":1, "country:DE":1,
+    "country:HK":1, "unknown":0}   toplam remote = 21
+E. Unknown iki korpusta da 0 → SENTETİK unknown testi ZORUNLU. Şu 5 girdi unknown
+   döndürmeli, hiçbiri global OLMAMALI:
+   "Remote - LATAM" · "Remote - EMEA" · "Remote - Anywhere" · "Remote - " ·
+   "Remote - Wakanda"   ("Anywhere" bilerek unknown: tahmin yasağı global tahminini
+   de kapsar.)
+F. remote=False ilan için remote_scope None döner — ayrı test.
+G. ANTİ-HARDCODE KAPISI: korpusta HİÇ remote geçmeyen ülkeler de çözülmeli:
+   Zurich, Switzerland→CH · Singapore→SG · London, United Kingdom→GB ·
+   Amsterdam, The Netherlands→NL · Seoul, South Korea→KR ·
+   Dubai, United Arab Emirates→AE
+   Ayrıca test 47 ülke adını ve 51 ABD kodunu tek tek gezip her birinin çözüldüğünü
+   doğrular. Şehir adı, tabloların hiçbirinde ANAHTAR olamaz.
+H. +N testi: "Remote - USA +1"→US · "Remote - Boston, MA +3"→US ·
+   "Remote - Hong Kong +2"→HK
+I. MUTASYON — üçü de KIRMIZI düşmeli, düşen testin adı raporlanır:
+   M1 remote_scope hep "global" dönsün → C,D,E,G,H düşer
+   M2 ülke tablosu {USA,Canada,Germany,India} ile sınırlansın → D ve G düşer
+      (HARDCODE'UN ÖLÇÜLEN HÂLİ)
+   M3 unknown yerine sessizce "global" default'lansın → E düşer
+   Tüm yeni testler remote_scope yazılmadan önce toplu KIRMIZI olmak zorunda.
+J. Ağ yok, harici paket yok. Testler jobs.json ve fixtures/ dışında bir şey okumaz.
+
+DOKUNULABİLİR: engine/fetch/ , engine/tests/ altında YENİ test dosyası ve
+test_fetch.py. BUNUN DIŞINDA HİÇBİR ŞEY — özellikle match.py, test_engine.py,
+jobs.json, fixtures/*.md, docs/, tools/, build_site.py, send_mail.py.
+```
+
+**Hakemin zorlaştırdıkları:** yanlış korpusun iki sayısı → iki korpusta ayrı ayrı
+TAM SÖZLÜK EŞİTLİĞİ, ülke kırılımıyla · ülke kırılımı hiç ölçülmüyordu → 5+6 kova
+sayıya bağlandı · "unknown dosyaya yazılıyor" notu → 5 girdilik zorunlu sentetik
+test · "hardcode ederse KALDI" niyeti → M2 mutasyonu + 47/51 tam-tablo testi +
+korpusta olmayan 6 ülke · kabul komutu 7 yol için bayt kapısı aldı, `GATES-OK`
+olmadan geçmez · test eşiği yoktu → ≥47 · tek cümlelik mutasyon → adı konmuş 3
+mutasyon · `+N` ve `remote=False` tanımsızdı → karara bağlandı ve testle kilitlendi.
+
+**S4'E YAZILI BORÇ (S3'ten devredildi):** taşınamayan profil için `global` dışı
+scope elenir; `unknown` elemesi `remote_scope_unknown` diye AYRI isimlendirilir.
+Ayrıca hakemin bulduğu bağımsız hata: `match.py:123` profil ülkesini location
+string'inde arıyor (`"turkey" in location`) — Ankara profili için hiçbir ilanda
+tutmaz. S4 bunu görmezse `remote_scope` düzelse bile skor tarafı yanlış kalır.
 
 ---
 
