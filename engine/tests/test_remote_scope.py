@@ -217,15 +217,34 @@ class PlusNSuffix(unittest.TestCase):
 
 
 class Census(unittest.TestCase):
-    def test_shipped_corpus_census_is_exact(self):
-        self.assertEqual(scope_census(corpus_records()), {
-            "global": 9,
-            "country:US": 14,
-            "country:CA": 2,
-            "country:DE": 2,
-            "country:IN": 1,
-            "unknown": 0,
-        })
+    """Exact counts come off the FROZEN fixtures; the live corpus gets shapes.
+
+    The live census used to be pinned here as
+    `{global: 9, country:US: 14, country:CA: 2, country:DE: 2, country:IN: 1}`.
+    The cron rewrites engine/data/jobs.json every morning and the workflow runs
+    this suite before it mails, so that assertion was a scheduled red: the first
+    real fetch would have failed the job and killed the mail. The property it
+    was really defending -- every remote listing gets a readable scope, and the
+    census adds up -- is below, and survives the corpus changing.
+    """
+
+    def test_shipped_corpus_census_keys_are_well_formed(self):
+        census = scope_census(corpus_records())
+        for scope, count in census.items():
+            self.assertRegex(scope, r"^(global|unknown|country:[A-Z]{2})$", scope)
+            self.assertGreaterEqual(count, 0, scope)
+
+    def test_every_remote_shipped_record_gets_a_scope(self):
+        """Not "most". A remote listing with no scope is an unreadable record.
+
+        Deliberately NOT "at least one global listing": a morning where nothing
+        on earth is globally remote is a legitimate corpus, and match.py already
+        exits 1 and names the dead end for it. Asserting a floor on live data is
+        the same mistake as asserting a count on it.
+        """
+        for job in corpus_records():
+            if job["remote"]:
+                self.assertIsNotNone(remote_scope(job), job["location"])
 
     def test_frozen_fixtures_census_is_exact(self):
         self.assertEqual(scope_census(fixture_records()), {

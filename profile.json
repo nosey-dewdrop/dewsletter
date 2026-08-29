@@ -78,10 +78,10 @@
     }
   ],
   "experience": [
-    {"role": "Software Engineering Intern", "org": "Persona Software", "when": "Mar 2026 - present", "note": "front-end + database, two final projects end to end"},
+    {"role": "Software Engineering Intern", "org": "Software Persona", "when": "Feb 2026 - Mar 2026", "note": "full-stack + database, two final projects end to end"},
     {"role": "PR and Social Relations Coordinator", "org": "IEEE Bilkent Student Branch", "when": "2025-2026"},
     {"role": "Teaching Assistant, CS115 Python", "org": "Bilkent University", "when": "2025"},
-    {"role": "Spark Fellow", "org": "Fab Startup Fellowship, Istanbul cohort", "when": "Feb-Mar 2026", "note": "customer interviews, two live web products shipped in 4 weeks"},
+    {"role": "Spark Fellow", "org": "Fab Startup Fellowship", "when": "Feb-Mar 2026", "note": "customer interviews, two live web products shipped in 4 weeks"},
     {"role": "Barista", "org": "Hound Coffee Group", "when": "2024-present", "note": "also built the shop's interactive digital coffee menu"},
     {"role": "Clubs", "org": "5-6 clubs led/board over the years; IEEE latest. Sociology Club, TEMA, Innovation and Research Society, Music Club, Crochet Club, ACM member"}
   ],
@@ -104,6 +104,8 @@
   "constraints": {
     "status": "full-time CS student in Ankara; internships must fit around the semester or be summer/remote",
     "relocation_now": "not possible mid-degree without a planned sabbatical; no employer visa sponsorship assumed",
+    "relocation": false,
+    "home_country": "TR",
     "red_lines": ["dark patterns / manipulation products", "ad-stuffed junk apps", "selling or diluting her brand", "long-term agency work on someone else's vision (short startup internships for learning are fine)", "team/group-based programs (Damla applies and works SOLO; programs requiring team formation are out)", "programs that run on connections/nepotism (merit-based selection only; if torpil is the currency, Damla is out)"]
   },
   "match_signals_for_job_search": {

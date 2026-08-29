@@ -35,10 +35,16 @@ import measure  # noqa: E402
 FROZEN = datetime(2026, 8, 30, 9, 0, 0, tzinfo=timezone.utc)
 DAY1, DAY2, DAY3 = "2026-08-01", "2026-08-02", "2026-08-03"
 
-# a real listing from the frozen corpus that scores 9 against profile.json,
-# i.e. one that WOULD be mailed if it were alive
-VICTIM_COMPANY = "TikTok"
-VICTIM_POSITION = "AI Infra Engineer Intern - Recommendation & LLM - 2027 Summer"
+# A real listing from the frozen corpus that WOULD be mailed if it were alive.
+# It used to be TikTok's "AI Infra Engineer Intern", San Jose CA. profile.json
+# now declares `relocation: false` / `home_country: TR`, so an onsite-US listing
+# is excluded before scoring (onsite_abroad) and proves nothing about the death
+# gate: it stays out of the mail whether it is alive or dead, and the "does
+# carry it while alive" half of the mutation goes vacuous. The victim has to be
+# a listing this profile can actually take -- globally remote, and scoring at or
+# above send_mail's --min-score default of 5.
+VICTIM_COMPANY = "Astreya"
+VICTIM_POSITION = "AI Infrastructure DC Design Intern"
 VICTIM_KEY = f"{VICTIM_COMPANY.lower()}|{VICTIM_POSITION.lower()}"
 
 _REAL_SOCKET = socket.socket
@@ -314,23 +320,60 @@ class DeathGate(unittest.TestCase):
             self.check_mail(live)
 
 
-class CorpusFrozen(unittest.TestCase):
-    """The committed corpus is ground truth; this phase may not move it."""
+class FrozenCorpusCounts(unittest.TestCase):
+    """Exact counts, measured off the FROZEN fixtures. These cannot drift.
+
+    They used to be measured off engine/data/jobs.json: 453 records, 41
+    duplicates removed, 42 countries. The cron rewrites that file every morning
+    and daily.yml runs this suite BEFORE send_mail.py, so the first real fetch
+    would have turned all three red, failed the job, and stopped the mail. The
+    fixtures are the input that is allowed to carry a number.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.records = frozen_records()
+
+    def test_record_count(self):
+        self.assertEqual(len(self.records), 599)
+
+    def test_dedupe_count(self):
+        flat = [job for _, rows in
+                fetch.parse_all(fixture_texts(), FROZEN.isoformat(timespec="seconds"))
+                for job in rows]
+        _, removed = fetch.dedupe(flat)
+        self.assertEqual(removed, 59)
+        self.assertEqual(len(flat) - removed, len(self.records))
+
+    def test_country_count(self):
+        countries = {measure.country_of(j.get("location")) for j in self.records}
+        self.assertEqual(len({c for c in countries if not c.startswith("(")}), 43)
+
+
+class ShippedCorpusInvariants(unittest.TestCase):
+    """The live corpus, checked only for things a new fetch cannot break."""
 
     @classmethod
     def setUpClass(cls):
         cls.jobs = json.loads((HERE.parent / "data" / "jobs.json").read_text())
         cls.meta = json.loads((HERE.parent / "data" / "fetch_meta.json").read_text())
 
-    def test_record_count(self):
-        self.assertEqual(len(self.jobs), 453)
+    def test_corpus_is_not_empty(self):
+        """An empty jobs.json is the one corpus shape that IS a failure."""
+        self.assertGreater(len(self.jobs), 0)
 
-    def test_dedupe_count(self):
-        self.assertEqual(self.meta["duplicates_removed"], 41)
+    def test_dedupe_count_is_never_negative(self):
+        self.assertGreaterEqual(self.meta["duplicates_removed"], 0)
 
-    def test_country_count(self):
-        countries = {measure.country_of(j.get("location")) for j in self.jobs}
-        self.assertEqual(len({c for c in countries if not c.startswith("(")}), 42)
+    def test_no_listing_is_carried_twice(self):
+        keys = [fetch.job_key(j) for j in self.jobs]
+        self.assertEqual(len(keys), len(set(keys)))
+
+    def test_every_country_is_read_or_openly_unread(self):
+        """`country_of` either names a country or brackets its own ignorance."""
+        for job in self.jobs:
+            country = measure.country_of(job.get("location"))
+            self.assertTrue(country, repr(job.get("location")))
 
     def test_no_new_field_leaked_into_the_corpus(self):
         for job in self.jobs:

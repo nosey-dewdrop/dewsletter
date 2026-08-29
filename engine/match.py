@@ -20,7 +20,11 @@ Usage: python3 match.py <profile.json> [--top N] [--json out.json] [--stats]
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from fetch.common import listing_country, remote_scope  # noqa: E402
 
 PHD_RE = re.compile(r"\bphd\b", re.I)
 MS_RE = re.compile(r"\b(ms|msc|master(?:'?s)?)\b", re.I)
@@ -28,6 +32,61 @@ MBA_RE = re.compile(r"\bmba\b", re.I)
 US_AUTH_RE = re.compile(r"citizen|clearance|us persons|no sponsorship|security clearance", re.I)
 AGE_RE = re.compile(r"^\s*(\d+)\s*(h|d|w|mo|y)\s*$", re.I)
 AGE_DAYS = {"h": 0, "d": 1, "w": 7, "mo": 30, "y": 365}
+
+# ------------------------------------------------------------------ geo reach
+#
+# `us_work_auth` reads the TITLE for the words "citizen"/"clearance". Real
+# listings almost never spell that out, so on the shipped corpus it fires zero
+# times: a rule that excludes nothing. Meanwhile 133 of the 142 things sent to a
+# profile that cannot relocate were jobs it could not take -- onsite abroad, or
+# remote fenced to one foreign country.
+#
+# The geo rule below is the one that actually reaches. It runs on DECLARED
+# constraints only (`relocation: false` + `home_country`), never on a guess
+# scraped out of the identity string, and it refuses to run half-declared:
+# `relocation: false` without a `home_country` is a SystemExit, not a silent
+# pass. `us_work_auth` stays exactly where it was; this is a second rule beside
+# it, not a replacement for it.
+GEO_BUCKETS = [
+    "onsite_abroad",
+    "remote_scope_country_mismatch",
+    "remote_scope_unknown",
+    "location_country_unknown",
+]
+
+
+def home_country(profile: dict) -> str | None:
+    """The country a profile is stuck in, or None if it is not stuck.
+
+    Only a profile that DECLARES `relocation: false` has a home country that
+    excludes anything. Anything else -> None, and the geo rule stays off.
+    """
+    constraints = profile.get("constraints", {}) or {}
+    if constraints.get("relocation") is not False:
+        return None
+    home = constraints.get("home_country")
+    if not isinstance(home, str) or not home.strip():
+        raise SystemExit(
+            "profile error: constraints.relocation is false but "
+            "constraints.home_country is missing. A profile that cannot "
+            "relocate must say where it is; refusing to guess."
+        )
+    return home.strip().upper()
+
+
+def geo_exclusion(job: dict, home: str) -> str | None:
+    """Why `home` cannot take this job, or None if it can. Named, never silent."""
+    scope = remote_scope(job)
+    if scope == "global":
+        return None
+    if scope == "unknown":
+        return "remote_scope_unknown"
+    if scope is not None:
+        return None if scope == f"country:{home}" else "remote_scope_country_mismatch"
+    country = listing_country(job.get("location"))
+    if country == "unknown":
+        return "location_country_unknown"
+    return None if country == home else "onsite_abroad"
 
 
 def parse_age_days(age: str | None) -> int | None:
@@ -85,7 +144,7 @@ def keywords_from_profile(profile: dict) -> tuple[list[str], list[str]]:
 
 
 def score_job(job: dict, interests: list[str], skills: list[str],
-              level: str, us_work_auth: bool, country: str) -> tuple[int, list[str]] | str:
+              level: str, us_work_auth: bool, home: str | None) -> tuple[int, list[str]] | str:
     """Returns (score, reasons) or an exclusion-reason string."""
     title = job["position"]
     ntitle = norm_title(title)
@@ -98,6 +157,10 @@ def score_job(job: dict, interests: list[str], skills: list[str],
         return "mba"
     if not us_work_auth and (US_AUTH_RE.search(title) or US_AUTH_RE.search(location)):
         return "us_work_auth"
+    if home:
+        blocked = geo_exclusion(job, home)
+        if blocked:
+            return blocked
 
     hits = 0
     for kw in interests:
@@ -120,7 +183,7 @@ def score_job(job: dict, interests: list[str], skills: list[str],
     if job.get("remote"):
         score += 3
         reasons.append("remote")
-    if country and country in location:
+    if home and listing_country(job.get("location")) == home:
         score += 3
         reasons.append(f"location fits ({job.get('location')})")
     if job.get("salary"):
@@ -145,12 +208,15 @@ def run(profile: dict, jobs: list[dict]) -> tuple[list[dict], dict]:
     edu_text = json.dumps(profile.get("education", "")).lower()
     level = "phd" if "phd student" in edu_text else "ms" if re.search(r"\bmsc? student\b", edu_text) else "bs"
     loc = profile.get("identity", {}).get("location", "").lower()
-    country = "turkey" if "turkey" in loc or "türkiye" in loc or "ankara" in loc else ""
     us_work_auth = "united states" in loc or "usa" in loc
+    home = home_country(profile)
 
-    results, excluded = [], {"phd_only": 0, "mba": 0, "us_work_auth": 0, "no_signal": 0}
+    excluded = {"phd_only": 0, "mba": 0, "us_work_auth": 0}
+    excluded.update({b: 0 for b in GEO_BUCKETS})
+    excluded["no_signal"] = 0
+    results = []
     for job in jobs:
-        scored = score_job(job, interests, skills, level, us_work_auth, country)
+        scored = score_job(job, interests, skills, level, us_work_auth, home)
         if isinstance(scored, str):
             excluded[scored] += 1
             continue
@@ -160,7 +226,9 @@ def run(profile: dict, jobs: list[dict]) -> tuple[list[dict], dict]:
     results.sort(key=lambda r: (-r["score"], r["age_days"] if r["age_days"] is not None else 999,
                                 r["company"].lower()))
     stats = {"total_raw": len(jobs) + removed, "duplicates_removed": removed,
-             "considered": len(jobs), "matched": len(results), **excluded}
+             "considered": len(jobs), "matched": len(results),
+             "geo_rule": "on" if home else "off", "home_country": home,
+             **excluded}
     return results, stats
 
 
@@ -179,9 +247,21 @@ def main() -> None:
     print(f"profile: {profile.get('identity', {}).get('name')} | "
           f"raw {stats['total_raw']} | deduped {stats['considered']} | matched {stats['matched']}")
     if args.stats:
-        print(f"excluded: phd_only {stats['phd_only']}, mba {stats['mba']}, "
-              f"us_work_auth {stats['us_work_auth']}, no_signal {stats['no_signal']}, "
-              f"duplicates {stats['duplicates_removed']}")
+        buckets = ["phd_only", "mba", "us_work_auth", *GEO_BUCKETS, "no_signal"]
+        # every bucket is printed, zeros included: a rule that fires zero times
+        # is the finding, and a report that hides it is how `us_work_auth` sat
+        # dead for weeks.
+        print("excluded: " + ", ".join(f"{b} {stats[b]}" for b in buckets)
+              + f", duplicates {stats['duplicates_removed']}")
+        if stats["geo_rule"] == "on":
+            print(f"geo rule: on, home {stats['home_country']}")
+        else:
+            print("geo rule: off, profile declares no relocation constraint")
+        print(f"matched: {stats['matched']}")
+        if stats["matched"] == 0:
+            top = max(buckets, key=lambda b: stats[b])
+            print(f"dead end: nothing matched; largest exclusion is "
+                  f"{top} ({stats[top]})")
     for r in results[: args.top]:
         link = r["link"] or f"link not found, search: {r['company']} {r['position']}"
         print(f"\n[{r['score']:>2}] {r['company']} - {r['position']}")
@@ -190,6 +270,10 @@ def main() -> None:
     if args.json:
         Path(args.json).write_text(json.dumps(results, ensure_ascii=False, indent=1))
         print(f"\nwritten: {args.json} ({len(results)} matches)")
+    if not results:
+        # A run that reached nobody is not a success. Exiting 0 here is how a
+        # cron job keeps mailing an empty list every morning and nobody notices.
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

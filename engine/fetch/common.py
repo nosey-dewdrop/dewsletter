@@ -85,6 +85,7 @@ COUNTRY_CODES = {
     "taiwan": "TW",
     "the netherlands": "NL",
     "tunisia": "TN",
+    "turkey": "TR",
     "usa": "US",
     "united arab emirates": "AE",
     "united kingdom": "GB",
@@ -144,6 +145,32 @@ def remote_scope(job: dict) -> str | None:
         return f"country:{code}"
     if last.upper() in US_STATE_CODES:
         return "country:US"
+    return "unknown"
+
+
+def listing_country(location: str | None) -> str:
+    """Which country a location string names. Pure: no network, no clock.
+
+    Same rule as `remote_scope`, applied to a bare location instead of a
+    "Remote - ..." string, and with the same refusal to guess:
+      (a) the last comma-part is a country name  -> that country's code
+      (b) else it is a 2-letter US state/DC code -> "US"
+      (c) neither                                -> "unknown", never a guess.
+
+    Returns an ISO 3166-1 alpha-2 code, or "unknown". Never None: a caller that
+    cannot tell "no country" from "country not read" would silently default,
+    and the silent default is the bug this whole module exists to remove.
+    """
+    text = PLUS_N_RE.sub("", (location or "").strip())
+    parts = [p.strip() for p in text.split(",") if p.strip()]
+    if not parts:
+        return "unknown"
+    last = parts[-1]
+    code = COUNTRY_CODES.get(last.lower())
+    if code:
+        return code
+    if last.upper() in US_STATE_CODES:
+        return "US"
     return "unknown"
 
 

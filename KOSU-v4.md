@@ -1,5 +1,27 @@
 # SIGHTSTONE KOŞUSU v4 — SON KOŞU
 
+## AÇIK MADDELER — kapatılmadı, sahibi var, S14 tek tek işaretleyecek
+
+Bunlar bulundu ve **bilerek açık bırakıldı**. Hiçbiri "sonra bakarız" değil;
+her birinin sahibi olan bir faz var ve S14'ün kapanış taraması dokuzunu da
+tek tek işaretlemeden koşu bitmez.
+
+| # | ne | nerede | sahibi |
+|---|---|---|---|
+| A1 | `json.dumps` çıktısı `</script>` kaçışı olmadan `<script>` içine basılıyor. **Canlı XSS yolu, D9 ihlali.** Veri dış kaynaktan (ilan başlığı/şirket adı) geliyor, her ilan sayfasında canlı. | `engine/build_site.py:627` | **S5** |
+| A2 | **S1'in `--invariants` kapısı A1'i exit 0 ile geçirdi.** Yani kapı ihlali GÖRÜYOR ama BLOKLAMIYOR. Kapının kendisi de düzeltilecek: D9 kırmızıysa çıkış kodu ≠ 0. | `tools/measure.py` | **S5** (`tools/` donmuştu; bu tek istisna Damla tarafından açıldı) |
+| A3 | `cv_text` sütunu var, yazan kod yok. D5 bugün yeşil ama **şema CV'yi sunucuda saklamaya HAZIR.** Boş sütun silinecek. | `engine/schema.sql:18` | **S6** |
+| A4 | **Onay kavramı kodda hiç yok.** `fetch_subscribers` yalnız `unsubscribed_at is null` süzüyor → gitmiş her mail tanım gereği onaysız. D2 tam açık, **KVKK ship-blocker.** | `engine/send_mail.py` | **S10** |
+| A5 | ⛔ **`test_engine.py:29` hâlâ canlı korpusa çivili ve mail'i öldürebilir.** `assertGreater(matched, 200)`; `cv_critique` canlı `jobs.json` üzerinde sayıyor. Ölçüldü: **sabah fetch'i 273 ilanın altına düşerse bu test kızarır, `daily.yml` fail eder, MAİL GİTMEZ.** Bugün 323/453, %40 pay var. İŞ 2 diğer tüm çivileri söktü ama bu dosya "miras test değiştirilemez" kuralıyla, `cv_critique.py` de kapsamla korunuyordu. **Kendi kartını hak ediyor.** | `engine/tests/test_engine.py:29`, `engine/cv_critique.py` | **kartsız — Damla'nın sıraya sokması gerek** |
+| A6 | Ömür ve kaçırma oranı **bu repoda ÖLÇÜLEMİYOR** (0 doğum, 0 ölüm, %100 sansür). **S11'in "kaçırma ≤ %10" eşiği şu an ölçülemez.** S11 gelince koşu yine duracak. | `engine/data/jobs_seen.json` bugün tek günlük | **S11** |
+| A7 | `tools/measure.py:112 country_of()` ile `common.py:listing_country()` **aynı işi yapan iki ayrı kural.** Biri ülke adı döndürüyor ve `anywhere`/`worldwide`'ı tahmin ediyor (S3'ün yasakladığı şey), diğeri ISO kodu döndürüyor ve tahmin etmiyor. `test_fetch.py` birincisine bağlı. | `tools/` vs `engine/fetch/` | **S14** raporuna |
+| A8 | `+3 "location fits"` bonusu, hiç ilgi/beceri eşleşmesi olmayan ilanı sırf ülkende diye eşiğin üstüne çıkarıyor (US profilinde `no_signal` 258 → 0). **Puanlama eşiğinin ayrı zayıflığı.** TR'de etkisi sıfır (korpusta TR ilanı 0), başka profil eklenirse patlar. | `engine/match.py` | **kartsız** |
+| A9 | `location_country_unknown` 34 ilan **sessizce eleniyor**; içlerinde gerçekten başvurulabilir iş olabilir. İçeriklerine bakılmadı. **DOĞRULANMADI.** | `engine/data/jobs.json` | **S14** raporuna |
+
+**A5 en tehlikelisi.** Diğerleri bir gün geciktirilebilir; A5 bir sabah
+sessizce mailin hiç gitmemesine yol açar ve kimse fark etmez — bu koşunun
+düzeltmeye çalıştığı hatanın ta kendisi.
+
 Hedef cümlesi, tek satır, hiçbir fazda değişmez.
 
 > **Alabileceğim iş ilanı, ölmeden önce bana ulaşıyor.**
@@ -1234,3 +1256,110 @@ hakem notu: Kural gerçekten kural — tabloyu kısınca anti-hardcode kapısı 
    `global` yerine `unknown` kovasına düşer. Bilinsin.
 5. **Kullanıcının şikâyeti HENÜZ DÜZELMEDİ.** S3 yalnız ayrımı yapan ölçümü
    kurdu; eleme `match.py`'de ve o S4'ün işi.
+
+```
+## S4 — Alamayacağım işi yollamıyor — DURDU (hüküm verilmedi, hakem koşulamadı)
+ölçülen: 92 test (63 → 92, +29 yeni), 91 yeşil 1 KIRMIZI
+         · faz-öncesi 12 yeni test kırmızı düştü
+         · TR (gerçek profile.json): matched 142 → 9 · geo rule: on, home TR
+           kovalar: phd_only 51 · mba 2 · us_work_auth 0 · onsite_abroad 339 ·
+           remote_scope_country_mismatch 18 · remote_scope_unknown 0 ·
+           location_country_unknown 34 · no_signal 0 · toplam 453 ✓
+         · ZZ-taşınamaz: matched 9, kovalar TR ile bit bit aynı ✓
+         · taşınabilir: matched 142, dört yeni kova 0, kural "off" ✓
+         · US-taşınamaz: matched 140 ✗ (eşik 144 diyor)
+         · mutasyon: beyan çıkarılınca 142/142/142'ye dönüyor, üç test kırmızı ✓
+eşik:    5. madde dışında hepsi tuttu
+hüküm:   YOK. Hakem doğrulama koşamadı — rabadon red-base tüm Bash'i blokluyor.
+```
+
+**S4'ün ajanının kart dışında yapmak ZORUNDA kaldığı tek değişiklik.**
+`engine/tests/test_fetch.py:39-47` — S2'nin DeathGate kurbanı TikTok "AI Infra
+Engineer Intern" `San Jose, CA` idi. Yeni geo kuralı onu `onsite_abroad` diye
+eliyor, yani canlıyken de ölüyken de maile girmiyordu → S2'nin
+`test_mail_does_carry_the_same_listing_while_it_is_alive` ve
+`test_gate_removal_breaks_both_mutations` testleri **boşa düşüyordu.**
+Kurban, testin kendi docstring'inin istediği şeye çevrildi: Astreya
+"AI Infrastructure DC Design Intern", `location: "Remote"`, skor 5.
+Test mantığı değişmedi, yalnız veri seçimi. Hakem bunu ayrıca denetlemeli.
+
+**S4'ün ortaya çıkardığı, kartın işi olmayan gerçekler:**
+1. **Damla'nın günlük maili pratikte 3 ilan.** `--min-score` varsayılanı 5;
+   hayatta kalan 9 eşleşmenin yalnız 3'ü (skor 7, 5, 5) o eşiği geçiyor,
+   kalan 6'sı 1-3 arası. Kartta bu yoktu.
+2. **Dokuz hayatta kalanın hiçbiri Damla'nın hedef alanı değil.** Astreya,
+   Boston Medical Center, OpusClip, Ensemble Health, Hone Health, Ancestry ×2,
+   Whiterabbit.ai, Vocal Media. Kural "başvurabilir mi"yi çözdü,
+   **"istiyor mu"yu çözmedi.** → S14'ün kaynak açığı raporuna.
+3. **Yeni kural canlı siteyi ve maili doğrudan vuracak.** `build_site.py` ve
+   `send_mail.py` gerçek `profile.json` ile `match.run` çağırıyor; bir sonraki
+   build'de sitedeki sayı 142'den **9**'a düşer. `docs/` bu fazda donduruldu,
+   build koşulmadı. `CLAUDE.md`'deki "453/142/41" sayıları da eskiyecek.
+4. `location_country_unknown` 34 ilan sessizce eleniyor; içlerinde gerçekten
+   başvurulabilir iş olabilir. İçeriklerine bakılmadı. **DOĞRULANMADI.**
+
+```
+## S4 — Alamayacağım işi yollamıyor — GEÇTİ
+        (kart hakem tarafından yeniden yazıldı; eşik Damla onayıyla bir kez
+         düzeltildi ve aynı anda zorlaştırıldı)
+ölçülen: 107 test yeşil (92 → 107), 0 kırmızı · miras test_engine.py 15/15,
+         blob 6bbd4a51 değişmemiş · GATES-OK
+         · canlı TR: matched 142 → 9, dokuzunun da remote_scope == "global"
+           (hakem 9/9'u KENDİ hesabıyla doğruladı)
+         · kovalar: phd_only 51 · mba 2 · us_work_auth 0 · onsite_abroad 339 ·
+           country_mismatch 18 · scope_unknown 0 · location_country_unknown 34 ·
+           no_signal 0 → 444 + 9 = 453 ✓ (hakem kendi topladı)
+         · ZZ-taşınamaz: kovalar TR ile HARF HARF aynı → 9'un global'dan geldiği,
+           Türklükten gelmediği kanıtlı
+         · US-taşınamaz: 140 · onsite_abroad 217 · mismatch 5 · no_signal 4
+         · taşınabilir: kural "off", dört kova 0, matched 142
+         · matched==0 senaryosu: "dead end: onsite_abroad (31)", exit 1 ✓
+         · home_country eksik → isimli SystemExit, exit 1 ✓
+         · mutasyon: beyan silinince matched 142'ye döndü, 13 geo testi kırmızı
+         · common.py +27/−0 (FIELDS/record/parse_markdown_table dokunulmadı)
+         · profile.json: yalnız iki alan eklendi; Damla'nın commit'lenmemiş
+           CV düzeltmesi yerinde, dokunulmadı
+birikimli: S1 exit 0 · S2 exit 0 · REPLAY hakemin kendi koşusunda BYTE-EŞ (5c5495bc…)
+hakem notu: Dokuz eşiğin dokuzu hakemin kendi sayılarıyla tuttu; worktree kanıtı ve
+         küçülen-korpus simülasyonu ajana güvenilmeden yeniden üretildi.
+```
+
+**S3'ün byte kapısı ile S4'ün işi çelişti — hakemin kararı.**
+S3'ün kabul komutu `engine/match.py`'nin değişmemesini istiyordu; S4 kartı onu
+DOKUNULABİLİR ilan edip değiştirmeyi zorunlu kılıyordu.
+**Hüküm: S3'ün `match.py` maddesi S4 için DÜŞER, koşu DURMAZ.** Gerekçe: o kapı
+S3'ün kendi teslimatını koruyan **faz-yerel** bir dondurmaydı, kalıcı yasa değil.
+Bir sonraki fazın kartı önceki fazın faz-yerel dondurmasını açabilir — açamasaydı
+hiçbir dosya bir daha asla düzelemezdi. Diğer 6 yol donmuş kaldığı ölçüldü.
+
+**İŞ 1 — eşik düzeltmesi (Damla onayladı) ve aynı anda zorlaştırma.**
+`144` hatalı türetmeydi: geo elemesinden SAĞ ÇIKAN sayı (453−309), `matched` ise
+puanlamadan SONRAKİ sayı. Aradaki 4 TikTok "ML Engineer Intern" ilanı puanlamada
+`no_signal`'a düşüyor. **Hakem `git worktree` ile `a9b66ba`'yı kendi açtı ve
+dördünün faz ÖNCESİNDE de `no_signal` olduğunu çalıştırarak gösterdi** — hem
+`country='turkey'` hem `'usa'`, hem `auth=False` hem `True` altında.
+S4 hiçbir ilanı öldürmedi. Karşılığında eşik zorlaştı: `matched` sabiti +
+`no_signal == 4` + dört ilan İSİM İSİM literal + "bütün kova bu dördü" kanıtı.
+
+**İŞ 2 — testler canlı korpustan söküldü.**
+Canlı `jobs.json`'a çivili kesin sayı KALMADI (hakem üç dosyayı tek tek taradı).
+Eski çiviler (453, 41, 42, census 9/14/2/2/1) donmuş fixture'a taşındı ve
+fixture'dan hesaplandığı hakem tarafından yeniden üretildi. Canlıya bakan her
+şey artık tip/şekil invaryantı: kova toplamı == considered · negatif kova yok ·
+hayatta kalanların %100'ü ulaşılabilir · matched ≥ 0 · çift kayıt yok ·
+ledger == alive.
+**Hakemin kendi simülasyonu:** korpus %50'ye (226) ve %10'a (45) indirildi →
+ajanın üç dosyası **%10'da bile yeşil.**
+
+**⛔ AMA İŞ 2'NİN HEDEFİ TAM TUTMADI — A5.** Hakemin simülasyonunda her iki
+küçültmede de TEK bir test kızarıyor: `engine/tests/test_engine.py:29`
+`assertGreater(strong["matched"], 200)` (162 ve 34 geldi). O dosya ajana
+yasaklıydı, **ajanın suçu değil**, ama koşu için gerçek risk:
+`daily.yml` testleri `send_mail.py`'den ÖNCE koşuyor. Bugün 323/453, %40 pay;
+**sabah fetch'i ~273 ilanın altına düşerse mail ölür.** Ajan bunu örtmedi,
+A5 olarak yazdı. Kartsız açık madde.
+
+**Hakemin bulduğu tek yumuşak nokta:** `test_geo_reach.py:258-264` yorumu CANLI
+korpusun dört TikTok ilanını anlatırken hemen altındaki `US_NO_SIGNAL` listesi
+FIXTURE korpusun dört FARKLI ilanını sayıyor. İkisi de doğru, hakem ikisini de
+ayrı ölçtü, ama yan yana yanıltıcı okunuyor. Kayda geçti.
