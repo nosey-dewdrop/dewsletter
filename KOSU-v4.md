@@ -1524,3 +1524,69 @@ sha256, 2.096.716 bayt, fixture'a bağlı** (CI'yı kırmaz) · tek yerde test �
 | A12 | `build_site.py:304` `FORM_HTML.format(capacity, left)` — `seats.json`'dan **ham** basılıyor, hiç kaçmıyor, measure.py hiç taramıyor. Bugün statik repo dosyası (dış veri değil) ama **Supabase'den beslenmeye başlarsa D9 deliği olur.** | **S6/S13** |
 | A13 | `.rabadon/guard.json` `codePaths` yalnız `engine/.*\.(py\|sql)$` — **`tools/` guard'da hiç korumalı değil.** "tools/ dondu" kuralı yalnız kart düzeyinde yaşıyor. | **S14** |
 | A14 | `SUPABASE_ANON` anahtarı `build_site.py:28-30`'da gömülü ve HTML'e basılıyor. Anon key zaten publiktir, sızıntı değil — ama **RLS politikalarının gerçekten koruduğu DOĞRULANMADI** (canlı DB'ye bakılmadı). | **S6** |
+
+```
+## S5a — Kaçış kapısı sağlam — GEÇTİ
+ölçülen: 121 test yeşil (107 → 121, +14 yeni), 0 fail 0 error · eşik ≥112
+         · miras test_engine.py 15/15, blob 6bbd4a51… değişmedi
+         · measure.py --invariants: D4=0 D5=0 D6=0 D9=0, çıkış kodu 0
+         · SÖMÜRÜ (hakemin kendi koşusu, 7 payload × 3 hedef × 3 yüzey,
+           gerçek html.parser): fazladan script 0 · on* 0 · javascript:/data:/
+           vbscript: 0 · ld+json json.loads ile okunuyor ve ["title"] payload'ı
+           KAYIPSIZ dönüyor (7/7)
+           Aynı sömürü düzeltilmemiş kodda: exec script 5 · on* 3 · tehlikeli URL 9
+         · MUTASYON a (json_in_html → json.dumps): D9=1, exit 1 ✓
+         · MUTASYON b (üç href sink'inden ayrı ayrı safe_url çıkarıldı):
+           311 → D9=1 exit 1 · 615 → D9=1 exit 1 · 653 → D9=1 exit 1 ✓
+         · MUTASYON c (S5a öncesi temiz ağaç + yeni testler): 30 kırmızı
+           assertion, 9 ayrı test metodu
+         · MUTASYON d (tarayıcı URL kuralı + safe_url birlikte kaldırıldı):
+           D9=0, exit 0 → ESKİ TARAYICI ÜÇ ŞEMA DELİĞİNİ HİÇ GÖREMİYORDU.
+           Yeni kural süs değil, tek tespit eden şey o.
+         · BAYT DONMASI (hakemin kendi ürettiği, fixture 599, tarih sabit): 5/5 TUTTU
+           toplam 2 096 716 bayt, fark 0
+         · build_site.py string Constant çok kümesi: 353 literal, sha c0477c0e…
+           7bbf7af / a68aa0d / 8a2c500'de birebir aynı → tasarım TAŞINMADI
+         · test_output_frozen jobs.json'a BAĞLI DEĞİL: hakem canlı jobs.json'u
+           20 kayda düşürdü, 4/4 yeşil kaldı → daily.yml'ı kırmaz
+         · safe_url AGRESİF DEĞİL: canlı 453 linkin 453'ü, 453 company_url'ün
+           453'ü hayatta; donmuş 599'da 599/599. Meşru tek link kesilmiyor.
+           Reddettikleri: javascript:/data:/vbscript:, şema-göreli //host,
+           baştaki boşluk-tab kaçamakları (allowlist olduğu için java\tscript: de)
+birikimli: S1 exit 0 · S2 exit 0 · S3 donmuş yollar yerinde · S4 matched 9,
+         kovalar 444+9 = 453 (hakem kendi topladı) · REPLAY 5c5495bc…,
+         ÜÇ FAZDIR AYNI
+hakem notu: Kapı gerçekten kapı — d mutasyonu eski tarayıcının üç şema deliğini hiç
+         görmediğini kanıtladı; sömürü düzeltmeden önce 17 kez çalışıyordu, sonra 0.
+```
+
+**S3'ün byte kapısı ikinci kez açıldı — S4 emsali.** S5a `build_site.py` ve
+`tools/` yollarını açtı (ikisi de kartında DOKUNULABİLİR). Diğer donmuş yollar
+(jobs.json, docs/, test_engine.py, send_mail.py, match.py, fixtures/) yerinde.
+
+**A15 — YENİ AÇIK MADDE, ajan örtmedi, hakem doğruladı.**
+Donmuş `job_pages` hash'i **taban slug** ile hesaplanıyor. Donmuş korpusta
+599 ilan → 583 taban slug, **16 çakışma**. `main()` bunlara `-2`/`-3` ekliyor,
+diskte 599 ayrı dosya yazıyor (üzerine yazma YOK), gerçek disk çıktısı
+**1 811 252 B / `2440b749…`** — donmuş `1 811 188 / 7cf10d77…`'den farklı
+(fark yalnız canonical URL'deki `-2`/`-3`, 64 bayt).
+**Yani donmuş test `main()`'in gerçek çıktısını değil bir VARYANTINI kilitliyor.**
+Hafifletici: ajan bunu test docstring'inde açıkça yazdı; kartın sha'ları zaten
+bu varyantın sha'ları; canlı 453'lük korpusta çakışma **0**, bugün fark üretmiyor.
+**Bağlantılı ön-var olan hata (kapsam dışıydı):** `build_jobs_index` "details"
+linkini TABAN slug'a basıyor → çakışan ilanlar yanlış sayfaya gider.
+Canlıda 0 satır etkileniyor. **Sahibi: S5b** (ilan sayfası yüzeyine dokunan
+bir sonraki faz).
+
+**A16 — hakemin bulduğu yumuşak nokta.** D9 tarayıcısının beyaz listesi İSİM
+tabanlı (`^(root|canonical|href)$`). Bugün doğru — `nav()`'daki `href` yalnız
+motor literal'i alıyor. **Ama yarın `href` adlı bir değişkene ilan verisi
+konursa tarayıcı sessizce affeder.** Sahibi: S14 taraması.
+
+**Not:** `test_output_frozen` docstring'i sabiti "git 9af98b1" diye kaynak
+gösteriyor; o commit bu repoda YOK. Sabitin DEĞERİ doğru (`8a2c500`), yalnız
+atıf yanlış. Kayda geçti.
+
+**A10 daralttı ama kapanmadı:** `measure.py`'nin `--lifetime`, `--unconfirmed`,
+`--double-send` alt komutları HÂLÂ exit 0 dönüyor (hakem tek tek koştu).
+Yalnız `--invariants` kapıya bağlandı. D1/D2'nin hâlâ kapısı yok.

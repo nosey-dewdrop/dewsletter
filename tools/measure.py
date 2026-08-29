@@ -627,6 +627,32 @@ def cmd_invariants() -> dict:
     # kacisi gerektirmeyenler: sanitize eden sarmalayicilar ve motorun urettigi sayilar
     safe_wrapper_re = re.compile(r"^\s*(esc|html\.escape|slugify|int|len|bool|round)\s*\(")
     numeric_field_re = re.compile(r"\[[\"'](score|age_days)[\"']\]\s*$")
+    # URL baglami: bir alan degeri href=/src=/action= icine giriyorsa esc() yetmez,
+    # cunku esc() tirnagi kacirir ama SEMAYI kacirmaz (javascript: gecer).
+    url_attr_re = re.compile(r"(href|src|action)\s*=\s*[\"']?$", re.I)
+    url_safe_re = re.compile(r"safe_url\(|slugify\(")
+    # motorun kendi urettigi yollar: nav()/page() icindeki root, canonical, href.
+    url_const_re = re.compile(r"^\s*(root|canonical|href)\s*$")
+    url_cands = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.JoinedStr):
+            continue
+        prev = ""
+        for v in node.values:
+            if isinstance(v, ast.Constant):
+                prev = str(v.value)
+                continue
+            if not isinstance(v, ast.FormattedValue):
+                continue
+            expr = ast.unparse(v.value)
+            if url_attr_re.search(prev) and not url_safe_re.search(expr):
+                url_cands.append((node.lineno, expr))
+            prev = ""
+    for ln, expr in url_cands:
+        if url_const_re.match(expr):
+            safe.append((ln, f"{expr} (motor sabiti, URL baglami)"))
+        else:
+            d9.append((ln, f"URL baglami kacissiz: {expr} (esc() semayi kacirmaz)"))
     for node in ast.walk(tree):
         if isinstance(node, ast.JoinedStr):
             raw = "".join(v.value for v in node.values if isinstance(v, ast.Constant))
@@ -659,6 +685,9 @@ def cmd_invariants() -> dict:
     for ln, why in uniq:
         print(f"  IHLAL build_site.py:{ln} {why}")
         print(f"      {src_lines[ln - 1].strip()[:110]}")
+    print(f"URL baglami adayi          : {len(url_cands)} "
+          f"({len(url_cands) - sum(1 for ln, e in url_cands if url_const_re.match(e))} ihlal, "
+          f"{sum(1 for ln, e in url_cands if url_const_re.match(e))} motor sabiti)")
     esc_count = sum(1 for _, _, l in scan_files([bs]) if "esc(" in l)
     print(f"esc() gecen satir          : {esc_count}")
     print(f"kacissiz ama GUVENLI       : {len(safe)} (slugify/int gibi sanitize eden "
@@ -703,7 +732,11 @@ def main() -> None:
     if args.unconfirmed:
         cmd_unconfirmed()
     if args.invariants:
-        cmd_invariants()
+        counts = cmd_invariants()
+        # KAPI: D4/D5/D6/D9'dan biri bile kirmiziysa cikis 1. D1/D2 bilerek disarida:
+        # ikisi de bugun kirmizi ve bu kartin kapsami disinda (S5b/D-fazlari).
+        if any(counts[k] > 0 for k in ("D4", "D5", "D6", "D9")):
+            sys.exit(1)
 
 
 if __name__ == "__main__":

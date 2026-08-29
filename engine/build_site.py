@@ -174,6 +174,26 @@ def esc(s):
     return html.escape(str(s) if s is not None else "", quote=True)
 
 
+def json_in_html(data) -> str:
+    """json.dumps for a <script> block. The four characters that can end the
+    element or break a JS string literal leave as \\uXXXX escapes; JSON stays
+    lossless because \\uXXXX is the same string to any JSON reader.
+    '&' is deliberately untouched: HTML never entity-decodes inside <script>."""
+    return (json.dumps(data)
+            .replace("<", "\\u003c")
+            .replace(">", "\\u003e")
+            .replace(" ", "\\u2028")
+            .replace(" ", "\\u2029"))
+
+
+def safe_url(u) -> str:
+    """Only http(s) survives. javascript:, data:, vbscript: and every other
+    scheme (including a scheme-relative //host) become the empty string, so a
+    dropped link is indistinguishable from a listing that never had one."""
+    s = str(u or "").strip()
+    return s if re.match(r"https?://", s, re.I) else ""
+
+
 def slugify(text: str) -> str:
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")[:80]
@@ -288,7 +308,8 @@ document.getElementById('join-form').addEventListener('submit', async e => {
 def bib_entry(r: dict, href: str) -> str:
     reason = "; ".join(r["reasons"][:4]).replace(" in title", " in title")
     reason = re.sub(r"(interest|skill) '([^']+)' in title", r"\2 in title", reason)
-    link = f'<a href="{esc(href)}">apply</a>' if r.get("link") else "<i>link not found, search it yourself</i>"
+    link = (f'<a href="{esc(safe_url(href))}">apply</a>' if safe_url(r.get("link"))
+            else "<i>link not found, search it yourself</i>")
     return (f'<li><span class="co">{esc(r["company"])}</span>. '
             f'<span class="pos">{esc(r["position"])}.</span> '
             f'{esc(r.get("location") or "location unlisted")}. {link}. '
@@ -591,8 +612,8 @@ def build_jobs_index(jobs):
         loc = esc(j["location"] or "")
         link = (f'<a href="{slugify(j["company"] + "-" + j["position"])}.html">details</a>'
                 if True else "")
-        apply_ = (f'<a href="{esc(j["link"])}" rel="nofollow">apply</a>' if j.get("link")
-                  else "<i>link not found</i>")
+        apply_ = (f'<a href="{esc(safe_url(j["link"]))}" rel="nofollow">apply</a>'
+                  if safe_url(j.get("link")) else "<i>link not found</i>")
         rows += (f'<tr><td class="num">{i}</td><td class="co">{esc(j["company"])}</td>'
                  f'<td class="pos">{esc(j["position"])}</td><td>{loc}</td>'
                  f'<td class="num">{esc(j["salary"] or "")}</td><td class="num">{esc(j["age"] or "")}</td>'
@@ -619,18 +640,18 @@ def job_jsonld(job, canonical):
     data = {"@context": "https://schema.org/", "@type": "JobPosting",
             "title": job["position"], "datePosted": TODAY_ISO, "employmentType": "INTERN",
             "hiringOrganization": {"@type": "Organization", "name": job["company"],
-                                   "sameAs": job.get("company_url")},
+                                   "sameAs": safe_url(job.get("company_url")) or None},
             "jobLocation": {"@type": "Place", "address": job.get("location") or "unspecified"},
-            "directApply": bool(job.get("link")), "url": canonical}
+            "directApply": bool(safe_url(job.get("link"))), "url": canonical}
     if job.get("remote"):
         data["jobLocationType"] = "TELECOMMUTE"
-    return '<script type="application/ld+json">' + json.dumps(data) + "</script>"
+    return '<script type="application/ld+json">' + json_in_html(data) + "</script>"
 
 
 def build_job_page(job, slug):
     canonical = f"{BASE_URL}/jobs/{slug}.html"
-    apply_html = (f'<a href="{esc(job["link"])}" rel="nofollow">apply at the source &rarr;</a>'
-                  if job.get("link") else
+    apply_html = (f'<a href="{esc(safe_url(job["link"]))}" rel="nofollow">apply at the source &rarr;</a>'
+                  if safe_url(job.get("link")) else
                   f'link not found, search it yourself: <i>{esc(job["company"])} {esc(job["position"])}</i>')
     rows = "".join(f"<tr><td>{k}</td><td>{esc(v)}</td></tr>" for k, v in [
         ("company", job["company"]), ("location", job.get("location") or "unlisted"),
