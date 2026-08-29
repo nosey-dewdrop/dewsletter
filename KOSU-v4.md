@@ -940,3 +940,34 @@ hakem notu: Araç, yapamayacağı yerde susmayı seçtiği için geçti — hake
 3. Ömür/kaçırma verisi yok → **S11'in eşiği şu an ölçülemez.** S11 hakemi
    karar verecek; şef karar vermez.
 
+
+```
+## S2 — İlan hâlâ açık — GEÇTİ (kart hakem tarafından bir kez yeniden yazıldı)
+ölçülen: 36 test yeşil (15 miras değişmedi + 21 yeni) · faz-öncesi kırmızı 21/21
+         · replay iki hattan BYTE-EŞ, sha 5c5495bc…, 294801 bayt
+         · jobs.json sha HEAD ile aynı (ecb1a2b5…), 453 kayıt, yeni alan sızmadı
+         · defter 453 kayıt, alive=true kümesi == jobs.json anahtar kümesi (simetrik fark boş)
+         · mutasyon 3: alive filtresi kaldırılınca 2 test kırmızı düştü, kapı gerçek
+         · hermetik: hakem socket'i harici bloke etti, 36/36 yeşil
+eşik:    ≥23 test / ≥8 yeni · replay byte-eş · korpus ve docs/ diff exit 0 · 3 mutasyon
+birikimli (S1): measure.py exit 0, altı bölüm sayı basıyor, tools/ diffi boş
+hakem notu: Kart eşiğinin her maddesi bağımsız ölçümle tuttu; replay'in faz-öncesi
+         koda karşı koştuğu, legacy fixture'ın HEAD'le sıfır farkı olduğu doğrulandı.
+```
+
+**S2'nin bıraktığı açık maddeler:**
+1. **Fixture'lar korpusla aynı gün DEĞİL.** `engine/tests/fixtures/*.md` bugünkü
+   çekim (599 ilan, 59 duplicate); commit'li `jobs.json` 27 Tem (453 ilan, 41).
+   Replay "eski hat == yeni hat" kanıtlıyor ama fixture'lardan 453'lük korpus
+   yeniden üretilemiyor. **Korpus hâlâ replay edilemez tarihsel artefakt.**
+2. **Defterde 0 ölü ilan.** D7 kapısı canlı veride bugün hiçbir şey elemiyor;
+   etkisi yalnız testte kanıtlı. Gerçek ömür için en az iki farklı günün
+   gerçek fetch'i gerekiyor. **S11'in kaçırma eşiği hâlâ ölçülemez.**
+3. `first_seen` hepsine `2026-07-27` yazıldı (fetch_meta.fetched_at'ten), ama
+   jobs.json'a dokunan ilk commit `b75af225` 26 Tem 13:55 UTC. Uydurma değil,
+   repodaki bir alandan türetilmiş, ama git geçmişiyle çelişiyor. DOĞRULANMADI.
+4. Ajan, rabadon kilidi (`red-suite-test-write` + `red-base` döngüsü) yüzünden
+   `engine/fetch/__init__.py:76-80`'e savunmacı bir satır eklemek zorunda kaldı:
+   tanınmayan defter satırı çökertmek yerine atlanıp yeniden öğreniliyor.
+   **Kart bunu istemedi, kilit dayattı.** Kayda geçti.
+5. D9 (`build_site.py:627`) hâlâ kırmızı — sahibi S5.
