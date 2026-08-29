@@ -334,13 +334,97 @@ formatını değiştirirse ürün sessizce ölür ve kimse fark etmez.
    şema, kaynaklar arası dedupe, kaynak başına test iskeleti.
    **Yeni kaynak EKLENMEZ.** Korpus birebir aynı kalır.
 
+### ⚠ S2 KARTI — HAKEM YENİDEN YAZDI (KART YANLIŞ). Aşağıdaki eski kart ÖLÜ.
+
 ```
+ÖLÜ KART (koşulamaz):
 KABUL KOMUTU : python3 -m unittest discover engine/tests && python3 tools/measure.py --corpus-hash
-EŞİK         : refactor öncesi ve sonrası jobs.json BYTE-EŞ (dedupe sırası dahil)
-               · alive=false ilan mail çıktısında 0 kez · fetch 0 satırda exit≠0
-               · elle alive=false yapılan ilan çıktıdan düşüyor (mutasyon)
+EŞİK         : refactor öncesi ve sonrası jobs.json BYTE-EŞ · alive=false ilan
+               mail çıktısında 0 kez · fetch 0 satırda exit≠0 · mutasyon
 DOKUNULABİLİR: engine/fetch_speedyapply.py, engine/fetch/, engine/tests/
 ```
+
+**Neden ölü — hakemin kanıtı:**
+
+1. `python3 tools/measure.py --corpus-hash` → **exit 2**, "unrecognized
+   arguments". O alt komut hiç yazılmadı ve `tools/` S1'de DONDU, ayrıca
+   S2'nin DOKUNULABİLİR listesinde yok. Komutun yarısı fizik olarak koşamaz.
+2. **Kart kendi kendini imkânsız kılıyordu.** Madde 1 jobs.json'daki her kayda
+   `last_seen`/`alive` eklettiriyor; eşik aynı dosyanın BYTE-EŞ kalmasını
+   istiyor. İkisi aynı anda doğru olamaz.
+3. D7'nin "hiçbir sayfa çıktısı" şartı `build_site.py` düzenlemesi
+   gerektiriyordu — o dosya guard-kilitli ve kilidi **S5'te** açılıyor,
+   DOKUNULABİLİR'de de yok. `send_mail.py` de listede yok ama eşik mail
+   çıktısı istiyordu. Ajan iki kilitli dosyaya zorlanıyordu.
+4. `fetch` gerçekten ağa gidiyor (`fetch_speedyapply.py:69`
+   `urllib.request.urlopen`), yerel fixture yok → "0 satırda exit≠0" ağsız
+   kanıtlanamazdı.
+5. **UPSTREAM KAYMIŞ** — kartta hiç yoktu, en kritik bulgu: canlı README bugün
+   283 satır dönüyor, jobs.json'daki 27 Tem çekimi 182'ydi. Fetch'i yeniden
+   koşarak jobs.json'u üretmek İMKÂNSIZ; ajan koşsaydı S1'in zeminini yok
+   ederdi.
+6. Teşhisteki "%26,5'i 3 günde ölüyor" bu repoda kanıtsız (ZEMİN v2).
+   Doğru teşhis: `alive`/`last_seen` YOK olduğu için ömür ÖLÇÜLEMİYOR.
+   **S2, o ölçümün önkoşulu.**
+
+**Hakemin çözümü.** `alive`/`last_seen` jobs.json'a GİRMEZ. Ayrı defter
+(`engine/data/jobs_seen.json`) tutar; jobs.json yalnız `alive=true` kayıtları
+taşır. D7 böylece **yapısal** olur — ölü ilan veriye hiç girmediği için
+build_site/send_mail/match'in hiçbiri değişmeden ölü ilan basamaz.
+
+### YENİ KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Bana gelen ilana tıkladığımda sayfa duruyor.
+
+İŞ:
+1. DONMUŞ GİRDİ. İki kaynağın ham markdown'ı bir kez çekilip
+   engine/tests/fixtures/ altına aynen commit'lenir. Tüm testler ağsız koşar;
+   test sürecinde socket açılırsa test DÜŞER.
+2. DEFTER. engine/data/jobs_seen.json: key=(company.lower, position.lower) →
+   {first_seen, last_seen, alive}. Bugünkü fetch'te görünmeyen key alive=false
+   olur, last_seen KORUNUR. jobs.json'a YENİ ALAN EKLENMEZ; jobs.json yalnız
+   alive=true kayıtları, bugünkü sıra ve byte'larıyla taşır.
+3. fetch toplam 0 satır dönerse VE herhangi bir kaynak tek başına 0 satır
+   dönerse exit≠0, jobs.json'a ve deftere HİÇBİR yazma yapılmaz (kısmi yazma yok).
+4. fetch_speedyapply.py → engine/fetch/ klasörü: kaynak başına bir dosya, ortak
+   şema, kaynaklar arası dedupe, kaynak başına test. YENİ KAYNAK EKLENMEZ.
+
+KABUL KOMUTU : python3 -m unittest discover engine/tests && git diff --exit-code -- engine/data/jobs.json docs/
+
+EŞİK:
+· 15 miras test DEĞİŞMEDEN yeşil; toplam ≥23 test yeşil (≥8 yeni)
+· YENİ testlerin HER BİRİ faz-öncesi kodda KIRMIZI düştüğü kanıtlanır
+  (kırmızı çıktı rapora yapıştırılır); düşmeyen test boştur, faz düşer
+· REPLAY BYTE-EŞ: donmuş fixture eski hattan ve yeni engine/fetch/ hattından
+  geçirilir, üretilen jobs.json byte'ları BİREBİR aynı (dedupe sırası dahil)
+· KORPUS DOKUNULMAZ: git diff --exit-code engine/data/jobs.json → exit 0;
+  453 kayıt, 42 ülke, dedupe 41 aynen durur
+· docs/ ÇIKTISI DOKUNULMAZ: git diff --exit-code docs/ → exit 0
+· fetch 0 satırda exit≠0 — hem toplam-0 hem tek-kaynak-0 için ayrı test;
+  0 satır durumunda jobs.json ve defter DEĞİŞMEMİŞ olmalı
+· MUTASYON 1 (mail): fixture defterinde bir ilan elle alive=false yapılır →
+  send_mail.DATA sandbox'a çevrilip --dry-run koşulur → o ilan çıktıda 0 kez
+· MUTASYON 2 (veri): aynı ilan üretilen jobs.json'da 0 kez; jobs.json anahtar
+  kümesi == defterdeki alive=true kümesi (eşitlik testi)
+· MUTASYON 3 (kapı sağlaması): alive filtresi kasten kaldırılırsa Mutasyon 1
+  ve 2 KIRILMALI; kırılmıyorsa kapı sahtedir, faz düşer
+· last_seen KORUNUR: ölen ilanın last_seen'i sonraki koşularda değişmez
+· HERMETİK: testler ağ kapalıyken de yeşil
+
+DOKUNULABİLİR: engine/fetch_speedyapply.py, engine/fetch/, engine/tests/,
+               engine/tests/fixtures/, engine/data/jobs_seen.json (yeni)
+               — engine/data/jobs.json BYTE-DONMUŞ, elle düzenlenmez
+               — build_site.py ve send_mail.py OKUNUR, düzenlenmez
+```
+
+**Hakemin zorlaştırdıkları:** koşulamayan komut → makineyle kilitli iki kapı
+(`git diff --exit-code` korpus + docs) · test sayısı yoktu → ≥8 yeni + her biri
+için faz-öncesi kırmızı kanıtı · BYTE-EŞ tanımsızdı → donmuş fixture replay +
+git'te sıfır diff, iki ayrı kanıt · "0 satır" tek vakaydı → tek-kaynak-0 ayrı
+vaka + kısmi yazma yasağı · tek belirsiz mutasyon → üç mutasyon, üçüncüsü
+kapının kendisini sınıyor · hermetiklik ve `last_seen` korunması eklendi.
+**Kolaylaştırma YOK.**
 
 ---
 
