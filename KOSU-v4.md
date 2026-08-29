@@ -1085,3 +1085,39 @@ hakem notu: Kart eşiğinin her maddesi bağımsız ölçümle tuttu; replay'in 
    tanınmayan defter satırı çökertmek yerine atlanıp yeniden öğreniliyor.
    **Kart bunu istemedi, kilit dayattı.** Kayda geçti.
 5. D9 (`build_site.py:627`) hâlâ kırmızı — sahibi S5.
+
+```
+## S3 — Remote dediğim remote — GEÇTİ (kart hakem tarafından bir kez yeniden yazıldı)
+ölçülen: 63 test yeşil (36 → 63, +27 yeni) · faz-öncesi 27/27 kırmızı
+         · common.py +141/-0 → FIELDS ve record() bir harf değişmedi (numstat kanıtı)
+         · census jobs.json {global:9, US:14, CA:2, DE:2, IN:1, unknown:0} = 28 remote
+         · census fixtures {global:3, US:14, CA:1, BE:1, DE:1, HK:1, unknown:0} = 21
+           — hakem ikisini de KENDİ ayrıştırmasıyla saydı, birebir tuttu
+         · tablolar: 47 ülke + 51 ABD kodu, ŞEHİR ANAHTARI YOK, LATAM/EMEA/APAC YOK
+         · mutasyon M1 → 10 test, M2 → 6 test (D ve G düştü, anti-hardcode gerçek),
+           M3 → 3 test (E düştü)
+         · census testleri TAM SÖZLÜK assertEqual, 47/51 gerçekten liste geziyor
+         · run() özeti gerçek census, unknown sıfırken bile ekranda
+eşik:    ≥47 test · GATES-OK · iki korpusta tam sözlük eşitliği · 3 mutasyon
+birikimli: S1 exit 0 · S2 exit 0 · REPLAY hakemin kendi koşusunda hâlâ BYTE-EŞ
+         (5c5495bc…, S3 common.py'ye dokunduğu hâlde kırılmadı — ekleme saf)
+hakem notu: Kural gerçekten kural — tabloyu kısınca anti-hardcode kapısı kızardı,
+         yani 47/51 korpusa fit edilmiş liste değil, ve unknown sessiz default'a çökmüyor.
+```
+
+**S3'ün bıraktıkları:**
+1. **KART NOT HATASI (kayda geçti, KALDI değil):** kart fixtures dedupe'lu setini
+   540 diye yazmıştı; gerçek **599**. Census sözlüğü tuttuğu için faz düşmedi.
+2. **⛔ S1 KAPISI KIRMIZI BİR İNVARYANT TAŞIYOR.** `tools/measure.py --invariants`
+   D9'u KIRMIZI (1 ihlal, `build_site.py:627`) raporluyor ama komut yine de
+   **exit 0** dönüyor. Yani birikimli kapı D9'u BLOKLAMIYOR. Sahibi S5; S14'ün
+   "D1-D9 dokuzu da yeşil" eşiği bunu kapatmadan tutmaz.
+3. `tools/measure.py:112 country_of()` aynı işi eksik yapan İKİNCİ bir lokasyon
+   kuralı: ülke *adı* döndürüyor, `anywhere`/`worldwide`'ı dünya-geneli sayıyor
+   (yani TAHMİN ediyor — S3'ün yasakladığı şey). `test_fetch.py:331` buna bağlı.
+   `tools/` donduğu için birleştirilemedi. Açık madde.
+4. `"Remote - Anywhere"` bilerek `unknown`. Korpusta 0 örnek var, bugün kimseyi
+   etkilemiyor; kaynak yarın bu formatı basarsa Damla'nın başvurabileceği ilan
+   `global` yerine `unknown` kovasına düşer. Bilinsin.
+5. **Kullanıcının şikâyeti HENÜZ DÜZELMEDİ.** S3 yalnız ayrımı yapan ölçümü
+   kurdu; eleme `match.py`'de ve o S4'ün işi.

@@ -143,6 +143,11 @@ def run(texts: dict[str, str], out_dir: Path, now: datetime,
         remote = sum(1 for j in live if j["remote"])
         print(f"total: {len(live)} live listings -> {out_dir / 'jobs.json'}")
         print(f"remote: {remote}, link_missing: {missing}")
+        # scope breakdown, unknown included even at zero: a scope that stops
+        # being printed is a scope that stops being checked
+        census = common.scope_census(live)
+        print("remote scope: " + ", ".join(
+            f"{name}={n}" for name, n in sorted(census.items())))
         print(f"ledger: {len(ledger)} known listings, {dead} no longer open")
     return {"live": len(live), "dead": dead, "duplicates_removed": removed}
 
