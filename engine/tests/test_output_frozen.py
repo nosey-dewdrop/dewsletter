@@ -57,14 +57,30 @@ FROZEN_SURFACES = {
                   "7cf10d770a0e5bec5ef2f4e56b10a491f6b83e0309f8ed18d3b55c83fd964165"),
     "unsubscribe": (2395,
                     "a995b6d1c6613b2031d4672eab9a0a7f24d92b7bec1257c45da74c23a57152b9"),
+    # S5b, the sixth surface. Built off the same frozen corpus, from the base
+    # slug map (main() writes the collision-suffixed one to disk).
+    "user_page": (3276,
+                  "3130070be2b841d24e3508c9ebd59aa7cc3676925bc6def177e8fff6d377812e"),
 }
-FROZEN_TOTAL_BYTES = 2096716
+FROZEN_TOTAL_BYTES = 2096716 + 3276
+FROZEN_USER_FEED = (1415,
+                    "6f88c391d701aaff6d305cd1947e4e3b7ad6f9653b86f7880a2e6a29c583aa1f")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
 CONSTANTS_BEFORE_S5A = "c0477c0e9fcd184e3ba59450f7e721e56674fef44c25f3d715c36d9f89f984f5"
-NEW_HELPERS = ("json_in_html", "safe_url")
+NEW_HELPERS = ("json_in_html", "safe_url",
+               # S5b: the whole user-page surface. Every literal it needs lives
+               # inside these functions; main() gained none.
+               "robots_extra", "job_slug_map", "slugs_on_disk", "result_key",
+               "xml_text", "user_row_html", "user_page_html", "user_feed_xml",
+               "write_user_pages")
+
+# sha256 of the sorted multiset of string literals inside main() alone. S5b adds
+# two calls to main() and not one literal; this locks that separately from the
+# module-wide gate above.
+MAIN_CONSTANTS = "ab44c922149b8237298eb9e17611d6de22a2b4189ee3fffb0581016bcc6c0c6e"
 
 
 def fixture_corpus() -> list[dict]:
@@ -83,7 +99,10 @@ def string_constants(tree: ast.AST) -> Counter:
 
 def multiset_sha(counter: Counter) -> str:
     payload = json.dumps(sorted(counter.elements()), ensure_ascii=False)
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+    # surrogatepass: a source literal may hold a lone surrogate (the XML filter
+    # needs the \\ud800-\\udfff range). Bytes are unchanged for every other
+    # literal, so the frozen hash below still means what it meant.
+    return hashlib.sha256(payload.encode("utf-8", "surrogatepass")).hexdigest()
 
 
 class FrozenOutput(unittest.TestCase):
@@ -115,7 +134,11 @@ class FrozenOutput(unittest.TestCase):
                 build_site.build_job_page(j, build_site.slugify(
                     f'{j["company"]}-{j["position"]}')) for j in cls.jobs),
             "unsubscribe": build_site.build_unsubscribe(),
+            "user_page": build_site.user_page_html(
+                results, build_site.job_slug_map(cls.jobs)),
         }
+        cls.results = results
+        cls.smap = build_site.job_slug_map(cls.jobs)
 
     @classmethod
     def tearDownClass(cls):
@@ -152,6 +175,20 @@ class FrozenOutput(unittest.TestCase):
                 helper_owned += string_constants(node)
         self.assertEqual(len(helper_owned) > 0, True, "helpers vanished")
         self.assertEqual(multiset_sha(every - helper_owned), CONSTANTS_BEFORE_S5A)
+
+    def test_user_feed_is_byte_identical(self):
+        raw = build_site.user_feed_xml(self.results, self.smap).encode("utf-8")
+        size, sha = FROZEN_USER_FEED
+        self.assertEqual(len(raw), size)
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), sha)
+
+    def test_main_gained_no_literal(self):
+        """main() may gain calls, never a string of its own."""
+        tree = ast.parse((HERE.parent / "build_site.py").read_text())
+        mains = [n for n in ast.walk(tree)
+                 if isinstance(n, ast.FunctionDef) and n.name == "main"]
+        self.assertEqual(len(mains), 1)
+        self.assertEqual(multiset_sha(string_constants(mains[0])), MAIN_CONSTANTS)
 
 
 if __name__ == "__main__":

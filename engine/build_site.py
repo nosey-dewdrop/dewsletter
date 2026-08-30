@@ -681,6 +681,136 @@ def build_job_page(job, slug):
     return page(title, desc, canonical, "../", "jobs", body, extra_head=job_jsonld(job, canonical))
 
 
+def robots_extra() -> str:
+    """The extra robots.txt group that closes /u/ to crawlers.
+
+    Returned as a suffix, never as a rewrite: the existing group (Allow: /,
+    Sitemap:) is untouched, a second group for the same user-agent is appended.
+    Both groups merge, and for /u/anything the longer rule wins."""
+    return "\nUser-agent: *\nDisallow: /u/\n"
+
+
+def job_slug_map(jobs: list) -> dict:
+    """(company, position) -> the slug main() writes to disk.
+
+    Same base slug, same collision counter, same order. The frozen corpus has
+    16 base-slug collisions, so a page that linked to the base slug alone would
+    send 16 listings to another listing's page."""
+    taken, out = {}, {}
+    for j in jobs:
+        base = slugify(f'{j["company"]}-{j["position"]}')
+        slug, k = base, 2
+        while slug in taken:
+            slug, k = f"{base}-{k}", k + 1
+        taken[slug] = True
+        out[(j["company"].strip().lower(), j["position"].strip().lower())] = slug
+    return out
+
+
+def slugs_on_disk(root, jobs: list) -> dict:
+    """job_slug_map filtered down to pages that actually exist on disk.
+
+    A link is never written on faith: if the file is not there, the row says so
+    instead of pointing at a 404."""
+    out = {}
+    for key, slug in job_slug_map(jobs).items():
+        if (root / "jobs" / f"{slug}.html").exists():
+            out[key] = slug
+    return out
+
+
+def result_key(r: dict) -> tuple:
+    """The identity match.dedupe collapses on, so a result finds its page."""
+    return (r["company"].strip().lower(), r["position"].strip().lower())
+
+
+def xml_text(s) -> str:
+    """esc() plus the characters XML 1.0 cannot carry in any form.
+
+    esc() makes the text safe for markup; it does not make it well-formed XML.
+    A raw \\x0b in a job title parses as HTML and kills the feed, so the
+    control range and the surrogates are dropped before escaping."""
+    dead = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff]")
+    return dead.sub("", esc(s))
+
+
+def user_row_html(r: dict, slug) -> str:
+    """One match: who, where, its page here, the source link, score, reasons."""
+    detail = (f'<a href="../jobs/{slug}.html">details</a>' if slug
+              else "<i>no page for this listing</i>")
+    apply_ = (f'<a href="{esc(safe_url(r["link"]))}" rel="nofollow">apply</a>'
+              if safe_url(r.get("link")) else "<i>link not found, search it yourself</i>")
+    return (f'<li><span class="co">{esc(r["company"])}</span>. '
+            f'<span class="pos">{esc(r["position"])}.</span> '
+            f'{esc(r.get("location") or "location unlisted")}. '
+            f'{detail} &middot; {apply_}. '
+            f'<span class="meta">score {r["score"]}: '
+            f'{esc("; ".join(r["reasons"]))}.</span></li>')
+
+
+def user_page_html(results: list, smap: dict) -> str:
+    """Every match the matcher returned, with no score threshold at all."""
+    rows = "".join(user_row_html(r, smap.get(result_key(r))) for r in results)
+    scores = [r["score"] for r in results]
+    span = f"{min(scores)} to {max(scores)}" if scores else "none"
+    body = f"""
+<h1 class="page rainbow">Your matches, all of them</h1>
+<p class="lede">Built from <span class="tex">profile.json</span> in this repository against
+this morning's listing set, by the same matcher the rest of the site runs. It holds
+{len(results)} records, scores {span}, and applies <b>no minimum score</b>: a match worth one
+point is on this page.</p>
+<p class="tabnote">The daily mail is a different surface. It carries its own cut-off and its
+own, smaller profile, so this page is not a copy of what was mailed and does not claim to be.
+Nothing here is read from the database; the only input is the profile file and the listings.</p>
+<p class="tabnote">Machine-readable copy: <a href="matches.xml">atom feed</a>.</p>
+<ol class="bib" id="all-matches">{rows}</ol>
+<div class="version">{VERSION}</div>
+"""
+    return page("Your matches, all of them", "Every match, no score threshold.",
+                f"{BASE_URL}/u/matches.html", "../", "", body,
+                extra_head=('<meta name="robots" content="noindex">'
+                            '<link rel="alternate" type="application/atom+xml" '
+                            'title="matches" href="matches.xml">'))
+
+
+def user_feed_xml(results: list, smap: dict) -> str:
+    """The same records as an Atom feed. Same set, same order, same absence of
+    a threshold; only the syntax differs."""
+    entries = ""
+    for r in results:
+        slug = smap.get(result_key(r))
+        ident = slug or slugify(f'{r["company"]}-{r["position"]}')
+        target = (f"{BASE_URL}/jobs/{slug}.html" if slug
+                  else safe_url(r.get("link")) or f"{BASE_URL}/u/matches.html")
+        title = xml_text(f'{r["company"]} - {r["position"]}')
+        summary = xml_text(f'score {r["score"]}: ' + "; ".join(r["reasons"]))
+        entries += (f"<entry><title>{title}</title>"
+                    f"<id>urn:sightstone:{ident}</id>"
+                    f"<updated>{TODAY_ISO}T00:00:00Z</updated>"
+                    f'<link rel="alternate" href="{xml_text(safe_url(target))}"/>'
+                    f"<summary>{summary}</summary></entry>")
+    return ('<?xml version="1.0" encoding="UTF-8"?>'
+            '<feed xmlns="http://www.w3.org/2005/Atom">'
+            "<title>your matches, all of them</title>"
+            f"<id>{BASE_URL}/u/matches.xml</id>"
+            f"<updated>{TODAY_ISO}T00:00:00Z</updated>"
+            f'<link rel="self" href="{xml_text(safe_url(BASE_URL + "/u/matches.xml"))}"/>'
+            + entries + "</feed>")
+
+
+def write_user_pages(root, jobs: list, results: list) -> None:
+    """docs/u/: one fixed pair of files, no token, no per-person page.
+
+    docs/ is a public git repository pushed every morning, so a page named
+    after a per-person token would publish that token to the world. There is
+    exactly one page here and it is built from the profile file alone."""
+    out = root / "u"
+    out.mkdir(parents=True, exist_ok=True)
+    smap = slugs_on_disk(root, jobs)
+    (out / "matches.html").write_text(user_page_html(results, smap))
+    (out / "matches.xml").write_text(user_feed_xml(results, smap))
+
+
 def main() -> None:
     data_dir = Path(__file__).parent / "data"
     jobs = json.loads((data_dir / "jobs.json").read_text())
@@ -719,7 +849,9 @@ def main() -> None:
     sitemap += [f"<url><loc>{esc(u)}</loc><lastmod>{TODAY_ISO}</lastmod></url>" for u in urls]
     sitemap.append("</urlset>")
     (ROOT / "sitemap.xml").write_text("\n".join(sitemap))
-    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n")
+    write_user_pages(ROOT, jobs, results)
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE_URL}/sitemap.xml\n"
+                                     + robots_extra())
     (ROOT / ".nojekyll").write_text("")
 
     n_files = sum(1 for _ in ROOT.rglob("*.html"))

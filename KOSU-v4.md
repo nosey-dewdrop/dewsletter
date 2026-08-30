@@ -1767,3 +1767,72 @@ DOKUNULMAZ: engine/data/jobs.json · engine/tests/fixtures/* · engine/match.py 
 engine/fetch/ · engine/send_mail.py · engine/schema.sql · tools/measure.py ·
 .github/workflows/daily.yml
 ```
+
+```
+## S5b — Kendi sayfam var — GEÇTİ
+ölçülen: 147 test yeşil (121 → 147, +26 yeni), eşik ≥133
+         · miras test_engine.py 15/15, blob 6bbd4a51… değişmedi · S5B-GREEN
+         · build_site.py MEVCUT GÖVDE DEĞİŞMEDİ: 9 yeni fonksiyon, main() yalnız
+           iki literal-siz satır aldı, robots literal'i BİREBİR duruyor
+           (sonuna helper çıktısı eklendi), nav() değişmedi
+         · SAYFA: match.run = 9 kayıt · html.parser <li> = 9 · xml entry = 9,
+           üçü EŞİT (hakem bağımsız hesapladı)
+           skorlar [1,1,3,3,3,3,5,5,7] → mailin --min-score 5 eşiğinin ALTINDA
+           6 KAYIT sayfada. Eşiksizlik kanıtlı.
+         · GİZLİLİK: docs/u/* içinde supabase / sightstone_subscribers /
+           mail_state / send_mail = 0 · e-posta = 0 · 24+ hex dizisi = 0 · JWT = 0
+           sitemap.xml'de /u/ = 0 · robots.txt'te Disallow: /u/ VAR ve eski grup
+           bozulmadan duruyor · nav() çıktısında /u/ linki YOK
+         · Sayfa mail iddiasını AÇIKÇA REDDEDİYOR: "not a copy of what was mailed
+           and does not claim to be", "Nothing here is read from the database"
+         · DONMUŞ SHA: hakem index'i fixture'dan KENDİ üretti → 8792/6d0f7cee,
+           birebir. Diğer 4'ü yeşil, sha'lar HESAPLANIYOR (gömülü değil).
+           Altıncı yüzey çakıldı: user_page 3276/3130070b + feed 1415
+         · LİTERAL KAPISI c0477c0e… hakemin kendi hesabıyla aynı.
+           SURROGATEPASS HİLESİ YOK — hakem aynı çok kümeyi hem surrogatepass
+           hem düz utf-8 ile kodladı, İKİSİ DE AYNI sha'yı verdi. Kapı kandırılmamış.
+         · XSS (hakemin kendi koşusu, 7 payload × 7 ilan, gerçek html.parser):
+           fazladan script 0 · on* 0 · enjekte img/svg 0 · javascript:/data: 0
+           matches.xml \x0b VE \x00 varken bile parse OLDU
+         · MUTASYON 1 (esc sil): measure exit 1 + 10 test kırmızı ✓
+           MUTASYON 2 (NEW_HELPERS'tan çıkar): literal kapısı kırmızı ✓
+           MUTASYON 3 (main()'e literal): iki kapı birden kırmızı ✓
+           MUTASYON EK (xml_text süzgeci kaldır): \x0b'li başlıkla feed
+           "not well-formed" ile PARSE EDİLEMEZ + 9 test kırmızı ✓
+           → XML kapısı SÜS DEĞİL
+         · A15 TANIĞI: hakemin kendi sayımıyla fixture'da çakışma == 16.
+           job_slug_map main()'in sayacını birebir taklit ediyor; diskte olmayan
+           ilan link yerine "no page for this listing" alıyor. Çakışma zorlanmış
+           korpusta her href resolve().exists() ile doğrulandı.
+birikimli: S1 exit 0 · S2 REPLAY 5c5495bc BYTE-EŞ (legacy modülü gerçekten exec
+         ediliyor) · S4 matched 9, 444+9 = 453 · S5a D9=0 exit 0, esc silince exit 1
+hakem notu: Kartın tek gerçek çelişkisi kartın kendi içinden geliyor ve daraltılmış
+         okuma korumayı zayıflatmıyor — kaynağa ek olarak ÇIKTIYI da taradığı için
+         sıkılaştırıyor; geri kalan her eşik, mutasyonlar ve XSS dâhil, tuttu.
+```
+
+**KART ÇELİŞKİSİ — hakemin kararı (kayda geçti).**
+Kartın "`build_site.py`'de `supabase|subscriber|mail_state|send_mail` GEÇMİYOR"
+eşiği, kartın KENDİ donmuş-sha eşiğiyle çelişiyordu. Hakem ölçtü: token'lar
+`build_site.py`'nin 27, 28, 290, 394, 588, 589. satırlarında; silmek `index`
+(8792/6d0f7cee) ve `unsubscribe` (2395/a995b6d1) sha'larını KIRAR.
+**Harfi harfine okuma İMKÂNSIZ.** Hakemin kararı: doğru okuma "yeni fonksiyonların
+gövdesinde + `docs/u/` çıktılarında geçmiyor" (AST ile `NEW_FUNCS` gövdeleri +
+çıktı taraması). **Bu KOLAYLAŞTIRMA DEĞİL:** (1) dosya-geneli okuma bu fazda
+korunabilecek bir şey korumuyor — yasakladığı şey bu fazın hiç dokunmadığı, zaten
+public olan katılım formunun anon key'i; (2) daraltılmış test düz grep'in
+YAKALAYAMAYACAĞI şeyi yakalıyor: **çıktının kendisini.** Gerçek gizlilik riski
+orada. Koşu durmadı.
+
+**Ajanın raporladığı, kartın istemediği tek değişiklik.**
+`test_output_frozen.py:102-105` `multiset_sha` encode'u `surrogatepass`e çevrildi;
+gerekçe: `xml_text` kaynağındaki `\ud800-\udfff` aralığı tek başına surrogate
+literal içeriyor ve düz `encode("utf-8")` `UnicodeEncodeError` atıyordu.
+**Hakem bunun kapıyı kandırmadığını KENDİ ölçümüyle doğruladı** — aynı çok küme
+iki kodlamayla da aynı sha'yı veriyor.
+
+**Ajanın bildirdiği rabadon olayı (bilgi):** `rabadon-gate` iş ortasında bir kez
+`engine/build_site.py`'ye yazmayı `build-site-mock-contract` ile blokladı — kart
+o dosyayı DOKUNULABİLİR ilan etmesine rağmen. Ajan hiçbir guard kuralını devre
+dışı bırakmadı, kırmızı tabanı korumasız bir dosyada düzeltti, blok kendiliğinden
+kalktı. Aynı kural ileride bu dosyada tekrar tetiklenebilir.
