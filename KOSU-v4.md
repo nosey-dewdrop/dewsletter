@@ -2260,3 +2260,186 @@ Kayda geçti (**A27**, sahibi S14).
   orijinal istisna **maskelenir**. S7'den bağımsız, dokunulmadı. (**A28**, S8)
 - `match.py`'de tarih kullanımı YOK → "12 eligible" sayısı takvimle kaymaz,
   test yarın da aynı kalır.
+
+---
+
+## S8 · İKİYE BÖLÜNDÜ — S8a (kod, şimdi) + S8b (kimlik + DNS, Damla)
+
+### DNS BUGÜNKÜ HÂLİ — çıplak
+
+```
+dig +short TXT noseydewdrop.com
+  "google-site-verification=Q_6iFxrr22JjVKFK0PGIh0qURWrl38leahGyYcEyi0c"
+dig +short TXT _dmarc.noseydewdrop.com                      → BOŞ
+dig +short MX  noseydewdrop.com                             → BOŞ
+dig +short TXT resend._domainkey.noseydewdrop.com           → BOŞ
+dig +short NS  noseydewdrop.com
+  ns1.vercel-dns.com. / ns2.vercel-dns.com.
+```
+
+**SPF YOK · DKIM YOK · DMARC YOK · MX YOK.**
+**Registrar Namecheap, ama NS Vercel'e delege** → kayıtlar Namecheap'e DEĞİL,
+**Vercel dashboard → Domains → DNS Records**'a girilecek.
+(whois: 14 Tem 2026 alınmış, 14 Tem 2027'ye kadar aktif.)
+
+**Hakemin kartı değiştiren ölçümü:** `https://noseydewdrop.com/` 200 dönüyor,
+başlık *"Damla Su Bilge — Bilkent CS, the IT girl behind noseydewdrop"* →
+**apex Damla'nın kişisel portfolyo sitesi.** Apex'e MX koymak ileride Google
+Workspace ile çakışır; Resend'in kendi dokümanı da subdomain diyor.
+→ Kayıtlar **`mail.noseydewdrop.com`** altına, apex'e DOKUNULMAYACAK.
+
+### RESEND — hesap yok, doküman okundu (hatırlanan ayar değil)
+
+`.github/workflows/daily.yml` secret'ları: `SMTP_USER` · `SMTP_PASS` ·
+`SUBSCRIBER_EMAIL` · `SUPABASE_SERVICE_KEY`. **`RESEND_API_KEY` YOK.**
+
+| kalem | sağlayıcının kendi dokümanından |
+|---|---|
+| Endpoint | `POST https://api.resend.com/emails` |
+| Auth | `Authorization: Bearer re_xxx` |
+| Başarı | `{"id": "..."}` → MessageId |
+| Bedava katman | **günde 100, ayda 3.000, 3 domain** — `measure.py:43`'teki sabitlerle UYUŞUYOR |
+| DMARC | `v=DMARC1; p=none; rua=…` — "start with p=none" |
+| Subdomain | "We strongly recommend sending from a subdomain instead of your root domain" |
+
+**DKIM/SPF değerleri ajan tarafından ASLA bilinemez** — Resend dokümanı üç ayrı
+sayfada "view the Records tab in your dashboard" diyor; değerler domain başına
+üretiliyor. **Bölme kararının kanıtı bu: belirsizlik değil, yapısal imkânsızlık.**
+
+### ⛔ A29 — TEK TIK ABONELİKTEN ÇIKMA BUGÜNKÜ ALTYAPIDA İMKÂNSIZ
+
+Hakem canlı uçtan ölçtü:
+```
+POST https://nosey-dewdrop.github.io/sightstone/unsubscribe.html?token=test → 405
+GET  aynı URL                                                              → 200
+```
+**GitHub Pages statik, POST kabul etmiyor.** RFC 8058 tek-tık, unsubscribe
+URL'inin POST'a 200/202 dönmesini şart koşuyor.
+**`List-Unsubscribe-Post` başlığını POST ucu olmadan göndermek hiç
+göndermemekten KÖTÜDÜR:** Gmail tek-tık'ı dener, 405 yer, abonelik iptalini
+bozuk sayar, domain itibarı düşer. → S8a'da **yasak kapı**.
+Gerçek çözüm Supabase edge function ister ve `unsubscribed_at` **S10'un**.
+**A29 sahibi: S10.** Düşerse RFC 8058 uyumu hiç gelmez.
+
+### A25 ve A28 — hakem ikisini de KENDİ ölçtü, ikisi de gerçek
+
+```
+A25 (izolasyon yok):
+  >>> RUN DIED: RuntimeError: smtp died on send #5
+  >>> subscribers delivered      : 4 / 10
+  >>> subscribers NEVER processed: 5
+  S7'nin state işi sağlam (4 teslim = 4 kayıt); delik izolasyonda.
+
+A28 (istisna maskeleme):
+  >>> WHAT THE OPERATOR SEES: OSError: MASKING ERROR: connection already dead
+  >>> ORIGINAL CAUSE        : RuntimeError: smtp refused recipient
+```
+
+### KART — S8a · "MAİL GERÇEK BİR YERDEN GELİYOR (KOD)" — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Bir abonenin adresi patladığında ben mailimi yine alıyorum,
+                    ve gelen mailde çalışan bir "listeden çık" bağlantısı var.
+
+İŞ:
+1. Gönderim tek arayüzün arkasına:
+   send(to, subject, html) -> MessageId | HardBounce | SoftFail
+   TÜM gönderimler bu tek boğazdan. S8a SAYAÇ YAZMAZ, kota bilmez, 100/3000
+   sabiti EKLEMEZ — S9'un sarabileceği tek fonksiyon bırakır.
+2. ResendProvider — urllib ile POST https://api.resend.com/emails,
+   Authorization: Bearer, yanıttaki id → MessageId. smtplib TAMAMEN kalkar.
+3. A25 — ABONE İZOLASYONU. Her abone kendi try sınırında. Bir abonenin
+   HardBounce/SoftFail'i sonrakileri DURDURMAZ; sonuç loglanır, koşu sonunda
+   özet basılır.
+4. List-Unsubscribe: <https://...> üretilen HER mailde.
+5. A28 — istisna maskeleyen teardown kalkar.
+6. Sahte sağlayıcıyla hermetik testler (S7 deseni).
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 tools/measure.py --invariants && python3 tools/measure.py --double-send
+
+EŞİK — her sayı hakemin ÖLÇTÜĞÜ sayı:
+· Test ≥217 yeşil, 0 SKIP
+· engine/send_mail.py'de smtplib geçen satır 0 (bugün 8 satır: 21,126,150,202,
+  205,206,209,212-213)
+· Harici pip paketi 0 (stdlib-only korunur)
+· A25 MUTASYONU: 10 abone / 5. gönderimde ölüm → teslim 9/10, hiç işlenmeyen 0
+  (bugün: 4/10 ve 5 hiç işlenmedi). İzolasyon try bloğu kaldırılınca KIRMIZI.
+· A28: gönderim yolunda orijinal istisnayı maskeleyebilen finally teardown 0
+· List-Unsubscribe üretilen HER mailde — üretilen TÜM mailleri toplayıp tek tek
+  doğrulayan test (tek örnek maile bakmak YETMEZ)
+· ⛔ List-Unsubscribe-Post başlığı 0 MAİLDE — bir test bunun YOKLUĞUNU kilitler
+  (POST ucu 405; POST ucu yokken tek-tık ilan etmek itibar yakar)
+· Sağlayıcı takası: send() imzasına dokunmadan tek sınıf değiştirmek yeterli;
+  testler sahte sağlayıcıyla geçer, AĞA HİÇ ÇIKMAZ (soket açılırsa test patlar)
+· Gönderim çağrısı kod tabanında TEK YERDE (S9'un sayacı için tek boğaz)
+· --invariants D4/D5/D6/D9 = 0 exit 0 · --double-send exit 0
+· KIRILAMAZ: mail_state.json sha 99d7660a… · test_engine.py blob 6bbd4a51… 15/15 ·
+  6 donmuş sha + FROZEN_SEATS · job_key/sub_id türetimi HARFİ HARFİNE AYNI
+
+DOKUNULABİLİR: engine/send_mail.py · engine/tests/
+```
+
+### KART — S8b · "KİMLİK" — DAMLA PANELDE BİTİRENE KADAR AÇILMAZ
+
+```
+KABUL KOMUTU:
+dig +short TXT mail.noseydewdrop.com && dig +short MX mail.noseydewdrop.com && dig +short TXT resend._domainkey.mail.noseydewdrop.com && dig +short TXT _dmarc.noseydewdrop.com && python3 -m unittest discover engine/tests
+
+EŞİK:
+· SPF: mail.noseydewdrop.com TXT'inde v=spf1 (bugün BOŞ)
+· DKIM: resend._domainkey.mail.noseydewdrop.com çözülüyor (bugün BOŞ)
+· MX: mail.noseydewdrop.com üzerinde çözülüyor (bugün BOŞ)
+· DMARC: _dmarc.noseydewdrop.com TXT'inde v=DMARC1; p=none; rua= (bugün BOŞ)
+· ⛔ APEX noseydewdrop.com MX'i BOŞ KALIR — kişisel site orada, çakışma yasak
+· Resend dashboard'da domain durumu Verified
+· RESEND_API_KEY GitHub secret'ında, daily.yml geçiriyor, SMTP_USER/SMTP_PASS SİLİNMİŞ
+· Tek gerçek gönderim SADECE Damla'nın adresine, From: @mail.noseydewdrop.com,
+  Gmail'de "show original" → SPF=pass, DKIM=pass, DMARC=pass ÜÇÜ BİRDEN
+· 217 test hâlâ yeşil
+
+DOKUNULABİLİR: .github/workflows/daily.yml (YALNIZ env: bloğu) · engine/send_mail.py
+```
+
+### 📋 DAMLA'NIN PANELDE YAPACAKLARI — S8b, S9, S10, S11, S12 buna bağlı
+
+```
+1.  resend.com → ücretsiz hesap aç (100/gün, 3.000/ay — doğrulandı, yetiyor)
+2.  Resend → Domains → Add Domain → "mail.noseydewdrop.com"
+    ⛔ APEX "noseydewdrop.com" YAZMA — orası senin portfolyo siten, MX çakışır
+3.  Resend → Records sekmesi. 3 kayıt çıkacak (MX + SPF TXT + DKIM TXT).
+    Değerleri ORADAN kopyala — sana özel, hiçbir yerde yazılı değil
+4.  Vercel → Domains → noseydewdrop.com → DNS Records
+    (NAMECHEAP'E DEĞİL VERCEL'E — NS Vercel'e delege)
+    Resend'in üç kaydını bire bir gir
+5.  Vercel'de dördüncüyü ELLE ekle:
+    Type TXT · Name "_dmarc" · Value:
+    v=DMARC1; p=none; rua=mailto:su.bilge@ug.bilkent.edu.tr;
+6.  Resend → Verify. Yeşil olana kadar bekle (birkaç dakika)
+7.  Resend → API Keys → Create → izin "Sending access". re_… anahtarını kopyala
+8.  GitHub → sightstone → Settings → Secrets → Actions → New repository secret
+    ad: RESEND_API_KEY   değer: anahtar
+9.  Aynı ekranda SMTP_USER ve SMTP_PASS secret'larını SİL
+10. Gmail app password'ü İPTAL ET
+    (myaccount.google.com → Security → App passwords)
+```
+
+**Hakemin zorlaştırdıkları:** bölme eşik pahasına DEĞİL — S8b tüm DNS eşiğini
+taşıyor, üstüne **apex-MX-boş kapısı** ve **canlı SPF/DKIM/DMARC=pass üçlüsü**
+eklendi ("görünmek" ≠ "geçmek") · A25 karta ve eşiğe girdi (4/10 → 9/10 + 0) +
+mutasyon kapısı · A28 negatif kapıya bağlandı · `List-Unsubscribe-Post` = 0
+yasak kapısı · "her mailde" gerçekten HER mail (tek örnek yetmez) · testler ağa
+çıkamaz · gönderim çağrısı tek yerde · kabul komutuna `--invariants` ve
+`--double-send` eklendi · subdomain kararı ölçümle geldi.
+
+### S8'in açtığı yeni maddeler
+
+| # | ne | sahibi |
+|---|---|---|
+| **A29** | ⛔ Gerçek tek-tık abonelikten çıkma için POST'a 200/202 dönen uç gerek. GitHub Pages veremez (**405 ölçüldü**). Doğal yeri Supabase edge function, `unsubscribed_at` S10'un. **Düşerse RFC 8058 uyumu hiç gelmez.** | **S10** |
+| A30 | `send_mail.py:33` `SITE = "https://nosey-dewdrop.github.io/sightstone"`. S8b'den sonra mail `@mail.noseydewdrop.com`'dan gidecek ama içindeki bağlantılar `github.io`'ya. **Farklı domain = spam filtresi için zayıf sinyal.** Etkinin büyüklüğü **DOĞRULANMADI**. | **kartsız** |
+| A31 | **Resend hata kodları OKUNMADI** (`/docs/api-reference/errors` çekilmedi). `HardBounce` ile `SoftFail`'i hangi HTTP kodu/`name` alanına göre ayıracağı **DOĞRULANMADI**. S8a uygulayıcısı bu sayfayı okumadan sınıflandırma yazmamalı — **uydurulan eşleme sessizce yanlış aboneyi kalıcı ölü sayar.** | **S8a** |
+| A32 | `--dry-run` yolu `smtp_conn=None` ile çalışıyor. Arayüze geçerken dry-run'ın sahte sağlayıcıya mı `None`'a mı bağlanacağı belirsiz — **uygulayan ajan burada sessizce gerçek gönderim yapabilir.** | **S8a** |
+
+**Bütçe çelişkisi hâlâ açık:** KOLTUK kararı 2.550/ay vs S9 eşiği 2.850/ay.
+**S9'a girmeden çözülmeli.**
