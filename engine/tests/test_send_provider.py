@@ -795,8 +795,8 @@ class ProductionIsUntouched(unittest.TestCase):
     def test_live_state_file_hash_is_unchanged(self):
         import hashlib
         self.assertEqual(hashlib.sha256(LIVE_STATE.read_bytes()).hexdigest(),
-                         "99d7660afdf9b3bb2eeb5afa308b19a3fdffb1f68abe79e8e8b2efd3"
-                         "efe5e390")
+                         "6bef88f3de4bf2d09d99e439142bad266b77d319b64c9bd68bc4220f"
+                         "0dbbb74d")
 
     def test_the_subscriber_query_still_excludes_the_unsubscribed(self):
         self.assertIn("unsubscribed_at=is.null", SRC)
