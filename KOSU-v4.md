@@ -2483,3 +2483,65 @@ hakem notu: A25/A32/List-Unsubscribe/tek-boğaz/hermetiklik kusursuz, ama A31 ta
 
 **Not:** S2 replay sha `5c5495bc…` kod tabanında grep ile bulunamadı —
 yalnız bu dosyanın kaydında yaşıyor. Hakem **DOĞRULANAMADI** işaretledi.
+
+```
+## S8a — Mail gerçek bir yerden geliyor (kod) — GEÇTİ (KALDI×1 sonrası)
+ölçülen: 265 test yeşil, 0 SKIP · smtplib 0 satır · harici pip 0
+         · İKİ DEFEKT DE KAPANDI (hakemin kendi sınaması):
+           classify(422,'bilinmeyen') → SoftFail · classify(422,None) → SoftFail
+           classify(403,'validation_error') → SoftFail · classify(400,…) → SoftFail
+           TARAMA: status 200-599 × 10 ad = 4000 vaka → HardBounce dönen 0
+           Kök: RESEND_RECIPIENT_PERMANENT = frozenset() ve status tabanlı
+           fallback dalı YOK
+         · TEST KAPSAMI GENİŞLEDİ (daralmadı): range(400,600) ∪ 22 ek kod ×
+           6 ad; 422 açıkça içeride ve assertIn(422, doc_statuses) ile çivili.
+           Karşı-örneği saklayan dar liste YOK.
+         · TABLO: 21 ad, uydurma 0, eksik 0. Test EŞİTLİK kontrol ediyor
+           (alt küme değil). Hakem tabloya uydurma satır ekledi → KIRMIZI.
+         · MUTASYON a (422 → HardBounce): 14 kırmızı, 5 test metodu
+           MUTASYON b (validation_error kalıcı): 9 kırmızı, 6 test metodu
+           MUTASYON c (uydurma tablo satırı): 1 kırmızı
+         · DEĞİŞMEYENLER (hakemin bağımsız harness'ı): A25 9/10 teslim,
+           0 işlenmeyen · A32 dry-run ResendProvider KURULMUYOR · List-Unsubscribe
+           10/10, -Post 0/10 ve kaynakta 0 · send() tek çağrı yeri (satır 387) ·
+           A28 finally/quit/close YOK
+         · SOKET: hakem tüm paketi socket.connect + create_connection bloklu
+           koşturdu → 265 test, 0 fail, 0 error, 0 skip. Hiçbir test ağa çıkmıyor.
+birikimli: S1 exit 0 · S4 jobs 453 / matches 9 · S5b docs/u 2 dosya ·
+         S6 6 donmuş sha + FROZEN_SEATS · S7 mail_state sha 99d7660a… +
+         job_key/sub_id DEĞİŞMEMİŞ + unsubscribed_at=is.null satır 278'de duruyor
+hakem notu: Her iki defekt de gerçekten kapandı ve karşı-örneği saklayan dar test
+         range(200,600) süpürmesiyle değiştirildi.
+```
+
+**⚠ ÖNCEKİ HAKEMİN BİR İDDİASI ÇÜRÜDÜ.** `missing_required_parameter`
+**dokümanda VAR** — ikinci hakem sayfayı kendi curl'ledi (435 KB), ad 9 kez
+geçiyor: *"Status: 422 · The request is missing one or more required parameters."*
+Uydurma değil. Ajan haklıydı, hakem yanılmıştı. Kayda geçti.
+
+**TASARIM KARARI — `classify` artık HİÇ HardBounce dönmüyor, ve bu DOĞRU.**
+Hakem gerekçeyi dokümandan doğruladı: send endpoint'inin 21 hatasının hiçbiri
+alıcının kalıcı ulaşılamaz olduğunu söylemiyor — hepsi hesap/anahtar/domain/kota,
+bizim payload'ımız, ya da açıkça geçici. **Gerçek bounce'lar Resend'de asenkron
+webhook ile gelir, senkron yanıtta değil.**
+`HardBounce` tipi ÖLÜ DEĞİL: `process_subscriber:389` dalı canlı ve A25
+testlerinde sahte sağlayıcı doğrudan HardBounce enjekte ederek çalıştırılıyor.
+A25'in ölçtüğü şey `classify`'ın ne ürettiği değil, provider'dan dönen üç sonucun
+sonraki aboneleri durdurmaması.
+
+### ⛔ A34 — CANLI SİTE YANLIŞ SAYI GÖSTERİYOR (hakem buldu, acil)
+
+`engine/data/seats.json` S6'da **200** oldu, ama commit'li `docs/index.html`
+hâlâ **"capped at 100 people / 99 seats left"** diyor. Hakem `build_site.py`'ı
+koşturdu, 100→200 değişti, sonra değişikliği geri aldı.
+**Bir sonraki build sitenin metnini sessizce değiştirecek. Canlı site şu an
+yanlış sayı gösteriyor.** (A18 ve A11 ile aynı kök: `docs/` bayat.)
+**Sahibi: S13.**
+
+Ayrıca: `test_output_frozen.py`'deki `FROZEN_SEATS = {"capacity":100,"taken":1}`
+bir test fixture'ı, canlı `seats.json` ile aynı şey değil — **ikisinin ayrıştığını
+kimse kontrol etmiyor.** (A35, S14)
+
+**Not:** `classify` imzası 3 zorunlu parametre (`status, name, message`);
+kartın yazdığı iki argümanlı çağrı `TypeError` verir. Davranış eşiği tutuyor,
+imza kartla uyuşmuyor. Kayda geçti.

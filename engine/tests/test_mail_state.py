@@ -4,9 +4,10 @@
 Four things are nailed here, all hermetic (no socket, no SMTP, no Supabase, no
 production files written):
 
-1. CRASH DURABILITY. A run that dies halfway must leave every already-sent
+1. CRASH DURABILITY. A run that hits a failure must leave every already-sent
    subscriber recorded on disk. Ten subscribers, the fifth send raises: the
-   first four are persisted, and a re-run mails them nothing.
+   other nine are delivered and persisted (S8a/A25 isolation), and a re-run
+   mails only the one that failed.
 2. ATOMICITY. A write that dies mid-serialisation must leave mail_state.json as
    valid JSON with the PREVIOUS content, so load_state() cannot die on a
    truncated file. No temp file is left behind either.
@@ -52,7 +53,7 @@ LIVE_KEY_COUNT = 22
 SIM_INTERESTS = ["machine learning"]
 KEYS_PER_SUB = 12
 SIM_SUBS = 10
-CRASH_AT = 5  # the 5th send_message raises
+CRASH_AT = 5  # the 5th delivery raises
 
 _REAL_SOCKET = socket.socket
 
@@ -73,33 +74,38 @@ def live_state() -> dict:
     return json.loads(LIVE_STATE.read_text())
 
 
-class FakeSMTP:
-    """Stand-in for smtplib.SMTP_SSL. Counts sends, optionally dies on the Nth."""
+class FakeProvider(send_mail.Provider):
+    """Stand-in for ResendProvider. Counts sends, optionally dies on the Nth.
 
-    instances: list["FakeSMTP"] = []
+    No transport, no socket: deliver() never leaves the process.
+    """
+
     sent: list[str] = []
     die_on: int | None = None
+    state_seen: list[int] = []
+    attempts: int = 0
 
     def __init__(self, *args, **kwargs):
-        FakeSMTP.instances.append(self)
-        self.quit_calls = 0
+        super().__init__("the engine <test@example.test>")
 
     @classmethod
     def reset(cls, die_on=None):
-        cls.instances = []
         cls.sent = []
         cls.die_on = die_on
+        cls.state_seen = []
+        cls.attempts = 0
 
-    def login(self, user, password):
-        return None
-
-    def send_message(self, msg):
-        if FakeSMTP.die_on is not None and len(FakeSMTP.sent) + 1 == FakeSMTP.die_on:
-            raise RuntimeError(f"smtp died on send #{FakeSMTP.die_on}")
-        FakeSMTP.sent.append(msg["To"])
-
-    def quit(self):
-        self.quit_calls += 1
+    def deliver(self, payload):
+        FakeProvider.attempts += 1
+        n = FakeProvider.attempts
+        # how many subscribers are already durable on disk at this moment
+        p = Path(str(send_mail.STATE_FILE))
+        FakeProvider.state_seen.append(
+            len(json.loads(p.read_text())) if p.exists() else 0)
+        if FakeProvider.die_on is not None and n == FakeProvider.die_on:
+            raise RuntimeError(f"transport died on send #{FakeProvider.die_on}")
+        FakeProvider.sent.append(payload["to"][0])
+        return send_mail.MessageId(f"fake-{n}")
 
 
 def subscriber(email: str, interests=None) -> dict:
@@ -118,12 +124,13 @@ def sandbox() -> Path:
 
 def run_send_mail(data: Path, subs: list[dict], die_on=None) -> str:
     """Run send_mail.main() end to end on the real send path (no --dry-run)."""
-    FakeSMTP.reset(die_on=die_on)
-    env = {"SUPABASE_SERVICE_KEY": "x", "SMTP_USER": "a@b.c", "SMTP_PASS": "p"}
+    FakeProvider.reset(die_on=die_on)
+    env = {"SUPABASE_SERVICE_KEY": "x", "RESEND_API_KEY": "re_test",
+           "MAIL_FROM": "the engine <test@example.test>"}
     with mock.patch.object(send_mail, "DATA", data), \
             mock.patch.object(send_mail, "STATE_FILE", data / "mail_state.json"), \
             mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
-            mock.patch.object(send_mail.smtplib, "SMTP_SSL", FakeSMTP), \
+            mock.patch.object(send_mail, "ResendProvider", FakeProvider), \
             mock.patch.dict(os.environ, env, clear=True), \
             mock.patch.object(sys, "argv", ["send_mail.py"]), \
             redirect_stdout(io.StringIO()) as out:
@@ -143,55 +150,58 @@ def sid(email: str) -> str:
 
 
 class CrashDurability(unittest.TestCase):
-    """A run that dies must not forget what it already sent."""
+    """A run that hits a failure must not forget what it already sent -- and,
+    since S8a, must not stop either (A25)."""
 
     def setUp(self):
         self.data = sandbox()
         self.subs = [subscriber(f"s{i}@example.test") for i in range(SIM_SUBS)]
 
-    def test_crash_on_fifth_send_persists_the_first_four(self):
-        with self.assertRaises(RuntimeError):
-            run_send_mail(self.data, self.subs, die_on=CRASH_AT)
+    def test_failure_on_fifth_send_does_not_stop_the_other_nine(self):
+        out = run_send_mail(self.data, self.subs, die_on=CRASH_AT)
 
         state = read_state(self.data)
-        self.assertEqual(len(FakeSMTP.sent), CRASH_AT - 1, "wrong number of sends")
-        self.assertEqual(len(state), CRASH_AT - 1,
+        self.assertEqual(len(FakeProvider.sent), SIM_SUBS - 1,
+                         "isolation broken: a single failure cost more than one mail")
+        self.assertEqual(len(state), SIM_SUBS - 1,
                          "sends happened but subscribers are missing from disk")
-        expected = {sid(s["email"]) for s in self.subs[:CRASH_AT - 1]}
-        self.assertEqual(set(state), expected)
+        victim = self.subs[CRASH_AT - 1]["email"]
+        self.assertNotIn(sid(victim), state, "a failed send was recorded as sent")
+        self.assertEqual(set(state),
+                         {sid(s["email"]) for s in self.subs if s["email"] != victim})
         total = sum(len(v["sent_keys"]) for v in state.values())
-        self.assertEqual(total, (CRASH_AT - 1) * KEYS_PER_SUB,
-                         f"expected {(CRASH_AT - 1) * KEYS_PER_SUB} keys on disk")
+        self.assertEqual(total, (SIM_SUBS - 1) * KEYS_PER_SUB)
+        self.assertIn(f"processed {SIM_SUBS}/{SIM_SUBS}", out)
+        self.assertIn("error 1", out)
 
-    def test_rerun_after_crash_sends_zero_to_the_first_four(self):
-        with self.assertRaises(RuntimeError):
-            run_send_mail(self.data, self.subs, die_on=CRASH_AT)
-        already = {s["email"] for s in self.subs[:CRASH_AT - 1]}
+    def test_rerun_after_failure_mails_only_the_one_that_failed(self):
+        run_send_mail(self.data, self.subs, die_on=CRASH_AT)
+        already = {s["email"] for s in self.subs
+                   if s["email"] != self.subs[CRASH_AT - 1]["email"]}
 
         out = run_send_mail(self.data, self.subs)  # clean re-run, nothing dies
 
-        self.assertEqual(len(FakeSMTP.sent), SIM_SUBS - (CRASH_AT - 1),
-                         "re-run did not mail exactly the untouched subscribers")
-        self.assertEqual(already & set(FakeSMTP.sent), set(),
+        self.assertEqual(FakeProvider.sent, [self.subs[CRASH_AT - 1]["email"]],
+                         "re-run did not mail exactly the subscriber that failed")
+        self.assertEqual(already & set(FakeProvider.sent), set(),
                          "a subscriber who already had mail got it a SECOND time")
-        self.assertEqual(set(FakeSMTP.sent),
-                         {s["email"] for s in self.subs[CRASH_AT - 1:]})
-        self.assertIn("done: 6 mail(s) sent", out)
+        self.assertIn("done: 1 mail(s) sent", out)
 
     def test_third_run_sends_nothing_at_all(self):
         run_send_mail(self.data, self.subs)
-        self.assertEqual(len(FakeSMTP.sent), SIM_SUBS)
+        self.assertEqual(len(FakeProvider.sent), SIM_SUBS)
         run_send_mail(self.data, self.subs)
-        self.assertEqual(FakeSMTP.sent, [], "a fully mailed corpus was mailed again")
+        self.assertEqual(FakeProvider.sent, [], "a fully mailed corpus was mailed again")
 
     def test_state_is_on_disk_before_the_next_subscriber_is_touched(self):
-        """Fail on send #2 and the FIRST subscriber must already be durable."""
-        with self.assertRaises(RuntimeError):
-            run_send_mail(self.data, self.subs, die_on=2)
+        """At send #N, exactly N-1 subscribers are already durable on disk."""
+        run_send_mail(self.data, self.subs)
+        self.assertEqual(FakeProvider.state_seen, list(range(SIM_SUBS)),
+                         "state is not flushed before the next subscriber is touched")
         state = read_state(self.data)
-        self.assertEqual(set(state), {sid(self.subs[0]["email"])})
-        self.assertEqual(len(state[sid(self.subs[0]["email"])]["sent_keys"]),
-                         KEYS_PER_SUB)
+        self.assertEqual(len(state), SIM_SUBS)
+        self.assertTrue(all(len(v["sent_keys"]) == KEYS_PER_SUB
+                            for v in state.values()))
 
 
 class Atomicity(unittest.TestCase):
@@ -279,7 +289,7 @@ class ProfileEditKeepsHistory(unittest.TestCase):
         # already inside the seeded 22 -> no mail, no key movement
         run_send_mail(self.data, [subscriber(self.email, ["software engineering"])])
         after = read_state(self.data)[self.sid]["sent_keys"]
-        self.assertEqual(FakeSMTP.sent, [], "a rescored profile re-sent old listings")
+        self.assertEqual(FakeProvider.sent, [], "a rescored profile re-sent old listings")
         self.assertEqual(len(after), LIVE_KEY_COUNT)
         self.assertEqual(sorted(after),
                          sorted(live_state()[LIVE_SUB_ID]["sent_keys"]))
@@ -290,7 +300,7 @@ class ProfileEditKeepsHistory(unittest.TestCase):
         after = set(read_state(self.data)[self.sid]["sent_keys"])
         self.assertTrue(before <= after, "sent_keys shrank after a profile edit")
         self.assertEqual(len(after), LIVE_KEY_COUNT + 9)  # measured: 9 genuinely new
-        self.assertEqual(len(FakeSMTP.sent), 1)
+        self.assertEqual(len(FakeProvider.sent), 1)
 
     def test_history_is_never_reset_to_empty(self):
         run_send_mail(self.data, [subscriber(self.email, [])])
