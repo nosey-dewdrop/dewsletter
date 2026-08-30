@@ -2545,3 +2545,136 @@ kimse kontrol etmiyor.** (A35, S14)
 **Not:** `classify` imzası 3 zorunlu parametre (`status, name, message`);
 kartın yazdığı iki argümanlı çağrı `TypeError` verir. Davranış eşiği tutuyor,
 imza kartla uyuşmuyor. Kayda geçti.
+
+---
+
+## S9 · İKİYE BÖLÜNDÜ — S9a (kota kovası) + S9b (kademeli koltuk, schema.sql)
+
+### BÜTÇE ÇELİŞKİSİ ÇÖZÜLDÜ: **2.550/ay BAĞLAYICI. 2.850 ÖLDÜ.**
+
+Üç bağımsız gerekçe:
+1. **Hiyerarşi.** 2.550 Damla'nın KARARLAR bloğunda ve KOLTUK=200'ün türetildiği
+   sayı. 2.850 sadece bir kart eşiği. Hakem kart eşiğini değiştirebilir,
+   Damla kararını değiştiremez.
+2. **§0.8:** kaynak yoksa en kısıtlayıcı. 2.550 < 2.850.
+3. **ÖLÇÜLMÜŞ FİZİKSEL SEBEP** — sağlayıcının kendi dokümanı,
+   `daily_quota_exceeded` ve `monthly_quota_exceeded` satırlarının İKİSİNDE de:
+   > **"Both sent and received emails count towards this quota."**
+   **GELEN MAİL DE KOTADAN YİYOR.** Bültene gelen cevap, "out of office",
+   bounce bildirimi — hepsi. Yerel sayaç bunları **GÖREMEZ**.
+   Yani sayacımız gerçek tüketimin **ALT SINIRI**dır. %5 rezerv (150) bu kör
+   noktayı yutmaz, %15 (450) yutar. İki ayrı yoldan aynı sayıya çıkıldı.
+
+### Kararlar — hepsi ölçümle
+
+| # | soru | karar |
+|---|---|---|
+| A | sayaç nerede | **ayrı `engine/data/quota_state.json`**. `mail_state.json` elendi: `test_mail_state.py:363` top-level anahtarların **tam olarak** sub_id'ler olmasını istiyor, `"quota"` anahtarı S7'nin kimlik çivisini kırar. CI kalıcılığı: `daily.yml:44` `git add engine/data` — **dizin** ekliyor, yeni dosya otomatik girer. **`.github/` çatışması YOK.** |
+| B | gün sınırı | **UTC değil, YUVARLANAN 24 SAAT.** Doküman: *"wait until 24 hours have passed"* — sıfırlama anı ilan etmiyor. `date.today()` kota yolunda **YASAK**: runner UTC, Damla UTC+3; 01:00 TRT koşusu aynı gerçek günde **iki kova** açar → 200 mail, kota 100. |
+| C | aylık pencere | Doküman **söylemiyor** → §0.8 → **İKİSİ BİRDEN**: yuvarlanan 30 gün VE takvim ayı, ilk dolan durdurur. (Takvim ayı tek başına: 31 Ağu 3.000 + 1 Eyl 3.000 = 24 saatte 6.000.) |
+| D | üç mail türü | Sayaç türleri BİLMEZ, `send()` boğazı bilir. **Zorunlu `kind` enum** `{bulletin, confirm, invite}`, varsayılan YOK (`TypeError`), bilinmeyen `ValueError`. **İleri referans DEĞİL** — "2.550'yi geçince yalnız BÜLTEN durur" cümlesi ayrım olmadan uygulanamaz; enum kotanın parçası, S10'un değil. |
+| F | exit 0 | Dört koşullu: `halted` anahtarı **her koşuda** var (`null` ya da nesne) — **yokluk durum değildir** · `stderr`'e `QUOTA HALT` · sağlayıcıdan kota hatası dönerse **exit≠0** (sayaç yanılmış = arıza) · **`deferred` büyüdüyse exit≠0** (büyüyen kuyruk sessizce "başarılı" görünemez). |
+| G | dry-run | `Provider.consumes_quota` bayrağı. `DryRunProvider=False`. Mutasyon: `True` yapılınca test KIRMIZI. |
+
+**Hakemin bulduğu, taslakta olmayan delik:** `send_mail.py:41`
+`RESEND_MAX_RECIPIENTS = 50`. Kota **mail** sayar, çağrı değil.
+`len(payload["to"])` yerine 1 sayan sayaç kotayı **50 KATI** aşırır. Kapı kondu.
+
+### E — GERÇEK KAPSAM ÇATIŞMASI, S9b doğdu
+
+`schema.sql:218-252` `sightstone_run_invites()` **parametresiz** ve boş koltuk
+sayısı kadar daveti **tek seferde** damgalıyor. Kısıtlama yalnız `send_mail.py`'a
+konursa: DB 199 satıra `invited_at` + 48 saatlik son kullanma basar, o gün ~90
+davet maili çıkar, **kalan 109 kişi hiç mail almadan sessizce `dropped_at` olur.**
+D8'in koruduğu şeyin tam tersi. `run_invites`'a limit geçirmenin yolu yok:
+parametre yok. Eklemek `schema.sql` demek, o da S9'un listesinde yok.
+→ **S9b:** `sightstone_run_invites(daily_limit int)`, `limit greatest(least(free,
+daily_limit), 0)`. S10'DAN ÖNCE koşar. Manşet eşiği S9a'da KALIYOR.
+
+### S9a KARTI — YÜRÜRLÜKTE
+
+```
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 tools/measure.py --invariants && python3 tools/measure.py --double-send && python3 tools/measure.py --budget 200 && git status --porcelain engine/data
+
+EŞİK:
+· Test ≥289 yeşil, 0 skip (taban 265 ölçüldü)
+· git status --porcelain engine/data tüm paket koştuktan sonra BOŞ
+· 200 kişilik ani kayıt: herhangi bir YUVARLANAN 24 saatlik pencerede ≤90,
+  hiçbir pencerede 100'e değmiyor
+· UTC+3/UTC SINIR TESTİ: aynı gerçek günde biri 22:00 UTC (=01:00 TRT) olan iki
+  koşu TEK bir 24 saatlik kovadan yer
+· Aylık: bülten 2.550'de durur, confirm/invite 3.000'e kadar geçer, 3.000'de her şey durur
+· TOPLU ALICI: 50 kişilik tek `to` çağrısı deftere 50 yazar, 1 değil
+· --dry-run × 500 → defter 0 kayıt, engine/data byte-eş
+· BEŞ MUTASYON, hakem tek tek koşar:
+  1. emniyet payı kaldır → 200'lük simülasyon KIRMIZI
+  2. 2.550 → 2.850 → aylık bülten testi KIRMIZI
+  3. yuvarlanan 24s → date.today() → UTC+3 sınır testi KIRMIZI
+  4. DryRunProvider.consumes_quota = True → dry-run testi KIRMIZI
+  5. kind zorunluluğu kalksın → bilinmeyen-tür testi KIRMIZI
+· S8a KAPISI SİLİNMEZ, TERS ÇEVRİLİR: test_no_quota_constant_leaked_into_this_phase
+  bugün `\b100\b` ve `3000`'i YASAKLIYOR ve S9'u fiziksel bloke ediyor. Yerine:
+  her sabit send_mail.py'de TAM BİR satırda, adlandırılmış modül sabiti olarak.
+  TESTİ SİLMEK KALDI'DIR.
+· KIRILAMAZ: mail_state sha · test_engine blob · 6 donmuş sha + FROZEN_SEATS +
+  c0477c0e/ab44c922 · job_key/sub_id · unsubscribed_at=is.null · A25 9/10 ·
+  List-Unsubscribe her mailde / -Post 0 · send() tek boğaz · classify hiç
+  HardBounce dönmüyor · ağ 0, pip 0
+
+DOKUNULABİLİR: engine/send_mail.py · engine/tests/ · engine/data/quota_state.json
+```
+
+### S9b KARTI — S9a'dan sonra, S10'dan ÖNCE
+
+```
+İŞ: sightstone_run_invites() → sightstone_run_invites(daily_limit int);
+    limit greatest(free,0) → limit greatest(least(free, daily_limit), 0).
+    daily_limit S9a'nın remaining_today()'sinden gelir. Advisory kilit ve
+    48 saatlik son kullanma AYNEN kalır.
+EŞİK: 200 kişilik bekleme listesi + daily_limit=90 → run_invites 90 döner,
+    invited_at damgalı satır TAM 90, damgalanıp mail almayan satır 0 ·
+    açılış 3 güne yayılır · daily_limit kaldırılınca "damgalanıp mail almayan=0"
+    testi KIRMIZI · S6'nın tüm koltuk testleri yeşil · pg_advisory_xact_lock yerinde
+DOKUNULABİLİR: engine/schema.sql · engine/send_mail.py · engine/tests/
+```
+
+## ⛔⛔ A33 — BORU HATTI ZATEN ÖLÜ. İKİ AYRI ÖLÜM.
+
+**1. Bugün CI hiç mail atamıyor.** `daily.yml:32-36` env bloğu hâlâ `SMTP_USER`/
+`SMTP_PASS` geçiriyor; `RESEND_API_KEY` ve `MAIL_FROM` **YOK**.
+`send_mail.py:443-448` bunlar olmayınca `sys.exit(1)`. **S8a'dan beri CI'daki
+send adımı her koşuda 1 dönüyor**, `commit` adımına hiç ulaşılmıyor.
+→ **S8b'nin panel işi bunu çözüyor.**
+
+**2. İlk gerçek gönderimin ERTESİ GÜNÜ mail SONSUZA KADAR durur.**
+`mail_state.json` sha'sı **iki testte pin'li** (`test_mail_state.py:378`,
+`test_send_provider.py:699`). Ama `send_mail.py:404` her başarılı gönderimde
+`last_sent`'i günceller ve `daily.yml:44` dosyayı **commit'liyor**.
+`daily.yml`'de test adımı send'den **ÖNCE** koşuyor.
+→ **İlk gönderim → dosya değişir → ertesi gün `run tests` bu pin yüzünden
+KIRMIZI → mail HİÇ GİTMEZ. Kimse fark etmez.**
+A5 ile aynı ölüm şekli ama **kesin** — %40 pay değil, ilk gönderimde tetikleniyor.
+Doğrusu: byte-pin yerine **şekil pin'i** (anahtar kümesi, key uzunlukları —
+`test_live_state_shape_is_intact` zaten yapıyor) + `git status` temizliği.
+**Kart sahibi YOK.**
+
+## Diğer bulgular
+
+- **`sightstone_run_invites()` HİÇ ÇAĞRILMIYOR.** Repoda tek çağıran
+  `test_seat_behavior.py`. Ne `daily.yml`'de adım var, ne `pg_cron` kaydı.
+  `schema.sql:12`'deki "davet döngüsü günde bir koşuyor" yorumu **bugün YANLIŞ —
+  hiç koşmuyor.** S9b bunu zımnen çözmüyor, bir çağırıcı da lazım.
+- **`Reply-To` başlığı YOK.** Cevaplar `MAIL_FROM`'a gidiyor ve **gelen mail
+  kotadan yiyor.** 200 abonede tatil otomatik yanıtları günlük 100'ü tek başına
+  bitirebilir. Gerçek çözüm no-reply. **Kartsız.**
+- **Resend'in saniyelik hız sınırı (2 req/s) DOĞRULANMADI ve hiçbir kartta yok.**
+  90 ardışık POST peş peşe atılırsa `rate_limit_exceeded` (429) yiyebilir.
+  `classify` bunu SoftFail yapıyor (kimse ölmüyor) ama **o gün mail gitmiyor** ve
+  S9a'nın "planlı duruş" mantığı bunu görmüyor. **Kartsız risk.**
+- `FROZEN_SEATS` 100 vs canlı `seats.json` 200: çatışma YOK (donmuş test değer
+  enjekte ediyor) ama biri `FROZEN_SEATS`'i 200'e çekerse **altı sha birden**
+  kırılır. Tuzak.
+- **DOĞRULANMADI:** Resend günlük kotasının tam sıfırlama mekaniği · aylık
+  pencerenin takvim ayı mı fatura döngüsü mü olduğu (hiçbir sayfada yazmıyor) ·
+  hesap olmadığı için hiçbir kota davranışı canlı doğrulanamadı.
