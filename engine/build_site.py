@@ -823,7 +823,7 @@ def main() -> None:
 
     seats_file = data_dir / "seats.json"
     seats = (json.loads(seats_file.read_text()) if seats_file.exists()
-             else {"capacity": 100, "taken": 1})
+             else {"capacity": 200, "taken": 1})
 
     (ROOT / "jobs").mkdir(parents=True, exist_ok=True)
     (ROOT / "style.css").write_text(CSS)

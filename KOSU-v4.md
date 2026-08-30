@@ -1968,3 +1968,70 @@ A14 kapatma testi karta girdi · donmuş sha/`FROZEN_SEATS` dokunma yasağı eş
 A12 hakem tarafından **S13'e bırakıldı**, gerekçesi ölçüldü: tarayıcı yarısı
 `tools/`'ta (dokunulmaz), kaçış yarısı `build_site.py` yarıçapı dışı, ve
 `seats.json` bu karttan sonra da repo-statik kaldığı için D9 deliği **teorik**.
+
+```
+## S6 — Koltuk matematiği tutuyor — GEÇTİ
+ölçülen: 198 test yeşil (147 → 198, +51: 17 statik + 34 davranış), 0 SKIP
+         · miras test_engine.py 15/15, blob 6bbd4a51… değişmedi
+         · 6 donmuş sha + FROZEN_SEATS {"capacity":100,"taken":1} DEĞİŞMEDİ
+           (test_output_frozen.py diff'i BOŞ, dosyaya hiç dokunulmadı)
+         · literal kapıları hakemin kendi AST hesabıyla: c0477c0e… ✓ ab44c922… ✓
+           (826'daki değişiklik bir int, string çok kümesi değişmiyor)
+         · build_site.py TEK hunk, satır 826, 100 → 200. Başka satır yok.
+         · EŞZAMANLILIK (hakemin KENDİ cluster'ı, ajanın harness'ı değil):
+           199 dolu + 20 ayrı OS süreci → rows TAM 200, 20'den 1'i commit etti.
+           Lock silinip aynı deney → rows 219 (20/20 commit).
+           KİLİT SÜS DEĞİL, TEK TUTAN O.
+           Toplu insert generate_series(1,300) → "no seats left", tablo 0 satır
+           (tüm tx geri alındı). generate_series(1,200) → tam 200.
+         · 48 SAAT: onaysız kayıt created_at 49 saat geri itilince taken 1 → 0,
+           satır tabloda DURUYOR. Onaylı kayıt 375 gün sonra hâlâ taken=1.
+         · ÜÇ TERİM: 200 dolu + 2 bekleyen → run_invites 0. Bounce → taken 199.
+           run_invites: 1, sonra 0, 0. Toplam davet 1, sadece en eski (w1).
+           Üçüncü terim silinince: 1, sonra 1, 0 → taken 199'da takılı,
+           TOPLAM DAVET 2. ÇİFT DAVET GERÇEKTEN OLUYOR.
+         · MUTASYON 1 (lock sil) → 3 kırmızı + setUpClass ERROR
+           MUTASYON 2 (üçüncü terim sil) → 4 kırmızı
+           MUTASYON 3 (dört yerin HER BİRİ ayrı ayrı 200→100) → dördünde de kırmızı
+             (trigger → +19 davranış ERROR · seats() json → 9 kırmızı ·
+              seats.json → 1 · build_site.py:826 → 1)
+           MUTASYON EK (hakemin eklediği, revoke satırları sil) → 2 kırmızı
+         · Yeni 50 testin TAMAMI faz-öncesi HEAD şemaya karşı kırmızı
+           (11 FAIL + 45 ERROR)
+birikimli: S1 exit 0 · S2 REPLAY 5c5495bc BYTE-EŞ · S4 matched 9, 444+9=453 ·
+         S5a esc silince exit 1 (kapı sağlam) · S5b docs/u TAM 2 dosya,
+         sızıntı grep 0, sitemap /u/ = 0, robots Disallow VAR
+hakem notu: Kart neyi ölçmek istediyse gerçekten ölçülüyor — kilit 200/219 farkını
+         hakemin kendi cluster'ında üretti, RLS testi vanilya PG'nin sahte-geçme
+         tuzağına düşmemek için anon'a grant vererek koşuyor, altı mutasyonun
+         altısı da kırmızı.
+```
+
+**✅ AJAN GERÇEK BİR GÜVENLİK DELİĞİ BULUP KAPATTI.** PostgreSQL yeni fonksiyona
+`EXECUTE`'u **varsayılan olarak PUBLIC'e verir.** Anon'a grant VERMEMEK yetmedi:
+`sightstone_mark_bounce` ve `sightstone_run_invites` `security definer` ve anon
+ikisini de çağırabiliyordu → **anon herhangi bir abonenin adresini yazıp onu
+attırabilir, ya da davet döngüsünü istediği an koşturabilirdi.**
+Ajanın kendi statik testi bunu KAÇIRDI (yalnız "grant satırı yok" diye baktı,
+yeşil geçti); yakalayan davranış testi oldu. `revoke execute … from public`
+eklendi ve testi yazıldı. Hakem doğruladı: 9 fonksiyonun 9'u `security definer`;
+`mark_bounce`/`run_invites`/`seats_taken` artık **yalnız postgres**,
+anon çağrısı "permission denied".
+
+**Hakemin RLS sahte-geçme tuzağı notu:** vanilya PG'de anon'a tablo grant'ı
+verilmezse RLS testi "permission denied for table" ile **yeşil geçip RLS
+hakkında hiçbir şey kanıtlamazdı.** Test setUp'ta anon'a grant veriyor — doğrusu
+bu, hakem grant'sız da koşup farkı gördü.
+
+### ⛔ HAKEMİN BULDUĞU İKİ GERÇEK DELİK — kartın eşiği dışında ama S10'u KIRIYOR
+
+| # | ne | sahibi |
+|---|---|---|
+| **A21** | ⛔ **Anon kendi kaydını ONAYLI doğurabiliyor.** `insert … confirmed_at = now()` anon olarak GEÇİYOR (rc=0, confirmed=t). Yani 48 saatlik mail-onay kirası **atlanabiliyor**; uydurma adres koltuğu KALICI tutabilir. **S6'nın "koltuk ancak onaylanınca kalıcıdır" gerekçesi istemci tarafından bypass edilebilir.** Daha kötüsü: **S10'un tüm işi "onay maili → confirmed_at". Bu delik açıkken D2 uygulanamaz.** S10 bunu kapatmadan geçemez: insert politikası `confirmed_at is null` şartı istemeli. | **S10 — zorunlu** |
+| **A22** | **Sıra atlama.** Anon `sightstone_waitlist`'e `invited_at`/`invite_expires_at`/`invite_token`'ı KENDİ seçerek satır ekleyebiliyor (insert politikası yalnız `mail_consent` ve `kvkk_accepted_at`'e bakıyor), sonra kendi token'ıyla `accept_invite()` çağırıp koltuğu kapıyor. Hakemin deneyinde `honest@x.test` sırada beklerken `cheat@x.test` koltuğu aldı. Kapasite 200'de tutuyor, kimsenin satırı değişmiyor (bu yüzden KALDI değil) ama **"en eski bekleyene davet gider" garantisi anon tarafından delinebiliyor.** Çözüm: waitlist insert politikasına `invited_at is null and accepted_at is null and dropped_at is null`. | **S10** |
+| A23 | `sightstone_enforce_cap()` ve `sightstone_waitlist_guard()` PUBLIC'e EXECUTE'lu kalmış (ACL NULL). Trigger fonksiyonu oldukları için PG doğrudan çağrıyı reddediyor, **sömürülebilir değil** — ama "her security definer fonksiyondan public revoke" kuralının tam uygulanmadığı iki yer. | **S14** |
+| A24 | **Canlı Supabase'de DOĞRULANMADI.** Hakem kart gereği üretime hiçbir şey koşmadı; Supabase'in `anon` rolünün varsayılan grant'larıyla bu şemanın nasıl davrandığı bilinmiyor — hakem grant'ları taklit etti. Ayrıca `schema.sql`'in **idempotentliği** (aynı dosyayı iki kez yükleme) ne ajan ne hakem tarafından test edildi. | **S12** (gerçek dünya fazı) |
+
+**Not:** `sightstone_seats()` artık `taken` olarak ÜÇ TERİMLİ sayımı döndürüyor —
+site sayacı davet rezervasyonlarını da dolu gösterecek. Kasıtlı (D8), ama
+S13'ün göreceği sayı bu.
