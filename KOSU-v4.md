@@ -2845,3 +2845,63 @@ sebep listesi filtre ile gerekçeyi ayırsın.
 `missing RESEND_API_KEY` deyip exit 1 veriyor (A33/1).
 
 **KOŞULMAYAN:** S9b hakemi · S10 · S11 · S12 · S13 · S14 · ve yeni P1/P2 kartı.
+
+---
+
+## ⛔⛔ ZEMİN YANLIŞTI — AMA BENİM SANDIĞIM YÖNDE DEĞİL. 30 Ağu, push anında.
+
+Push reddedildi. Sebep: **remote'ta 34 günlük otomatik commit vardı, yerel kopya
+34 gün geriydi.** `dbaf3ae0` → `e8a8b355`, 27 Tem'den 30 Ağu'ya kadar her gün
+`daily: fetch, build, mail state`.
+
+### S1'İN MANŞET BULGUSU YANLIŞ. ZEMİN HAKLIYDI.
+
+| ZEMİN dedi | S1 "çürüttü" | REMOTE'TAKİ GERÇEK |
+|---|---|---|
+| 599 ilan | 453 | **599** ✓ |
+| remote 21 | 28 | **21** ✓ |
+| 89 ilan gönderilmiş | 22 | **89** ✓ |
+| commit `ce823dec` | "bu repoda YOK" | **VAR** ✓ |
+
+**S1 çürütmedi — 34 gün eski bir çalışma kopyasını ölçtü.**
+`git fetch` çalıştırmadan "ZEMİN'in 11 satırından 8'i çürüdü" dedim ve o cümle
+bu dosyaya yazıldı. **Şefin hatası.** Ajan da hakem de yereli ölçtü, ikisi de
+uyuştu — ikisi de aynı bayat veriye bakıyordu.
+
+### A20 DE YANLIŞ — boru hattı ÇALIŞIYOR
+
+`mail_state.json` remote'ta: `bd235c29a8fc`, **89 anahtar, son gönderim
+2026-08-29.** Günlük Actions koşuyor, mail gidiyor. "34 gündür koşmuyor"
+tahmini yanlıştı.
+
+### BUNUN KOŞUYA MALİYETİ
+
+Aşağıdaki her pin **453 ilanlık bayat korpusa** çakılı:
+
+```
+S3  census {global:9, US:14, CA:2, DE:2, IN:1}  ← 599'luk korpusta tutmaz
+S4  matched TAM 9 · kovalar 51/2/0/339/18/0/34/0 = 453
+S5a 6 donmuş yüzey sha'sı (fixture 599 ama jobs.json 453 ile üretilen dallar)
+S7  mail_state.json sha 99d7660a… ← remote'ta 89 anahtarlı BAŞKA dosya
+S9a --budget 200 çıktısı
+```
+
+**Merge edilirse bu testlerin hepsi kırmızı düşer.** Çakışma yalnız `docs/`'ta
+(ikimiz de yeniden ürettik); `engine/data/{jobs,fetch_meta,mail_state}.json`
+onların, `engine/data/{jobs_seen,seats}.json` benim, kod dosyalarında çakışma yok.
+
+### NE YAPILDI
+
+**Main'e DOKUNULMADI.** İş `kosu-v4` dalına push edildi. Üretim çalışmaya devam
+ediyor, 34 günlük veri duruyor, hiçbir şey kaybolmadı.
+Force push YAPILMADI — yapılsaydı 34 günlük gerçek veri silinirdi.
+
+### SONRAKİ OTURUMUN İLK ÜÇ İŞİ
+
+1. **`git fetch` ile başla.** Bu koşu bunu yapmadan 9 faz koştu.
+2. **S1'i 599'luk gerçek korpusa karşı YENİDEN koş.** ZEMİN v2 bloğu geçersiz;
+   ZEMİN'in orijinal sayıları doğruydu.
+3. Yeniden ölçülen sayılarla S3/S4/S5a/S7/S9a pinlerini güncelle, sonra merge.
+
+**Kod işi sağlam** (369 test, kapılar, mutasyonlar) — **sayı pinleri bayat.**
+Mantık yeniden koşmayı gerektirmiyor; eşik sayıları gerektiriyor.
