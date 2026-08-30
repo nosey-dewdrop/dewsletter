@@ -9,7 +9,8 @@
 --   Kural: bos koltuk varken kimse bekleme listesinde beklemez. Bos koltuk
 --   varsa kayit formu aciktir ve liste bostur; koltuklar doluysa form kapali,
 --   liste aciktir. Ikisi ayni anda dolu OLAMAZ.
---   Ama davet dongusu (sightstone_run_invites) GUNDE BIR kosuyor. Gece 03:00'te
+--   Ama davet dongusu (sightstone_run_invites) GUNDE BIR kosuyor: cagiran
+--   engine/send_mail.py'dir, gunluk Actions kosusunun mail adimi. Gece 03:00'te
 --   biri unsubscribe ederse koltuk o an bosalir, davet ise ertesi kosuda gider.
 --   Arada 24 saati asmayan bir pencere olusur: bos koltuk vardir ve bekleyen de
 --   vardir. Bu bilinen bir kusurdur, veri bozulmasi degil -- koltuk kimseye iki
@@ -215,7 +216,26 @@ grant execute on function sightstone_accept_invite(uuid) to anon;
 -- geri verir), sonra bos koltuk sayisi kadar EN ESKI bekleyene davet yollar.
 -- Kac davet gonderdigini doner. Yukaridaki "gece penceresi" notu bu fonksiyonun
 -- gunde bir kosmasindan dogar.
-create or replace function sightstone_run_invites() returns int
+--
+-- DAILY_LIMIT NEDEN VAR (S9b). Bu damga bir SOZ: invited_at yazildigi an o
+-- kisiye "sira sende, 48 saatin var" denmis olur, ve o soz bir MAILLE tutulur.
+-- Damgayi mail kapasitesinden bagimsiz atmak, tutulamayacak soz vermektir:
+-- 200 kisilik listede 199 koltuk bosalirsa parametresiz surum 199 satiri tek
+-- seferde damgalar, saglayici gunde 90 maile izin verir, geri kalan 109 kisi
+-- HIC MAIL ALMADAN 48 saat sonra dropped_at olur. Sirasi gelmisti, haberi
+-- olmadi. daily_limit o yuzden buradadir: damga sayisi, bugun atilabilecek
+-- mail sayisini asamaz. Cagiran (send_mail.py) buraya kendi gunluk kota
+-- bakiyesini -- remaining_today() -- gecirir.
+--
+-- least(free, daily_limit): iki tavandan hangisi alcaksa o baglar. coalesce
+-- ile null 0'a duser, cunku least(5, null) = 5 -- null bir "sinir yok"
+-- olarak okunsaydi parametre hic konmamis gibi davranirdi.
+--
+-- Parametresiz eski surum bilerek DUSURULUYOR. create or replace yeni imzayi
+-- yaratir ama eskisini yerinde birakir: schema.sql iki kez kosturulunca
+-- sightstone_run_invites() hala orada durur ve delik acik kalir.
+drop function if exists sightstone_run_invites();
+create or replace function sightstone_run_invites(daily_limit int) returns int
 language plpgsql security definer as $$
 declare
   free int;
@@ -237,7 +257,7 @@ begin
     select id from sightstone_waitlist
      where invited_at is null and accepted_at is null and dropped_at is null
      order by created_at, id
-     limit greatest(free, 0)
+     limit greatest(least(free, coalesce(daily_limit, 0)), 0)
   loop
     update sightstone_waitlist
        set invited_at = now(),
@@ -248,4 +268,4 @@ begin
 
   return sent;
 end $$;
-revoke execute on function sightstone_run_invites() from public;
+revoke execute on function sightstone_run_invites(int) from public;

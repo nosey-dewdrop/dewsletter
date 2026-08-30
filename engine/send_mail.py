@@ -550,6 +550,181 @@ def fetch_subscribers(service_key: str) -> list[dict]:
         return json.loads(resp.read().decode())
 
 
+# ------------------------------------------------------------ seats / invites
+#
+# S9b -- "seats open at the speed of the quota".
+#
+# Two holes were measured here, and they are different holes.
+#
+# HOLE 1 was in the SQL. sightstone_run_invites() took no argument and stamped
+# invited_at on every free seat at once. The stamp is a PROMISE -- "your turn,
+# you have 48 hours" -- and the only way that promise is ever delivered is a
+# mail. With every seat freeing at once the function stamped every waiting row,
+# the provider allowed one DAILY_MAIL_CAP worth of mail, and the remainder were
+# quietly marked dropped_at 48 hours later without ever hearing from us. (The
+# cap is not written as a digit here on purpose: a quota number loose in a
+# comment is a number that drifts from the constant. See test_send_provider's
+# one-named-line gate.) Passing
+# remaining_today() as daily_limit is what makes the stamp and the mail the
+# same number.
+#
+# HOLE 2 was that NOTHING CALLED IT. The function existed, the tests called it,
+# and no shipped code path did: no workflow step, no pg_cron row. The comment at
+# the head of schema.sql said "runs once a day" and it ran zero times a day.
+# This module is the caller. It is reached by the mail step of the daily
+# workflow, which is the one place that already has both the service key and
+# the quota ledger open.
+#
+# STAMPED-BUT-UNMAILED MUST STAY ZERO, and the quota is not the only way to
+# break that: a stamp lands, then the provider softfails on that one address,
+# and the row sits reserved-and-silent until it expires. So a send that is not
+# ACCEPTED gives the stamp back -- invited_at and invite_expires_at go to null
+# and the person returns to the head of the queue for the next run. Releasing
+# is a write against the row's own invite_token, nothing else.
+
+WAITLIST_TABLE = "sightstone_waitlist"
+LIVE_INVITE_FILTER = ("invited_at=not.is.null&accepted_at=is.null"
+                      "&dropped_at=is.null")
+
+
+class SeatBackend:
+    """The three seat operations the invite loop needs, and nothing else.
+
+    Kept behind a class so the loop can be driven against a throwaway
+    PostgreSQL in the tests. The tests substitute an implementation that talks
+    to a local cluster; no test ever reaches this file's HTTP.
+    """
+
+    def run_invites(self, daily_limit: int) -> int:
+        raise NotImplementedError
+
+    def fresh_invites(self, count: int) -> list[dict]:
+        raise NotImplementedError
+
+    def release_invite(self, token: str) -> None:
+        raise NotImplementedError
+
+
+class SupabaseSeats(SeatBackend):
+    """PostgREST. Same key handling and same urllib as fetch_subscribers."""
+
+    def __init__(self, service_key: str, timeout: int = 30):
+        if not service_key:
+            raise RuntimeError("SUPABASE_SERVICE_KEY is not set")
+        self.service_key = service_key
+        self.timeout = timeout
+
+    def _headers(self) -> dict:
+        # legacy service_role keys are JWTs ("eyJ...") and need the Bearer
+        # header; new-format secret keys ("sb_secret_...") use apikey alone.
+        headers = {"apikey": self.service_key, "Content-Type": "application/json"}
+        if self.service_key.startswith("eyJ"):
+            headers["Authorization"] = f"Bearer {self.service_key}"
+        return headers
+
+    def _call(self, path: str, *, method: str = "GET", body=None):
+        req = urllib.request.Request(
+            f"{SUPABASE_URL}{path}",
+            data=None if body is None else json.dumps(body).encode(),
+            headers=self._headers(), method=method)
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+            raw = resp.read().decode()
+        return json.loads(raw) if raw.strip() else None
+
+    def run_invites(self, daily_limit: int) -> int:
+        """The RPC. daily_limit is REQUIRED by the function's signature now, so
+        a caller that forgets it gets an error instead of the old behaviour."""
+        out = self._call("/rest/v1/rpc/sightstone_run_invites",
+                         method="POST", body={"daily_limit": int(daily_limit)})
+        return int(out or 0)
+
+    def fresh_invites(self, count: int) -> list[dict]:
+        """The rows the call above just stamped.
+
+        run_invites stamps every row of one batch inside ONE transaction, so
+        all of them carry the identical invited_at and every older invite is
+        strictly earlier. Newest-first, limit `count`, is therefore exactly
+        that batch -- no row from a previous day can be pulled in and mailed a
+        second time.
+        """
+        if count <= 0:
+            return []
+        rows = self._call(
+            f"/rest/v1/{WAITLIST_TABLE}?{LIVE_INVITE_FILTER}"
+            f"&select=email,invite_token&order=invited_at.desc,email.asc"
+            f"&limit={int(count)}")
+        return list(rows or [])
+
+    def release_invite(self, token: str) -> None:
+        """Hand the stamp back. The seat is freed in the same instant, because
+        the third term of sightstone_seats_taken() stops counting this row."""
+        self._call(f"/rest/v1/{WAITLIST_TABLE}?invite_token=eq.{token}",
+                   method="PATCH",
+                   body={"invited_at": None, "invite_expires_at": None})
+
+
+def compose_invite(token: str | None) -> str:
+    """Plain text; the html part is this text escaped, as everywhere else."""
+    link = f"{SITE}/?invite={token}" if token else SITE
+    return "\n".join([
+        "a seat opened up and it is yours for the next 48 hours.",
+        "",
+        "you asked to be told when the engine had room. it has room now, and "
+        "you are next in line.",
+        f"    {link}",
+        "",
+        "after 48 hours the seat passes to whoever is behind you. nothing is "
+        "lost if you miss it -- you keep your place and get asked again.",
+        "",
+        "--",
+        f"the engine · {SITE}",
+    ])
+
+
+def run_invite_loop(seats: SeatBackend, provider: Provider,
+                    now: datetime | None = None) -> dict:
+    """Open as many seats as today's quota can actually mail, then mail them.
+
+    Order matters and it is the whole point: the budget is read FIRST and
+    handed to the database, so the database never stamps a promise this run
+    cannot keep. Returns a tally; the caller prints it.
+    """
+    tally = {"budget": 0, "opened": 0, "mailed": 0, "released": 0, "missing": 0}
+    tally["budget"] = budget = remaining_today(now)
+    if budget <= 0:
+        print("invites: no daily budget left, no seat opened")
+        return tally
+
+    tally["opened"] = opened = seats.run_invites(budget)
+    print(f"invites: budget {budget} | opened {opened}")
+    if opened <= 0:
+        return tally
+
+    rows = seats.fresh_invites(opened)
+    # Fewer rows than stamps would mean stamped-and-unfindable, which is the
+    # exact state this card exists to make impossible. Say it out loud.
+    tally["missing"] = max(0, opened - len(rows))
+
+    for row in rows:
+        email, token = row.get("email"), row.get("invite_token")
+        result = provider.send(
+            email, "a seat opened up · the engine",
+            as_html(compose_invite(token)), kind="invite",
+            text=compose_invite(token), unsub_url=unsubscribe_url(None))
+        if isinstance(result, MessageId):
+            tally["mailed"] += 1
+            print(f"invited {email} [{result.id}]")
+            continue
+        # Not accepted. The stamp goes back rather than sitting on a seat in
+        # silence until it expires.
+        reason = getattr(result, "reason", str(result))
+        print(f"invite NOT sent to {email}: {reason}; releasing the seat",
+              file=sys.stderr)
+        seats.release_invite(token)
+        tally["released"] += 1
+    return tally
+
+
 def pseudo_profile(sub: dict) -> dict:
     """A Supabase subscriber row in the shape match.run expects."""
     return {
@@ -754,6 +929,30 @@ def main() -> None:
         tally[outcome] += 1
     mailed = tally["sent"]
 
+    # S9b -- THE INVITE LOOP RUNS HERE, and this is the only place it runs.
+    #
+    # AFTER the bulletins, not before: what is left of the day's budget is what
+    # gets handed to the database. Opening seats first would push the bulletins
+    # into a halt, and a halted bulletin backlog exits non-zero, so the run
+    # would report a fault for doing the right thing. A deferred seat is not a
+    # fault -- nobody was stamped, nobody was promised anything, and tomorrow's
+    # run opens it.
+    #
+    # A dry run does not come in here AT ALL. DryRunProvider spends no quota,
+    # but sightstone_run_invites writes to the real database: a rehearsal would
+    # stamp real people with a real 48 hour clock and mail none of them.
+    invites = None
+    if args.dry_run:
+        print("invites: skipped (--dry-run never stamps a real seat)")
+    elif service_key:
+        try:
+            invites = run_invite_loop(SupabaseSeats(service_key), provider)
+        except Exception as exc:
+            print(f"ERROR invite loop: {type(exc).__name__}: {exc}",
+                  file=sys.stderr)
+    else:
+        print("invites: skipped (no SUPABASE_SERVICE_KEY, no waitlist to read)")
+
     # No bulk write here on purpose: process_subscriber already flushed state to
     # disk after every successful send. A write at this point could only ever be
     # reached when nothing crashed, which is exactly the case that needed no
@@ -764,6 +963,9 @@ def main() -> None:
           f"quota halt {tally['quota_halt']} | quota error {tally['quota_error']} | "
           f"hard bounce {tally['hard_bounce']} | soft fail {tally['soft_fail']} | "
           f"error {tally['error']}")
+    if invites is not None:
+        print(f"invites: opened {invites['opened']} | mailed {invites['mailed']} "
+              f"| released {invites['released']} | missing {invites['missing']}")
 
     # The ledger is written on EVERY run, halt or no halt, so that `halted`
     # being null is a statement and not an absence.
@@ -783,6 +985,13 @@ def main() -> None:
     if tally["quota_error"]:
         print(f"EXIT: provider reported a quota error on {tally['quota_error']} "
               f"send(s); the local counter is wrong", file=sys.stderr)
+        sys.exit(1)
+    if invites is not None and invites["missing"]:
+        # Rows were stamped and then could not be read back, so somebody is
+        # holding a 48 hour promise nobody mailed. That is this card's one
+        # forbidden state; it may not exit green.
+        print(f"EXIT: {invites['missing']} seat(s) stamped but not mailed",
+              file=sys.stderr)
         sys.exit(1)
     if book.backlog_grew():
         print(f"EXIT: deferred grew {book.previous_deferred} -> {book.deferred}",

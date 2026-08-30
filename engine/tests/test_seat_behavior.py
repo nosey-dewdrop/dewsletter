@@ -29,6 +29,12 @@ import pg_harness as H
 
 CAP = 200
 
+# sightstone_run_invites now takes the day's mail budget (S9b), so the calls
+# below pass 10000: everything in THIS file is about seats, not about the mail
+# cap, and the seat arithmetic has to come out exactly as it did before the
+# parameter existed. A limit that cannot bind is how that is held still. The
+# cap's own behaviour is measured in test_invite_delivery.py.
+
 
 def sql_str(s: str) -> str:
     return "'" + s.replace("'", "''") + "'"
@@ -271,13 +277,13 @@ class WaitlistAndInvites(ClusterCase):
     def test_no_invite_goes_out_while_the_house_is_full(self):
         self.full_house_with_two_waiters()
         self.assertEqual(
-            self.pg.count("select sightstone_run_invites();"), 0)
+            self.pg.count("select sightstone_run_invites(10000);"), 0)
         self.assertEqual(self.invited(), [])
 
     def test_a_freed_seat_invites_the_oldest_waiter_only(self):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 1)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 1)
         self.assertEqual(self.invited(), ["first@example.test"])
 
     def test_three_term_count_stops_the_same_seat_being_invited_twice(self):
@@ -291,9 +297,9 @@ class WaitlistAndInvites(ClusterCase):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
 
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 1)
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 0)
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 0)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 1)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 0)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 0)
 
         self.assertEqual(self.invited(), ["first@example.test"],
                          "one seat, more than one live invite")
@@ -305,14 +311,14 @@ class WaitlistAndInvites(ClusterCase):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
         self.assertEqual(self.taken(), CAP - 1)
-        self.pg.run("select sightstone_run_invites();")
+        self.pg.run("select sightstone_run_invites(10000);")
         self.assertEqual(self.taken(), CAP,
                          "the reserved seat is not being counted")
 
     def test_an_unanswered_invite_expires_and_passes_to_the_next_in_line(self):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
-        self.pg.run("select sightstone_run_invites();")
+        self.pg.run("select sightstone_run_invites(10000);")
         self.assertEqual(self.invited(), ["first@example.test"])
 
         # 48 hours pass with no answer.
@@ -320,7 +326,7 @@ class WaitlistAndInvites(ClusterCase):
                     "invited_at = invited_at - interval '49 hours', "
                     "invite_expires_at = invite_expires_at - interval '49 hours' "
                     "where email = 'first@example.test';")
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 1)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 1)
         self.assertEqual(self.invited(), ["second@example.test"])
         self.assertIsNotNone(self.pg.scalar(
             "select dropped_at from sightstone_waitlist "
@@ -329,7 +335,7 @@ class WaitlistAndInvites(ClusterCase):
     def test_accepting_an_invite_turns_the_waiter_into_a_confirmed_subscriber(self):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
-        self.pg.run("select sightstone_run_invites();")
+        self.pg.run("select sightstone_run_invites(10000);")
         token = self.pg.scalar(
             "select invite_token from sightstone_waitlist "
             "where email = 'first@example.test';")
@@ -342,12 +348,12 @@ class WaitlistAndInvites(ClusterCase):
             "where email = 'first@example.test' "
             "and confirmed_at is not null;"), 1)
         # And the seat is not handed out a second time.
-        self.assertEqual(self.pg.count("select sightstone_run_invites();"), 0)
+        self.assertEqual(self.pg.count("select sightstone_run_invites(10000);"), 0)
 
     def test_an_expired_invite_cannot_be_accepted(self):
         self.full_house_with_two_waiters()
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
-        self.pg.run("select sightstone_run_invites();")
+        self.pg.run("select sightstone_run_invites(10000);")
         token = self.pg.scalar(
             "select invite_token from sightstone_waitlist "
             "where email = 'first@example.test';")
@@ -398,8 +404,8 @@ class TwoTermControl(ClusterCase):
         self.wait("second@example.test")
         self.pg.run("select sightstone_mark_bounce('s3@example.test');")
 
-        self.pg.run("select sightstone_run_invites();")
-        self.pg.run("select sightstone_run_invites();")
+        self.pg.run("select sightstone_run_invites(10000);")
+        self.pg.run("select sightstone_run_invites(10000);")
 
         live = self.pg.count(
             "select count(*) from sightstone_waitlist "
@@ -507,7 +513,7 @@ class RlsRegression(ClusterCase):
 
     def test_anon_cannot_run_the_invite_loop_or_the_bounce_hook(self):
         """Neither is granted to anon: one hands out seats, the other evicts."""
-        for call in ("sightstone_run_invites()",
+        for call in ("sightstone_run_invites(10000)",
                      "sightstone_mark_bounce('s1@example.test')"):
             with self.subTest(call=call):
                 proc = self.as_anon(f"select {call};")

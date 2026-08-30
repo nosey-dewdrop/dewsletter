@@ -496,14 +496,42 @@ class APlannedStopIsWrittenDown(QuotaCase):
                  "unsubscribe_token": None} for i in range(n)]
 
     def run_main(self, subs, provider=CountingProvider, argv=("send_mail.py",)):
+        """A whole run, with the two outside worlds replaced.
+
+        S9b: main() now also drives the seat/invite loop, which speaks
+        PostgREST. It is stubbed here rather than allowed to fail, for two
+        reasons. A real urlopen would hit the module-wide socket trap and turn
+        every quota test into a run with an exception in the middle of it --
+        noise that hides the thing under test. And the stub is a MEASUREMENT:
+        self.seat_calls records the daily_limit main() handed the database, so
+        this file pins the caller from its own side. Deleting the call site
+        empties that list.
+        """
         shutil.copy(LIVE_JOBS, self.data / "jobs.json")
         env = {"SUPABASE_SERVICE_KEY": "x", "RESEND_API_KEY": "re_test",
                "MAIL_FROM": "the engine <test@example.test>"}
         code = 0
+        self.seat_calls = calls = []
+
+        class StubSeats(send_mail.SeatBackend):
+            def __init__(self, key, *a, **kw):
+                pass
+
+            def run_invites(self, daily_limit):
+                calls.append(daily_limit)
+                return 0            # no waitlist in these fixtures
+
+            def fresh_invites(self, count):
+                return []
+
+            def release_invite(self, token):
+                raise AssertionError("nothing was stamped, nothing to release")
+
         with mock.patch.object(send_mail, "STATE_FILE",
                                self.data / "mail_state.json"), \
                 mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
                 mock.patch.object(send_mail, "ResendProvider", provider), \
+                mock.patch.object(send_mail, "SupabaseSeats", StubSeats), \
                 mock.patch.dict(os.environ, env, clear=True), \
                 mock.patch.object(sys, "argv", list(argv)), \
                 redirect_stdout(io.StringIO()) as out, \
@@ -513,6 +541,21 @@ class APlannedStopIsWrittenDown(QuotaCase):
             except SystemExit as exc:
                 code = exc.code or 0
         return out.getvalue(), err.getvalue(), code
+
+    def test_main_hands_the_remaining_daily_budget_to_the_seat_opener(self):
+        """S9b hole 2, locked from the quota side: a full run reaches the
+        invite loop, and what it passes is what is LEFT of today, not a
+        constant. One bulletin goes out first, so the number must be 89."""
+        self.run_main(self.subs(1))
+        self.assertEqual(self.seat_calls, [send_mail.DAILY_MAIL_CAP - 1],
+                         "main() did not run the invite loop with the live "
+                         "remaining budget")
+
+    def test_a_run_with_no_budget_left_opens_no_seats(self):
+        self.burn(send_mail.DAILY_MAIL_CAP)
+        self.run_main(self.subs(1))
+        self.assertEqual(self.seat_calls, [],
+                         "a seat was opened on a day that cannot mail")
 
     def test_the_halted_key_is_present_even_when_nothing_halted(self):
         """Absence must never stand for a state: a missing key reads the same

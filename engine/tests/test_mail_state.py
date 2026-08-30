@@ -122,6 +122,28 @@ def sandbox() -> Path:
     return data
 
 
+class StubSeats(send_mail.SeatBackend):
+    """S9b: main() also drives the invite loop, which speaks PostgREST.
+
+    No waitlist exists in these fixtures, so the honest answer is zero seats
+    and no mail. Stubbed rather than left to raise, because this file is about
+    mail_state idempotence and a live urlopen in the middle of it is noise.
+    The invite loop is measured in test_invite_delivery.py.
+    """
+
+    def __init__(self, key, *a, **kw):
+        pass
+
+    def run_invites(self, daily_limit):
+        return 0
+
+    def fresh_invites(self, count):
+        return []
+
+    def release_invite(self, token):
+        raise AssertionError("nothing was stamped, nothing to release")
+
+
 def run_send_mail(data: Path, subs: list[dict], die_on=None) -> str:
     """Run send_mail.main() end to end on the real send path (no --dry-run)."""
     FakeProvider.reset(die_on=die_on)
@@ -131,6 +153,7 @@ def run_send_mail(data: Path, subs: list[dict], die_on=None) -> str:
             mock.patch.object(send_mail, "STATE_FILE", data / "mail_state.json"), \
             mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
             mock.patch.object(send_mail, "ResendProvider", FakeProvider), \
+            mock.patch.object(send_mail, "SupabaseSeats", StubSeats), \
             mock.patch.dict(os.environ, env, clear=True), \
             mock.patch.object(sys, "argv", ["send_mail.py"]), \
             redirect_stdout(io.StringIO()) as out:

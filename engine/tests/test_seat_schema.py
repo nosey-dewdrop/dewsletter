@@ -214,7 +214,7 @@ class SchemaShape(unittest.TestCase):
         anon: anon could evict any subscriber by address, or drive the invite
         loop on demand. The revoke is what actually closes it.
         """
-        for fn in ("sightstone_mark_bounce(text)", "sightstone_run_invites()",
+        for fn in ("sightstone_mark_bounce(text)", "sightstone_run_invites(int)",
                    "sightstone_seats_taken()"):
             with self.subTest(fn=fn):
                 self.assertIn(f"revoke execute on function {fn} from public",

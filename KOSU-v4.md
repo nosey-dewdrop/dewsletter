@@ -2757,3 +2757,91 @@ dokunulmaz olduğu için ajan düzeltemedi. → **S14.**
 **Not:** `--dry-run` CLI koşusu `engine/data`'ya boş defter yazıyor →
 `daily.yml`'ın `git add engine/data`'sı bunu commit eder. Zararsız (0 kayıt),
 bilinsin.
+
+---
+
+## ⛔ ÜRÜN KONTROLÜ — 30 Ağu, koşu kapanışı
+
+Damla'nın kuralı: *"ürün iyi mi. Başka soru yok."* Kapı raporu geçer not değil.
+**Dokuz faz boyunca çıktıya bir kez bakılmadı.** Bakıldığında:
+
+### Gerçek bülten (bugün, `profile.json` + canlı korpus)
+
+```
+3 new internship listing(s) matched your profile this morning.
+the engine read 453 live listings; only these are new for you,
+each with its named reasons. no black box, no language model.
+
+[ 7] Astreya - AI Infrastructure DC Design Intern
+     why: interest 'ai infrastructure' in title; remote
+[ 5] Boston Medical Center - Cybersecurity & AI/Data Governance Intern
+     why: remote; fresh (3d)
+[ 5] OpusClip - AI Research Intern
+     why: remote; fresh (3d)
+```
+
+### ⛔ P1 — 9 EŞLEŞMENİN 8'İ SADECE "REMOTE" OLDUĞU İÇİN İÇERİDE
+
+```
+7  Astreya          interest 'ai infrastructure' in title; remote   ← TEK gerçek
+5  Boston Medical   remote; fresh (3d)
+5  OpusClip         remote; fresh (3d)
+3  Ensemble Health  remote
+3  Hone Health      remote
+3  Ancestry ×2      remote
+1  Whiterabbit / Vocal Media
+```
+
+Mail **"each with its named reasons"** diyor. **"remote" bir sebep değil, bir
+filtre** — "elemediğim için buradasın" demek. Bir yabancıya gösterilemez.
+
+### ⛔ P2 — MOTOR GERÇEK EŞLEŞMEYİ KAÇIRIYOR
+
+**OpusClip "AI Research Intern"** Damla'nın alanı. Motor "remote; fresh" diyor,
+çünkü **yalnız BAŞLIĞA bakıyor** ve ilgi listesinde `"ai research"` yok,
+`"ai infrastructure"` var. **İlan açıklamasını hiç okumuyor.**
+(ZEMİN v2 bunu zaten yazmıştı: *"Skor yalnız BAŞLIĞA bakıyor."*)
+
+**İki hata aynı anda: alakasızı içeri alıyor, alakalıyı sebepsiz alıyor.**
+
+### ⛔ P3 — MAİLDE YALAN VAR
+
+Son satır: `one-click unsubscribe: …/unsubscribe.html?token=…`
+Ölçüldü (A29): o URL POST'a **405** dönüyor, GitHub Pages statik.
+**Metin "tek tık" diyor, tek tık çalışmıyor.**
+
+### Bunun S13'e etkisi
+
+S13'ün "kayıtta canlı eşleşme önizlemesi" maddesi — kişi kaydolmadan
+*"bu filtreyle şu an X ilan eşleşiyor"* görecek. **O X'in içi bugün boş.**
+Puanlama düzeltilmeden o önizleme kullanıcıyı yanıltır.
+
+**P1+P2 kendi kartını hak ediyor ve S13'ten ÖNCE koşmalı.**
+Kapsam: `match.py` açıklamayı da okusun; `"remote"` tek başına eşleşme üretmesin;
+sebep listesi filtre ile gerekçeyi ayırsın.
+
+---
+
+## KOŞUNUN DURDUĞU YER — 30 Ağu
+
+**GEÇEN FAZLAR:** S1 · S2 · S3 · S4 · S5a · S5b · S6 · S7 · S8a (KALDI×1 sonrası) · S9a
+**369 test yeşil, 0 skip.** `--invariants`, `--double-send`, `--budget 200` exit 0.
+
+**S9b — KOD BİTTİ, HAKEM KOŞMADI.** Aşağıdaki commit'te. Ajanın raporladığı:
+`sightstone_run_invites(daily_limit int)`, çağıran `send_mail.py`'de,
+`remaining_today()` geçiliyor; 200 bekleyen + limit 90 → tam 90 damga, 90 mail,
+**damgalanıp mail almayan 0**; açılış 90+90+20. Üç mutasyon kırmızı.
+**HAKEM DOĞRULAMADI — bir sonraki oturumun ilk işi.**
+
+**S9b ajanının bildirdiği iki eksik:**
+1. **Davetin KABUL SAYFASI YOK.** `sightstone_accept_invite(token)` RPC hazır ve
+   anon'a grant'lı, ama `docs/` altında token'ı ona geçiren sayfa yok.
+   Mail düşüyor, link tıklanıyor, **koltuk kabul edilemiyor** → 48 saat sonra
+   sıradakine geçiyor. → **S10/S13**
+2. `daily.yml`'ın cron'unun kurulu olduğu **DOĞRULANMADI** (`.github/` dokunulmaz).
+
+**DAMLA'YI BEKLEYEN:** S8b (Resend hesabı + DNS, 10 adım yukarıda) ve S12.
+**Bunlar olmadan gerçek mail hiç gitmiyor** — `daily.yml` bugün her koşuda
+`missing RESEND_API_KEY` deyip exit 1 veriyor (A33/1).
+
+**KOŞULMAYAN:** S9b hakemi · S10 · S11 · S12 · S13 · S14 · ve yeni P1/P2 kartı.

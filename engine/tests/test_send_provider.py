@@ -8,7 +8,10 @@ this process, and no production file is written.
 What is nailed:
 
 1. ONE THROAT. Delivery goes through Provider.send(to, subject, html). smtplib
-   is gone from send_mail.py, and there is exactly one send call site.
+   is gone from send_mail.py, send() is defined on Provider and nowhere else,
+   every call site is in send_mail.py, and every call site names its kind.
+   (S9b: the rule is one throat, not one caller -- the invite loop is a second
+   legitimate caller through the same method. See OneThroat's note.)
 2. RESEND PROVIDER. urllib POST to https://api.resend.com/emails with a Bearer
    token, body fields per the provider's docs, `id` from the response body ->
    MessageId. No pip package.
@@ -142,6 +145,30 @@ def sid(email: str) -> str:
     return hashlib.sha1(email.encode()).hexdigest()[:12]
 
 
+class StubSeats(send_mail.SeatBackend):
+    """S9b: main() also drives the invite loop, which speaks PostgREST.
+
+    Stubbed rather than left to fail, because a real urlopen would hit this
+    module's socket trap and put an exception in the middle of every run --
+    noise on top of the isolation and List-Unsubscribe measurements these tests
+    exist for. There is no waitlist in these fixtures, so the honest answer is
+    zero seats and no mail; the invite loop's own behaviour is measured in
+    test_invite_delivery.py against a real cluster.
+    """
+
+    def __init__(self, key, *a, **kw):
+        pass
+
+    def run_invites(self, daily_limit):
+        return 0
+
+    def fresh_invites(self, count):
+        return []
+
+    def release_invite(self, token):
+        raise AssertionError("nothing was stamped, nothing to release")
+
+
 def run_main(data: Path, subs: list[dict], argv=("send_mail.py",),
              env_extra=None, provider=RecordingProvider) -> tuple[str, str]:
     env = {"SUPABASE_SERVICE_KEY": "x", "RESEND_API_KEY": "re_test",
@@ -151,6 +178,7 @@ def run_main(data: Path, subs: list[dict], argv=("send_mail.py",),
             mock.patch.object(send_mail, "STATE_FILE", data / "mail_state.json"), \
             mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
             mock.patch.object(send_mail, "ResendProvider", provider), \
+            mock.patch.object(send_mail, "SupabaseSeats", StubSeats), \
             mock.patch.dict(os.environ, env, clear=True), \
             mock.patch.object(sys, "argv", list(argv)), \
             redirect_stdout(io.StringIO()) as out, \
@@ -182,16 +210,67 @@ class OneThroat(unittest.TestCase):
                       "smtp.gmail.com", "MIMEText"):
             self.assertNotIn(token, SRC, f"{token} still in the send path")
 
-    def test_exactly_one_send_call_site_in_the_engine(self):
+    def send_call_sites(self) -> list:
         sites = []
         for py in sorted(ENGINE.glob("*.py")):
             for i, line in enumerate(py.read_text().splitlines(), 1):
                 if re.search(r"\bprovider\.send\(|\.send\(", line) and \
                         not line.strip().startswith("#"):
-                    sites.append(f"{py.name}:{i}")
-        self.assertEqual(len(sites), 1,
-                         f"delivery is not a single throat: {sites}")
-        self.assertTrue(sites[0].startswith("send_mail.py"), sites)
+                    sites.append((py.name, i, line))
+        return sites
+
+    # S9b added a SECOND caller -- the invite loop -- and this gate was re-read
+    # rather than relaxed. It used to count call sites and demand exactly one.
+    # That count was never the guarantee: the guarantee is that every mail
+    # leaves through Provider.send and nothing else in the codebase touches a
+    # transport. ONE THROAT, not one caller. Keeping the count would have meant
+    # the second kind of mail this product owes people could only ship by
+    # widening the interface, which is the opposite of what the rule is for.
+    # The three things that actually carry the rule are asserted directly
+    # below, and together they are stricter than the number was.
+
+    def test_every_send_call_site_lives_in_send_mail(self):
+        """No other engine module may talk to a mail transport at all."""
+        sites = self.send_call_sites()
+        self.assertTrue(sites, "no send call site found at all")
+        offenders = [f"{n}:{i}" for n, i, _ in sites if n != "send_mail.py"]
+        self.assertEqual(offenders, [],
+                         f"delivery escaped the single throat: {offenders}")
+
+    def test_every_send_call_site_names_its_kind(self):
+        """A caller that will not say which budget it spends cannot be guessed
+        for. The throat raises on a missing kind; this catches it earlier.
+
+        Read from the syntax tree, not the line: a call that wraps puts its
+        keywords on a later line, and a text check would have called the live
+        bulletin site nameless.
+        """
+        import ast
+        calls = [n for n in ast.walk(ast.parse(SRC))
+                 if isinstance(n, ast.Call)
+                 and isinstance(n.func, ast.Attribute)
+                 and n.func.attr == "send"
+                 and isinstance(n.func.value, ast.Name)
+                 and n.func.value.id in ("provider", "p", "self")]
+        self.assertTrue(calls, "no send call found in the syntax tree")
+        for call in calls:
+            with self.subTest(line=call.lineno):
+                kinds = [k for k in call.keywords if k.arg == "kind"]
+                self.assertEqual(len(kinds), 1,
+                                 f"send at line {call.lineno} names no kind")
+                self.assertIsInstance(kinds[0].value, ast.Constant)
+                self.assertIn(kinds[0].value.value, send_mail.MAIL_KINDS)
+
+    def test_send_is_defined_on_the_throat_and_nowhere_else(self):
+        """Subclasses override deliver(), never send(). An override of send()
+        would skip the quota check and the kind gate in one move."""
+        import ast
+        definers = [n.name for n in ast.walk(ast.parse(SRC))
+                    if isinstance(n, ast.ClassDef)
+                    and any(isinstance(b, ast.FunctionDef) and b.name == "send"
+                            for b in n.body)]
+        self.assertEqual(definers, ["Provider"],
+                         f"send() is defined outside the throat: {definers}")
 
     def test_send_signature_is_to_subject_html(self):
         import inspect
