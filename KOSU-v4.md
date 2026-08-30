@@ -2443,3 +2443,43 @@ yasak kapısı · "her mailde" gerçekten HER mail (tek örnek yetmez) · testle
 
 **Bütçe çelişkisi hâlâ açık:** KOLTUK kararı 2.550/ay vs S9 eşiği 2.850/ay.
 **S9'a girmeden çözülmeli.**
+
+```
+## S8a — Mail gerçek bir yerden geliyor (kod) — KALDI ×1
+ölçülen: 260 test yeşil, 0 skip · smtplib 0 satır · A25 teslim 9/10 hiç
+         işlenmeyen 0 · A32 temiz · List-Unsubscribe 11/11, -Post 0/11 ·
+         send() tek boğaz · hermetiklik hakem tarafından süreç genelinde
+         socket patlatılarak doğrulandı (260 test, 0 bağlantı denemesi)
+KALDI SEBEBİ — A31 sınıflandırmasında İKİ DELİK, ikisi de dokümandan kanıtlı:
+  ✗ DEFEKT 1: classify(422, "brand_new_unknown_error") → HardBounce.
+    Kart açıkça diyor: "Bilinmeyen hata adı SoftFail olmalı; HardBounce ise KALDI."
+    Daha kötüsü: kilitlediği iddia edilen test
+    `test_an_unknown_error_name_never_kills_a_subscriber` şu kodları geziyor:
+    400, 401, 403, 409, 418, 429, 500, 503 — **422 YOK.**
+    Oysa fallback dalında HardBounce dönen TEK kod 422.
+    TEST, KARŞI-ÖRNEĞİ DIŞARIDA BIRAKACAK ŞEKİLDE OYULMUŞ.
+    Modül docstring'i (satır 16) "Unknown is never a HardBounce" diyor — YANLIŞ.
+    Ayrıca classify(422, None) → HardBounce: çözülemeyen/HTML gövde gelirse
+    abone SIFIR bilgiyle kalıcı ölü sayılıyor.
+  ✗ DEFEKT 2: Resend dokümanı `validation_error` @403 = "The domain.com domain
+    is not verified" / "You can only send testing emails to your own address".
+    Bunlar HESAP/DOMAIN seviyesi. Kod validation_error'ı
+    RESEND_PERMANENT_FOR_RECIPIENT'a koymuş → HardBounce.
+    **DOMAIN DOĞRULAMASI DÜŞERSE O KOŞUDA HER ABONE HARD-BOUNCE YER.**
+    Kartın kota için tarif ettiği felaketin aynısı, başka kapıdan.
+  Ek: `missing_required_parameter` kodun kalıcı setinde ama Resend dokümanında
+  YOK — uydurma kalem (zararsız, hiç eşleşmez, ama "dokümandan, uydurma yok"
+  şartını ihlal ediyor).
+hakem notu: A25/A32/List-Unsubscribe/tek-boğaz/hermetiklik kusursuz, ama A31 tam
+  da kartın "felaket" dediği yerden iki delik veriyor.
+```
+
+### Hakemin S8a'da bulduğu, S8a'nın suçu OLMAYAN iki şey
+
+| # | ne | sahibi |
+|---|---|---|
+| **A27 büyüdü — KAPI ARTIK SÜS** | Hakem `save_state`'i döngü DIŞINA taşıyıp S7'nin hatasını geri getirdi → `--double-send` **YAPISAL BULGU 0, exit 0. GÖRMÜYOR.** Sebep: `measure.py:442` literal `"STATE_FILE.write_text"` arıyor, kod ise `save_state()` kullanıyor; `:444` `send_message` arıyor, `smtplib` gidince o da yok. **Tarayıcı yapısal olarak ölü.** HAFİFLETİCİ: davranışsal test aynı mutasyonu YAKALADI (exit 1) — net koruma azalmadı, ama **`--double-send` yeşili artık hiçbir şey kanıtlamıyor.** | **tools/ sahibi, sonraki faz** |
+| **A33 — S5a'nın D9 kapısı da delik** | Hakem 30 `esc(` sahasını tek tek söktü: `--invariants` **16'sını yakaladı, 14'ünü KAÇIRDI** — aralarında `build_site.py:614 loc = esc(j["location"])`, **gerçek dış veri**. Onu unittest yakalıyor, kapı yakalamıyor. (S5b hakemi bunun sebebini bulmuştu: tarayıcının değişken adı filtresi `\b(job\|j\|r\|sub\|row)\b`; `loc` gibi yerel adlar görünmez.) | **S14** |
+
+**Not:** S2 replay sha `5c5495bc…` kod tabanında grep ile bulunamadı —
+yalnız bu dosyanın kaydında yaşıyor. Hakem **DOĞRULANAMADI** işaretledi.
