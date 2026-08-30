@@ -2035,3 +2035,148 @@ bu, hakem grant'sız da koşup farkı gördü.
 **Not:** `sightstone_seats()` artık `taken` olarak ÜÇ TERİMLİ sayımı döndürüyor —
 site sayacı davet rezervasyonlarını da dolu gösterecek. Kasıtlı (D8), ama
 S13'ün göreceği sayı bu.
+
+---
+
+## S7 · "AYNI İLAN İKİ KEZ GELMİYOR"
+
+### Hakemin ölçtüğü gerçek sayı — teşhis doğru, hasar 48
+
+10 abonelik hermetik simülasyon (gerçek `jobs.json`, sahte SMTP, 5.'de kopma):
+
+```
+KOŞU 1: u0..u3'e mail GİTTİ (4 abone × 12 ilan), 5.'de koptu
+        diskteki abone: 0 · diskteki anahtar: 0
+KOŞU 2: 10 abonenin HEPSİNE mail gitti
+        u0,u1,u2,u3 İKİNCİ KEZ aldı → 4 × 12 = 48 TEKRAR GÖNDERİM
+```
+
+Kök çift: (a) yazım döngüden sonra (`:184`), (b) istisna `finally`'den geçip
+yayılıyor, `if mailed:` satırına **hiç ulaşılmıyor**.
+
+### ⛔ KABUL KOMUTUNUN İKİNCİ YARISI VAKUMDU
+
+İki kat ölü:
+1. `main()` `cmd_double_send()`'in dönüşünü **atıyor** → exit hep 0 (A10).
+2. Daha kötüsü **yapısal olarak vakum**: `sent_keys` `sorted(sent | {…})` — bir
+   **küme birleşimi**. Dosyada tekrar eden anahtar ASLA oluşamaz; `dup_total`
+   ancak biri dosyayı elle bozarsa >0 olur. Yani `--double-send = 0` eşiği
+   **sıfır şey satın alıyordu.**
+
+**Hakemin kararı: kapıyı bağla, ama YAPISAL BULGU sayısına.** Ölçtü ve
+kendi kendini mutasyonluyor:
+
+| kod hâli | dönüş | exit |
+|---|---|---|
+| bugün | 0 dup + **2 yapısal** | **1** |
+| S7-sonrası taklit | 0 + 0 | 0 |
+
+`tools/` kilidine ikinci dar istisna açıldı. Alternatif ("ölü yarıyı çıkar")
+**daha gevşekti** — komut hiç koşmaz, A10 açık kalır, S8-S11 aynı ölü komutu
+miras alır.
+
+### ✅ "send_mail.py'ın hiç testi yok" KISMEN YANLIŞ
+
+`test_fetch.py:250-268` bugün `send_mail.main()`'i `--dry-run`'da sandbox'ta
+koşuyor (S2'nin ölüm-kapısı mutasyonu). Yani **gönderim yolu test edilmemiş,
+dry-run yolu edilmiş.** Desen hazır, S7 genişletiyor.
+
+### 🔴 HAKEMİN BULDUĞU YENİ DELİK — A21
+
+`sent_keys` = `sha1(link)[:16]` · `fetch.job_key` = `company|position`.
+**İki ayrı kimlik sistemi, kimse köprü kurmamış.**
+
+Diriliş deliği ölçüldü: **YOK** (git geçmişinde boşluklu ilan 0, 453/453 link
+dolu ve tekil). **Ama LİNK KAYMASI deliği VAR:** aynı `company|position` için
+git geçmişinde **34 ilanda iki farklı `send_mail.job_key`**:
+
+```
+jump trading|campus quantitative trader - intern
+  A: …gh_jid=8050772   B: …gh_jid=7848371   → İKİ AYRI ANAHTAR
+```
+
+Motora göre aynı ilan, maile göre yeni ilan → **ikinci kez gider.**
+Skor≥5 alan 3 ilandan **1'i** bu kaymayı yaşamış.
+**DOĞRULANMADI:** 34'ün tamamı tek geçişte (494→453) çıktı ve o geçiş S2'nin
+yeniden yazımıyla aynı commit'te — organik kayma mı boru hattı artefaktı mı
+bilinmiyor. Mekanizma ise inşa yoluyla kanıtlı (`?utm_source=x` eklemek anahtarı
+değiştiriyor). **S7'de düzeltilemez** — `job_key`'i değiştirmek canlı 22 anahtarı
+öksüz bırakır ve tam da kartın yasakladığı çift maili ÜRETİR. **A21, kartsız.**
+
+### A17 bu kartta KAPANMIYOR — gevşetme değil, ölçülmüş zorunluluk
+
+İki yol da D1'i kırıyor: dosyayı gitignore'lamak → CI her koşuda state'i
+kaybeder → **her gün her ilan tekrar gider.** `sub_id`'yi HMAC'e çevirmek →
+`bd235c29a8fc` altındaki 22 anahtar öksüz kalır → **Damla 22 ilanı ikinci kez
+alır.** A17 kendi kartını **+ bir migrasyon adımını** hak ediyor.
+
+### KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Aynı ilanı iki kere almadım.
+
+İŞ:
+1. process_subscriber gönderim başarılı olur olmaz state'i DİSKE YAZAR.
+   Toplu yazım (183-184) ve `if mailed:` koruması KALKAR.
+2. Yazım ATOMİK: aynı dizine tempfile → os.replace. (Ölçüldü: yarım dosya
+   load_state()'i JSONDecodeError ile öldürüyor, kurtarma yok; 200 yazımda
+   çökme penceresi 200 kat büyüyor.)
+3. Profil düzenleme kuralı: filtre değişince sent_keys SIFIRLANMAZ.
+4. KİMLİK ÇİVİSİ: job_key ve sub_id türetimi canlı mail_state.json'ın 22
+   anahtarına ve bd235c29a8fc'ye karşı tanık testiyle kilitlenir. S8-S11
+   bunları sessizce değiştiremez (değiştirmek = kitlesel çift mail).
+5. ÖLÜ KAPI DİRİLTİLİR: tools/measure.py main() cmd_double_send()'in dönüşünü
+   artık atmaz; cmd_double_send `dup_total + len(findings)` döner, sıfır
+   değilse sys.exit(1). TEK İZİN BU — --invariants davranışı ve diğer alt
+   komutlar BAYT OLARAK değişmez.
+6. KAPSAM DIŞI (bilerek): fetch_subscribers gövdesi (A19 → S10),
+   sub_id şeması (A17), job_key tanımı (A21).
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 tools/measure.py --double-send && python3 tools/measure.py --invariants
+
+EŞİK — her sayı hakemin ÖLÇTÜĞÜ sayı:
+· 10 abonelik hermetik simülasyonda 5.'de RuntimeError → ilk 4 abonenin sub_id'si
+  diskte, 4×12 = 48 anahtar yazılı; aynı state ile tekrar koşuda o 4 kişiye
+  0 MAİL, kalan 6'ya mail gider
+· Profil (interests) değişip yeniden skorlandığında sent_keys KAYIPSIZ (22 → 22)
+· json.dump ortasında istisna → dosya hâlâ GEÇERLİ JSON ve ÖNCEKİ içerik;
+  load_state() patlamıyor
+· --double-send → YAPISAL BULGU 0, TEKRAR EDEN ANAHTAR 0, exit 0
+  (bugün: 2 bulgu, kapı bağlanınca exit 1)
+· --invariants → D4/D5/D6/D9 = 0, exit 0 (değişmedi)
+· engine/data/mail_state.json sha256 =
+  99d7660afdf9b3bb2eeb5afa308b19a3fdffb1f68abe79e8e8b2efd3efe5e390 DEĞİŞMEDİ
+· job_key("…gh_jid=8050772") ve canlı 22 anahtar tanık testinde AYNEN doğrulanıyor;
+  sub_id(Damla'nın maili) == "bd235c29a8fc"
+· send_mail.py'de `unsubscribed_at=is.null` sorgusu AYNEN DURUYOR (A19 S10'un)
+· Test sayısı > 198, 0 SKIP, hiçbir test SOKET AÇMIYOR
+· MUTASYON 1: toplu yazıma dönülünce → çift-mail testi KIRMIZI
+· MUTASYON 2: os.replace yerine write_text → atomiklik testi KIRMIZI
+· MUTASYON 3: job_key tanımı değişince → kimlik tanık testi KIRMIZI
+
+DOKUNULABİLİR: engine/send_mail.py · engine/tests/ · tools/measure.py
+(YALNIZ cmd_double_send dönüş değeri + main()'de ona bağlı sys.exit;
+ BAŞKA HİÇBİR SATIR)
+DOKUNULMAZ: engine/data/mail_state.json (sha PİN) · jobs.json · fixtures/* ·
+match.py · fetch/ · schema.sql · build_site.py · docs/ · .github/ · test_engine.py
+```
+
+**Hakemin zorlaştırdıkları:** ölü kapı → gerçekten bağlandı (bugün exit 1) ·
+vakum eşik → **yapısal bulgu sayısı** eşiğe girdi (bugün 2, gerçekten kırmızı) ·
+`--invariants` kabul komutuna eklendi (S5a'nın kazanımı regresyona uğrayamaz) ·
+atomik yazım **zorunlu** + kendi mutasyonu · "ilk 4'ün anahtarları" (sayısız) →
+**4 abone, 48 anahtar, tekrar koşuda 0 mail** · `mail_state.json` sha **pin** ·
+kimlik türetimi **çivili** + MUTASYON 3 · A19 negatif şart · **0 skip + hiçbir
+test soket açmıyor.**
+
+### S7'nin açtığı yeni maddeler
+
+| # | ne | sahibi |
+|---|---|---|
+| **A21** | `link` ilan kimliği olarak **KARARSIZ**. `fetch.job_key` (`company\|position`) ile `send_mail.job_key` (`sha1(link)`) iki ayrı kimlik sistemi, köprü yok. 34 ilanda kayma ölçüldü. S7'de düzeltilemez (22 anahtar öksüz kalır). | **kartsız** |
+| **A25** | ⛔ **`main()`'de abone izolasyonu YOK.** Tek abonenin SMTP hatası **bütün koşuyu** öldürüyor — simülasyonda 10'un 5'inde durdu, **kalan 5 kişi hiç mail almadı.** D1 değil ama gerçek teslimat kaybı. Hiçbir kartta yok. Doğal sahibi S8 (`HardBounce \| SoftFail` döndürecek) ama **S8 kartı bunu SÖYLEMİYOR.** | **S8 — hakemine not** |
+| A26 | `pseudo_profile` ≠ `profile.json`. Supabase modundaki mail yalnız `level`+`interests` görüyor. Hakemin simülasyonunda **10 sentetik abonenin hepsi aynı 12 ilanı aldı** — kişiselleştirme pratikte çok zayıf. | **kartsız** |
+
+**A10 kapanmıyor, YARILANIYOR:** `--unconfirmed` bugün de exit 0 ve "1" basıyor.
+O yarı S10'a kalıyor.
