@@ -1686,3 +1686,84 @@ olup olmadığı offline doğrulanabiliyor.** Bir üyelik oracle'ı. Bugün 1 ab
   "mailde ne gördüysen o" iddiasını YASAKLADI, doğru.
 
 **S5b ajanı doğurulmadı. S6-S14 koşulmadı.**
+
+---
+
+## S5b KARARI — DAMLA: "devam et" → **1. YOL** (30 Ağu)
+
+Kişi başına özel sayfa YOK. Public GitHub Pages'te gizlilik satın alınamıyor,
+2. yol ücretli (Damla'nın PARA YOK kararına aykırı), 3. yol koşu kapsamını aşıp
+S12'nin sert durağını geciktiriyor. Sayfa yalnız `profile.json`'dan üretilir.
+
+**S10'A YAZILI BORÇ:** "sessiz hafta" cümlesi YENİDEN YAZILACAK. Onay mailinde
+aboneye **sayfa VAAT EDİLMEZ** — olmayan bir şeyi vaat etmek bu koşunun
+düzeltmeye çalıştığı hatanın ta kendisi. S10 kartı geldiğinde hakemi bu satırı
+görecek.
+
+**Rabadon `watch` moduna alındı** (Damla'nın emri). Kaydediyor, engellemiyor.
+Kapılar artık yalnız kartların kabul komutlarıyla tutuluyor.
+
+### S5b KARTI — YÜRÜRLÜKTE (hakem kesinleştirdi)
+
+```
+KULLANICI CÜMLESİ : Mail gelmediği günlerde de eşleşmelerime bakabiliyorum —
+                    ve mailin eşiğe takılıp göstermediklerini de görüyorum.
+
+İŞ:
+1. docs/u/matches.html + docs/u/matches.xml (Atom). Token YOK, gizlilik iddiası
+   YOK. Veri kaynağı yalnız profile.json; Supabase'e ait tek alan basılmaz.
+2. match.run(profile, jobs) sonucunun TAMAMI, skor eşiği yok. Donmuş fixture'da
+   3 kayıt (skorlar 5/3/3), mailin eşiği 1'de kesiyor. Canlıda 9 eşleşme,
+   skor≥5 olan 3.
+3. Sayfa noindex; robots.txt'e "Disallow: /u/" MEVCUT LİTERAL'E DOKUNULMADAN
+   helper ile eklenir; sitemap.xml'de /u/ geçmez; nav() değişmez, hiçbir yerden
+   link verilmez.
+4. Sayfanın üstünde veri kaynağı açıkça yazılır ("built from profile.json").
+   "Mailde gördüğün" iddiası YASAK — Supabase modundaki mail pseudo_profile()
+   kullanıyor, sayfa zengin profili kullanıyor, ikisi AYNI DEĞİL.
+5. jobs/ linkleri main()'in diske yazdığı GERÇEK slug haritasından gelir
+   (A15 borcu miras alınmaz).
+6. Yeni HTML metni esc(), yeni URL safe_url()/slugify() SATIR İÇİ, yeni XML
+   metni xml_text() (= esc() + XML-yasak karakter süzgeci: #x0-#x8, #xB, #xC,
+   #xE-#x1F ve surrogate'lar).
+   Dış veri değişkeni `r` ya da `j` adlanır — tarayıcının filtresi
+   \b(job|j|r|sub|row)\b, `entry`/`m` adlanırsa KAPI SESSİZCE KÖRLEŞİR.
+   root/canonical/href adına atama YASAK — `href` adlı yerele URL atamak
+   ^(root|canonical|href)$ beyaz listesi yüzünden URL kontrolünü BYPASS EDİYOR
+   (hakem deneyle buldu).
+7. Tüm yeni literal'ler NEW_HELPERS'a eklenen yeni fonksiyonların İÇİNDE;
+   main() SIFIR literal kazanır.
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests 2>&1 | tail -3 && python3 tools/measure.py --invariants >/dev/null && python3 engine/build_site.py >/dev/null && test "$(ls docs/u | wc -l | tr -d ' ')" = 2 && ! grep -q "/u/" docs/sitemap.xml && grep -q "Disallow: /u/" docs/robots.txt && grep -q 'name="robots" content="noindex"' docs/u/matches.html && python3 -c "import xml.etree.ElementTree as E;E.parse('docs/u/matches.xml')" && echo S5B-GREEN
+
+EŞİK:
+· 121 mevcut testin HEPSİ yeşil; toplam ≥133 (en az 12 yeni). test_engine.py
+  blob 6bbd4a51… değişmez, 15/15.
+· Donmuş 5 sha BİREBİR AYNI; altıncı yüzey (user_page) sha'sı çakılır,
+  FROZEN_TOTAL_BYTES = 2096716 + yeni yüzey.
+· Literal kapısı c0477c0e9fcd184e3ba59450f7e721e56674fef44c25f3d715c36d9f89f984f5
+  değerinde kalır; main()'in literal çok kümesi değişmez (AYRI test).
+· measure.py --invariants: D4/D5/D6/D9 = 0, exit 0.
+· docs/u/ TAM 2 dosya; build_site.py'de supabase|subscriber|mail_state|send_mail
+  GEÇMİYOR (testle kilitli).
+· Sayfadaki kayıt sayısı == len(match.run(...)) ve fixture'da skoru 5'in altında
+  EN AZ 1 kayıt var (eşiksizliğin kanıtı).
+· Çakışma zorlanmış korpusta sayfadaki her jobs/ href'i diskte VAR OLAN dosyaya
+  çözülür; A15 tanığı fixture'da == 16 çakışma.
+· MUTASYON (üçü de zorunlu, hakem deneyle doğruladı):
+  1. Yeni fonksiyondan tek bir esc( silinince → measure.py --invariants exit 1
+     VE kaçış testi kırmızı
+  2. Yeni fonksiyonlar NEW_HELPERS'tan çıkarılınca → literal kapısı kırmızı
+  3. main()'e tek string literal eklenince → kapı kırmızı
+· XSS: başlığı <script>alert(1)</script> olan ilanla kurulan sitede
+  docs/u/matches.html içinde çalıştırılabilir script YOK; matches.xml
+  xml.etree ile parse edilir. Başlıkta \x0b varken de feed parse edilir.
+
+DOKUNULABİLİR: engine/build_site.py (yalnız yeni fonksiyonlar + main()'de
+literal İÇERMEYEN çağrılar + robots satırının helper ile uzatılması) ·
+engine/tests/* · docs/ çıktıları
+DOKUNULMAZ: engine/data/jobs.json · engine/tests/fixtures/* · engine/match.py ·
+engine/fetch/ · engine/send_mail.py · engine/schema.sql · tools/measure.py ·
+.github/workflows/daily.yml
+```
