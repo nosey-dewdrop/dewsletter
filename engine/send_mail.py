@@ -28,17 +28,57 @@ import tempfile
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import match
 
 DATA = Path(__file__).parent / "data"
 STATE_FILE = DATA / "mail_state.json"
+QUOTA_FILENAME = "quota_state.json"
 SITE = "https://nosey-dewdrop.github.io/sightstone"
 SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 RESEND_ENDPOINT = "https://api.resend.com/emails"
 RESEND_MAX_RECIPIENTS = 50  # provider limit on the `to` field
+
+
+# ------------------------------------------------------------------------ quota
+#
+# S9a -- "the quota does not blow up on launch day".
+#
+# The free tier stops at a hundred mails a day and three thousand a month. Two
+# hundred people signing up in one morning is two hundred confirmation mails;
+# person 101 never gets one and their account dies unconfirmed. The counter
+# below exists so that never happens silently.
+#
+# THE BUDGET IS 2.550 A MONTH, NOT 2.850. The provider's own docs say, under
+# BOTH `daily_quota_exceeded` and `monthly_quota_exceeded`: "Both sent and
+# received emails count towards this quota." Inbound mail eats the same budget
+# and this ledger CANNOT see it -- every number here is a LOWER BOUND on real
+# consumption. A 15% reserve (450) absorbs that blind spot; 5% (150) does not.
+#
+# THE WINDOWS ROLL. The docs say "wait until 24 hours have passed"; they never
+# name a reset moment. So the daily window is the last 24 HOURS, not a calendar
+# day. `date.today()` is FORBIDDEN anywhere on this path: the runner is UTC and
+# Damla is UTC+3, so a run hand-triggered at 01:00 TRT opens a SECOND calendar
+# bucket for the same real day -- two days' worth of mail against one day's cap.
+# The monthly window is the rolling 30 days AND the calendar month, whichever
+# fills first: the docs do not define the month, so we take the tightest one.
+RESEND_DAILY_QUOTA = 100      # provider free tier, per rolling 24 hours
+DAILY_MAIL_CAP = 90           # the daily quota minus a ten-mail safety margin
+RESEND_MONTHLY_QUOTA = 3000   # hard ceiling; nothing at all passes this
+MONTHLY_BULLETIN_CAP = 2550   # 15% reserve for the inbound mail we cannot see
+
+# The unit that is spent is a MAIL, never a call: one request may carry up to
+# RESEND_MAX_RECIPIENTS addresses, and counting it as 1 would overshoot by 50x.
+MAIL_KINDS = frozenset({"bulletin", "confirm", "invite"})
+
+# Seeing one of these come BACK from the provider means our own counter was
+# wrong. Running out of quota is a plan; being told we ran out is a fault.
+PROVIDER_QUOTA_ERRORS = frozenset({"daily_quota_exceeded", "monthly_quota_exceeded"})
+
+DAILY_WINDOW = timedelta(hours=24)
+MONTHLY_WINDOW = timedelta(days=30)
 
 
 # --------------------------------------------------------------------- outcomes
@@ -63,6 +103,18 @@ class SoftFail:
     reason: str
     code: int | None = None
     name: str | None = None
+
+
+@dataclass(frozen=True)
+class QuotaHalt:
+    """PLANNED. The budget was gone, so the send was never ATTEMPTED.
+
+    Not a failure: nothing was asked of the provider, no address is suspect,
+    the mail is simply deferred to a run that has budget. This is the outcome
+    that distinguishes "we stopped" from "we were stopped".
+    """
+    reason: str       # "daily" | "monthly"
+    deferred: int     # mails not attempted by this call
 
 
 # A31 -- classification is READ, not invented.
@@ -151,6 +203,187 @@ def classify(status: int, name: str | None, message: str) -> HardBounce | SoftFa
     return SoftFail(message, status, name)
 
 
+# ---------------------------------------------------------------- quota ledger
+
+def _now() -> datetime:
+    """The ONE clock on the quota path, and it is UTC-aware.
+
+    Deliberately not date.today(): a naive calendar day is the bug this whole
+    section exists to prevent. Tests replace this function, never the windows.
+    """
+    return datetime.now(timezone.utc)
+
+
+def quota_path() -> Path:
+    """Derived from DATA at call time, so a sandboxed run cannot touch the live
+    ledger by forgetting to patch a second constant."""
+    return DATA / QUOTA_FILENAME
+
+
+def _atomic_write_json(target: Path, obj) -> None:
+    """Same discipline as save_state: temp file beside the target, then replace."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=str(target.parent),
+                               prefix=f".{target.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(obj, fh, indent=1)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, target)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
+
+
+class QuotaLedger:
+    """Every mail this account has sent recently, with a UTC stamp and a kind.
+
+    One record per accepted send: {"at": iso8601 utc, "kind": ..., "count": n}
+    where n is the number of RECIPIENTS, because that is what the provider
+    charges. Rejected calls are absent: a 4xx never reached the quota.
+    """
+
+    def __init__(self, path: Path):
+        self.path = path
+        raw = {}
+        if path.exists():
+            try:
+                raw = json.loads(path.read_text())
+            except (ValueError, OSError):
+                raw = {}
+        self.sends: list[dict] = list(raw.get("sends") or [])
+        # what the PREVIOUS run left behind, so a growing backlog is visible
+        self.previous_deferred = int(((raw.get("halted") or {}).get("deferred")) or 0)
+        self.deferred = 0
+        self.halt_reason: str | None = None
+        self.halt_at: str | None = None
+
+    # ------------------------------------------------------------- windows
+    @staticmethod
+    def _stamp(rec: dict) -> datetime | None:
+        try:
+            dt = datetime.fromisoformat(rec["at"])
+        except (KeyError, TypeError, ValueError):
+            return None
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+    def _sum(self, predicate) -> int:
+        total = 0
+        for rec in self.sends:
+            when = self._stamp(rec)
+            if when is not None and predicate(when):
+                total += int(rec.get("count") or 0)
+        return total
+
+    def used_today(self, now: datetime | None = None) -> int:
+        """Mails in the last 24 HOURS. Rolling, so a UTC/UTC+3 midnight cannot
+        hand the same real day two fresh buckets."""
+        now = now or _now()
+        return self._sum(lambda w: w > now - DAILY_WINDOW)
+
+    def used_month(self, now: datetime | None = None) -> int:
+        """The TIGHTER of the rolling 30 days and the calendar month.
+
+        The provider documents neither, so we refuse to pick the generous one.
+        """
+        now = now or _now()
+        rolling = self._sum(lambda w: w > now - MONTHLY_WINDOW)
+        calendar = self._sum(lambda w: (w.year, w.month) == (now.year, now.month))
+        return max(rolling, calendar)
+
+    def monthly_cap(self, kind: str) -> int:
+        """The bulletin stops early so confirm/invite still have room. A person
+        who cannot confirm is lost; a person who misses one digest is not."""
+        return MONTHLY_BULLETIN_CAP if kind == "bulletin" else RESEND_MONTHLY_QUOTA
+
+    def remaining_today(self, now: datetime | None = None) -> int:
+        return max(0, DAILY_MAIL_CAP - self.used_today(now))
+
+    def remaining_month(self, kind: str, now: datetime | None = None) -> int:
+        return max(0, self.monthly_cap(kind) - self.used_month(now))
+
+    # ------------------------------------------------------------ decisions
+    def would_exceed(self, kind: str, count: int,
+                     now: datetime | None = None) -> str | None:
+        """"daily" | "monthly" | None -- asked BEFORE anything is attempted."""
+        now = now or _now()
+        if self.used_today(now) + count > DAILY_MAIL_CAP:
+            return "daily"
+        if self.used_month(now) + count > self.monthly_cap(kind):
+            return "monthly"
+        return None
+
+    def record(self, kind: str, count: int, now: datetime | None = None) -> None:
+        now = now or _now()
+        self.sends.append({"at": now.isoformat(), "kind": kind, "count": int(count)})
+        self.save(now)
+
+    def defer(self, reason: str, count: int, now: datetime | None = None) -> None:
+        now = now or _now()
+        self.deferred += int(count)
+        if self.halt_reason is None:
+            self.halt_reason, self.halt_at = reason, now.isoformat()
+
+    def backlog_grew(self) -> bool:
+        return self.deferred > self.previous_deferred
+
+    # -------------------------------------------------------------- storage
+    def _prune(self, now: datetime) -> None:
+        """Drop what no window can see again. Keep whichever reaches further
+        back: 30 rolling days, or the first instant of this calendar month."""
+        month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+        cutoff = min(now - MONTHLY_WINDOW, month_start)
+        self.sends = [r for r in self.sends
+                      if (self._stamp(r) or now) >= cutoff]
+
+    def as_dict(self, now: datetime | None = None) -> dict:
+        """`halted` is ALWAYS present. Absence must never stand for a state:
+        a missing key reads as "no halt" whether the run was clean or the
+        writer crashed before it got there."""
+        now = now or _now()
+        halted = None
+        if self.halt_reason is not None:
+            halted = {"at": self.halt_at, "reason": self.halt_reason,
+                      "deferred": self.deferred}
+        return {"sends": self.sends, "halted": halted}
+
+    def save(self, now: datetime | None = None) -> None:
+        now = now or _now()
+        self._prune(now)
+        _atomic_write_json(self.path, self.as_dict(now))
+
+
+_LEDGER: QuotaLedger | None = None
+
+
+def ledger() -> QuotaLedger:
+    global _LEDGER
+    if _LEDGER is None:
+        _LEDGER = QuotaLedger(quota_path())
+    return _LEDGER
+
+
+def reset_ledger() -> QuotaLedger:
+    """Re-read the ledger from whatever DATA points at right now."""
+    global _LEDGER
+    _LEDGER = QuotaLedger(quota_path())
+    return _LEDGER
+
+
+def remaining_today(now: datetime | None = None) -> int:
+    """How many more mails may go out in the next instant.
+
+    Exported on purpose: S9b hands this straight to
+    sightstone_run_invites(daily_limit) so the seat opener cannot outrun the
+    mailer. Nothing here knows about seats.
+    """
+    return ledger().remaining_today(now)
+
+
 # -------------------------------------------------------------------- providers
 
 def unsubscribe_url(token: str | None) -> str:
@@ -191,18 +424,48 @@ def build_payload(from_addr: str, to: str, subject: str, html: str,
 
 
 class Provider:
-    """send() is the only throat. Subclasses implement deliver() only."""
+    """send() is the only throat. Subclasses implement deliver() only.
+
+    Because it is the only throat, it is also the only place a mail can be
+    counted, and the only place a send can be refused before it is attempted.
+    """
+
+    #: does traffic from this provider reach the account the quota is on?
+    #: True by default: a subclass that forgets to answer must be counted, not
+    #: silently exempted.
+    consumes_quota = True
 
     def __init__(self, from_addr: str):
         self.from_addr = from_addr
         self.payloads: list[dict] = []
 
-    def send(self, to: str, subject: str, html: str, *, text: str | None = None,
-             unsub_url: str | None = None) -> MessageId | HardBounce | SoftFail:
+    def send(self, to: str, subject: str, html: str, *, kind: str,
+             text: str | None = None, unsub_url: str | None = None
+             ) -> MessageId | HardBounce | SoftFail | QuotaHalt:
+        """`kind` is REQUIRED and closed. There is no default on purpose: the
+        three kinds share one budget but not one stop line, so a caller that
+        does not say which one it is cannot be guessed for."""
+        if kind not in MAIL_KINDS:
+            raise ValueError(f"unknown mail kind {kind!r}; "
+                             f"expected one of {sorted(MAIL_KINDS)}")
         payload = build_payload(self.from_addr, to, subject, html, text,
                                 unsub_url or unsubscribe_url(None))
+        # what the provider charges is one mail per ADDRESS, not per request
+        mails = len(payload["to"])
+        if self.consumes_quota:
+            book = ledger()
+            reason = book.would_exceed(kind, mails)
+            if reason:
+                # planned stop: deliver() is never called, so nothing is spent
+                # and no address is implicated.
+                book.defer(reason, mails)
+                return QuotaHalt(reason, mails)
         self.payloads.append(payload)
-        return self.deliver(payload)
+        result = self.deliver(payload)
+        if self.consumes_quota and isinstance(result, MessageId):
+            # only an accepted call cost us anything; a rejected 4xx did not.
+            ledger().record(kind, mails)
+        return result
 
     def deliver(self, payload: dict) -> MessageId | HardBounce | SoftFail:
         raise NotImplementedError
@@ -210,6 +473,8 @@ class Provider:
 
 class ResendProvider(Provider):
     """POST https://api.resend.com/emails with a Bearer token. stdlib only."""
+
+    consumes_quota = True   # the real account, the real budget
 
     def __init__(self, from_addr: str, api_key: str, timeout: int = 30):
         super().__init__(from_addr)
@@ -260,6 +525,10 @@ class DryRunProvider(Provider):
     no matter how the call site moves. It also keeps the payload (headers
     included) inspectable, which is what the dry run is for.
     """
+
+    #: nothing leaves the process, so nothing is charged. A rehearsal that ate
+    #: the real budget would be worse than no rehearsal.
+    consumes_quota = False
 
     def deliver(self, payload: dict) -> MessageId:
         return MessageId("dry-run")
@@ -365,7 +634,8 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
                        unsubscribe_token: str | None) -> str:
     """Match, mail if anything is new, update state in place.
 
-    Returns one of: sent | nothing_new | dry_run | hard_bounce | soft_fail.
+    Returns one of: sent | nothing_new | dry_run | quota_halt | quota_error |
+    hard_bounce | soft_fail.
     """
     results, stats = match.run(profile, jobs)
     sub_id = hashlib.sha1(email.encode()).hexdigest()[:12]
@@ -384,8 +654,14 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
         print(f"DRY RUN — would send to {email}: {subject}")
         return "dry_run"
 
-    result = provider.send(email, subject, as_html(body), text=body,
+    result = provider.send(email, subject, as_html(body), kind="bulletin",
+                           text=body,
                            unsub_url=unsubscribe_url(unsubscribe_token))
+    if isinstance(result, QuotaHalt):
+        # Nothing was attempted, so nothing is marked as mailed: the same
+        # listings must still reach this person on a run that has budget.
+        print(f"deferred {email}: quota exhausted ({result.reason})")
+        return "quota_halt"
     if isinstance(result, HardBounce):
         print(f"HARD BOUNCE {email}: {result.name or '-'} {result.code or ''} "
               f"{result.reason}")
@@ -393,6 +669,10 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
     if isinstance(result, SoftFail):
         print(f"SOFT FAIL {email}: {result.name or '-'} {result.code or ''} "
               f"{result.reason}")
+        # The provider telling US about the quota means our own counter was
+        # already wrong. That is a fault, not a plan, and the run must say so.
+        if result.name in PROVIDER_QUOTA_ERRORS:
+            return "quota_error"
         return "soft_fail"
     print(f"sent to {email}: {subject} [{result.id}]")
 
@@ -450,6 +730,7 @@ def main() -> None:
 
     jobs = json.loads((DATA / "jobs.json").read_text())
     state = load_state()
+    book = reset_ledger()   # read AFTER DATA is settled, never before
 
     # A25 -- ABONE IZOLASYONU. Every subscriber sits inside its own try. One
     # dead address, one provider failure, one unexpected exception: the run logs
@@ -457,8 +738,8 @@ def main() -> None:
     # somebody else. A28: there is no teardown around this loop that could
     # swallow the original exception -- the transport is a stateless POST, there
     # is nothing to quit().
-    tally = {"sent": 0, "nothing_new": 0, "dry_run": 0,
-             "hard_bounce": 0, "soft_fail": 0, "error": 0}
+    tally = {"sent": 0, "nothing_new": 0, "dry_run": 0, "quota_halt": 0,
+             "quota_error": 0, "hard_bounce": 0, "soft_fail": 0, "error": 0}
     processed = 0
     for email, profile, token in targets:
         processed += 1
@@ -480,8 +761,33 @@ def main() -> None:
     print(f"done: {mailed} mail(s) sent, {len(targets) - mailed} had nothing new.")
     print(f"summary: processed {processed}/{len(targets)} | sent {tally['sent']} | "
           f"nothing new {tally['nothing_new']} | dry run {tally['dry_run']} | "
+          f"quota halt {tally['quota_halt']} | quota error {tally['quota_error']} | "
           f"hard bounce {tally['hard_bounce']} | soft fail {tally['soft_fail']} | "
           f"error {tally['error']}")
+
+    # The ledger is written on EVERY run, halt or no halt, so that `halted`
+    # being null is a statement and not an absence.
+    book.save()
+    print(f"quota: {book.used_today()} mail(s) in the last 24h | "
+          f"{book.used_month()} this month | {book.remaining_today()} left today")
+    if book.halt_reason:
+        print(f"QUOTA HALT reason={book.halt_reason} deferred={book.deferred}",
+              file=sys.stderr)
+
+    # Four outcomes, in order of what they mean:
+    #  * the provider told us about the quota  -> our counter was wrong. FAULT.
+    #  * the backlog is bigger than last run's -> we are falling behind, and a
+    #    queue that grows must not read as a green run.
+    #  * a planned stop that did not grow      -> working as designed. 0.
+    #  * nothing happened                      -> 0.
+    if tally["quota_error"]:
+        print(f"EXIT: provider reported a quota error on {tally['quota_error']} "
+              f"send(s); the local counter is wrong", file=sys.stderr)
+        sys.exit(1)
+    if book.backlog_grew():
+        print(f"EXIT: deferred grew {book.previous_deferred} -> {book.deferred}",
+              file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == "__main__":

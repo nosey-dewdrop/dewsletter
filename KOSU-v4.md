@@ -2678,3 +2678,82 @@ Doğrusu: byte-pin yerine **şekil pin'i** (anahtar kümesi, key uzunlukları �
 - **DOĞRULANMADI:** Resend günlük kotasının tam sıfırlama mekaniği · aylık
   pencerenin takvim ayı mı fatura döngüsü mü olduğu (hiçbir sayfada yazmıyor) ·
   hesap olmadığı için hiçbir kota davranışı canlı doğrulanamadı.
+
+```
+## S9a — Kota patlamıyor — GEÇTİ
+ölçülen: 323 test yeşil (265 → 323, +58), 0 SKIP, eşik 289
+         · git status --porcelain engine/data BOŞ, engine/data BYTE-EŞ
+         · miras test_engine.py 15/15, blob 6bbd4a51… değişmedi
+         · schema.sql'e DOKUNULMAMIŞ (kademeli koltuk S9b'nin, açılmadı)
+         · BEŞ EŞİK — hakemin KENDİ harness'ı, ajanın testlerinden bağımsız:
+           a) 200 kayıt, SAATLİK adversarial koşu (10 gün, 240 tetik):
+              200/200 gönderildi, herhangi bir YUVARLANAN 24s penceresinde
+              MAKSİMUM 90. 100'e HİÇ DEĞMEDİ.
+           b) UTC+3 sınırı: 09:00 UTC koşusu 90 gönderdi; aynı gerçek gündeki
+              22:00 UTC (=01:00 TRT ertesi) koşusu 0 gönderdi, used_today=90.
+              TEK KOVA.
+           c) 2549 → bulletin geçer · 2550 → bulletin durur, confirm geçer ·
+              2999 → bulletin durur, confirm geçer · 3000 → İKİSİ DE durur
+           d) 50 alıcılı tek `to`: deftere 1 kayıt ama count: 50, used_today = 50
+           e) DryRunProvider × 500: defter 0 kayıt, quota_state.json HİÇ
+              yaratılmadı, engine/data byte-eş, remaining_today = 90
+         · BEŞ MUTASYON, BEŞİ DE KIRMIZI (hakemin kendi koşusu):
+           M1 emniyet payı 90→100 → 21 FAIL + 1 ERROR
+           M2 2550→2850 → 5 FAIL
+           M3 yuvarlanan → date.today() → 3 FAIL
+           M4 DryRunProvider.consumes_quota=True → 4 FAIL
+           M5 kind zorunluluğu kalksın → 7 FAIL
+         · S8a KAPISI SİLİNMEDİ, TERS ÇEVRİLDİ ve GERÇEK: hakem send_mail.py'ye
+           ikinci bir `SNEAKY_BULLETIN_CAP = 2550` koydu → KIRMIZI.
+           Kapı ayrıca "adı var ama yürürlükte değil" yalanını da kapatıyor:
+           DAILY_MAIL_CAP == RESEND_DAILY_QUOTA−10 ve rezerv == round(3000*0.15)
+           çivili.
+         · SAHTEKÂRLIK YOK: sabitler DAVRANIŞTAN ölçüldü (getattr'dan değil) ·
+           remaining_today() gerçek defteri okuyor · sandbox gerçek (her test
+           ayrı tempdir + DATA patch + sahte saat + soket kapalı) ·
+           `halted` anahtarı duruşsuz senaryoda da dosyada (`"halted": null`)
+         · `kind` EKSİK ÇAĞRI YOK: üretimde tek çağrı send_mail.py:657
+           kind="bulletin". build_site.py / match.py send() çağırmıyor.
+birikimli: S1 exit 0 · S4 matched 9 / 453 · S5b docs/u 2 dosya · S6 9 tekil
+         donmuş sha + FROZEN_SEATS · S7 mail_state sha 99d7660a… + job_key/sub_id
+         TEK SATIR değişmemiş · S8a send() tek boğaz, classify HardBounce 0,
+         List-Unsubscribe tek yerde, -Post 0, A25 9/10, A32 yeşil, ağ 0
+hakem notu: İki çelişki de gerçekten çözülmüş, beş mutasyon beş kırmızı,
+         ölçümler ajanın testlerinden bağımsız kendi harness'ımla tekrarlandı.
+```
+
+### KARTIN İKİ İÇ ÇELİŞKİSİ — ajan bildirdi, hakem karara bağladı
+
+**(1) Dosya oluşturma vs `git status` temizliği — KABUL EDİLEBİLİR.**
+Kart hem `quota_state.json` istiyor hem `git status --porcelain engine/data`
+BOŞ olsun diyordu; dosyayı yaratmak `??` üretir, eşiği kırar (commit yasak).
+Ajan dosyayı oluşturmadı, yolu `quota_path()` ile çağrı anında türetti.
+`daily.yml:46` `git add engine/data docs` **dizin** ekliyor ve `.gitignore`'da
+yok → dosya ilk gerçek koşuda otomatik commit'e girer. Çelişki çözülmüş.
+*(Hakemin ikincil bulgusu: `send_mail.py --dry-run` CLI koşusu dosyayı
+`{"sends": [], "halted": null}` olarak YARATIYOR — kartın 4. maddesi "her koşuda
+yazılır, HER ZAMAN halted" bunu zorunlu kılıyor. Kütüphane seviyesinde 500 dry
+send dosyayı hiç yaratmıyor. md.4 lehine çözüldü.)*
+
+**(2) Çıkış kodu 5. maddesi kendi içinde çelişiyordu.** "Planlı duruş → 0" ile
+"`deferred` büyüdüyse → ≠0" **ilk duruşta (0→N) çakışıyor.**
+Ajanın uyguladığı sıra (kodda 8 satır yorumla gerekçeli):
+`quota_error` > `backlog_grew` > planlı duruş/normal.
+Sonuç: ilk duruş (0→N) exit 1 · **sabit kuyruk (5→5) exit 0** · büyüyen (2→7)
+exit 1. **Niyet korunmuş** — "büyüyen kuyruk sessizce yeşil görünemez" canlı,
+"planlı duruş → 0" sabit/küçülen kuyrukta canlı. Testlerle çivili.
+
+### Hâlâ açık, S9b'den ÖNCE kapanması gereken
+
+**A33/1 — CI bugün hiç mail atamıyor.** `daily.yml` hâlâ `SMTP_USER`/`SMTP_PASS`
+veriyor, `RESEND_API_KEY` ve `MAIL_FROM` YOK → `send_mail.py` aboneleri okuyup
+"missing RESEND_API_KEY" deyip **exit 1**. **Kota defteri CI'da hiç yazılmıyor.**
+S8a'dan miras üretim boşluğu, S9a'nın suçu değil. → **S8b (Damla'nın panel işi).**
+
+**Belge–kod ayrışması:** `tools/measure.py --budget` hâlâ `KOSU-v4.md:504`'teki
+**2850**'yi okuyup "CELISKI" basıyor. **Kod 2550'de.** `tools/` ve `docs/`
+dokunulmaz olduğu için ajan düzeltemedi. → **S14.**
+
+**Not:** `--dry-run` CLI koşusu `engine/data`'ya boş defter yazıyor →
+`daily.yml`'ın `git add engine/data`'sı bunu commit eder. Zararsız (0 kayıt),
+bilinsin.

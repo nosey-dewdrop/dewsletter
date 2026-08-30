@@ -59,6 +59,8 @@ FAIL_AT = 5          # the 5th delivery is the one that goes wrong
 KEYS_PER_SUB = 12    # measured: "machine learning" is eligible for 12 listings
 
 _REAL_SOCKET = socket.socket
+_REAL_DATA = send_mail.DATA
+_MODULE_SANDBOX: Path | None = None
 
 
 def _no_network(*args, **kwargs):
@@ -66,11 +68,22 @@ def _no_network(*args, **kwargs):
 
 
 def setUpModule():
+    global _MODULE_SANDBOX
     socket.socket = _no_network
+    # S9a: the quota ledger's path is derived from send_mail.DATA, so pointing
+    # DATA at something disposable for the whole module means no test in here
+    # can write engine/data/quota_state.json even by accident.
+    _MODULE_SANDBOX = Path(tempfile.mkdtemp(prefix="s8a-data-"))
+    send_mail.DATA = _MODULE_SANDBOX
+    send_mail.reset_ledger()
 
 
 def tearDownModule():
     socket.socket = _REAL_SOCKET
+    send_mail.DATA = _REAL_DATA
+    send_mail.reset_ledger()
+    if _MODULE_SANDBOX is not None:
+        shutil.rmtree(_MODULE_SANDBOX, ignore_errors=True)
 
 
 # ------------------------------------------------------------------- fake wire
@@ -143,6 +156,9 @@ def run_main(data: Path, subs: list[dict], argv=("send_mail.py",),
             redirect_stdout(io.StringIO()) as out, \
             redirect_stderr(io.StringIO()) as err:
         send_mail.main()
+    # main() re-read the ledger from the sandbox it was given; put the process
+    # back on the module's own throwaway ledger so nothing leaks between tests.
+    send_mail.reset_ledger()
     return out.getvalue(), err.getvalue()
 
 
@@ -185,7 +201,8 @@ class OneThroat(unittest.TestCase):
     def test_send_returns_one_of_the_three_outcomes(self):
         p = RecordingProvider()
         RecordingProvider.reset()
-        self.assertIsInstance(p.send("a@b.c", "s", "<p>h</p>"), send_mail.MessageId)
+        self.assertIsInstance(p.send("a@b.c", "s", "<p>h</p>", kind="bulletin"),
+                              send_mail.MessageId)
 
     def test_no_third_party_package_is_imported(self):
         banned = ("requests", "resend", "sendgrid", "httpx", "aiohttp",
@@ -236,7 +253,8 @@ class ResendWire(unittest.TestCase):
         p = send_mail.ResendProvider("the engine <hi@example.test>", "re_abc123")
         with mock.patch.object(send_mail.urllib.request, "urlopen", fake_urlopen):
             out = p.send("who@example.test", "subject line", "<p>body</p>",
-                         text="body", unsub_url="https://x.test/u?token=t")
+                         kind="bulletin", text="body",
+                         unsub_url="https://x.test/u?token=t")
         return out, seen, p
 
     def test_post_to_the_documented_endpoint_with_a_bearer_token(self):
@@ -288,7 +306,8 @@ class ResendWire(unittest.TestCase):
         with mock.patch.object(send_mail.urllib.request, "urlopen",
                                mock.Mock(side_effect=AssertionError("wire touched"))):
             with self.assertRaises(ValueError):
-                p.send([f"a{i}@b.c" for i in range(51)], "s", "<p>h</p>")
+                p.send([f"a{i}@b.c" for i in range(51)], "s", "<p>h</p>",
+                       kind="bulletin")
             p_ok = send_mail.build_payload("x <a@b.c>",
                                            [f"a{i}@b.c" for i in range(50)],
                                            "s", "<p>h</p>", None, "https://x/u")
@@ -456,7 +475,7 @@ class A31Classification(unittest.TestCase):
                                         "message": "from the provider"})
                 with mock.patch.object(send_mail.urllib.request, "urlopen",
                                        mock.Mock(side_effect=err)):
-                    out = p.send("a@b.c", "s", "<p>h</p>")
+                    out = p.send("a@b.c", "s", "<p>h</p>", kind="bulletin")
                 self.assertIsInstance(out, expected)
                 self.assertEqual(out.code, code)
                 self.assertEqual(out.name, name)
@@ -466,7 +485,7 @@ class A31Classification(unittest.TestCase):
         p = send_mail.ResendProvider("x <a@b.c>", "re_k")
         with mock.patch.object(send_mail.urllib.request, "urlopen",
                                mock.Mock(side_effect=http_error(500, "<html>502</html>"))):
-            out = p.send("a@b.c", "s", "<p>h</p>")
+            out = p.send("a@b.c", "s", "<p>h</p>", kind="bulletin")
         self.assertIsInstance(out, send_mail.SoftFail)
 
 
@@ -514,7 +533,7 @@ class A32DryRun(unittest.TestCase):
         p = send_mail.DryRunProvider("x <a@b.c>")
         with mock.patch.object(send_mail.urllib.request, "urlopen",
                                mock.Mock(side_effect=AssertionError("wire touched"))):
-            out = p.send("a@b.c", "s", "<p>h</p>")
+            out = p.send("a@b.c", "s", "<p>h</p>", kind="bulletin")
         self.assertIsInstance(out, send_mail.MessageId)
         self.assertEqual(out.id, "dry-run")
 
@@ -683,7 +702,7 @@ class ListUnsubscribeOnEveryMail(unittest.TestCase):
         """build_payload is the only assembler, so it cannot be bypassed."""
         p = RecordingProvider()
         RecordingProvider.reset()
-        p.send("nobody@example.test", "s", "<p>h</p>")  # no unsub_url given
+        p.send("nobody@example.test", "s", "<p>h</p>", kind="bulletin")  # no unsub_url
         self.assertIn("List-Unsubscribe", RecordingProvider.payloads_all[0]["headers"])
 
     def test_the_body_still_carries_a_visible_way_out(self):
@@ -703,14 +722,49 @@ class ProductionIsUntouched(unittest.TestCase):
     def test_the_subscriber_query_still_excludes_the_unsubscribed(self):
         self.assertIn("unsubscribed_at=is.null", SRC)
 
-    def test_no_quota_constant_leaked_into_this_phase(self):
-        """S8a leaves the counter to S9: no 100/3000 seat or quota arithmetic."""
-        body = SRC.split("RESEND_MAX_RECIPIENTS", 1)[0] + \
-            SRC.split("RESEND_MAX_RECIPIENTS", 1)[1]
-        self.assertNotIn("3000", body)
-        for line in SRC.splitlines():
-            if re.search(r"\b100\b", line):
-                self.fail(f"a quota constant appeared in S8a: {line.strip()}")
+    # S8a's gate was "no quota constant may appear at all", which was right
+    # while the counter did not exist and is impossible now that it does. It is
+    # INVERTED here, not deleted: the danger it guarded against was a quota
+    # number appearing loose in the code, and that danger is unchanged. Every
+    # one of these values must appear on EXACTLY ONE line of send_mail.py, and
+    # that line must be its own named module constant. A magic 90 in the middle
+    # of a comparison, or a second copy of 2550 that drifts from the first, is
+    # the same failure the original test was written to catch.
+    QUOTA_CONSTANTS = {
+        "RESEND_DAILY_QUOTA": 100,
+        "DAILY_MAIL_CAP": 90,
+        "MONTHLY_BULLETIN_CAP": 2550,
+        "RESEND_MONTHLY_QUOTA": 3000,
+    }
+
+    def test_every_quota_constant_lives_on_exactly_one_named_line(self):
+        lines = SRC.splitlines()
+        for name, value in self.QUOTA_CONSTANTS.items():
+            with self.subTest(constant=name):
+                hits = [(i + 1, l) for i, l in enumerate(lines)
+                        if re.search(rf"(?<![\d.]){value}(?![\d.])", l)]
+                self.assertEqual(
+                    len(hits), 1,
+                    f"{value} must appear on exactly one line of send_mail.py, "
+                    f"found {[n for n, _ in hits]}")
+                ln, line = hits[0]
+                self.assertRegex(
+                    line, rf"^{name}\s*=\s*{value}\b",
+                    f"line {ln} uses {value} without naming it {name}: {line.strip()}")
+                self.assertEqual(getattr(send_mail, name), value)
+
+    def test_the_quota_constants_are_actually_the_ones_in_force(self):
+        """Named but unused would be the same lie as unnamed."""
+        self.assertEqual(send_mail.DAILY_MAIL_CAP,
+                         send_mail.RESEND_DAILY_QUOTA - 10,
+                         "the ten-mail safety margin is gone")
+        self.assertLess(send_mail.MONTHLY_BULLETIN_CAP,
+                        send_mail.RESEND_MONTHLY_QUOTA)
+        self.assertEqual(
+            send_mail.RESEND_MONTHLY_QUOTA - send_mail.MONTHLY_BULLETIN_CAP,
+            round(send_mail.RESEND_MONTHLY_QUOTA * 0.15),
+            "the reserve is 15%, not 5%: inbound mail eats the same quota and "
+            "this ledger cannot see it")
 
 
 if __name__ == "__main__":
