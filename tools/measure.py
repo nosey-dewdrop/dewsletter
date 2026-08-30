@@ -457,7 +457,7 @@ def cmd_double_send() -> int:
     for f in findings:
         print(f"  BULGU: {f}")
     print(f"YAPISAL BULGU SAYISI: {len(findings)}")
-    return dup_total
+    return dup_total + len(findings)
 
 
 # ---------------------------------------------------------------- --unconfirmed
@@ -727,8 +727,11 @@ def main() -> None:
         cmd_miss(args.miss)
     if args.budget is not None:
         cmd_budget(args.budget)
+    double_send_failed = False
     if args.double_send:
-        cmd_double_send()
+        # KAPI: tekrar eden anahtar VEYA yapisal bulgu varsa cikis 1. Cikis en
+        # sonda: --invariants ile birlikte cagrildiginda onun davranisi degismesin.
+        double_send_failed = cmd_double_send() != 0
     if args.unconfirmed:
         cmd_unconfirmed()
     if args.invariants:
@@ -737,6 +740,9 @@ def main() -> None:
         # ikisi de bugun kirmizi ve bu kartin kapsami disinda (S5b/D-fazlari).
         if any(counts[k] > 0 for k in ("D4", "D5", "D6", "D9")):
             sys.exit(1)
+
+    if double_send_failed:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -2180,3 +2180,83 @@ test soket açmıyor.**
 
 **A10 kapanmıyor, YARILANIYOR:** `--unconfirmed` bugün de exit 0 ve "1" basıyor.
 O yarı S10'a kalıyor.
+
+```
+## S7 — Aynı ilan iki kez gelmiyor — GEÇTİ
+ölçülen: 217 test yeşil (198 → 217, +19), 0 SKIP, hiçbir test soket açmıyor
+         · miras test_engine.py 15/15, blob 6bbd4a51… değişmedi
+         · mail_state.json sha 99d7660a… DEĞİŞMEDİ, engine/data'da .tmp artığı yok
+         · 6 donmuş sha + FROZEN_SEATS + c0477c0e… + ab44c922… dokunulmadı
+         · measure.py diff SINIR İÇİNDE: yalnız cmd_double_send dönüşü + main()
+           sonuna koşullu sys.exit. HAKEM BYTE-EŞLİĞİ DOĞRULADI — eski measure.py
+           geri konup koşuldu, --invariants çıktısı BYTE-ÖZDEŞ; --lifetime/--miss/
+           --budget/--unconfirmed de BYTE-ÖZDEŞ
+         · SİMÜLASYON (hakemin KENDİ harness'ı): 10 abone, 5.'de RuntimeError →
+           4 gönderim, diskte 4 sub_id / 48 anahtar, id'ler ilk 4'ün sha1'iyle
+           birebir. Tekrar koşu: ilk 4'e 0 MAİL, kalan 6'ya 6 mail. Üçüncü: 0.
+         · PROFİL DÜZENLEME (hakemin koşusu): dar filtre 22 → 22 kayıpsız, 0 mail;
+           geniş filtre 22 → 31 kayıpsız, 1 mail
+         · ATOMİKLİK: json.dump ortasında RuntimeError → dosya BAYT BAYT
+           DEĞİŞMEMİŞ, geçerli JSON, önceki içerik. os.replace tam 1 kez, tmp
+           hedefle AYNI dizinde (mkstemp(dir=parent)), aynı st_dev → gerçekten
+           atomik. fsync de var.
+         · MUTASYON 1 (toplu yazıma dön) → 3 kırmızı + --double-send exit 1
+           MUTASYON 2 (os.replace → yerinde open) → 2 kırmızı, biri kartta tarif
+             edilen ölüm biçiminin aynısı (JSONDecodeError: Unterminated string)
+           MUTASYON 3 (job_key tanımı) → 6 kırmızı
+         · ÖLÜ KAPI CANLANDI: faz öncesi kod + yeni measure → exit 1 (2 yapısal
+           bulgu). Bugünkü kod → exit 0. Eski measure + eski kod → exit 0
+           (kapı gerçekten ölüydü).
+         · SAHTEKÂRLIK YOK: 22 anahtarın 22'si canlı jobs.json'dan job_key ile
+           birebir üretiliyor (bulunmayan 0). Üç tanık literali de gerçek
+           linklerden ve canlı 22'nin içinden.
+birikimli: S1 exit 0 · S2 REPLAY 5c5495bc · S4 matched 9 / 453 · S5a esc silince
+         exit 1 · S5b docs/u 2 dosya · S6 217 test tek cluster'da OK
+hakem notu: Durum artık her başarılı gönderimden sonra aynı dizine tempfile+
+         os.replace ile atomik iniyor, üç mutasyonun üçü de kırmızı; kartın iki
+         literali uydurmaydı, ajan onları canlı veriden doğrulanabilir ve daha
+         geniş tanıklarla değiştirdi (ZORLAŞTIRMA).
+```
+
+### KARTIN İKİ LİTERALİ YANLIŞTI — ajan kodu bükmedi, doğrusu bu
+
+1. **`sub_id(su.bilge@ug.bilkent.edu.tr)` = `609be0e707e7`, `bd235c29a8fc` DEĞİL.**
+   `sub_id` düz `sha1[:12]` (`send_mail.py:130`), gizli tuz yok.
+2. **`gh_jid=8050772` `jobs.json`'da YOK** — yalnız ham fixture'da
+   (`speedyapply-intern-intl.md:145`) geçiyor. Kartın literali canlı veriden
+   gelmiyordu.
+
+**Ajanın ikamesi ZORLAŞTIRMA** (hakem üçünü de doğruladı): 1 literal yerine
+**3 job_key tanığı** (`gh_jid=8052351` → `5ce7cd2a22b03c93` · lever/equativ →
+`537d76cf38f0d773` · tiktok → `e244e71533c7491a`), üçü de `jobs.json`'da VAR ve
+üçü de canlı 22 `sent_keys`'in İÇİNDE. Üstüne **"22 anahtarın 22'si jobs.json'dan
+üretilir" süperset testi** + `sub_id` gerçek gönderim yolundan davranışsal olarak
+`609be0e707e7`'e çivilendi.
+
+### ⛔ A17 BÜYÜDÜ — CANLI ABONENİN KİMLİĞİ REPODA YOK
+
+Hakem repodaki **tüm dosyaları + `git log --all`**'u tarayıp 36 aday e-posta
+çıkardı. Hiçbiri (lower/upper/strip varyantlarıyla) `bd235c29a8fc` vermiyor.
+
+**Üretimde maili gitmiş abonenin adresi repodan türetilemiyor.** İki ihtimal:
+(a) Damla repoda hiç geçmeyen bir adresle kaydoldu, (b) gerçek bir yabancı abone
+var. **Hangisi olduğu bilinmiyor.** S12'de (gerçek gönderim) bu adam/kadın gerçek
+mail alacak — kim olduğu bilinmeden gönderim yapılmamalı. **A17'ye eklendi.**
+
+### ⚠ ÖLÜ KAPI CANLANDI AMA ZAYIF — hakemin ek mutasyonu
+
+Hakem `save_state`'i döngü DIŞINA taşıdı ama `write_text`/`if mailed:`
+string'lerini kullanmadan: **testler yakaladı (3 kırmızı), `measure.py` kapısı
+GÖRMEDİ** (yapısal bulgu 0, exit 0). Kapının taraması **metin/satır sezgisel,
+davranışsal değil** — oyunlanabilir. Güvenlik ağı testlerde, `measure`'da değil.
+Kayda geçti (**A27**, sahibi S14).
+
+### S7'nin diğer bulguları
+
+- `process_subscriber` her başarılı gönderimde TÜM state'i baştan yazıyor.
+  200 abonede 200 tam yazım + 200 `fsync`. Dosya ~2 KB, maliyet ihmal edilebilir,
+  ama abone sayısı büyürse **O(n²) bayt**. (kartsız)
+- `smtp_conn.quit()` `finally` içinde; SMTP kopmasında `quit()` de patlarsa
+  orijinal istisna **maskelenir**. S7'den bağımsız, dokunulmadı. (**A28**, S8)
+- `match.py`'de tarih kullanımı YOK → "12 eligible" sayısı takvimle kaymaz,
+  test yarın da aynı kalır.

@@ -20,6 +20,7 @@ import json
 import os
 import smtplib
 import sys
+import tempfile
 import urllib.request
 from datetime import date
 from email.mime.text import MIMEText
@@ -67,6 +68,31 @@ def load_state() -> dict:
     if STATE_FILE.exists():
         return json.loads(STATE_FILE.read_text())
     return {}
+
+
+def save_state(state: dict) -> None:
+    """Persist state ATOMICALLY: temp file in the same directory, then os.replace.
+
+    Never a partial mail_state.json on disk. A crash mid-write leaves the old
+    file untouched, so load_state() cannot die on a truncated JSON. Same
+    directory is required: os.replace is only atomic within one filesystem.
+    """
+    target = STATE_FILE
+    target.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(dir=str(target.parent),
+                               prefix=".mail_state.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(state, fh, indent=1)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, target)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
 
 
 def compose(new: list[dict], total: int, unsubscribe_token: str | None = None) -> str:
@@ -124,8 +150,14 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
     smtp_conn.send_message(msg)
     print(f"sent to {email}: {subject}")
 
+    # The mail is out. Persist BEFORE touching the next subscriber: if the run
+    # dies on subscriber n+1, what n already received must never be re-sent.
+    # Existing sent_keys are unioned, never reset -- a profile edit rescores,
+    # it does not un-send.
     state.setdefault(sub_id, {})["sent_keys"] = sorted(sent | {job_key(r) for r in new})
     state[sub_id]["last_sent"] = date.today().isoformat()
+    save_state(state)
+    print(f"state written: {STATE_FILE}")
     return True
 
 
@@ -180,9 +212,10 @@ def main() -> None:
         if smtp_conn:
             smtp_conn.quit()
 
-    if mailed:
-        STATE_FILE.write_text(json.dumps(state, indent=1))
-        print(f"state updated: {STATE_FILE}")
+    # No bulk write here on purpose: process_subscriber already flushed state to
+    # disk after every successful send. A write at this point could only ever be
+    # reached when nothing crashed, which is exactly the case that needed no
+    # protection.
     print(f"done: {mailed} mail(s) sent, {len(targets) - mailed} had nothing new.")
 
 
