@@ -1836,3 +1836,135 @@ iki kodlamayla da aynı sha'yı veriyor.
 o dosyayı DOKUNULABİLİR ilan etmesine rağmen. Ajan hiçbir guard kuralını devre
 dışı bırakmadı, kırmızı tabanı korumasız bir dosyada düzeltti, blok kendiliğinden
 kalktı. Aynı kural ileride bu dosyada tekrar tetiklenebilir.
+
+---
+
+## S6 · "KOLTUK MATEMATİĞİ TUTUYOR"
+
+### SAĞLIK KONTROLÜ — CANLI. ZEMİN'in tahmini YANLIŞ ÇIKTI.
+
+```
+POST https://xjtmqncfhuidctxgthhv.supabase.co/rest/v1/rpc/sightstone_seats
+HTTP 200   gövde: {"capacity": 100, "taken": 1}
+anon key ile çağrıldı, hiçbir secret gerekmedi.
+daily.yml secret'ları: SMTP_USER · SMTP_PASS · SUBSCRIBER_EMAIL · SUPABASE_SERVICE_KEY
+```
+
+34 gün hareketsizliğe rağmen proje ayakta. **ZEMİN'in "7 günde duraklatılır ve
+uyanmaz" satırı bu proje için ÇÜRÜDÜ.** Faz açıldı.
+
+### ✅ A14 KAPANDI — RLS GERÇEKTEN KORUYOR (hakem ölçtü)
+
+Üretimde anon key ile: `select=*` → **200, gövde `[]`** · `count=exact` →
+`content-range: */0` · PATCH/DELETE → 204, 0 satır.
+`sightstone_seats()` `taken=1` diyor ama anon **0 satır görüyor** → satır VAR,
+GÖRÜNMÜYOR. 204'ler tek başına kanıt olmadığı için hakem yerelde kesin kanıt aldı:
+
+```
+set role anon; select count(*)                    → 0   (owner aynı anda 100 görüyor)
+set role anon; update …                           → UPDATE 0
+set role anon; delete …                           → DELETE 0
+set role anon; insert (mail_consent=false)        → ERROR: violates RLS policy
+set role anon; insert (consent=true, kvkk=now())  → INSERT 0 1
+```
+
+Karta **regresyon testi** olarak girdi.
+**Yan bulgu:** masa doluyken consent'siz insert, RLS hatası değil "no seats left"
+veriyor — BEFORE INSERT trigger'ı RLS WITH CHECK'ten ÖNCE koşuyor. Güvenlik
+deliği değil (doluluk zaten `seats()` ile public), ama hata mesajı sırası bu.
+
+### SQL TEST MOTORU — var, ölçüldü
+
+`psql (PostgreSQL) 15.13 (Homebrew)`, `initdb`+`pg_ctl`+`psql` üçü de mevcut.
+Hakem `/tmp`'de geçici cluster kurdu, `schema.sql`'i `ON_ERROR_STOP=1` ile
+yükledi, exit 0, `select sightstone_seats()` çalıştı.
+**Testler CANLI SUPABASE'E KOŞMAZ** (ağ, secret, üretim kirletme). İki katman:
+(a) statik SQL ayrıştırma testleri — koşulsuz, CI dâhil;
+(b) davranış/eşzamanlılık testleri — `initdb` bulunduğunda, yoksa `skipUnless`.
+Böylece CI'daki 147 yeşil kalır, gerçek yarış Damla'nın makinesinde ölçülür.
+(Vanilla PG'de `anon` rolü yok; harness `create role anon` demeli.)
+
+### ⛔ TASLAK YANLIŞ SAYIYORDU — kapasite İKİ değil DÖRT yerde
+
+```
+engine/schema.sql:38   (trigger)
+engine/schema.sql:52   (seats() json)
+engine/data/seats.json
+engine/build_site.py:826  (fallback)
++ schema.sql:5 ve :34 yorumlarda → toplam 6 geçiş
+```
+
+**Donmuş sha çatışması YOK** (hakem ölçtü): `test_output_frozen.py` kendi
+`FROZEN_SEATS={"capacity":100,"taken":1}` sabitini `build_index`'e DOĞRUDAN
+veriyor; `seats.json`'u da `schema.sql`'i de okumuyor. Literal kapısı da güvende —
+`100` bir **int**, kapı yalnız `str` Constant sayıyor.
+
+### KART — YÜRÜRLÜKTE
+
+```
+KULLANICI CÜMLESİ : Koltuk doluysa bekleme listesine giriyorum, biri çıkınca
+                    sıra bana geliyor.
+
+İŞ:
+1. confirmed_at timestamptz. Kapasite 100 → 200, DÖRT kod yerinde birden
+   (schema.sql:38, schema.sql:52, engine/data/seats.json,
+    engine/build_site.py:826 fallback) + iki yorum satırı.
+2. Cap trigger'ının İLK satırı:
+   perform pg_advisory_xact_lock(hashtext('sightstone_seats'))
+3. Sayım: unsubscribed_at is null and (confirmed_at is not null or
+   created_at > now() - interval '48 hours')
+4. Sert bounce → unsubscribed_at yazılır.
+5. Bekleme listesi tablosu + davet akışı: koltuk boşaldı → en eski kişiye davet
+   → 48 saatte onaylarsa koltuk onun → onaylamazsa sıradakine.
+6. ÜÇ TERİMLİ SAYIM:
+   boş = kapasite − onaylı − (48s dolmamış onaysız) − (cevap bekleyen davetler)
+7. D8: boş koltuk varken kimse bekleyemez. Boş varsa form açık/liste boş; dolu
+   ise form kapalı/liste açık. İkisi aynı anda dolu OLAMAZ. Davet döngüsü günlük
+   koştuğu için gece boşalan koltukta ≤24 saatlik pencere oluşur — GİZLENMEZ,
+   schema.sql başına açık yorum olarak yazılır, kullanıcıya görünen cümlesi
+   S13'e devredilir.
+8. YENİ — RLS REGRESYON TESTİ: anon rolüyle select/update/delete 0 satır,
+   mail_consent=false insert RLS ile reddedilir. (A14 ölçümünü kilitler.)
+
+KABUL KOMUTU:
+python3 -m unittest discover engine/tests && python3 tools/measure.py --invariants
+
+EŞİK — her sayı hakemin ÖLÇTÜĞÜ sayı:
+· Mevcut 147 test yeşil kalır + yeni testler. test_engine.py blob 6bbd4a51…, 15/15.
+· 6 donmuş sha VE FROZEN_SEATS={"capacity":100,"taken":1} DEĞİŞMEZ.
+· measure.py --invariants D4/D5/D6/D9 = 0, exit 0.
+· Yerel efemeral PG 15.13 cluster'ında, 199 koltuk dolu iken 20 EŞZAMANLI insert
+  (her biri: begin; insert; pg_sleep(0.5); commit) → sonuç TAM 200, asla 201.
+  ⚠ Hakem bugün kilitsiz şemayla aynı deneyi 99/100 ile koştu: sonuç 119.
+  YARIŞ GERÇEK, 19 fazla koltuk. Advisory lock eklenince tam 100.
+· Onaysız kayıt 48 saat sonra koltuğu bırakır (saat ileri sarılarak ölçülür).
+· Kapasite DÖRT kod yerinde de 200; test bunu ayrıştırarak doğrular.
+· Aynı koltuğa iki davet gitmez.
+· MUTASYON 1: advisory lock satırı silinince eşzamanlılık testi KIRMIZI
+  (kilitsiz koşuda 119 ölçüldüğü için garanti).
+· MUTASYON 2: üçüncü terim (bekleyen davetler) çıkarılınca çift-davet testi KIRMIZI.
+· MUTASYON 3: dört yerden birinde 200 → 100 yapılınca tutarlılık testi KIRMIZI.
+
+DOKUNULABİLİR: engine/schema.sql · engine/tests/ · engine/data/seats.json ·
+engine/build_site.py:826 (YALNIZ fallback int'i, başka satır yok)
+DOKUNULMAZ: engine/data/jobs.json · fixtures/* · match.py · fetch/ ·
+send_mail.py · tools/ · docs/ · .github/workflows/daily.yml
+```
+
+**Hakemin zorlaştırdıkları:** kabul komutuna `--invariants` eklendi · "iki yerde
+200" → **dört yerde** (taslak yanlış sayıyordu) · "eşzamanlı 20 insert" varsayımı
+→ gerçek motor tanımlandı ve **kilitsiz halde 119 ölçülerek** eşiğin anlamlı
+olduğu kanıtlandı, eşik 199→200 kenarına çekildi · bir yerine **üç** mutasyon ·
+A14 kapatma testi karta girdi · donmuş sha/`FROZEN_SEATS` dokunma yasağı eşiğe yazıldı.
+
+### S6'nın açtığı yeni maddeler
+
+| # | ne | sahibi |
+|---|---|---|
+| A18 | ⛔ **`engine/data/seats.json` ÖLÜ VERİ.** Hiçbir kod yazmıyor (grep ile doğrulandı). Sonuç: `docs/index.html` sonsuza kadar **"capped at 100 / 99 seats left"** basıyor; gerçek sayı yalnız JS çalışırsa düzeliyor. **JS kapalı ziyaretçi, bot, RSS okuyucu YALAN görüyor.** S6 kapasiteyi değiştirdiği anda yalan büyüyor. Çözüm `daily.yml`'a "seats.json'u DB'den tazele" adımı ister, o da `SUPABASE_SERVICE_KEY` gerektiriyor → S6'nın yarıçapı dışı. | **S13** |
+| A19 | `send_mail.py:43` aboneleri `?unsubscribed_at=is.null` ile çekiyor. S6 `confirmed_at` ekleyince bu sorgu da güncellenmeli, yoksa **onaysız kayıtlara mail gider**. `send_mail.py` S6'nın DOKUNULABİLİR listesinde YOK — bilinçli, çünkü bu **S10'un işi** (D2). Yazılı borç. | **S10** |
+| A20 | `mail_state.json` son gönderim 2026-07-27 → günlük Actions ~34 gündür ya koşmuyor ya commit üretmiyor. **DOĞRULANMADI** — Actions koşu geçmişine bakılmadı (`gh` ile bakılabilir). | **S14** |
+
+A12 hakem tarafından **S13'e bırakıldı**, gerekçesi ölçüldü: tarayıcı yarısı
+`tools/`'ta (dokunulmaz), kaçış yarısı `build_site.py` yarıçapı dışı, ve
+`seats.json` bu karttan sonra da repo-statik kaldığı için D9 deliği **teorik**.
