@@ -1590,3 +1590,99 @@ atıf yanlış. Kayda geçti.
 **A10 daralttı ama kapanmadı:** `measure.py`'nin `--lifetime`, `--unconfirmed`,
 `--double-send` alt komutları HÂLÂ exit 0 dönüyor (hakem tek tek koştu).
 Yalnız `--invariants` kapıya bağlandı. D1/D2'nin hâlâ kapısı yok.
+
+---
+
+## ⛔ KOŞU S5b'DE DURDU — MİMARİ DUVAR. DAMLA'NIN KARARI GEREKİYOR.
+
+### Ne bulundu
+
+S5b hakemi kartı kesinleştirirken **fazın vaadini düşürmek zorunda kaldı** ve
+sebebi bir kod hatası değil, bir **mimari duvar**:
+
+```
+docs/ PUBLIC bir git reposunda. daily.yml her sabah
+  git add engine/data docs && git push
+yapıyor. docs/u/ altına yazılan HER ŞEY:
+  · dünyaya açık bir URL
+  · GitHub agac API'siyle SAYILABİLİR (noindex insanı kesmez)
+  · git geçmişine girer, silinse bile okunabilir
+```
+
+Bu yüzden hakem üç şeyi **ölçerek** reddetti:
+
+1. **`unsubscribe_token`'ı sayfa adı yapmak MUTLAK YASAK.** `schema.sql:21`
+   `unsubscribe_token uuid` + `schema.sql:69` `grant execute on
+   sightstone_unsubscribe(uuid) to anon`. Token public repoda olursa
+   **repoyu okuyan herkes her aboneyi abonelikten çıkarabilir.**
+2. **Türetilmiş token da çözmüyor** — bugün zaten bir sızıntı var, aşağıda A17.
+3. **Hiçbir entropi gizlilik satın almıyor.** 256 bit `secrets.token_hex` de
+   public repoda 4 bit kadar gizli. "Token tahmin edilemez" eşiği public repoda
+   ölçülemez değil, **YALAN**.
+
+### Hakemin kartı ne hâle getirdi
+
+`docs/u/matches.html` + `.xml`, **token YOK**, veri kaynağı yalnız `profile.json`
+(zaten public olan tek profil). Supabase'e ait tek alan basılmaz, testle kilitli.
+Teknik olarak doğru ve dürüst — ama:
+
+### ⛔ ŞEFİN GÖRDÜĞÜ, HAKEMİN GÖREMEDİĞİ: S10 KIRILIYOR
+
+Hakem yalnız kendi kartını görür. S10'un kartı aynen şunu diyor:
+
+> **Sessiz hafta politikası.** Onay mailine tek cümle:
+> *"Her sabah güncellenen kendi sayfandan bakabilirsin: <token>"*
+> **Token S5'te üretildi, link gerçek.**
+
+**O sayfa artık üretilmiyor.** S5b bir tek sayfa üretiyor: Damla'nınki.
+Yani S10'un aboneye vereceği link YOK. S5'in varlık gerekçesi ("kaçırma oranını
+bakmak isteyen için sıfıra indirir") **abone için değil, yalnız Damla için**
+gerçekleşiyor.
+
+Bu bir **kapsam düşürmesidir, zorlaştırma değil.** §0.2 gereği hakem bunu
+yapamaz; koşu durur.
+
+### Damla'nın vermesi gereken karar
+
+Abone başına özel sayfa **public GitHub Pages ile ÇÖZÜLEMEZ.** Üç yol, üçü de
+senin kararın — şef seçmez:
+
+| yol | bedeli | S10'a etkisi |
+|---|---|---|
+| **1. Kişi başına sayfa YOK.** S5b hakemin yazdığı gibi kalır (yalnız Damla'nın sayfası). | Bedava, bugün çalışır. | S10'un "sessiz hafta" cümlesi YENİDEN YAZILIR: sayfa vaat edilmez. Kaçırma oranı abone için düşmez. |
+| **2. `docs/` özel bir yere taşınır** (private repo + Pages, ya da başka host). | GitHub Pages private repo'da ÜCRETLİ. Damla'nın kararı PARA YOK → bu yol muhtemelen kapalı. | S10 olduğu gibi kalır. |
+| **3. Sayfa statik değil, DB'den okunan bir uç nokta olur** (Supabase RLS + token). | Supabase bedava katmanda var. Ama artık `build_site.py` işi değil, yeni bir yüzey; koşu kapsamını aşar. | S10 olduğu gibi kalır. |
+
+**Şefin önerisi: 1. yol**, ve S10'un kartı buna göre yeniden yazılsın.
+Gerekçe: 2 ücretli (Damla'nın kararına aykırı), 3 bu koşunun kapsamını aşıyor ve
+S12'nin sert durağını geciktirir. 1. yol dürüst: aboneye olmayan bir şey vaat
+etmiyoruz.
+
+### A17 — BUGÜN CANLI OLAN BİR SIZINTI (yeni, acil)
+
+`engine/data/mail_state.json` **commit'li ve public**, içinde `sha1(email)[:12]`
+= `bd235c29a8fc` duruyor. **Tahmin edilen bir e-posta adresinin bu servise abone
+olup olmadığı offline doğrulanabiliyor.** Bir üyelik oracle'ı. Bugün 1 abone var
+(Damla), 200 abonede bu KVKK sorunudur. Kendi kartını hak ediyor.
+**Sahibi: kartsız.**
+
+### S5b hakeminin ölçtüğü, karara girmesi gereken diğer şeyler
+
+- **`profile.json` public ve içinde `su.bilge@ug.bilkent.edu.tr` var.**
+  Repoda bilerek mi duruyor, bilinmiyor.
+- **D9 tarayıcısında ölçülmüş İKİ delik** (hakem deneyle buldu, A16 büyüdü):
+  (a) değişken adı filtresi `\b(job|j|r|sub|row)\b` — yeni döngü değişkeni
+  `entry`/`m` adlanırsa **kapı sessizce körleşir**;
+  (b) `href` adlı bir YERELE URL atamak, `^(root|canonical|href)$` beyaz listesi
+  yüzünden URL kontrolünü **bypass ediyor**.
+- **A15 kapatılamaz:** çakışan slug'ları düzeltmek `jobs_index` ve `job_pages`
+  sha'larını kırar, "5 sha değişmez" kapısıyla çatışır. Hakem borcu **16'da
+  çakılan bir tanık testine** bağlamayı önerdi.
+- `docs/robots.txt` bugün `Allow: /`; `unsubscribe.html` yalnız meta `noindex`
+  ile korunuyor, robots'ta engellenmiş değil.
+- `build_site.py:612-613`'te `if True else ""` ölü dal.
+- Supabase modundaki mail `pseudo_profile()` (yalnız level+interests) kullanıyor,
+  `profile.json` değil. **Sayfa ile mail aynı profili görmüyor** — hakem
+  "mailde ne gördüysen o" iddiasını YASAKLADI, doğru.
+
+**S5b ajanı doğurulmadı. S6-S14 koşulmadı.**
