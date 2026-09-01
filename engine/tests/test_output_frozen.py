@@ -54,8 +54,12 @@ FIXTURE_TOTAL = 599
 # freeze, and test_no_template_literal_moved still passes -- so this re-freeze
 # is the corpus speaking, not a template edit sneaking through.
 FROZEN_SURFACES = {
-    "index": (8226,
-              "4a34e3b0076b11c8d8060e82f30161a6a6a5e9b06962fee99e017401da4d285a"),
+    # re-frozen 2026-09-01 by S10's landing copy. The form used to say "you are
+    # in" the instant the row was inserted, which stopped being true when D2
+    # started holding unconfirmed rows back; and the consent line promised
+    # one-click unsubscribe on a page that answers POST with 405.
+    "index": (8462,
+              "e129dd9fe010559b716d4231c159ec9a970b5eda3071836c4b717ef97851f503"),
     "cv": (9295,
            "d2de8c1c76e9fee8762dfd69bbdda4f3e95ffb34d162441273bec455621ba6c2"),
     "jobs_index": (265046,
@@ -73,14 +77,14 @@ FROZEN_SURFACES = {
     "user_page": (2499,
                   "9f813001b6c6fade827d4edb6c2bc7399e2b0e2215317d9ff19d1f2d75017a4f"),
 }
-FROZEN_TOTAL_BYTES = 2096161 + 2499
+FROZEN_TOTAL_BYTES = 2096397 + 2499
 FROZEN_USER_FEED = (693,
                     "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "adf1b6ba43e9d95f9d4c4fcac86a8dda7eda6833794efc7d21bbd3d63f3dd8ec"
+CONSTANTS_BEFORE_S5A = "ec45ce6a83d11617fa9347074e825792fceb7eab61515c2ce5611ebf8f3e6255"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

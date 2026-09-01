@@ -185,5 +185,35 @@ class ConfirmPage(unittest.TestCase):
         shutil.rmtree(out, ignore_errors=True)
 
 
+class LandingPageTellsTheTruth(unittest.TestCase):
+    """The front page is where the promise is made. S10 changed the promise."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.form = build_site.FORM_HTML
+        cls.js = build_site.JOIN_JS
+
+    def test_the_form_says_a_confirmation_mail_comes_first(self):
+        self.assertIn("confirm this address", self.form.lower())
+
+    def test_it_no_longer_claims_you_are_in_on_submit(self):
+        """D2 holds the row back until it is confirmed, so 'you are in' was a
+        lie the moment the insert returned 201."""
+        self.assertNotIn("you are in", self.js.lower())
+
+    def test_the_success_message_sends_them_to_their_inbox(self):
+        self.assertIn("check your mail", self.js.lower())
+
+    def test_nothing_on_the_landing_page_promises_one_click_unsubscribe(self):
+        """POST to the unsubscribe page answers 405; measured 2026-09-01."""
+        for surface in (self.form, self.js):
+            self.assertNotIn("one click, ", surface.lower())
+            self.assertNotIn("one-click", surface.lower())
+
+    def test_an_already_registered_address_is_pointed_at_the_confirm_link(self):
+        """'already in' hid the real case: signed up, never confirmed."""
+        self.assertIn("already signed up", self.js.lower())
+
+
 if __name__ == "__main__":
     unittest.main()

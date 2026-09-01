@@ -167,6 +167,7 @@ def run_send_mail(data: Path, subs: list[dict], die_on=None) -> str:
     with mock.patch.object(send_mail, "DATA", data), \
             mock.patch.object(send_mail, "STATE_FILE", data / "mail_state.json"), \
             mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
+            mock.patch.object(send_mail, "pending_confirmations", lambda k: []), \
             mock.patch.object(send_mail, "ResendProvider", FakeProvider), \
             mock.patch.object(send_mail, "SupabaseSeats", StubSeats), \
             mock.patch.dict(os.environ, env, clear=True), \

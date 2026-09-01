@@ -59,7 +59,9 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     <div class="cvline">or upload a CV and the profile fills itself:
       <span class="tex">\includegraphics{your_cv.pdf}</span> <a href="cv.html">see what it reads</a></div>
     <div class="consent"><label><input id="f-consent" type="checkbox"> I consent to receiving match mails.
-      Unsubscribe is one click, data stays in the EU region, deletable any time (KVKK/GDPR).</label></div>
+      One mail comes first, to confirm this address is yours; nothing else is sent until you click it.
+      Leaving takes one click on the page linked in every mail. Data stays in the EU region,
+      deletable any time (KVKK/GDPR).</label></div>
     <button class="submit" type="submit">submit profile</button>
     <div id="join-msg" class="tabnote"></div>
   </form>
@@ -142,14 +144,14 @@ document.getElementById('join-form').addEventListener('submit', async e => {
   const r = await fetch(SB + '/rest/v1/sightstone_subscribers', {
     method: 'POST', headers: sbHeaders, body: JSON.stringify(body)});
   if (r.status === 201) {
-    msg.textContent = 'you are in. the first mail arrives when something new matches you.';
+    msg.textContent = 'check your mail. one link to click, and the seat is yours for good — it expires in 48 hours.';
     document.querySelector('#join-form .submit').disabled = true;
     const el = document.getElementById('seats-left');
     const m = el.textContent.match(/\d+/);
     if (m) el.textContent = (parseInt(m[0]) - 1) + ' seats left';
   } else {
     const t = await r.text();
-    if (r.status === 409) msg.textContent = 'this e-mail is already in.';
+    if (r.status === 409) msg.textContent = 'this address is already signed up. if you never clicked the confirm link, it is in your mail.';
     else if (t.includes('no seats left')) msg.textContent = 'no seats left. one person has to leave first.';
     else msg.textContent = 'could not save (' + r.status + '). try again in a minute.';
   }

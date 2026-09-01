@@ -530,6 +530,7 @@ class APlannedStopIsWrittenDown(QuotaCase):
         with mock.patch.object(send_mail, "STATE_FILE",
                                self.data / "mail_state.json"), \
                 mock.patch.object(send_mail, "fetch_subscribers", lambda k: subs), \
+                mock.patch.object(send_mail, "pending_confirmations", lambda k: []), \
                 mock.patch.object(send_mail, "ResendProvider", provider), \
                 mock.patch.object(send_mail, "SupabaseSeats", StubSeats), \
                 mock.patch.dict(os.environ, env, clear=True), \
