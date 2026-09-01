@@ -66,33 +66,33 @@ FROZEN_SURFACES = {
     # was written in SQL and unreachable from the site, so run_invites and
     # accept.html were dead code), and the showcase now prints the measured geo
     # cut so "matched: 1" reads as a hard profile instead of a broken engine.
-    "index": (15230,
-              "e238120ef904b0f893586915f6ea65a4bae75daad6e70c2f1954500f81ca25de"),
-    "cv": (9296,
-           "8fd87f669df359ca87d3689a63b6ab0ea273aa077cb198630b48d73261225be4"),
-    "jobs_index": (265046,
-                   "ec9c4790c3797e8356b268c189904621d311f6cb69808752a4ae78c700c551e8"),
-    "job_pages": (1811188,
-                  "3b31542ceced7a0e91543c2e9ce6f437ce2bcc5c7d2d3914e5fa2b8b2bda7efa"),
+    "index": (15243,
+              "e9b45788db61c6a20d4cbbcfb4be5aaccab38d1795ee6365c391b3149665a4ec"),
+    "cv": (9309,
+           "4b3d9ee0ee50798ef957cb7a99d3644c44051c01307217f66e5f9baa51e681a5"),
+    "jobs_index": (265059,
+                   "06fda06da9b4139420149774408bef420113bdcde23388634ff8495724492c86"),
+    "job_pages": (1818975,
+                  "3f07d414e926df6bc32cc963635f61ddc6e02a420bc20bcd6948073ef5ebdbe1"),
     # re-frozen 2026-09-01 by the S10 card. ONE literal moved and it is named
     # in the diff: "One-click unsubscribe." -> "Leave in one click, on this
     # page." The old string was false -- the page is static GitHub Pages and
     # POST answers 405, so RFC 8058 one-click is impossible on it.
-    "unsubscribe": (2406,
-                    "06cd1f67e45f45e58486e86b5e81c8f5951ccd11d6dfff3a83b6392e91b5b5cf"),
+    "unsubscribe": (2419,
+                    "c640f091702ba9177f82d1f219c04ece64654068ba254bf8507e7de8dc07fd26"),
     # S5b, the sixth surface. Built off the same frozen corpus, from the base
     # slug map (main() writes the collision-suffixed one to disk).
-    "user_page": (2499,
-                  "b8ec4dd7ca4f6542038b27ebba0075e54e9f3cb6b1c6eb68f1a67c9e0773e887"),
+    "user_page": (2512,
+                  "a7237a807e7754a2368ff218a980a74e5b042cd8f45649cccb227223d4dec82c"),
 }
-FROZEN_TOTAL_BYTES = 2105665
+FROZEN_TOTAL_BYTES = 2113517
 FROZEN_USER_FEED = (693,
                     "7c879008f9349fd3bf6892e34328aa61f00477fc61cc01eb57f5d68e9360d62b")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "2d38a659ba3da942f21922c9f7688396722e5947907840eabb0459823a142a11"
+CONSTANTS_BEFORE_S5A = "1ae534d102bb332b5735f66a0a44329e383d85f150762d3f5a8d65926e3b5bd6"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

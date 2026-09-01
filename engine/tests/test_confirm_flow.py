@@ -398,5 +398,43 @@ class ConfirmationsOnlyRun(unittest.TestCase):
         self.assertEqual(g, re.search(r"group:\s*(\S+)", daily).group(1))
 
 
+class StylesheetCannotBeServedStale(unittest.TestCase):
+    """GitHub Pages sends style.css with max-age=600 and no fingerprint.
+
+    For ten minutes after a deploy a returning visitor gets the OLD stylesheet
+    against the NEW html. That is not theoretical: it happened to Damla the
+    first time she looked at the restyle -- the big seat number rendered as
+    body text and the form floated off centre, because the rules for both had
+    simply not arrived yet. She reviewed a design she had never seen.
+    """
+
+    def test_every_page_asks_for_a_versioned_stylesheet(self):
+        import json as _json
+        import match
+        jobs = _json.loads((ENGINE / "data" / "jobs.json").read_text())
+        profile = _json.loads((ENGINE.parent / "profile.json").read_text())
+        results, stats = match.run(profile, jobs)
+        pages = {
+            "index": build_site.build_index(jobs, results, stats, 0,
+                                            {"capacity": 200, "taken": 1}),
+            "cv": build_site.build_cv_page(len(jobs)),
+            "confirm": build_site.build_confirm(),
+            "accept": build_site.build_accept(),
+            "unsubscribe": build_site.build_unsubscribe(),
+            "jobs": build_site.build_jobs_index(jobs),
+        }
+        for name, html in pages.items():
+            with self.subTest(page=name):
+                self.assertIn(f"style.css?v={build_site.CSS_VERSION}", html)
+                self.assertNotIn('href="style.css"', html)
+
+    def test_the_version_follows_the_stylesheet(self):
+        """A constant that does not move with the file is worse than none: it
+        would pin the stale copy forever instead of for ten minutes."""
+        import hashlib as _h
+        self.assertEqual(build_site.CSS_VERSION,
+                         _h.sha256(build_site.CSS.encode()).hexdigest()[:10])
+
+
 if __name__ == "__main__":
     unittest.main()

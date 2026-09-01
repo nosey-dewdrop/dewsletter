@@ -64,7 +64,10 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
    text still left-aligned: a centred headline over two buttons is the SaaS
    hero this site is deliberately not. No border, no box -- separation is
    whitespace, same as everywhere else here. */
-.algo#join { max-width:62ch; margin:0 auto 3.4rem auto; }
+/* Full measure, same left edge as the pitch. Centred-but-narrow read as
+   floating: everything around it runs the width of the sheet, so a short
+   column in the middle looks like it slipped rather than like a choice. */
+.algo#join { margin:0 0 3.4rem 0; }
 .algo#join .algo-cap { font-size:17px; }
 .algo-cap { font-size:15px; margin-bottom:.5rem; }
 /* Hierarchy by size, the way lulumelon does it: the number that decides

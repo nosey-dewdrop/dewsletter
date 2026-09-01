@@ -13,6 +13,7 @@ Output (docs/, served by GitHub Pages):
   docs/jobs/<slug>.html    one page per listing (SEO surface)
   docs/sitemap.xml, robots.txt
 """
+import hashlib
 import html
 import json
 import re
@@ -42,6 +43,12 @@ TODAY = date.today().strftime("%B %d, %Y")
 TODAY_ISO = date.today().isoformat()
 VERSION = f"v2 · built {TODAY_ISO}"
 
+# GitHub Pages answers style.css with max-age=600 and no fingerprint, so for
+# ten minutes after every deploy a returning visitor gets the OLD stylesheet
+# against the NEW html. That is how a restyle can look broken to the one person
+# checking it -- the big seat number rendered as body text and the form floated,
+# because the rules for both had simply not arrived. The URL now carries a hash
+# of the file, so changed CSS is a new URL and can never be served stale.
 FONTS = """
 @font-face { font-family:'Latin Modern'; src:url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-regular.woff2') format('woff2'); font-weight:normal; font-style:normal; font-display:swap; }
 @font-face { font-family:'Latin Modern'; src:url('https://cdn.jsdelivr.net/gh/vincentdoerig/latex-css@1.10.0/fonts/LM-bold.woff2') format('woff2'); font-weight:bold; font-style:normal; font-display:swap; }
@@ -110,7 +117,10 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
    text still left-aligned: a centred headline over two buttons is the SaaS
    hero this site is deliberately not. No border, no box -- separation is
    whitespace, same as everywhere else here. */
-.algo#join { max-width:62ch; margin:0 auto 3.4rem auto; }
+/* Full measure, same left edge as the pitch. Centred-but-narrow read as
+   floating: everything around it runs the width of the sheet, so a short
+   column in the middle looks like it slipped rather than like a choice. */
+.algo#join { margin:0 0 3.4rem 0; }
 .algo#join .algo-cap { font-size:17px; }
 .algo-cap { font-size:15px; margin-bottom:.5rem; }
 /* Hierarchy by size, the way lulumelon does it: the number that decides
@@ -214,6 +224,10 @@ td.num { white-space:nowrap; }
 }
 """
 
+# Fingerprint of the stylesheet, appended to its URL. Short on purpose: this is
+# a cache key, not a checksum anybody reads.
+CSS_VERSION = hashlib.sha256(CSS.encode()).hexdigest()[:10]
+
 RAINBOW_JS = """
 document.querySelectorAll('.rainbow').forEach(el => {
   let i = 0;
@@ -279,7 +293,7 @@ def page(title, description, canonical, root, active, body, extra_head="", scrip
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
 <link rel="canonical" href="{canonical}">
-<link rel="stylesheet" href="{root}style.css">
+<link rel="stylesheet" href="{root}style.css?v={CSS_VERSION}">
 {extra_head}
 </head>
 <body>
