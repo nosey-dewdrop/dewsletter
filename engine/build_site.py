@@ -49,13 +49,22 @@ FONTS = """
 """
 
 CSS = FONTS + """
-:root { --ink:#111; --paper:#fff; --link:#0b4fa8;
-  --red:#c22a1e; --orange:#d2600a; --ochre:#b8860b;
-  --green:#1a7a3c; --blue:#0b4fa8; --violet:#6b2fa8; }
+/* The world is lulumelon's, by Damla's choice (1 Sep): her tokens, not an
+   interpretation of them -- read straight out of that project's globals.css.
+   Monospace everywhere, lilac paper rather than white, deep-purple ink, and
+   dark terminal panels for anything that is real output. */
+:root { --paper:#f7f0fa; --paper-deep:#ece0f2; --ink:#241029; --ink-soft:#6b4f78;
+  --rule:#dcc9e6; --lilac:#7b3fa8; --pink:#c8286f; --link:#7b3fa8;
+  --term-bar:#3a3a3a; --term-bg:#1c1c1c; --term-text:#d0d0d0;
+  --term-bright:#ffffff; --term-muted:#8a8a8a; --term-rule:#3a3a3a;
+  --term-coral:#cf8b7d; --term-lilac:#c397d8; --term-green:#7fb069;
+  --light-red:#ff5f57; --light-yellow:#febc2e; --light-green:#28c840;
+  --red:#c8286f; --orange:#cf8b7d; --ochre:#b8860b;
+  --green:#7fb069; --blue:#7b3fa8; --violet:#6b2fa8; }
 * { margin:0; padding:0; box-sizing:border-box; }
 html { background:var(--paper); scroll-behavior:smooth; }
-body { font-family:'Latin Modern','Computer Modern',Georgia,serif; color:var(--ink);
-  background:var(--paper); font-size:15.5px; line-height:1.52; }
+body { font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  color:var(--ink); background:var(--paper); font-size:14px; line-height:1.6; }
 a { color:var(--link); text-decoration:none; }
 a:hover { text-decoration:underline; }
 u { text-decoration-thickness:1px; text-underline-offset:2.5px; }
@@ -110,8 +119,8 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }
 .field label { font-style:italic; font-size:14.5px; }
 .field input[type=text], .field input[type=email], .field select {
-  font-family:inherit; font-size:14.5px; color:var(--ink);
-  border:none; border-bottom:.8px solid #b5b5b5; background:transparent;
+  font-family:inherit; font-size:14px; color:var(--ink);
+  border:none; border-bottom:.8px solid var(--rule); background:transparent;
   padding:.1rem 0; width:100%; border-radius:0; outline:none; transition:border-color 150ms ease; }
 .field input:focus, .field select:focus { border-bottom-color:var(--link); }
 .cvline { margin:.9rem 0; font-size:14px; }
@@ -136,8 +145,8 @@ table { border-collapse:collapse; margin:.3rem 0 .4rem 0; font-size:14px; }
 th { font-weight:bold; }
 th, td { padding:.3rem 0 .3rem 3rem; text-align:right; }
 td:first-child, th:first-child { padding-left:0; text-align:left; }
-thead tr { border-top:1px solid var(--ink); border-bottom:.6px solid var(--ink); }
-tbody tr:last-child { border-bottom:1px solid var(--ink); }
+thead tr { border-top:1px solid var(--rule); border-bottom:.6px solid var(--rule); }
+tbody tr:last-child { border-bottom:1px solid var(--rule); }
 .tabnote { font-size:13px; margin-top:.6rem; }
 
 table.wide { width:100%; font-size:13.8px; }
@@ -146,6 +155,21 @@ table.wide th:last-child, table.wide td:last-child { padding-right:0; }
 td.co { font-variant:small-caps; white-space:nowrap; }
 td.pos { font-style:italic; }
 td.num { white-space:nowrap; }
+
+/* Real output, in the chrome of the thing it comes from. Not a picture of a
+   terminal: real text in real DOM, selectable and readable aloud. */
+.term { background:var(--term-bg); color:var(--term-text); margin:0 0 3.4rem 0;
+  font-size:12.5px; line-height:1.62; }
+.term-bar { background:var(--term-bar); padding:.42rem .7rem; display:flex;
+  align-items:center; gap:.45rem; }
+.term-dot { width:11px; height:11px; border-radius:50%; display:inline-block; }
+.term-title { color:var(--term-muted); margin-left:.6rem; font-size:11.5px; }
+.term-body { padding:1rem 1.1rem 1.15rem 1.1rem; white-space:pre-wrap;
+  overflow-x:auto; }
+.term-body .k { color:var(--term-coral); }
+.term-body .g { color:var(--term-green); }
+.term-body .m { color:var(--term-muted); }
+.term-body .b { color:var(--term-bright); }
 
 .twocol { column-count:2; column-gap:16mm; margin-top:.6rem; }
 .bib { list-style:none; counter-reset:bib; font-size:13.8px; }
@@ -499,6 +523,8 @@ def build_index(jobs, results, stats, dupes_removed, seats):
 <b>{n} live AI/ML internship listings</b>, scores each one against your profile, and
 <b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
 you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
+
+{bulletin_panel(results, n)}
 
 {form_html}
 
@@ -854,6 +880,43 @@ else fetch(SB + '/rest/v1/rpc/sightstone_accept_invite', {{
 def write_accept(root):
     """Owns the filename too, so main() gains a call and not a literal."""
     (root / "accept.html").write_text(build_accept())
+
+
+def bulletin_panel(results, total, min_score=4):
+    """Today's REAL bulletin, in the chrome of a terminal.
+
+    The page's whole claim is "every match carries its named reasons". Saying
+    that is cheap; showing the actual mail is not, and it is the one thing a
+    visitor actually wants to see before handing over an address. This is the
+    mail send_mail would compose right now for the sample profile -- same
+    function, same corpus, same threshold -- not a mock-up of one.
+    """
+    import send_mail
+    new = [r for r in results if r["score"] >= min_score]
+    body = send_mail.compose(new, total, None)
+    out = []
+    for line in body.splitlines():
+        e = esc(line)
+        if re.match(r"^\[\s*\d+\]", line):
+            out.append(f'<span class="b">{e}</span>')
+        elif line.strip().startswith("why:"):
+            out.append(f'<span class="g">{e}</span>')
+        elif line.startswith("--") or line.startswith("the engine") or line.startswith("dewsletter"):
+            out.append(f'<span class="m">{e}</span>')
+        elif line.strip().startswith("http"):
+            out.append(f'<span class="m">{e}</span>')
+        else:
+            out.append(e)
+    return f'''
+<div class="term">
+  <div class="term-bar">
+    <span class="term-dot" style="background:var(--light-red)"></span>
+    <span class="term-dot" style="background:var(--light-yellow)"></span>
+    <span class="term-dot" style="background:var(--light-green)"></span>
+    <span class="term-title">this morning\u2019s mail, for the sample profile</span>
+  </div>
+  <div class="term-body">{"<br>".join(out)}</div>
+</div>'''
 
 
 def write_board(root, jobs):
