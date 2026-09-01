@@ -3049,3 +3049,35 @@ orası kartın kendi DOKUNULABİLİR listesinde.
 ```
 KABUL : python3 -m unittest discover engine/tests   -> 429 yesil, 0 skip
 ```
+
+## S12 — Mail geldi ve spam'e düşmedi — İNSANDA, teknik taraf HAZIR
+
+Bu faz bilerek insanda kalıyor: ajanın posta kutusu yok, dört sağlayıcıda hesabı
+yok, ve "spam'e düştü mü"nün tek dürüst cevabı kutuya bakmaktır. Ölçülebilir olan
+her şey ölçüldü ve `GIRDI/teslimat/sonuc.md`'ye yazıldı: alan adı doğrulanmış,
+DMARC yayında ve **hizalı** (gönderen, SPF ve DKIM üçü de `mail.noseydewdrop.com`),
+`List-Unsubscribe` her mailde, `List-Unsubscribe-Post` bilerek yok, text+html
+ikisi de var, gövde %4,2 büyük harf / 0 ünlem / 0 tetik kelime, bir gerçek
+gönderim **delivered**.
+
+**Gizlenmeyen zayıflık:** alan adı bugün doğrulandı, itibar sıfırdan başlıyor.
+Yeni alan adının ilk haftalarda Promosyonlar'a düşmesi normaldir; kart
+Promosyonlar'ı kabul ediyor, spam'i etmiyor.
+
+Damla'ya kalan tek iş dört adrese kaydolup ertesi sabah dört kutuya bakmak.
+Dördü aynı gece kaydolursa dördü de tek koşuda gider.
+
+---
+
+## KOŞUNUN DURUMU — 1 Eyl 2026 kapanışı
+
+**GEÇEN:** S1 · S2 · S3 · S4 · S5a · S5b · S6 · S7 · S8a · S9a · **S9b (hakem)** ·
+**S10** · **S11** · **S13** · **S14**
+**İNSANDA:** S8b (Resend hesabı — **YAPILDI**, alan adı doğrulandı) · **S12** (dört kutu)
+
+**429 test yeşil, 0 skip.** Üç kapı da exit 0. CI tam geçmişi çekiyor ve
+postgres'i PATH'e koyuyor; ikisi de olmadan sessizce eksik koşuyordu.
+
+**Bitiş şartı karşılandı:** bir yabancı siteye girer, kaydolur, onay maili gelir,
+tıklar, bülteni alır, ilana başvurur, isterse çıkar. Koltuk doluysa kuyruğa girer.
+Altı yüzeyin altısı canlı. Gerçek mail teslim edildi.
