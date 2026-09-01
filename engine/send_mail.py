@@ -1117,6 +1117,14 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
+    # Confirmations ride a separate, frequent workflow. Riding the daily run
+    # meant somebody who signed up at noon got their confirm link the NEXT
+    # morning: all the friction of double opt-in and none of its immediacy,
+    # which is the worst of both and loses most signups. This flag lets a small
+    # job send only those, often, without touching bulletins, invites or the
+    # one-a-day rule.
+    ap.add_argument("--confirmations-only", action="store_true",
+                    help="send pending confirmation mails and nothing else")
     # 4 == "at least one INTEREST hit" on the current scale (interest +4 each,
     # skill +2 each). It was 5 when geography and freshness still scored, where
     # 5 meant "one interest hit plus any padding". Those points are gone, so 5
@@ -1179,6 +1187,14 @@ def main() -> None:
             # never let the front door take the bulletins down with it
             print(f"ERROR confirmations: {type(exc).__name__}: {exc}",
                   file=sys.stderr)
+
+    if args.confirmations_only:
+        # The whole point of the frequent job: confirm links go out in minutes
+        # instead of tomorrow, and nothing else moves. No bulletin, no invite,
+        # no one-a-day bookkeeping -- so running this every few minutes cannot
+        # change what anybody's morning looks like.
+        print("confirmations-only run: no bulletins, no invites")
+        return
 
     # A25 -- ABONE IZOLASYONU. Every subscriber sits inside its own try. One
     # dead address, one provider failure, one unexpected exception: the run logs

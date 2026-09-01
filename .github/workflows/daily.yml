@@ -9,7 +9,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: daily
+  # Shared with confirm.yml: both commit engine/data, and two runs
+  # racing over the same ledger lose one of them.
+  group: mail-state
   cancel-in-progress: false
 
 jobs:

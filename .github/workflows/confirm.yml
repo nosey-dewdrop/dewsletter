@@ -1,0 +1,58 @@
+# Confirmation mails, often. Nothing else.
+#
+# The confirm link used to ride the daily run, so somebody who signed up at
+# noon got it the NEXT morning: all the friction of double opt-in and none of
+# its immediacy. That loses most signups, and a confirm link that arrives a day
+# late is worse than either extreme.
+#
+# Sending it instantly would need a server-side hook on the insert; this repo
+# is a static site and a cron. Every fifteen minutes is the closest thing that
+# needs no server, and it turns a day of waiting into minutes.
+#
+# It deliberately CANNOT send a bulletin: --confirmations-only returns before
+# the send loop, so running this often cannot change anybody's daily rhythm or
+# spend the bulletin budget.
+name: confirmations
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mail-state          # never race the daily run over engine/data
+  cancel-in-progress: false
+
+jobs:
+  confirm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: send pending confirmations
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_FROM: "dewsletter <news@mail.noseydewdrop.com>"
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python3 engine/send_mail.py --confirmations-only
+
+      # confirm_state.json is the "mailed once, ever" ledger. Losing it means
+      # mailing somebody their confirm link again, so it is committed even when
+      # the send step failed -- some of it may already have been written.
+      - name: commit the confirmation ledger
+        if: always()
+        run: |
+          git config user.name "dewsletter"
+          git config user.email "actions@users.noreply.github.com"
+          git add engine/data/confirm_state.json engine/data/quota_state.json || true
+          git diff --cached --quiet && echo "nothing to record" && exit 0
+          git commit -m "confirmations: ledger ($(date -u +%FT%H:%MZ))"
+          git pull --rebase --autostash
+          git push

@@ -361,5 +361,42 @@ class TheShowcaseExplainsItsOwnNumber(unittest.TestCase):
         self.assertNotIn("BS, remote-ok", self.html)
 
 
+class ConfirmationsOnlyRun(unittest.TestCase):
+    """The frequent job may send confirm links and NOTHING else.
+
+    It runs every fifteen minutes. If it could reach the bulletin path it would
+    also reach the one-bulletin-a-day rule and the daily budget, and "we mail
+    you when something new matches" would quietly become "we mail you whenever
+    a cron fires".
+    """
+
+    def test_the_flag_exists_and_is_what_the_workflow_calls(self):
+        src = (ENGINE / "send_mail.py").read_text()
+        self.assertIn('"--confirmations-only"', src)
+        wf = (ENGINE.parent / ".github" / "workflows" / "confirm.yml").read_text()
+        self.assertIn("send_mail.py --confirmations-only", wf)
+
+    def test_it_returns_before_the_send_loop(self):
+        """Ordering is the whole guarantee: confirmations are sent above this
+        line, bulletins below it."""
+        src = (ENGINE / "send_mail.py").read_text()
+        stop = src.index("if args.confirmations_only:")
+        self.assertLess(src.index("send_confirmations(pending_confirmations"), stop)
+        self.assertLess(stop, src.index("targets = rank_targets("))
+
+    def test_the_frequent_job_never_touches_the_bulletin_budget(self):
+        wf = (ENGINE.parent / ".github" / "workflows" / "confirm.yml").read_text()
+        self.assertNotIn("build_site", wf)
+        self.assertNotIn("fetch_speedyapply", wf)
+
+    def test_it_shares_a_concurrency_group_with_the_daily_run(self):
+        """Both commit engine/data; racing them corrupts a ledger."""
+        wf = (ENGINE.parent / ".github" / "workflows" / "confirm.yml").read_text()
+        daily = (ENGINE.parent / ".github" / "workflows" / "daily.yml").read_text()
+        import re
+        g = re.search(r"group:\s*(\S+)", wf).group(1)
+        self.assertEqual(g, re.search(r"group:\s*(\S+)", daily).group(1))
+
+
 if __name__ == "__main__":
     unittest.main()
