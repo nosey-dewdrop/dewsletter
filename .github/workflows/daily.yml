@@ -25,8 +25,19 @@ jobs:
       - name: fetch listings
         run: python3 engine/fetch_speedyapply.py
 
+      # The seat cap is a trigger, not python. pg_harness spins up a throwaway
+      # cluster to prove the advisory lock actually works (without it 20
+      # concurrent inserts put 119 people in a 100-seat table). ubuntu-latest
+      # ships postgres but leaves it off PATH, so the whole SQL suite was
+      # silently not collected: CI ran 357 tests where a clean checkout runs
+      # 409, and the 52 missing ones were every seat, RLS and invite test.
+      - name: put postgres on PATH
+        run: ls -d /usr/lib/postgresql/*/bin | tail -1 >> "$GITHUB_PATH"
+
       - name: run tests
-        run: python3 -m unittest discover engine/tests -v
+        run: |
+          command -v initdb >/dev/null || { echo "initdb missing: the SQL suite would skip"; exit 1; }
+          python3 -m unittest discover engine/tests
 
       - name: build site
         run: python3 engine/build_site.py
