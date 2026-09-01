@@ -29,6 +29,15 @@ SUPABASE_ANON = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
                  "G1xbmNmaHVpZGN0eGd0aGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTQ5NTcsImV4cCI6"
                  "MjA5OTQ3MDk1N30.xQ2-SY7gT1BsI7isodRgKtaqyDSIzjDbgHyjOYMt_8g")  # public by design, RLS protects
 ROOT = Path(__file__).parent.parent / "docs"
+
+# Measured 2026-09-01 over every schedule-triggered run of daily.yml
+# (`gh run list --workflow=daily.yml --json event,createdAt`, event == schedule).
+# The cron asks for 06:00 UTC; GitHub's scheduler is best-effort and says so.
+# Hardcoded because build_site must stay hermetic -- it may not call the GitHub
+# API to render a page. Re-measure with the command above if it drifts.
+SCHEDULE_RUNS = 37
+SCHEDULE_MEDIAN_LATE_MIN = 78      # median actual build: 10:18 TRT
+SCHEDULE_WORST_LATE = "12 hours late, at 21:06"
 TODAY = date.today().strftime("%B %d, %Y")
 TODAY_ISO = date.today().isoformat()
 VERSION = f"v2 · built {TODAY_ISO}"
@@ -331,7 +340,7 @@ def build_index(jobs, results, stats, dupes_removed, seats):
 <div class="maketitle">
   <h1>Deterministic Matching of Student Profiles<br>to Startup Internships</h1>
   <div class="author">the engine, <a href="https://noseydewdrop.com">noseydewdrop.com</a></div>
-  <div class="date">{TODAY} &middot; updated daily at 09:00 UTC+3</div>
+  <div class="date">{TODAY} &middot; rebuilt once a day</div>
 </div>
 
 <p class="pitch">You write down what you can do. Every morning the engine reads
@@ -386,7 +395,11 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 </section>
 
 <div class="footnote">* The dataset is public; your profile is not. Mails are sent only
-when a new listing matches your profile.</div>
+when a new listing matches your profile. The rebuild is asked for at 09:00 UTC+3,
+but the scheduler running it is best-effort and does not promise a time: measured
+over {SCHEDULE_RUNS} scheduled runs, the median build landed {SCHEDULE_MEDIAN_LATE_MIN} minutes late and the
+latest landed {SCHEDULE_WORST_LATE}. So: once a day, most often in the morning, never guaranteed
+to the minute.</div>
 <div class="pagenum">1</div>
 <div class="version">{VERSION}</div>
 """

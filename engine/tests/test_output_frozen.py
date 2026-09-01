@@ -58,8 +58,12 @@ FROZEN_SURFACES = {
     # in" the instant the row was inserted, which stopped being true when D2
     # started holding unconfirmed rows back; and the consent line promised
     # one-click unsubscribe on a page that answers POST with 405.
-    "index": (8462,
-              "e129dd9fe010559b716d4231c159ec9a970b5eda3071836c4b717ef97851f503"),
+    # re-frozen again by S13: the header claimed "updated daily at 09:00 UTC+3".
+    # Measured over 37 scheduled runs the median build lands 78 minutes late and
+    # one landed 12 hours late, so the page named a time it does not keep. It
+    # now says "rebuilt once a day" and the footnote carries the measurement.
+    "index": (8761,
+              "f6bdf5aacea1046b85652d3682239531b21dfb5627379808989a1806dafcd134"),
     "cv": (9295,
            "d2de8c1c76e9fee8762dfd69bbdda4f3e95ffb34d162441273bec455621ba6c2"),
     "jobs_index": (265046,
@@ -77,14 +81,14 @@ FROZEN_SURFACES = {
     "user_page": (2499,
                   "9f813001b6c6fade827d4edb6c2bc7399e2b0e2215317d9ff19d1f2d75017a4f"),
 }
-FROZEN_TOTAL_BYTES = 2096397 + 2499
+FROZEN_TOTAL_BYTES = 2096696 + 2499
 FROZEN_USER_FEED = (693,
                     "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "ec45ce6a83d11617fa9347074e825792fceb7eab61515c2ce5611ebf8f3e6255"
+CONSTANTS_BEFORE_S5A = "d18d434e703c13f2b6259fdd3bcb08261ecfee0718af9a71dcde44d770e74e91"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

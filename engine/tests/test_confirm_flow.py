@@ -215,5 +215,36 @@ class LandingPageTellsTheTruth(unittest.TestCase):
         self.assertIn("already signed up", self.js.lower())
 
 
+class ScheduleClaimIsMeasured(unittest.TestCase):
+    """S13 -- the shop window tells the truth about when it opens."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json as _json
+        jobs = _json.loads((ENGINE / "data" / "jobs.json").read_text())
+        import match
+        profile = _json.loads((ENGINE.parent / "profile.json").read_text())
+        results, stats = match.run(profile, jobs)
+        cls.html = build_site.build_index(jobs, results, stats, 0,
+                                          {"capacity": 200, "taken": 1})
+
+    def test_the_page_no_longer_promises_a_clock_time(self):
+        """It said 'updated daily at 09:00 UTC+3'. Measured over 37 scheduled
+        runs the median build was 78 minutes late and one was 12 hours late,
+        so that sentence was false roughly every single morning."""
+        self.assertNotIn("updated daily at 09:00", self.html)
+
+    def test_the_lateness_it_admits_to_is_the_measured_number(self):
+        self.assertIn(str(build_site.SCHEDULE_MEDIAN_LATE_MIN), self.html)
+        self.assertIn(build_site.SCHEDULE_WORST_LATE, self.html)
+        self.assertIn(str(build_site.SCHEDULE_RUNS), self.html)
+
+    def test_the_cron_still_asks_for_the_hour_the_page_names(self):
+        """If the cron moves, the footnote's '09:00 UTC+3' becomes a lie."""
+        wf = (ENGINE.parent / ".github" / "workflows" / "daily.yml").read_text()
+        self.assertIn('cron: "0 6 * * *"', wf)
+        self.assertIn("09:00 UTC+3", self.html)
+
+
 if __name__ == "__main__":
     unittest.main()
