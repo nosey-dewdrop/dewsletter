@@ -99,7 +99,11 @@ NEW_HELPERS = ("json_in_html", "safe_url",
                # address, so without this surface nobody new can ever be
                # mailed. write_confirm owns the filename so main() still gains
                # a call and not a literal.
-               "build_confirm", "write_confirm")
+               "build_confirm", "write_confirm",
+               # S9b left the invite with nowhere to land: the mail pointed at
+               # the home page, which reads no token, so an offered seat could
+               # never actually be accepted. This is that page.
+               "build_accept", "write_accept")
 
 # sha256 of the sorted multiset of string literals inside main() alone. S5b adds
 # two calls to main() and not one literal; this locks that separately from the

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your seat · the engine</title>
+<meta name="description" content="Accept the seat you were offered.">
+<link rel="canonical" href="https://nosey-dewdrop.github.io/sightstone/accept.html">
+<link rel="stylesheet" href="style.css">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<nav class="runhead"><div class="rh-inner">
+<div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+<div class="rh-links">
+<a href="index.html#why">why</a>
+<a href="index.html#how">how</a>
+<a href="index.html#data">data</a>
+<a href="cv.html">cv report</a>
+<a href="jobs/index.html">all listings</a>
+<a href="index.html#join" class="rh-join">join</a>
+</div></div></nav>
+<div class="sheet">
+
+<h1 class="page rainbow">Your seat?</h1>
+<p class="lede" id="accept-msg">one moment, the engine is checking your invite&hellip;</p>
+<p class="tabnote"><a href="index.html">back to the paper</a> &middot; an invite is held for 48 hours.</p>
+<div class="version">v2 · built 2026-09-01</div>
+
+</div>
+<script>
+document.querySelectorAll('.rainbow').forEach(el => {
+  let i = 0;
+  el.innerHTML = [...el.textContent].map(ch =>
+    ch === ' ' ? ' ' : `<span class="rb${(i++ % 6) + 1}">${ch}</span>`
+  ).join('');
+});
+
+const SB = 'https://xjtmqncfhuidctxgthhv.supabase.co';
+const SBK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdG1xbmNmaHVpZGN0eGd0aGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTQ5NTcsImV4cCI6MjA5OTQ3MDk1N30.xQ2-SY7gT1BsI7isodRgKtaqyDSIzjDbgHyjOYMt_8g';
+const token = new URLSearchParams(location.search).get('token');
+const msg = document.getElementById('accept-msg');
+if (!token) { msg.textContent = 'no token in the link. use the link from your invite mail.'; }
+else fetch(SB + '/rest/v1/rpc/sightstone_accept_invite', {
+  method: 'POST',
+  headers: {apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'},
+  body: JSON.stringify({token: token})
+}).then(r => r.json()).then(ok => {
+  msg.textContent = ok
+    ? 'the seat is yours. nothing else to confirm -- the next listing that matches comes to you.'
+    : 'this invite was already used, or it expired after 48 hours and passed to the next person.';
+}).catch(() => { msg.textContent = 'could not reach the database. try again in a minute.'; });
+</script>
+</body>
+</html>

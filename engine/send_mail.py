@@ -721,7 +721,9 @@ class SupabaseSeats(SeatBackend):
 
 def compose_invite(token: str | None) -> str:
     """Plain text; the html part is this text escaped, as everywhere else."""
-    link = f"{SITE}/?invite={token}" if token else SITE
+    # /accept.html, not the home page: the home page reads no token, so the
+    # seat could be offered, clicked, and still expire unaccepted.
+    link = f"{SITE}/accept.html?token={token}" if token else SITE
     return "\n".join([
         "a seat opened up and it is yours for the next 48 hours.",
         "",

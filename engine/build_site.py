@@ -657,6 +657,47 @@ else fetch(SB + '/rest/v1/rpc/sightstone_confirm', {{
                 extra_head='<meta name="robots" content="noindex">', script=script)
 
 
+def build_accept():
+    """S9b left this hole and S10 closes it: the invite had nowhere to land.
+
+    sightstone_accept_invite(token) has been in the schema, granted to anon,
+    since S9b. Nothing ever called it. The invite mail pointed at the home
+    page, which reads no token at all -- so the promised seat could be offered,
+    clicked, and still expire 48 hours later without the person being able to
+    take it. A promise nobody could accept.
+    """
+    body = """
+<h1 class="page rainbow">Your seat?</h1>
+<p class="lede" id="accept-msg">one moment, the engine is checking your invite&hellip;</p>
+<p class="tabnote"><a href="index.html">back to the paper</a> &middot; an invite is held for 48 hours.</p>
+<div class="version">""" + VERSION + """</div>
+"""
+    script = f"""
+const SB = '{SUPABASE_URL}';
+const SBK = '{SUPABASE_ANON}';
+const token = new URLSearchParams(location.search).get('token');
+const msg = document.getElementById('accept-msg');
+if (!token) {{ msg.textContent = 'no token in the link. use the link from your invite mail.'; }}
+else fetch(SB + '/rest/v1/rpc/sightstone_accept_invite', {{
+  method: 'POST',
+  headers: {{apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'}},
+  body: JSON.stringify({{token: token}})
+}}).then(r => r.json()).then(ok => {{
+  msg.textContent = ok
+    ? 'the seat is yours. nothing else to confirm -- the next listing that matches comes to you.'
+    : 'this invite was already used, or it expired after 48 hours and passed to the next person.';
+}}).catch(() => {{ msg.textContent = 'could not reach the database. try again in a minute.'; }});
+"""
+    return page("Your seat · the engine", "Accept the seat you were offered.",
+                f"{BASE_URL}/accept.html", "", "", body,
+                extra_head='<meta name="robots" content="noindex">', script=script)
+
+
+def write_accept(root):
+    """Owns the filename too, so main() gains a call and not a literal."""
+    (root / "accept.html").write_text(build_accept())
+
+
 def write_confirm(root):
     """Owns the filename too, so main() gains a call and not a literal."""
     (root / "confirm.html").write_text(build_confirm())
@@ -888,6 +929,7 @@ def main() -> None:
     (ROOT / "cv.html").write_text(build_cv_page(len(jobs)))
     (ROOT / "unsubscribe.html").write_text(build_unsubscribe())
     write_confirm(ROOT)
+    write_accept(ROOT)
     import cv_engine_js
     cv_engine_js.emit(ROOT / "cv-engine.js")
     (ROOT / "jobs" / "index.html").write_text(build_jobs_index(jobs))

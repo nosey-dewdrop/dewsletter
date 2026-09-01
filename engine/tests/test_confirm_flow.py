@@ -246,5 +246,43 @@ class ScheduleClaimIsMeasured(unittest.TestCase):
         self.assertIn("09:00 UTC+3", self.html)
 
 
+class InviteHasSomewhereToLand(unittest.TestCase):
+    """S9b measured the hole and left it open: the RPC existed, the page did not."""
+
+    def setUp(self):
+        self.html = build_site.build_accept()
+
+    def test_the_invite_mail_points_at_the_accept_page(self):
+        """It used to point at the home page, which reads no token at all: the
+        seat was offered, the link was clicked, and it still expired."""
+        link = send_mail.compose_invite("tok9")
+        self.assertIn(f"{send_mail.SITE}/accept.html?token=tok9", link)
+        self.assertNotIn("/?invite=", link)
+
+    def test_the_page_calls_the_accept_rpc(self):
+        self.assertIn("rpc/sightstone_accept_invite", self.html)
+
+    def test_an_expired_invite_says_it_passed_to_someone_else(self):
+        self.assertIn("expired", self.html)
+        self.assertIn("next person", self.html)
+
+    def test_it_does_not_ask_them_to_confirm_a_second_time(self):
+        """accept_invite inserts with confirmed_at set, so they are already in."""
+        self.assertIn("nothing else to confirm", self.html)
+
+    def test_it_is_not_indexed(self):
+        self.assertIn('name="robots" content="noindex"', self.html)
+
+    def test_the_heading_is_a_question_and_ends_with_one(self):
+        head = self.html.split('<h1 class="page rainbow">')[1].split("</h1>")[0]
+        self.assertTrue(head.strip().endswith("?"), head)
+
+    def test_write_accept_puts_it_where_the_mail_link_points(self):
+        out = Path(tempfile.mkdtemp())
+        build_site.write_accept(out)
+        self.assertTrue((out / "accept.html").exists())
+        shutil.rmtree(out, ignore_errors=True)
+
+
 if __name__ == "__main__":
     unittest.main()
