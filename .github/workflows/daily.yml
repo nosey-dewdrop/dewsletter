@@ -26,7 +26,7 @@ jobs:
         run: python3 engine/fetch_speedyapply.py
 
       - name: run tests
-        run: python3 -m unittest discover engine/tests
+        run: python3 -m unittest discover engine/tests -v
 
       - name: build site
         run: python3 engine/build_site.py
