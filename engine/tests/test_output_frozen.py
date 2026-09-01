@@ -62,8 +62,12 @@ FROZEN_SURFACES = {
     # Measured over 37 scheduled runs the median build lands 78 minutes late and
     # one landed 12 hours late, so the page named a time it does not keep. It
     # now says "rebuilt once a day" and the footnote carries the measurement.
-    "index": (8761,
-              "f6bdf5aacea1046b85652d3682239531b21dfb5627379808989a1806dafcd134"),
+    # re-frozen again: the front page gained a door to the waitlist (the queue
+    # was written in SQL and unreachable from the site, so run_invites and
+    # accept.html were dead code), and the showcase now prints the measured geo
+    # cut so "matched: 1" reads as a hard profile instead of a broken engine.
+    "index": (10791,
+              "4a5108c503d539db050cb9b7270cd2f9f1587bba0b9f54555b18aa01cb02f6a3"),
     "cv": (9295,
            "d2de8c1c76e9fee8762dfd69bbdda4f3e95ffb34d162441273bec455621ba6c2"),
     "jobs_index": (265046,
@@ -81,14 +85,14 @@ FROZEN_SURFACES = {
     "user_page": (2499,
                   "9f813001b6c6fade827d4edb6c2bc7399e2b0e2215317d9ff19d1f2d75017a4f"),
 }
-FROZEN_TOTAL_BYTES = 2096696 + 2499
+FROZEN_TOTAL_BYTES = 2098726 + 2499
 FROZEN_USER_FEED = (693,
                     "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "d18d434e703c13f2b6259fdd3bcb08261ecfee0718af9a71dcde44d770e74e91"
+CONSTANTS_BEFORE_S5A = "0218f3294fa2ed5e17cc7234470e1f5e833bddb0f9f5d51121d7cfb563563cd0"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

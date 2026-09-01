@@ -35,6 +35,7 @@ jobs:
         run: ls -d /usr/lib/postgresql/*/bin | tail -1 >> "$GITHUB_PATH"
 
       - name: run tests
+        id: tests
         run: |
           command -v initdb >/dev/null || { echo "initdb missing: the SQL suite would skip"; exit 1; }
           python3 -m unittest discover engine/tests
@@ -50,7 +51,22 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python3 engine/send_mail.py
 
+      # RUNS EVEN IF THE MAIL STEP FAILED, and that is the whole point.
+      #
+      # send_mail writes mail_state.json per subscriber precisely so a run that
+      # dies halfway remembers what it already sent (S7). None of that survived:
+      # a non-zero exit from the mail step skipped this commit and threw the
+      # ledgers away, so the next morning re-sent every listing the failed run
+      # had already delivered -- the double-send S7 exists to prevent, rebuilt
+      # one layer up. send_mail exits non-zero on a real, expected condition
+      # (a quota-halted backlog), so this was not hypothetical.
+      #
+      # Gated on the TESTS, not on the mail: a corpus that failed its tests must
+      # never be pushed. If the tests passed, whatever was written is true and
+      # has to be kept. The job still reports failure; it just does not lie
+      # about what was sent.
       - name: commit data and site
+        if: always() && steps.tests.outcome == 'success'
         run: |
           git config user.name "the engine"
           git config user.email "actions@users.noreply.github.com"

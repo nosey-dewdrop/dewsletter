@@ -196,13 +196,23 @@ class LandingPageTellsTheTruth(unittest.TestCase):
     def test_the_form_says_a_confirmation_mail_comes_first(self):
         self.assertIn("confirm this address", self.form.lower())
 
-    def test_it_no_longer_claims_you_are_in_on_submit(self):
-        """D2 holds the row back until it is confirmed, so 'you are in' was a
-        lie the moment the insert returned 201."""
-        self.assertNotIn("you are in", self.js.lower())
+    def test_it_no_longer_claims_the_subscription_is_active_on_submit(self):
+        """D2 holds the row back until confirmed, so the old success line --
+        'you are in. the first mail arrives when something new matches you' --
+        promised mail the engine had already decided not to send.
 
-    def test_the_success_message_sends_them_to_their_inbox(self):
-        self.assertIn("check your mail", self.js.lower())
+        Note 'you are in the QUEUE' is a different sentence and is true: the
+        waitlist row really is written. What is forbidden is claiming the
+        subscription itself is live before the confirm click."""
+        self.assertNotIn("you are in. the first mail", self.js.lower())
+        self.assertNotIn("the first mail arrives when", self.js.lower())
+
+    def test_the_success_message_says_a_mail_is_coming_and_when(self):
+        """'check your mail' implied 'now'. The confirming mail actually rides
+        the next daily run, so the page has to say that or it is lying about
+        timing on the one screen where trust is won."""
+        self.assertIn("next morning run", self.js.lower())
+        self.assertIn("nothing else is sent until you click", self.js.lower())
 
     def test_nothing_on_the_landing_page_promises_one_click_unsubscribe(self):
         """POST to the unsubscribe page answers 405; measured 2026-09-01."""
@@ -282,6 +292,73 @@ class InviteHasSomewhereToLand(unittest.TestCase):
         build_site.write_accept(out)
         self.assertTrue((out / "accept.html").exists())
         shutil.rmtree(out, ignore_errors=True)
+
+
+class WaitlistHasADoor(unittest.TestCase):
+    """The queue existed in SQL and was unreachable from the only screen.
+
+    sightstone_waitlist, the D8 guard trigger, sightstone_run_invites, the
+    invite mail and accept.html were all built and all dead: nothing on the
+    site ever wrote a waitlist row, so no seat could ever be queued for. The
+    page told a full-house visitor "one person has to leave first" and offered
+    them nothing to do about it.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        cls.js = build_site.JOIN_JS
+
+    def test_a_full_house_writes_a_waitlist_row(self):
+        self.assertIn("/rest/v1/sightstone_waitlist", self.js)
+
+    def test_the_queue_row_carries_the_consent_the_policy_demands(self):
+        """RLS rejects an insert without both, so a missing field is a silent
+        403 and a visitor who thinks they queued and never did."""
+        after = self.js.split("sightstone_waitlist")[1]
+        self.assertIn("mail_consent: true", after)
+        self.assertIn("kvkk_accepted_at", after)
+
+    def test_a_dead_end_is_no_longer_the_answer_to_a_full_house(self):
+        self.assertNotIn("one person has to leave first", self.js)
+
+    def test_being_queued_twice_is_explained_not_called_an_error(self):
+        self.assertIn("already in the queue", self.js)
+
+    def test_the_d8_race_is_read_as_good_news(self):
+        """The guard refuses a queue row while seats are free. That means a
+        seat opened between the two requests -- not a failure."""
+        self.assertIn("seats available", self.js)
+        self.assertIn("a seat just opened", self.js)
+
+
+class TheShowcaseExplainsItsOwnNumber(unittest.TestCase):
+    """One match against 613 listings reads as a broken engine unless the page
+    says why. The reason is the sample profile's geography, and it is measured."""
+
+    @classmethod
+    def setUpClass(cls):
+        import json as _json
+        import match
+        jobs = _json.loads((ENGINE / "data" / "jobs.json").read_text())
+        profile = _json.loads((ENGINE.parent / "profile.json").read_text())
+        cls.results, cls.stats = match.run(profile, jobs)
+        cls.jobs = jobs
+        cls.html = build_site.build_index(jobs, cls.results, cls.stats, 0,
+                                          {"capacity": 200, "taken": 1})
+        cls.geo_cut = sum(cls.stats.get(b, 0) for b in match.GEO_BUCKETS)
+
+    def test_the_page_prints_the_measured_geo_cut_not_a_round_number(self):
+        self.assertIn(str(self.geo_cut), self.html)
+
+    def test_reachable_plus_the_geo_cut_is_the_whole_corpus(self):
+        reachable = len(self.jobs) - self.geo_cut
+        self.assertIn(f"<td>{reachable}</td>", self.html)
+        self.assertEqual(reachable + self.geo_cut, len(self.jobs))
+
+    def test_the_sample_profile_is_labelled_with_its_real_constraint(self):
+        """It used to say 'remote-ok', which reads as open to anything."""
+        self.assertIn("not relocating", self.html)
+        self.assertNotIn("BS, remote-ok", self.html)
 
 
 if __name__ == "__main__":

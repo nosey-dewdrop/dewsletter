@@ -301,7 +301,7 @@ document.getElementById('join-form').addEventListener('submit', async e => {
   const r = await fetch(SB + '/rest/v1/sightstone_subscribers', {
     method: 'POST', headers: sbHeaders, body: JSON.stringify(body)});
   if (r.status === 201) {
-    msg.textContent = 'check your mail. one link to click, and the seat is yours for good — it expires in 48 hours.';
+    msg.textContent = 'saved. the confirming mail goes out with the next morning run — one link in it and the seat is yours. nothing else is sent until you click it.';
     document.querySelector('#join-form .submit').disabled = true;
     const el = document.getElementById('seats-left');
     const m = el.textContent.match(/\\d+/);
@@ -309,7 +309,33 @@ document.getElementById('join-form').addEventListener('submit', async e => {
   } else {
     const t = await r.text();
     if (r.status === 409) msg.textContent = 'this address is already signed up. if you never clicked the confirm link, it is in your mail.';
-    else if (t.includes('no seats left')) msg.textContent = 'no seats left. one person has to leave first.';
+    else if (t.includes('no seats left')) {
+      // The waitlist had no door. The table, the D8 guard, run_invites, the
+      // invite mail and accept.html all existed and none of them could ever
+      // fire, because nothing on this page ever wrote a waitlist row. The old
+      // message told a full-house visitor to wait for somebody else to leave
+      // and gave them nothing to do -- a dead end on the only screen that
+      // matters.
+      msg.textContent = 'every seat is taken. putting you in the queue…';
+      const w = await fetch(SB + '/rest/v1/sightstone_waitlist', {
+        method: 'POST', headers: sbHeaders,
+        body: JSON.stringify({email: body.email, mail_consent: true,
+                              kvkk_accepted_at: body.kvkk_accepted_at})});
+      if (w.status === 201) {
+        msg.textContent = 'you are in the queue. the moment a seat opens the oldest waiting address is mailed, and you have 48 hours to take it.';
+        document.querySelector('#join-form .submit').disabled = true;
+      } else if (w.status === 409) {
+        msg.textContent = 'you are already in the queue. the next free seat goes to whoever has waited longest.';
+      } else {
+        const wt = await w.text();
+        // D8: the guard rejects a queue row while seats are free. If we land
+        // here a seat opened between the two requests, so say that and not
+        // "error".
+        msg.textContent = wt.includes('seats available')
+          ? 'a seat just opened. submit again.'
+          : 'could not reach the queue (' + w.status + '). try again in a minute.';
+      }
+    }
     else msg.textContent = 'could not save (' + r.status + '). try again in a minute.';
   }
 });
@@ -332,6 +358,12 @@ def build_index(jobs, results, stats, dupes_removed, seats):
     intl = sum(1 for j in jobs if j["source"].endswith("intl"))
     remote = sum(1 for j in jobs if j["remote"])
     n = len(jobs)
+    # Straight off match.run's own census, never a second guess: how many
+    # listings the geo rule removed before scoring, and how many were left for
+    # scoring to look at. Without these two the page shows "matched: 1" against
+    # 613 listings and reads as a broken engine rather than a hard profile.
+    geo_cut = sum(stats.get(b, 0) for b in match.GEO_BUCKETS)
+    reachable = n - geo_cut
     matches_html = "".join(bib_entry(r, r.get("link") or "") for r in results[:6])
     form_html = FORM_HTML.format(capacity=seats["capacity"],
                                  left=seats["capacity"] - seats["taken"])
@@ -381,6 +413,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
         <tr><td>International internships</td><td>{intl}</td></tr>
         <tr><td>remote positions</td><td>{remote}</td></tr>
         <tr><td>duplicates removed this morning</td><td>{dupes_removed}</td></tr>
+        <tr><td>reachable for the sample profile</td><td>{reachable}</td></tr>
         <tr><td>matched for the sample profile below</td><td>{stats["matched"]}</td></tr>
       </tbody>
     </table>
@@ -390,7 +423,12 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 
 <section id="matches">
   <h3 class="sec"><span class="rainbow">Sample matches</span>
-  <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, remote-ok)</span></h3>
+  <span style="font-weight:normal;font-size:13.5px">(profile: AI infra / agents, BS, in Turkey, not relocating)</span></h3>
+  <p class="tabnote">This sample is deliberately the hardest case on the board: someone who
+  cannot move countries and cannot take a US-only remote role. {geo_cut} of today's {n} listings
+  are unreachable for her before a single word is scored, which is why so few survive. A profile
+  that can relocate reaches all {n}. The engine would rather show one listing with a reason than
+  twenty without.</p>
   <div class="twocol"><ol class="bib">{matches_html}</ol></div>
 </section>
 
