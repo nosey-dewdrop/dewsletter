@@ -865,7 +865,13 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--min-score", type=int, default=5,
+    # 4 == "at least one INTEREST hit" on the current scale (interest +4 each,
+    # skill +2 each). It was 5 when geography and freshness still scored, where
+    # 5 meant "one interest hit plus any padding". Those points are gone, so 5
+    # now means "two interest hits" and the measured result was eligible 0 --
+    # a bulletin that never sends. 4 keeps the old intent: an interest match is
+    # required to mail; a skill-only listing (2) is not enough on its own.
+    ap.add_argument("--min-score", type=int, default=4,
                     help="mail only matches at or above this score")
     args = ap.parse_args()
 

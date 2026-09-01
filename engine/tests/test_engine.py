@@ -136,18 +136,44 @@ class Matcher(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertIn("listing prefers MS", results[0]["reasons"])
 
-    def test_reasons_are_english_and_scored(self):
+    def test_every_reason_is_a_reason_and_not_a_filter(self):
+        """Inverted by the scoring card. It used to REQUIRE "remote" and "fresh".
+
+        The user sentence this enforces: "next to every listing it says why it
+        concerns ME, not 'I did not eliminate you'". remote / fresh / stale /
+        salary / location are things the filter knows about the listing, not
+        things that make it worth Damla's morning.
+        """
         results, _ = match.run(PROFILE, [job(position="Agentic AI Infrastructure Intern")])
         r = results[0]
         self.assertGreater(r["score"], 0)
         self.assertTrue(any("in title" in x for x in r["reasons"]))
-        self.assertIn("remote", r["reasons"])
-        self.assertTrue(any("fresh" in x for x in r["reasons"]))
+        for banned in ("remote", "fresh", "stale", "salary", "location fits"):
+            for reason in r["reasons"]:
+                self.assertNotIn(banned, reason.lower(),
+                                 f"{banned!r} is a filter, not a reason: {reason!r}")
 
-    def test_stale_penalty(self):
+    def test_freshness_does_not_move_the_score(self):
+        """Inverted by the scoring card. It used to assert fresh > stale.
+
+        Age still ORDERS the bulletin (see the sort in match.run) -- it just
+        cannot decide who gets into it. A 6-month-old listing that matches an
+        interest beats a 3-day-old one that matches nothing.
+        """
         fresh, _ = match.run(PROFILE, [job(position="Agentic AI Intern", age="3d")])
         stale, _ = match.run(PROFILE, [job(position="Agentic AI Intern", age="6mo")])
-        self.assertGreater(fresh[0]["score"], stale[0]["score"])
+        self.assertEqual(fresh[0]["score"], stale[0]["score"])
+
+    def test_a_listing_whose_only_distinction_is_remote_is_not_a_match(self):
+        """The card's whole point, in one assertion.
+
+        Ensemble Health and Hone Health were mailed to Damla on exactly this:
+        a title with no interest and no skill in it, carried by remote +3.
+        """
+        results, stats = match.run(
+            PROFILE, [job(position="Warehouse Operations Intern", remote=True)])
+        self.assertEqual(results, [])
+        self.assertEqual(stats["no_signal"], 1)
 
 
 if __name__ == "__main__":

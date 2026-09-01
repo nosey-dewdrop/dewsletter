@@ -51,7 +51,7 @@ LIVE_KEY_COUNT = 89
 # Measured against engine/data/jobs.json: this profile is eligible for exactly
 # 12 listings at send_mail's default --min-score 5.
 SIM_INTERESTS = ["machine learning"]
-KEYS_PER_SUB = 33
+KEYS_PER_SUB = 55
 SIM_SUBS = 10
 CRASH_AT = 5  # the 5th delivery raises
 
@@ -322,7 +322,7 @@ class ProfileEditKeepsHistory(unittest.TestCase):
         run_send_mail(self.data, [subscriber(self.email, ["machine learning"])])
         after = set(read_state(self.data)[self.sid]["sent_keys"])
         self.assertTrue(before <= after, "sent_keys shrank after a profile edit")
-        self.assertEqual(len(after), LIVE_KEY_COUNT + 25)  # measured: 25 genuinely new
+        self.assertEqual(len(after), LIVE_KEY_COUNT + 53)  # measured: 53 genuinely new
         self.assertEqual(len(FakeProvider.sent), 1)
 
     def test_history_is_never_reset_to_empty(self):

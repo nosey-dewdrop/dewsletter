@@ -13,7 +13,9 @@ v2 accuracy rules:
   - listings requiring US citizenship / clearance / no-sponsorship are excluded
     for profiles without US work authorization
   - MS-flavored titles get a penalty for BS profiles, not an exclusion
-  - fresh listings (<=7 days) score up, stale ones (>90 days) score down
+  - ONLY interest / skill / role fit scores. Geography, freshness and salary
+    score nothing: they are filters and ordering, never a reason to be mailed.
+    A listing whose only distinction is "remote" scores 0 and is not a match.
 
 Usage: python3 match.py <profile.json> [--top N] [--json out.json] [--stats]
 """
@@ -180,25 +182,18 @@ def score_job(job: dict, interests: list[str], skills: list[str],
         score -= 3
         reasons.append("listing prefers MS")
 
-    if job.get("remote"):
-        score += 3
-        reasons.append("remote")
-    if home and listing_country(job.get("location")) == home:
-        score += 3
-        reasons.append(f"location fits ({job.get('location')})")
-    if job.get("salary"):
-        score += 1
-        reasons.append(f"salary posted ({job['salary']})")
-
-    days = parse_age_days(job.get("age"))
-    if days is not None:
-        if days <= 7:
-            score += 2
-            reasons.append(f"fresh ({job['age']})")
-        elif days > 90:
-            score -= 2
-            reasons.append(f"stale ({job['age']})")
-
+    # Geography, freshness and salary deliberately score NOTHING.
+    #
+    # They used to: remote +3, location-fits +3, salary +1, fresh +2, stale -2.
+    # That let a listing reach the mail on geography alone, and the reason line
+    # then read "remote" -- which is not a reason, it is the filter that failed
+    # to eliminate it. Measured on the 599-listing corpus: 2 of 3 matches were
+    # in on "remote" and nothing else.
+    #
+    # Geography stays a FILTER: geo_exclusion above still eliminates, and its
+    # buckets are untouched. What it may not do is manufacture a score.
+    # Freshness still orders the results (see the sort in run()); it just does
+    # not decide who gets in.
     return (score, reasons) if score > 0 else "no_signal"
 
 

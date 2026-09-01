@@ -202,14 +202,30 @@ class DamlaProfile(unittest.TestCase):
     def setUpClass(cls):
         cls.results, cls.stats = match.run(PROFILE, JOBS)
 
-    def test_matched_is_exactly_three(self):
-        self.assertEqual(self.stats["matched"], 3)
+    def test_matched_is_exactly_one(self):
+        """Was 3. Falling to 1 is the scoring card landing, not a regression.
+
+        Two of the three -- Ensemble Health and Hone Health -- were in on the
+        reason string "remote" and nothing else. "remote" is the filter that
+        failed to eliminate them, not a reason to mail them. With geography
+        scoring nothing they fall to 0 and land in no_signal. Astreya survives
+        on 'ai infrastructure' in its title: a reason a stranger can read.
+        """
+        self.assertEqual(self.stats["matched"], 1)
 
     def test_every_survivor_is_globally_remote(self):
         scopes = [remote_scope(r) for r in self.results]
-        self.assertEqual(scopes, ["global"] * 3, scopes)
+        self.assertEqual(scopes, ["global"], scopes)
 
     def test_bucket_census_is_exact(self):
+        """Every GEO bucket is byte-identical to the pre-card census.
+
+        The scoring card was forbidden from touching the elimination block,
+        and this is where that is enforced: phd_only, mba, us_work_auth,
+        onsite_abroad, remote_scope_* and location_country_unknown all hold
+        their exact pre-card values. Only no_signal moves (0 -> 2), because
+        no_signal is the SCORING bucket -- that is the card, working.
+        """
         self.assertEqual({b: self.stats[b] for b in ALL_BUCKETS}, {
             "phd_only": 92,
             "mba": 1,
@@ -218,7 +234,7 @@ class DamlaProfile(unittest.TestCase):
             "remote_scope_country_mismatch": 17,
             "remote_scope_unknown": 0,
             "location_country_unknown": 25,
-            "no_signal": 0,
+            "no_signal": 2,
         })
 
     def test_buckets_plus_matched_account_for_every_listing(self):
@@ -262,18 +278,37 @@ class CounterProfiles(unittest.TestCase):
         # Correcting a threshold downward is a loosening on its own, so the
         # test was tightened in the same move: `no_signal` is now pinned too,
         # and the listings in it are named one by one below.
+        # matched fell 210 -> 14 with the scoring card: on this profile most
+        # survivors were scoring on geography ("location fits" +3 for a US
+        # listing) and freshness, never on a named interest or skill. Those
+        # points are gone, so they score 0 and move to no_signal. The two GEO
+        # buckets below are unchanged to the digit -- the card was forbidden
+        # from touching the elimination block, and this is the proof.
         _, stats = self.us
-        self.assertEqual(stats["matched"], 210)
+        self.assertEqual(stats["matched"], 14)
         self.assertEqual(stats["onsite_abroad"], 263)
         self.assertEqual(stats["remote_scope_country_mismatch"], 4)
 
-    def test_us_immobile_profile_drops_exactly_four_for_lack_of_signal(self):
-        _, stats = self.us
-        self.assertEqual(stats["no_signal"], 4)
-        self.assertEqual(len(US_NO_SIGNAL), 4)
+    def test_us_immobile_profile_drops_two_hundred_for_lack_of_signal(self):
+        """no_signal 4 -> 200: the listings that had no reason now say so.
 
-    def test_the_four_no_signal_listings_are_these_four_by_name(self):
-        """A count says "four died". This says WHICH four, and proves it."""
+        Before the card, "location fits (Austin, TX)" was enough to carry a US
+        listing into the mail. That is the filter talking, not a reason. The
+        196 newcomers here are exactly the listings whose only distinction was
+        where they are or how fresh they are.
+        """
+        _, stats = self.us
+        self.assertEqual(stats["no_signal"], 200)
+
+    def test_the_four_named_no_signal_listings_are_still_signal_less(self):
+        """A count says "200 died". This says WHICH four of them, and proves it.
+
+        These four were the WHOLE bucket before the card; now they are named
+        witnesses inside a bucket of 200. Naming all 200 would be noise, but
+        naming none would let a future edit quietly move listings between
+        `no_signal` and the geo buckets without a single test noticing. Each
+        one below is proven to die of no_signal and NOT of geography.
+        """
         by_name = {(j["company"], j["position"]): j for j in JOBS}
         victims = []
         for key in US_NO_SIGNAL:
@@ -289,12 +324,13 @@ class CounterProfiles(unittest.TestCase):
             self.assertEqual(sum(one[b] for b in GEO_BUCKETS), 0,
                              f"{job['position']} died of geo, not of no_signal")
 
-        # ...and together they are the WHOLE bucket: nothing else fell in
+        # ...and together they are still four, and still a SUBSET of the real
+        # bucket. (They used to BE the bucket; the card widened it to 200.)
         _, four = match.run(profile_with(relocation=False, home_country="US"),
                             victims)
         self.assertEqual(four["no_signal"], 4)
         _, whole = self.us
-        self.assertEqual(whole["no_signal"], four["no_signal"])
+        self.assertLessEqual(four["no_signal"], whole["no_signal"])
 
     def test_every_us_survivor_is_global_or_in_the_us(self):
         results, _ = self.us
@@ -304,11 +340,11 @@ class CounterProfiles(unittest.TestCase):
                          or listing_country(r.get("location")) == "US")
             self.assertTrue(reachable, f"{r['company']} / {r.get('location')!r}")
 
-    def test_nonexistent_country_still_gets_the_global_three(self):
-        """ZZ is no country: the 3 come from `global`, not from being Turkish."""
+    def test_nonexistent_country_still_gets_the_global_one(self):
+        """ZZ is no country: the survivor comes from `global`, not from TR."""
         results, stats = self.zz
-        self.assertEqual(stats["matched"], 3)
-        self.assertEqual([remote_scope(r) for r in results], ["global"] * 3)
+        self.assertEqual(stats["matched"], 1)
+        self.assertEqual([remote_scope(r) for r in results], ["global"])
 
     def test_zz_buckets_equal_tr_buckets(self):
         _, tr = match.run(PROFILE, JOBS)
@@ -316,17 +352,36 @@ class CounterProfiles(unittest.TestCase):
         self.assertEqual({b: tr[b] for b in ALL_BUCKETS},
                          {b: zz[b] for b in ALL_BUCKETS})
 
-    def test_portable_profile_keeps_the_old_reach(self):
+    def test_portable_profile_is_never_eliminated_by_geography(self):
+        """A profile that will relocate loses NOTHING to the geo buckets.
+
+        matched moved 221 -> 52 with the scoring card (these 169 were riding on
+        remote/fresh/salary points), but the assertion that matters here is the
+        loop below: every geo bucket is 0. That is what "portable" means, and
+        the card did not touch it.
+        """
         _, stats = self.free
-        self.assertEqual(stats["matched"], 221)
+        self.assertEqual(stats["matched"], 52)
         for bucket in GEO_BUCKETS:
             self.assertEqual(stats[bucket], 0, bucket)
 
-    def test_home_country_scores_location_fits(self):
+    def test_home_country_listing_passes_the_filter_but_scores_nothing_for_it(self):
+        """Inverted by the scoring card. It used to assert the opposite.
+
+        Being in Damla's own country is a reason NOT to eliminate a listing.
+        It is not a reason to mail it. The listing below still survives (the
+        filter lets it through) and still scores -- but every reason on it is
+        an interest, and none of them is about geography.
+        """
         jobs = synthetic(["Ankara, Turkey"])
         results, _ = match.run(PROFILE, jobs)
         self.assertEqual(len(results), 1)
-        self.assertIn("location fits (Ankara, Turkey)", results[0]["reasons"])
+        reasons = results[0]["reasons"]
+        self.assertTrue(reasons, "a survivor with no reason at all")
+        for r in reasons:
+            self.assertNotIn("location fits", r)
+            self.assertNotIn("Ankara", r)
+            self.assertNotIn("remote", r.lower())
 
 
 class LiveCorpusInvariants(unittest.TestCase):
@@ -387,12 +442,12 @@ class StatsOutput(unittest.TestCase):
     def test_stats_reports_the_rule_is_on_and_says_where_home_is(self):
         out = run_cli(PROFILE, jobs=JOBS).stdout
         self.assertIn("geo rule: on, home TR", out)
-        self.assertIn("matched: 3", out)
+        self.assertIn("matched: 1", out)
 
     def test_stats_reports_the_rule_is_off_for_a_portable_profile(self):
         out = run_cli(profile_with(relocation=True), jobs=JOBS).stdout
         self.assertIn("geo rule: off, profile declares no relocation constraint", out)
-        self.assertIn("matched: 221", out)
+        self.assertIn("matched: 52", out)
 
 
 class DeadEnd(unittest.TestCase):

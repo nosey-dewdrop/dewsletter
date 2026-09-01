@@ -45,10 +45,17 @@ FROZEN_DUPES_REMOVED = 41          # engine/data/fetch_meta.json, the number mai
 FROZEN_SEATS = {"capacity": 100, "taken": 1}
 FIXTURE_TOTAL = 599
 
-# measured, 2026-08-30, on the frozen fixtures. size in bytes, then sha256.
+# measured on the frozen fixtures. size in bytes, then sha256.
+#
+# Re-frozen by the scoring card (2026-09-01). Only `index`, `user_page` and
+# FROZEN_USER_FEED moved: they are the three surfaces that render Damla's
+# matches, and matches fell 3 -> 1 when geography stopped scoring. `cv`,
+# `jobs_index`, `job_pages` and `unsubscribe` are byte-IDENTICAL to the S5a
+# freeze, and test_no_template_literal_moved still passes -- so this re-freeze
+# is the corpus speaking, not a template edit sneaking through.
 FROZEN_SURFACES = {
-    "index": (8792,
-              "6d0f7ceee3224519504355b928062eda1d21927210d59c07cd8b51c56607441c"),
+    "index": (8226,
+              "4a34e3b0076b11c8d8060e82f30161a6a6a5e9b06962fee99e017401da4d285a"),
     "cv": (9295,
            "d2de8c1c76e9fee8762dfd69bbdda4f3e95ffb34d162441273bec455621ba6c2"),
     "jobs_index": (265046,
@@ -59,12 +66,12 @@ FROZEN_SURFACES = {
                     "a995b6d1c6613b2031d4672eab9a0a7f24d92b7bec1257c45da74c23a57152b9"),
     # S5b, the sixth surface. Built off the same frozen corpus, from the base
     # slug map (main() writes the collision-suffixed one to disk).
-    "user_page": (3276,
-                  "3130070be2b841d24e3508c9ebd59aa7cc3676925bc6def177e8fff6d377812e"),
+    "user_page": (2499,
+                  "9f813001b6c6fade827d4edb6c2bc7399e2b0e2215317d9ff19d1f2d75017a4f"),
 }
-FROZEN_TOTAL_BYTES = 2096716 + 3276
-FROZEN_USER_FEED = (1415,
-                    "6f88c391d701aaff6d305cd1947e4e3b7ad6f9653b86f7880a2e6a29c583aa1f")
+FROZEN_TOTAL_BYTES = 2096150 + 2499
+FROZEN_USER_FEED = (693,
+                    "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
