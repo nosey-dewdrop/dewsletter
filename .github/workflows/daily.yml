@@ -16,7 +16,16 @@ jobs:
   daily:
     runs-on: ubuntu-latest
     steps:
+      # Full history, not the default shallow clone. S11's simulation replays
+      # every committed state of engine/data/jobs.json -- that history IS its
+      # input data, and the card fails the phase for a simulation fed with
+      # anything invented. At depth 1 the runner sees one snapshot and the
+      # simulation has nothing to replay. (The test refused to pass on the
+      # shallow clone rather than quietly measuring one day; that is why this
+      # was caught here and not in production.)
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v6
         with:
