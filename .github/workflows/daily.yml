@@ -33,8 +33,8 @@ jobs:
 
       - name: send match mail
         env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_FROM: "the engine <news@mail.noseydewdrop.com>"
           SUBSCRIBER_EMAIL: ${{ secrets.SUBSCRIBER_EMAIL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: python3 engine/send_mail.py
