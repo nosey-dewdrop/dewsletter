@@ -66,8 +66,8 @@ FROZEN_SURFACES = {
     # was written in SQL and unreachable from the site, so run_invites and
     # accept.html were dead code), and the showcase now prints the measured geo
     # cut so "matched: 1" reads as a hard profile instead of a broken engine.
-    "index": (16369,
-              "028f11bc490a4bd4b4a2435f77fe2a550649a7b443b28ff76d81e0fff1e01f13"),
+    "index": (15230,
+              "e238120ef904b0f893586915f6ea65a4bae75daad6e70c2f1954500f81ca25de"),
     "cv": (9296,
            "8fd87f669df359ca87d3689a63b6ab0ea273aa077cb198630b48d73261225be4"),
     "jobs_index": (265046,
@@ -85,14 +85,14 @@ FROZEN_SURFACES = {
     "user_page": (2499,
                   "b8ec4dd7ca4f6542038b27ebba0075e54e9f3cb6b1c6eb68f1a67c9e0773e887"),
 }
-FROZEN_TOTAL_BYTES = 2106804
+FROZEN_TOTAL_BYTES = 2105665
 FROZEN_USER_FEED = (693,
                     "7c879008f9349fd3bf6892e34328aa61f00477fc61cc01eb57f5d68e9360d62b")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "53e17461acb438d9925813c5700ebac21ee75db2d86f7f89c13e66440cccab0e"
+CONSTANTS_BEFORE_S5A = "2d38a659ba3da942f21922c9f7688396722e5947907840eabb0459823a142a11"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

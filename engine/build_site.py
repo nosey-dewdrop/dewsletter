@@ -113,7 +113,12 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .algo#join { max-width:62ch; margin:0 auto 3.4rem auto; }
 .algo#join .algo-cap { font-size:17px; }
 .algo-cap { font-size:15px; margin-bottom:.5rem; }
-.seatline { font-size:13.5px; margin-bottom:1.1rem; }
+/* Hierarchy by size, the way lulumelon does it: the number that decides
+   whether you can join at all is the biggest thing in the block, and it is
+   live -- sightstone_seats() answers it on load, so it is never a stale
+   figure baked into the page. */
+.seatcount { font-size:44px; line-height:1; color:var(--lilac); margin-bottom:.25rem; }
+.seatline { font-size:13.5px; margin-bottom:1.4rem; color:var(--ink-soft); }
 .seatline b { font-weight:bold; }
 .algo-cap b { font-weight:bold; }
 .field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }
@@ -289,8 +294,9 @@ def page(title, description, canonical, root, active, body, extra_head="", scrip
 
 FORM_HTML = """<div class="algo" id="join">
   <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
-  <div class="seatline">membership is capped at <b>{capacity}</b> people, so every mail
-  stays personally scored. <b id="seats-left">{left} seats left</b>. one person leaves, one seat opens.</div>
+  <div class="seatcount"><span id="seats-left">{left}</span></div>
+  <div class="seatline">seats left of <b>{capacity}</b>. membership is capped so every mail stays
+  personally scored; one person leaves, one seat opens.</div>
   <form id="join-form">
     <div class="field"><label>name</label><input id="f-name" type="text" autocomplete="name"></div>
     <div class="field"><label>e-mail</label><input id="f-email" type="email" autocomplete="email" required></div>
@@ -322,7 +328,7 @@ const sbHeaders = {apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 
 fetch(SB + '/rest/v1/rpc/sightstone_seats', {method: 'POST', headers: sbHeaders, body: '{}'})
   .then(r => r.json())
   .then(j => { const el = document.getElementById('seats-left');
-    if (el && j.capacity) el.textContent = (j.capacity - j.taken) + ' seats left'; })
+    if (el && j.capacity) el.textContent = (j.capacity - j.taken); })
   .catch(() => {});
 
 /* LIVE REACH. Type "seks" and today that silently means zero mail, forever,
@@ -449,7 +455,7 @@ document.getElementById('join-form').addEventListener('submit', async e => {
     document.querySelector('#join-form .submit').disabled = true;
     const el = document.getElementById('seats-left');
     const m = el.textContent.match(/\\d+/);
-    if (m) el.textContent = (parseInt(m[0]) - 1) + ' seats left';
+    if (m) el.textContent = (parseInt(m[0]) - 1);
   } else {
     const t = await r.text();
     if (r.status === 409) msg.textContent = 'this address is already signed up. if you never clicked the confirm link, it is in your mail.';
@@ -523,8 +529,6 @@ def build_index(jobs, results, stats, dupes_removed, seats):
 <b>{n} live AI/ML internship listings</b>, scores each one against your profile, and
 <b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
 you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
-
-{bulletin_panel(results, n)}
 
 {form_html}
 

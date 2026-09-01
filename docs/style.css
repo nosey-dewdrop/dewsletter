@@ -67,7 +67,12 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .algo#join { max-width:62ch; margin:0 auto 3.4rem auto; }
 .algo#join .algo-cap { font-size:17px; }
 .algo-cap { font-size:15px; margin-bottom:.5rem; }
-.seatline { font-size:13.5px; margin-bottom:1.1rem; }
+/* Hierarchy by size, the way lulumelon does it: the number that decides
+   whether you can join at all is the biggest thing in the block, and it is
+   live -- sightstone_seats() answers it on load, so it is never a stale
+   figure baked into the page. */
+.seatcount { font-size:44px; line-height:1; color:var(--lilac); margin-bottom:.25rem; }
+.seatline { font-size:13.5px; margin-bottom:1.4rem; color:var(--ink-soft); }
 .seatline b { font-weight:bold; }
 .algo-cap b { font-weight:bold; }
 .field { display:grid; grid-template-columns:30mm 1fr; align-items:baseline; margin-bottom:.9rem; }

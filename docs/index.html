@@ -33,21 +33,11 @@
 <b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
 you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 
-
-<div class="term">
-  <div class="term-bar">
-    <span class="term-dot" style="background:var(--light-red)"></span>
-    <span class="term-dot" style="background:var(--light-yellow)"></span>
-    <span class="term-dot" style="background:var(--light-green)"></span>
-    <span class="term-title">this morning’s mail, for the sample profile</span>
-  </div>
-  <div class="term-body">1 new internship listing(s) matched your profile this morning.<br><span class="m">dewsletter read 630 live listings; only these are new for you, each with its named reasons. no black box, no language model.</span><br><br><span class="b">[ 4] Astreya - AI Infrastructure DC Design Intern</span><br>     Remote<br><span class="m">     https://astreya.wd5.myworkdayjobs.com/en-US/life-at-astreya-opportunities/job/Remote-CA/AI-Infrastructure-DC-Design-Intern_R0015746</span><br><span class="g">     why: interest &#x27;ai infrastructure&#x27; in title</span><br><br><span class="m">--</span><br><span class="m">dewsletter · https://nosey-dewdrop.github.io/dewsletter</span><br>you get mail only when something new matches. nothing new, no mail.</div>
-</div>
-
 <div class="algo" id="join">
   <div class="algo-cap"><b class="rainbow">Submit a profile, receive matches.</b></div>
-  <div class="seatline">membership is capped at <b>200</b> people, so every mail
-  stays personally scored. <b id="seats-left">199 seats left</b>. one person leaves, one seat opens.</div>
+  <div class="seatcount"><span id="seats-left">199</span></div>
+  <div class="seatline">seats left of <b>200</b>. membership is capped so every mail stays
+  personally scored; one person leaves, one seat opens.</div>
   <form id="join-form">
     <div class="field"><label>name</label><input id="f-name" type="text" autocomplete="name"></div>
     <div class="field"><label>e-mail</label><input id="f-email" type="email" autocomplete="email" required></div>
@@ -146,7 +136,7 @@ const sbHeaders = {apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 
 fetch(SB + '/rest/v1/rpc/sightstone_seats', {method: 'POST', headers: sbHeaders, body: '{}'})
   .then(r => r.json())
   .then(j => { const el = document.getElementById('seats-left');
-    if (el && j.capacity) el.textContent = (j.capacity - j.taken) + ' seats left'; })
+    if (el && j.capacity) el.textContent = (j.capacity - j.taken); })
   .catch(() => {});
 
 /* LIVE REACH. Type "seks" and today that silently means zero mail, forever,
@@ -273,7 +263,7 @@ document.getElementById('join-form').addEventListener('submit', async e => {
     document.querySelector('#join-form .submit').disabled = true;
     const el = document.getElementById('seats-left');
     const m = el.textContent.match(/\d+/);
-    if (m) el.textContent = (parseInt(m[0]) - 1) + ' seats left';
+    if (m) el.textContent = (parseInt(m[0]) - 1);
   } else {
     const t = await r.text();
     if (r.status === 409) msg.textContent = 'this address is already signed up. if you never clicked the confirm link, it is in your mail.';
