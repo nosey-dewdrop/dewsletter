@@ -113,6 +113,24 @@ def dedupe(jobs: list[dict]) -> tuple[list[dict], int]:
     return out, len(jobs) - len(out)
 
 
+# Lifted out of keywords_from_profile so the signup form can ship the SAME
+# table to the browser instead of a JavaScript retyping of it. "ai infra" is
+# not one keyword, it is six, and a live preview that did not know that would
+# under-count every profile that uses the placeholder's own wording.
+INTEREST_EXPANSION = {
+    "ai infra": ["ai infrastructure", "ml infra", "ml platform", "inference",
+                 "training platform", "machine learning platform"],
+    "devtools": ["developer tools", "developer platform", "sdk", "compiler", "tooling"],
+    "llm systems": ["llm", "language model", "genai", "generative ai", "foundation model"],
+    "agent platforms": ["agent", "agentic", "automation"],
+    "on-device and cpu-efficient": ["on-device", "edge ai", "quantization", "efficient ml"],
+}
+
+# The split the browser must reproduce exactly, kept next to the table it feeds.
+INTEREST_SPLIT = r"[;,/]| and "
+INTEREST_MIN, INTEREST_MAX = 2, 40
+
+
 def norm_title(title: str) -> str:
     return " " + re.sub(r"[^a-z0-9+#]+", " ", title.lower()).strip() + " "
 
@@ -121,19 +139,11 @@ def keywords_from_profile(profile: dict) -> tuple[list[str], list[str]]:
     """Returns (interest_keywords, skill_keywords), lowercased."""
     interests = set()
     target = profile.get("direction_and_motivation", {}).get("target_field", "")
-    for token in re.split(r"[;,/]| and ", target):
+    for token in re.split(INTEREST_SPLIT, target):
         token = token.strip().lower()
-        if 2 < len(token) < 40:
+        if INTEREST_MIN < len(token) < INTEREST_MAX:
             interests.add(token)
-    expansion = {
-        "ai infra": ["ai infrastructure", "ml infra", "ml platform", "inference",
-                     "training platform", "machine learning platform"],
-        "devtools": ["developer tools", "developer platform", "sdk", "compiler", "tooling"],
-        "llm systems": ["llm", "language model", "genai", "generative ai", "foundation model"],
-        "agent platforms": ["agent", "agentic", "automation"],
-        "on-device and cpu-efficient": ["on-device", "edge ai", "quantization", "efficient ml"],
-    }
-    for key, extra in expansion.items():
+    for key, extra in INTEREST_EXPANSION.items():
         if any(key.split()[0] in i for i in interests):
             interests.update(extra)
     skills = set()

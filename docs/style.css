@@ -70,6 +70,15 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .field input:focus, .field select:focus { border-bottom-color:var(--link); }
 .cvline { margin:.9rem 0; font-size:14px; }
 .cvline .tex, .tex { font-family:monospace; font-size:12.5px; }
+/* A raw file input paints an OS button in the middle of a LaTeX page. The
+   input still exists and is still what the browser opens; only the chrome is
+   replaced, with the same small-caps the nav and the submit button use. */
+.cvline input[type=file] { position:absolute; width:1px; height:1px; opacity:0;
+  overflow:hidden; clip:rect(0 0 0 0); }
+.cvline label.pick { font-variant:small-caps; border-bottom:.8px solid var(--ink);
+  cursor:pointer; padding-bottom:.05rem; }
+.cvline label.pick:hover { color:var(--link); border-bottom-color:var(--link); }
+#cv-msg { font-style:italic; }
 .consent { font-size:13px; margin-top:.9rem; }
 .consent input { margin-right:.45rem; }
 button.submit { font-family:inherit; font-size:14.5px; font-variant:small-caps;

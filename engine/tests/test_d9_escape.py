@@ -244,15 +244,33 @@ class InlineJsIsolation(unittest.TestCase):
     """Listing text never lands inside a script a browser would execute."""
 
     def test_no_listing_text_leaks_into_executable_script(self):
-        leaks = 0
+        """A marker counts only if the PAYLOAD put it there.
+
+        This used to flag any occurrence of alert(/onerror/onload anywhere in
+        an executable script. The signup form legitimately writes
+        `script.onload` and `script.onerror` to lazy-load the board and the CV
+        engine, so the guard started firing on the page's own code -- and a
+        guard that fires on correct code teaches people to write worse code to
+        keep it quiet. It is now differenced against the SAME surfaces built
+        from clean listings: a marker present in both is the page being itself,
+        a marker present only under attack is a leak. The payload string itself
+        is still an unconditional failure.
+        """
+        clean = {name: set(parse(html).executable_scripts())
+                 for name, html in all_surfaces([job()]).items()}
+        leaks = []
         for p in PAYLOADS:
             jobs = [job(company=p, position=p, location=p, salary=p,
                         link="javascript:alert(3)", company_url=p)]
-            for html_text in all_surfaces(jobs).values():
+            for name, html_text in all_surfaces(jobs).items():
+                baseline = " ".join(clean[name])
                 for body in parse(html_text).executable_scripts():
-                    if any(m in body for m in EXEC_MARKERS) or p in body:
-                        leaks += 1
-        self.assertEqual(leaks, 0)
+                    if p in body:
+                        leaks.append((name, p, "payload verbatim"))
+                    for m in EXEC_MARKERS:
+                        if body.count(m) > baseline.count(m):
+                            leaks.append((name, p, f"new {m}"))
+        self.assertEqual(leaks, [], f"listing text reached a script: {leaks}")
 
 
 if __name__ == "__main__":

@@ -44,8 +44,13 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
       <select id="f-level"><option value="bs">BS student</option><option value="ms">MS student</option><option value="phd">PhD student</option></select>
     </div>
     <div class="field"><label>interests</label><input id="f-interests" type="text" placeholder="ai infra, agents, devtools, &hellip;"></div>
-    <div class="cvline">or upload a CV and the profile fills itself:
-      <span class="tex">\includegraphics{your_cv.pdf}</span> <a href="cv.html">see what it reads</a></div>
+    <div class="field"><label></label><div id="reach" class="tabnote"></div></div>
+    <div class="cvline">or read a CV and it fills the box above:
+      <label class="pick" for="f-cv">choose a file</label>
+      <input id="f-cv" type="file" accept=".pdf,.txt,.md">
+      <span id="cv-msg"></span><br>
+      <span class="tex">the file is read in this tab and never uploaded.</span>
+      <a href="cv.html">see the full report it can write</a></div>
     <div class="consent"><label><input id="f-consent" type="checkbox"> I consent to receiving match mails.
       One mail comes first, to confirm this address is yours; nothing else is sent until you click it.
       Leaving takes one click on the page linked in every mail. Data stays in the EU region,
@@ -132,6 +137,105 @@ fetch(SB + '/rest/v1/rpc/sightstone_seats', {method: 'POST', headers: sbHeaders,
   .then(j => { const el = document.getElementById('seats-left');
     if (el && j.capacity) el.textContent = (j.capacity - j.taken) + ' seats left'; })
   .catch(() => {});
+
+/* LIVE REACH. Type "seks" and today that silently means zero mail, forever,
+   with nothing on the page saying so -- same for a typo, a single letter, or
+   an empty box. The count below is a promise, so it uses the MAILER's rule:
+   engine/build_site.py ships the titles already normalised by match.norm_title
+   and the matcher's own expansion table, and this code only splits and does a
+   substring test. A second normaliser written here would drift and start
+   promising numbers the engine does not deliver.
+   Loaded on first touch, because it is bigger than the page and most visitors
+   never type in that box. */
+let boardReady = null;
+function loadBoard() {
+  if (boardReady) return boardReady;
+  boardReady = new Promise((ok, no) => {
+    const s = document.createElement('script');
+    s.src = 'board.js'; s.onload = ok; s.onerror = no;
+    document.head.appendChild(s);
+  });
+  return boardReady;
+}
+function keywords(text) {
+  const out = new Set();
+  for (let t of text.split(new RegExp(SPLIT))) {
+    t = t.trim().toLowerCase();
+    if (t.length > KWMIN && t.length < KWMAX) out.add(t);
+  }
+  for (const key in EXPANSION) {
+    const head = key.split(' ')[0];
+    for (const i of out) if (i.includes(head)) { EXPANSION[key].forEach(e => out.add(e)); break; }
+  }
+  return [...out];
+}
+const reach = document.getElementById('reach');
+const interests = document.getElementById('f-interests');
+let reachTimer;
+async function showReach() {
+  const raw = interests.value.trim();
+  if (!raw) { reach.textContent = ''; return; }
+  reach.textContent = 'counting…';
+  try { await loadBoard(); } catch (_) { reach.textContent = ''; return; }
+  const kws = keywords(raw);
+  let n = 0;
+  for (const t of BOARD) if (kws.some(k => t.includes(' ' + k + ' '))) n++;
+  reach.textContent = n
+    ? n + ' of today’s ' + BOARD.length + ' listings match that. new ones arrive every morning.'
+    : 'nothing on today’s ' + BOARD.length + ' listings matches that — you would get no mail. try a word that appears in job titles.';
+}
+interests.addEventListener('input', () => {
+  clearTimeout(reachTimer); reachTimer = setTimeout(showReach, 250);
+});
+
+/* CV -> interests. The form used to say "upload a CV and the profile fills
+   itself" while having no file input and no code that filled anything: a
+   promise made to every visitor and kept for none. This keeps it.
+   Nothing is uploaded. The file is read in this tab, exactly as cv.html does
+   it, and only the words it found are put in a text box the user can edit.
+   pdf.js is 1.4 MB and this page is 11 kB, so it is fetched only if a PDF is
+   actually chosen -- and cv-engine.js only when a file is. */
+function loadScript(src) {
+  return new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+}
+async function readPdf(file) {
+  if (!window.pdfjsLib) {
+    await loadScript('vendor/pdf.min.js');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
+  }
+  const doc = await pdfjsLib.getDocument({data: await file.arrayBuffer()}).promise;
+  let out = '';
+  for (let i = 1; i <= doc.numPages; i++) {
+    const tc = await (await doc.getPage(i)).getTextContent();
+    out += tc.items.map(it => it.str).join(' ') + '\n';
+  }
+  return out;
+}
+const cvMsg = document.getElementById('cv-msg');
+document.getElementById('f-cv').addEventListener('change', async e => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  cvMsg.textContent = ' reading…';
+  try {
+    const text = /\.pdf$/i.test(file.name) ? await readPdf(file) : await file.text();
+    if (!window.cvEvidence) await loadScript('cv-engine.js');
+    const ev = cvEvidence(text);
+    const found = (ev.terms || []).slice(0, 6);
+    if (!found.length) {
+      cvMsg.textContent = ' read it, but found no field words in it. type them yourself.';
+      return;
+    }
+    interests.value = found.join(', ');
+    cvMsg.textContent = ' filled from the CV — edit it if it is wrong.';
+    showReach();
+  } catch (err) {
+    cvMsg.textContent = ' could not read that file. type your interests instead.';
+  }
+});
 
 document.getElementById('join-form').addEventListener('submit', async e => {
   e.preventDefault();

@@ -170,8 +170,7 @@ async function extractPdf(file) {
     }
     lines.push(cur.join('')); cur = [];
   }
-  return lines.join('
-');
+  return lines.join('\n');
 }
 
 document.getElementById('cv-file').addEventListener('change', async e => {
