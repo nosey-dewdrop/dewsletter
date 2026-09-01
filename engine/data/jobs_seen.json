@@ -2,7 +2,7 @@
  "42dot|ms/phd intern ai engineer - 정규직 전환형": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "4flow|intern - artificial intelligence": {
   "alive": false,
@@ -12,7 +12,7 @@
  "abb|ai robotics ui/ux intern- fall 2026": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "abb|internship - m/f/d - ai and domain-aware audio processing": {
   "alive": false,
@@ -22,22 +22,22 @@
  "abb|internship / master thesis student - m/f/d ai for network security and orchestration": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "abb|msc or bsc thesis / internship - m/f/d ai for intent-based networking": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "abb|physical ai robotics simulation intern- fall 2026": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "abb|sourcing data analyst intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "abb|暑期实习生 - erp与ai数字化转型方向 - intern - erp & ai digital transformation": {
   "alive": false,
@@ -57,7 +57,7 @@
  "advanced space|2027 machine learning summer internship": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "aegon|strategy & operations ai intern": {
   "alive": false,
@@ -67,12 +67,12 @@
  "agilent|engineering internship - ai applications in manufacturing & quality": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "airbus|data analyste - alternant - h/f": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "airbus|intern - d/f/m artificial intelligence": {
   "alive": false,
@@ -92,7 +92,7 @@
  "airbus|praktikum im bereich ai & deep reinforcement learning in der intralogistik d/m/w": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "airbus|werkstudent - d/m/w im bereich „artificial intelligence for structural materials“": {
   "alive": false,
@@ -102,12 +102,12 @@
  "airbus|werkstudent für scientific computing & machine learning - d/m/w": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "airbus|werkstudent manufacturing engineering aerostructures data analytics & management support - d/m/w": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "aizon|ai consultant intern": {
   "alive": false,
@@ -117,12 +117,12 @@
  "akuna capital|quantitative development & strategy intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "akuna capital|quantitative research intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "allegion|werkstudent it - data science & ki - m/w/d": {
   "alive": false,
@@ -142,12 +142,12 @@
  "alten|stage - data engineering & analyse système - h/f": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "alten|stage innovation : ingénieur intelligence artificielle / computer vision": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "alten|stage innovation : ingénieur intelligence artificielle générative / nlp": {
   "alive": false,
@@ -157,22 +157,22 @@
  "amcor|intern - ai innovation engineer": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "ameren|crisis management data & analytics intern": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-28"
+  "last_seen": "2026-09-01"
  },
  "american institutes for research|data science associate intern": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "amerisourcebergen|alternance - business data analyst - h/f": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "amerisourcebergen|intern - data science": {
   "alive": false,
@@ -184,10 +184,15 @@
   "first_seen": "2026-07-30",
   "last_seen": "2026-08-12"
  },
+ "analog devices|ai/ml engineer intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "analog devices|algorithm development engineer intern": {
   "alive": true,
   "first_seen": "2026-08-25",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "analytical mechanics associates|computer science/engineering intern - computer vision applications": {
   "alive": false,
@@ -267,7 +272,7 @@
  "arkansas center for data sciences|ai operations intern-caddell reynolds": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "arkansas center for data sciences|digital marketer intern-align ai": {
   "alive": false,
@@ -282,17 +287,17 @@
  "artefact|intern data engineer brazil": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "arthur d. little|data&ai analyst intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "artisan partners|data engineering intern - platform & product": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "asm global|automation & ai technology experience intern": {
   "alive": false,
@@ -312,12 +317,17 @@
  "asml|business analytics - technology management internship: ai enablement": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "asml|computational physics - artificial intelligence internship: euv computational physics & optics": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "asml|data science - ai internship: audit automation solutions": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "asml|data science - ai internship: reinforcement learning": {
   "alive": false,
@@ -332,7 +342,7 @@
  "asml|data science - psychology internship: behavioral insights analytics": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "asml|data science - supply chain management internship: shipping lead time analysis": {
   "alive": false,
@@ -350,14 +360,14 @@
   "last_seen": "2026-07-31"
  },
  "asml|machine learning algo intern - internship": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-17",
   "last_seen": "2026-08-30"
  },
  "asml|physics - data science internship: predictive imaging diagnostics": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "asml|physics - materials science internship: ai-driven experimental insights": {
   "alive": false,
@@ -377,27 +387,27 @@
  "astreya|ai infrastructure dc design intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "audax group|ai engineer co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "audax group|data analytics co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "audax group|data engineer co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "auto-owners insurance|data engineering internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "autodesk|phd intern - ai researcher for cad - b-rep generation": {
   "alive": false,
@@ -407,17 +417,17 @@
  "autoscout24|intern ai transformation & automation - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "avanade|avanade campus: prácticas en artificial intelligence hub octubre 2026": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "avanade|avanade campus: prácticas en data analytics con tecnologías microsoft - octubre 2026": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-28"
+  "last_seen": "2026-09-01"
  },
  "avanade|graduation internship data & ai - ai / gen ai / ai engineering": {
   "alive": false,
@@ -430,7 +440,7 @@
   "last_seen": "2026-08-11"
  },
  "avis budget group|ai intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-28",
   "last_seen": "2026-08-30"
  },
@@ -467,17 +477,17 @@
  "baker hughes|intern - ai - structural optimization engineer - florence - italy - 2026 - m/f/d": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "baker hughes|intern - ai and computer engineering - florence - italy - 2026 - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "baker hughes|intern - ai-integrated modeling engineer - florence - italy - 2026 - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "baker hughes|intern - data analyst - florence - italy - 2026 - m/f/d": {
   "alive": false,
@@ -487,17 +497,17 @@
  "baker hughes|intern - data analytics - florence - italy - 2026 - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "baker hughes|intern - standardization and data analyst - florence - italy - 2026 - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bamboo works|ai & automation internship - remote": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bank of china  limited, new york  branch|internal audit department data analytics audit intern": {
   "alive": false,
@@ -512,22 +522,22 @@
  "barclays|quantitative analytics associate off cycle internship 2027 hong kong": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "barclays|quantitative analytics associate off cycle internship 2027 singapore": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "barclays|quantitative finance associate summer internship program 2027 new york": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bayut  dubizzle|machine learning - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bdo|co-op or intern - data & analytics - september 2026": {
   "alive": false,
@@ -537,35 +547,40 @@
  "belvedere trading|quantitative trading intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "belvedere trading|quantitative trading intern - winter quarter 2027": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bestow|business operations and ai intern": {
   "alive": true,
   "first_seen": "2026-08-03",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bigblue|data analyst intern — ops excellence": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "biogen|advanced process data analytics and modeling internship": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-19"
  },
- "bland|machine learning research intern - audio": {
+ "bland|machine learning intern": {
   "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "bland|machine learning research intern - audio": {
+  "alive": false,
   "first_seen": "2026-08-29",
   "last_seen": "2026-08-30"
  },
  "blockhouse|applied ai engineering intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-29",
   "last_seen": "2026-08-30"
  },
@@ -577,22 +592,22 @@
  "boeing|boeing summer 2027 internship program - paid - data analytics intern": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bolder apps|operations & ai intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "booz allen|ai ran telecommunications engineer intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-12",
   "last_seen": "2026-08-30"
  },
  "booz allen|university - 2027 summer games data scientist intern": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "borgwarner|intern - data science - logística": {
   "alive": false,
@@ -637,12 +652,12 @@
  "bosch|eta ai engineer intern - 6-month fulltime internship": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bosch|extracurricular internship: ai & automation development - f/m/div.": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bosch|intern - ai hvac research": {
   "alive": false,
@@ -662,7 +677,7 @@
  "bosch|intern - sales excellence data analyst": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bosch|internship ai automation and data analysis": {
   "alive": false,
@@ -707,7 +722,7 @@
  "bosch|mandatory internship ai and robotics": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bosch|paid internship in ai application team - f/m": {
   "alive": false,
@@ -717,7 +732,7 @@
  "bosch|pflichtpraktikum data engineering - cad-visualisierung": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bosch|praktikum ai integration & smart engineering": {
   "alive": false,
@@ -777,7 +792,7 @@
  "branch international|machine learning engineer intern": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "branch|technology risk & ai operations fall intern": {
   "alive": false,
@@ -787,22 +802,22 @@
  "bree|machine learning engineering - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "by light|ai intern": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bybit|nlp algorithm engineer intern": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "bynder|ai research intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cadence|intern agentic ai workflow development & validation for digital design - f/m/d": {
   "alive": false,
@@ -812,12 +827,12 @@
  "cadence|intern in ai system verification": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cadence|intern: application engineering - digital simulation/verification & agentic ai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cadent|enterprise ai intern": {
   "alive": false,
@@ -837,12 +852,12 @@
  "campbell soup|agentic ai engineer co-op": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "campbell soup|business analyst - co-op - da&ai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "campbell soup|data engineer - agentic ai & ml ops - co-op": {
   "alive": false,
@@ -860,14 +875,14 @@
   "last_seen": "2026-08-27"
  },
  "campbell soup|data science intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-02",
   "last_seen": "2026-08-30"
  },
  "canva|phd research scientist intern": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "canva|phd research scientist intern - edge ai": {
   "alive": false,
@@ -882,22 +897,22 @@
  "canva|phd research scientist intern - reinforcement learning for diffusion modelling": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "capital one|current master's - data science internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "capital one|current phd - data science internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "capitaland|intern - digital & technology - data & ai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "capitaland|intern - digital & technology - data & ai - off-cycle jul - dec 2026": {
   "alive": false,
@@ -910,14 +925,14 @@
   "last_seen": "2026-08-21"
  },
  "ccc intelligent solutions|ai enablement intern": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-21"
+  "last_seen": "2026-09-01"
  },
  "ccc intelligent solutions|applied ai engineering intern": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "ccc intelligent solutions|data science engineer internship": {
   "alive": false,
@@ -937,7 +952,7 @@
  "celonis|intern ai & management consulting - competitive engagement": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "celonis|intern ai & management consulting - value engineering": {
   "alive": false,
@@ -967,12 +982,12 @@
  "cerved|it data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "chanel|alternance - ai/data engineer — data factory h/f/x - mode - septembre 2026": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "chanel|alternance - assistant ingénieur ml/ia - mlops et llmops - europe - octobre 2026 - h/f/x": {
   "alive": false,
@@ -982,17 +997,27 @@
  "chanel|data analyst support intern - january 2027": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "charles schwab|technology 2027 intern - ai & cybersecurity": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "charles schwab|technology 2027 intern - data engineering": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "chevron|chevron argentina - pasante hse data analyst": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "chicago trading company|quant trading internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cirrus logic|fall 2026 co-op ai business analytics intern": {
   "alive": false,
@@ -1002,17 +1027,17 @@
  "citadel securities|machine learning researcher - phd intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|machine learning researcher - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative research - phd intern - australia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative research analyst - intern - us": {
   "alive": false,
@@ -1022,37 +1047,37 @@
  "citadel securities|quantitative research analyst intern - bs/ms - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative research analyst intern - bs/ms - australia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative research analyst intern - bs/ms - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative research engineer - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative researcher - phd intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative researcher - phd intern - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative researcher - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative trader - intern - us": {
   "alive": false,
@@ -1062,92 +1087,92 @@
  "citadel securities|quantitative trader - intern - us - trading and research": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative trading - intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative trading - intern - australia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel securities|quantitative trading - intern - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|machine learning researcher - phd intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|machine learning researcher - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative research analyst - intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative research analyst intern - bs/ms - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative research analyst intern - bs/ms - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative research engineer - phd intern - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative research engineer - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative researcher - phd intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative researcher - phd intern - europe": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative researcher - phd intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|quantitative trader: equity quantitative research - intern - us": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|sector data analyst - intern - asia": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|sector data analyst - intern - europe": {
   "alive": true,
   "first_seen": "2026-08-03",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "citadel|sector data scientist - 2027 intern - us": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "city of charlotte|utility ai interaction designer - co-op ii": {
   "alive": false,
@@ -1157,7 +1182,7 @@
  "clario|intern - ai prototyping": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cloudflare|ai transformation intern - global customer engineering - service sales - fall 2026": {
   "alive": false,
@@ -1187,7 +1212,7 @@
  "cno financial group|artificial intelligence - ai it intern 2027 - remote": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cohere|machine learning intern/co-op - fall - 2026": {
   "alive": false,
@@ -1197,7 +1222,7 @@
  "cohere|machine learning intern/co-op - winter 2027": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cohesity|data analyst- intern- london": {
   "alive": false,
@@ -1207,7 +1232,7 @@
  "connectprep|data analyst internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "constellation space|graduate/phd research intern - machine learning": {
   "alive": false,
@@ -1217,22 +1242,22 @@
  "continental resources|data analyst intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "copart|data engineering intern": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "core & main|intern - ai/ml data engineering - onsite - st. louis": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cosuno|founder's associate internship - ai-native": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cotiviti|intern - agentic ai research": {
   "alive": false,
@@ -1247,7 +1272,7 @@
  "cotiviti|intern - generative ai research engineer": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "cotiviti|intern - generative ai/agentic ai/research": {
   "alive": false,
@@ -1257,7 +1282,7 @@
  "cotiviti|intern ai engineer - early-career - llm context & data layer - healthcare": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "covergo|ai engineer intern": {
   "alive": false,
@@ -1272,37 +1297,37 @@
  "cresta|data science intern - customer success": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "crowe|ai engineering intern": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "crowe|ai functional intern": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "crowe|ai functional intern - winter 2027": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "crowe|ai project coordinator intern": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "crowe|machine learning intern": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "customers bank|ai innovation risk co-op": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "d. e. shaw & co.|quantitative analyst - ph.d. intern - new york - summer 2027": {
   "alive": false,
@@ -1317,7 +1342,7 @@
  "damen shiprepair harlingen|internship: data & analytics": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "datarobot|agentic ai intern": {
   "alive": false,
@@ -1332,32 +1357,32 @@
  "deloitte|ai savvy finance trainee": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "deloitte|ai strategy & governance trainee": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "deloitte|data & analytics trainee": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "dentsu|data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "detroit lions|quantitative research intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-21",
   "last_seen": "2026-08-30"
  },
  "deuna|data science intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "deutsche bank|internship - artificial intelligence - f/m/x": {
   "alive": false,
@@ -1372,32 +1397,32 @@
  "direct agents|ai business strategy & operations intern": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "doctolib|seo & ai intern - x/f/m": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "dow|campus internship 2025-2026 - finance - accounting - tax - treasury - data science": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
  },
  "drw|ai/ml research intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "drw|quantitative research intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "drw|quantitative trading analyst intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "dupont|data analytics internship - 6 month program": {
   "alive": false,
@@ -1407,7 +1432,7 @@
  "dv trading|quantitative risk intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "east penn manufacturing|data engineering intern": {
   "alive": false,
@@ -1417,12 +1442,12 @@
  "ecolab|digital & ai technology intern": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "ecolab|intern data science - división institucional - alumnos/as en últimos años de carrera": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "edwards lifesciences|ai engineering internship": {
   "alive": false,
@@ -1435,24 +1460,24 @@
   "last_seen": "2026-07-29"
  },
  "egra|ai researcher / engineer / intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
  },
  "eluvio|last minute ai-machine learning summer internship - gen ai - multimodal": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "engineers gate|quantitative research intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "enova international|data analytics intern - hybrid": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "enpal|ai & data analyst intern - f/m/x": {
   "alive": false,
@@ -1462,7 +1487,7 @@
  "enpal|ai agents & automations internship - f/m/x": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "enpal|ai data & automation intern - f/m/x": {
   "alive": false,
@@ -1492,7 +1517,7 @@
  "ensemble health partners|data scientist intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "entrust|ai & automation intern": {
   "alive": false,
@@ -1502,7 +1527,7 @@
  "epic games|machine learning intern": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "equativ|ai engineer intern - genai internal automation - gaia": {
   "alive": false,
@@ -1517,7 +1542,7 @@
  "eragon|applied ai intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "eulerity|digital marketing intern - technical ai & automation": {
   "alive": false,
@@ -1537,7 +1562,7 @@
  "euronext|ai engineering intern": {
   "alive": true,
   "first_seen": "2026-08-02",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "euronext|equity quant intern": {
   "alive": false,
@@ -1557,7 +1582,7 @@
  "ev realty|intern - data analytics": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "exabeam|ai deployment intern": {
   "alive": false,
@@ -1567,12 +1592,12 @@
  "excellus bcbs|college intern - ai engineering - fall 2026 - multiple openings": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "excellus bcbs|college intern - innovation & ai cohort - fall 2026 - multiple openings": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "exowatt|ai marketing intern": {
   "alive": false,
@@ -1582,22 +1607,27 @@
  "fannie mae|campus - data science intern - analytics & modeling program": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "fannie mae|campus - treasury & capital markets program intern - quantitative research track": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "faraday future|finance & ai automation intern": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-12"
  },
+ "fgf brands|product support analyst - ai automation co-op - winter 2027": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "finmid|data science intern - ft potential": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "firework|ai content intern": {
   "alive": false,
@@ -1617,32 +1647,37 @@
  "five rings|summer intern 2027 - quantitative researcher - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "five rings|summer intern 2027 - quantitative trader": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "flow traders|quantitative trading intern summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "focuskpi|ai business operations intern - remote - paid": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
+ },
+ "focuskpi|data science intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "freddie mac|risk management graduate intern - quantitative summer 2027": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "fugro|data & analytics internship": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "furiosaai|ai research engineer intern": {
   "alive": false,
@@ -1652,22 +1687,22 @@
  "g-research|data science internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "g-research|machine learning research internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "g-research|natural language processing internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "g-research|quant research internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "garda capital partners|ai intern": {
   "alive": false,
@@ -1677,7 +1712,7 @@
  "gartner|data analyst internship - 2028 graduates": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gdit|gdit 2027 summer ai / ml internship": {
   "alive": false,
@@ -1692,7 +1727,17 @@
  "ge aerospace|aircraft engines prognostics and health management data analyst engineer - intern": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "ge aerospace|applied ai engineer co-op - spring 2027 - january start": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "ge aerospace|applied ai engineer intern - summer 2027 - may/june start": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "ge aerospace|applied ai engineering intern - m/f/d": {
   "alive": false,
@@ -1712,12 +1757,12 @@
  "ge vernova|stagiaire ingénieur - data analytics & transformation digitale f/h": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gea|werkstudent - m/w/d - data analyst / data science": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "geico|technology development program - ai engineer development track - summer 2026 interns only": {
   "alive": false,
@@ -1727,7 +1772,7 @@
  "genentech|2027 spring intern - opregen machine learning": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "generac|ai productivity & adoption - co-op": {
   "alive": false,
@@ -1772,17 +1817,17 @@
  "google|data science phd intern - 2027": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "google|part-time research scientist phd intern - 2027": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "google|research scientist phd intern - 2027": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "grab|intern - data scientist - analytics - mobility": {
   "alive": false,
@@ -1797,7 +1842,7 @@
  "graymatter robotics|ai research intern: foundation models": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "group 1001|quantitative analysis intern": {
   "alive": false,
@@ -1807,7 +1852,7 @@
  "gsa|quantitative researcher - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gsk internships & co-ops powered by atrium|fall co-op/ai portfolio": {
   "alive": false,
@@ -1822,7 +1867,7 @@
  "gsk|internship - digital data analytics - singapore - january to june 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gsk|internship -digital - data and ai - asia r&d - singapore - january to june 2027": {
   "alive": false,
@@ -1832,17 +1877,17 @@
  "gsk|internship: genai data analyst - belgium - 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gsk|internship: global quality digital & ai transformation - deployment specialist - belgium - 2026": {
   "alive": true,
   "first_seen": "2026-07-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gsk|internship: global quality digital & ai transformation - specialist for funnel building & use cases expansion - belgium - 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "gsk|stage en alternance : analytical engineering - laboratory automation - robotics & physical ai - belgium - 2026": {
   "alive": false,
@@ -1852,12 +1897,12 @@
  "gsk|stage en alternance : génie analytique - laboratory automation - robotics & physical ai - belgium - 2026": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "harman|intern - ai research": {
   "alive": true,
   "first_seen": "2026-08-25",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "harman|intern - digital corporate data & analytics - m/f/d": {
   "alive": false,
@@ -1867,12 +1912,17 @@
  "helsing|ai research intern - phd - 3d computer vision": {
   "alive": true,
   "first_seen": "2026-08-02",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "here technologies|internship - ai & market signals": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-19"
+ },
+ "hewlett packard enterprise|data science intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "hewlett packard enterprise|nwe intern: category management - compute - ai & business strategy - netherlands - dutch speaker": {
   "alive": false,
@@ -1882,7 +1932,7 @@
  "hitachi|hcm & hn talented ai engineer internship program": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hitachi|intern - data engineer for automatic selection of radio networks": {
   "alive": false,
@@ -1892,7 +1942,7 @@
  "hitachi|internship - ai and test automation research": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hitachi|internship - machine learning / data science": {
   "alive": false,
@@ -1915,9 +1965,9 @@
   "last_seen": "2026-08-24"
  },
  "hitachi|uxui / ai transformation intern": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-27"
+  "last_seen": "2026-09-01"
  },
  "hogan lovells|legal ai intern": {
   "alive": false,
@@ -1932,17 +1982,17 @@
  "hone health|data engineering intern - fall 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hp|college intern - data analytics in supply chain": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hp|college intern - data engineering & ai": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hp|college intern - machine learning and artificial intelligence": {
   "alive": false,
@@ -1952,7 +2002,7 @@
  "hp|college intern - manufacturing ai solutions": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hp|college intern - mechatronic systems & ai design": {
   "alive": false,
@@ -1967,22 +2017,22 @@
  "hudson river trading|algorithm development - quant research & trading internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "hudson river trading|algorithm development - quant research & trading phd internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "huntsman|artificial intelligence / automation intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "huntsman|business intelligence & ai analytics intern": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "huntsman|data analyst intern": {
   "alive": false,
@@ -2017,12 +2067,12 @@
  "instawork|hardware intern — robotics & ai": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "institute of foundation models|ai research internship - wm": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "intel|ai algorithm research intern - neuromorphic computing": {
   "alive": false,
@@ -2037,42 +2087,47 @@
  "intel|ai engineer intern": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "intel|module engineering intern - ai/ml - data science - robotics - electrical - and mechatronics engineering disciplines": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "interdigital|generative ai implementation intern": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-01"
  },
+ "jabil|supply chain data analyst intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "jane street|data engineer summer internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jane street|machine learning engineer summer internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jane street|machine learning researcher summer internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jane street|quantitative researcher summer internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jane street|quantitative trader summer internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jobgether|sw development intern/data analytics": {
   "alive": false,
@@ -2087,12 +2142,12 @@
  "johnson & johnson|data & ai internship": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "johnson & johnson|data science co-op - spring 2027": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "johnson controls|intern - data analytics": {
   "alive": false,
@@ -2107,62 +2162,72 @@
  "jump trading|campus ai research engineer - deep learning - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus ai research engineer - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus ai research engineer - research automation - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus ai researcher - phd/postdoc - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "jump trading|campus ai/ml researcher - intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus data engineer - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus ml research engineer - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus quantitative research intern - off-cycle - winter/spring 2027": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-27",
   "last_seen": "2026-08-30"
  },
  "jump trading|campus quantitative researcher - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus quantitative researcher - m1/m2 intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "jump trading|campus quantitative researcher - off-cycle - winter/spring 2027 intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus quantitative researcher - phd - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus quantitative researcher - ug/ms - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "jump trading|campus quantitative trader - intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "kaizen analytix|ai engineer internship": {
   "alive": false,
@@ -2182,7 +2247,7 @@
  "keybank|2027 summer analytics and quantitative modeling internship- cleveland": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "kinaxis|co-op/ intern engineer - data & analytics": {
   "alive": false,
@@ -2192,7 +2257,7 @@
  "kinexon|internship product management & ai automation": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "kion group|ai internships": {
   "alive": false,
@@ -2207,12 +2272,12 @@
  "kodiak robotics|winter 2027 intern - artificial intelligence/machine learning": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "kone|automation & ai solutions intern - kone business services f/m": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "kone|intern - data analyst": {
   "alive": false,
@@ -2224,6 +2289,11 @@
   "first_seen": "2026-08-01",
   "last_seen": "2026-08-01"
  },
+ "later|ai automation co-op - fall 2026": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "later|ai automation engineer co-op": {
   "alive": false,
   "first_seen": "2026-07-26",
@@ -2232,17 +2302,17 @@
  "later|data/analytics co-op": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "leidos|data engineering & analytics intern": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "leidos|data science intern": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-05"
+  "last_seen": "2026-09-01"
  },
  "leland|ai education intern": {
   "alive": false,
@@ -2267,12 +2337,12 @@
  "lila sciences|co-op - ml scientist for protein engineering": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "limetax|applied ai engineering intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "lombard odier|internship - data scientist": {
   "alive": false,
@@ -2282,7 +2352,7 @@
  "lombard odier|internship - enhancing financial knowledge access with generative ai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "lonza|data analytics intern": {
   "alive": false,
@@ -2292,17 +2362,17 @@
  "lucid motors|data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mackenzie investments|winter intern 2027 - data engineering": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mackenzie investments|winter intern 2027 - data science - toronto office": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mactores|generative ai engineer - intern": {
   "alive": false,
@@ -2317,17 +2387,17 @@
  "magna|computer vision engineering co-op": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "magna|intern - infrared imaging & algorithms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "magna|r&d- computer vision engineering intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "magnera corporation|it data analyst intern": {
   "alive": false,
@@ -2347,22 +2417,22 @@
  "mango|agentic ai engineer intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mango|quantitative researcher intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "manulife|summer intern 2027 - ai": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "manulife|summer intern 2027 - data engineering": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "marmon|ai project management intern": {
   "alive": false,
@@ -2377,7 +2447,7 @@
  "marsh mclennan|oliver wyman - data & analytics internship - italy": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "marvell|applied machine learning scientist intern - phd": {
   "alive": false,
@@ -2402,7 +2472,7 @@
  "medline|mba intern - strategic operations & ai - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "medtronic|intern ai vision for equipment development": {
   "alive": false,
@@ -2422,7 +2492,7 @@
  "meta|research scientist intern - ai - cyber security - safety — msl trust & safety - phd": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "meta|research scientist intern - monetization computer vision - phd": {
   "alive": false,
@@ -2434,30 +2504,35 @@
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-13"
  },
+ "meta|research scientist intern - optical engineering - phd": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "meta|research scientist intern - optical system design - phd": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "meta|research scientist intern - photorealistic telepresence - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "meta|research scientist intern - state estimation for dexterous manipulation - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "metova federal|ai intern": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "micron technology|ai - data & digital solutions internship - singapore": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "micron technology|intern - ai / data science engineering": {
   "alive": false,
@@ -2477,22 +2552,22 @@
  "micron technology|intern - ml/ai engineer - product engineering - stpg": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "micron technology|intern - nand device engineering ai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "micron technology|intern - technical customer management - ai": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "microsoft|applied science: phd microsoft ai internship opportunities": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "microsoft|applied science: phd microsoft ai internship opportunities - redmond": {
   "alive": false,
@@ -2505,12 +2580,12 @@
   "last_seen": "2026-08-12"
  },
  "microsoft|research intern - self-improving ai": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
  },
  "microsoft|security research intern - ai focus": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-20",
   "last_seen": "2026-08-30"
  },
@@ -2522,7 +2597,7 @@
  "miele|praktikant ai & process automation - w/m/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "millicom|data analytics intern": {
   "alive": false,
@@ -2537,22 +2612,22 @@
  "mistral ai|applied ai - forward deployed machine learning engineer - internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mistral ai|applied scientist / research engineer - internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "mks|2027 summer bi/data analytics it intern": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "modal|ml research intern": {
   "alive": true,
   "first_seen": "2026-07-30",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "moog|intern - it computer science - data analytics": {
   "alive": false,
@@ -2562,32 +2637,32 @@
  "morningstar|morningstar internship program- quantitative research intern 2027 - partner link": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "morse corp co-op opportunities|aerospace algorithms engineer co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "morse corp co-op opportunities|aerospace algorithms engineer graduate co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "morse corp co-op opportunities|data scientist co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "morse corp co-op opportunities|data scientist graduate co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "morse corp co-op opportunities|machine learning engineer co-op": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "motional|machine learning intern - perception - end-to-end": {
   "alive": false,
@@ -2597,7 +2672,7 @@
  "motorola solutions|data analyst co-op": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "motorola solutions|data engineering co-op": {
   "alive": false,
@@ -2607,22 +2682,22 @@
  "motorola solutions|supply chain applied ai engineering intern": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "motorola solutions|supply chain data analyst internship 2027": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "msd|intern - d&l data analyst": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "msd|intern - d&l trade compliance data analyst": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "msd|intern - data science & biostatistics- manufacturing": {
   "alive": false,
@@ -2632,7 +2707,7 @@
  "mufg|operations project and data analytics intern": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nelnet|intern - ai engineer": {
   "alive": false,
@@ -2642,7 +2717,7 @@
  "nelnet|intern program - agentic ai": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "neolytix|hr intern - business process & ai": {
   "alive": false,
@@ -2652,22 +2727,22 @@
  "netflix|ai/ml scientist intern - aims ai foundations - phd - fall 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "netflix|machine learning/ai infrastructure engineering intern - ai platform phd - winter 2027": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "netflix|machine learning/ai scientist phd intern - winter 2027": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "netflix|video algorithms intern - video coding - gaussian splatting - fall 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "neura robotics|ai engineering intern - human": {
   "alive": false,
@@ -2682,22 +2757,22 @@
  "nexaminds|ai solutions intern - 3-6 month internship": {
   "alive": true,
   "first_seen": "2026-07-30",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nextiva|forward deployed engineer intern - ai implementation": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nextiva|intern - marketing - data science": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nio|ai robotics researcher intern - dexterous manipulation": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "noblereach|applied ai intern": {
   "alive": false,
@@ -2707,22 +2782,27 @@
  "noblereach|applied ai intern - fall 2026": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "northwestern mutual|public investments quantitative analyst intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "northwoodspace|supply chain data & analytics intern - 2027 summer internship": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "notion|data science intern - winter 2027": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "ntt data aivista|ai scientist - intern": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "ntt|ai engineering intern - mistral ai & forward deployment": {
   "alive": false,
@@ -2732,7 +2812,7 @@
  "nvidia|ai research intern - tao multi-modal model development - 2026": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|applied deep learning phd research intern - reinforcement learning for llms - fall 2026": {
   "alive": false,
@@ -2742,37 +2822,37 @@
  "nvidia|applied research intern - nlp - fall 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|artificial intelligence research intern - deep learning": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|nvidia 2027 internships: deep learning": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|nvidia 2027 internships: deep learning computer architecture": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|nvidia 2027 internships: ph.d. research computer vision and deep learning": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|nvidia 2027 internships: ph.d. research generative ai": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|nvidia 2027 internships: ph.d. research large language models": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nvidia|phd research intern - generative ai - 2026": {
   "alive": false,
@@ -2787,17 +2867,17 @@
  "nxp semiconductors|internship - business/data analyst - commercial marketing - business operations": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nxp semiconductors|internship - digital design & generative ai support - m/f/d": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nxp semiconductors|internship - digital verification & generative ai support - m/f/d": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nxp semiconductors|internship - product engineering - data science: machine learning analyst": {
   "alive": false,
@@ -2807,72 +2887,72 @@
  "nxp semiconductors|internship - product engineering - ml model development": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "nxp semiconductors|internship/thesis - signal processing and ai for autonomous driving": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "on.energy|data scientist - internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|2027 shanghai machine learning engineer summer internship": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative research intern - phd - summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative research internship - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative research internship - bachelor or master - summer 2027 - shanghai": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative trading internship - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative trading internship - singapore - 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "optiver|quantitative trading internship - summer 2027 - shanghai": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "opusclip|ai product management intern": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "opusclip|ai research intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "oshkosh|purchasing data analytics intern - npd": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "otter products|ai intern - fall 2026": {
   "alive": false,
@@ -2887,7 +2967,7 @@
  "p&g - procter & gamble|data & ai engineering internship": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "p&g - procter & gamble|data analyst internship": {
   "alive": false,
@@ -2897,7 +2977,7 @@
  "p&g - procter & gamble|data engineer internship - m/f/x": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "p&g - procter & gamble|data engineering intern": {
   "alive": false,
@@ -2907,17 +2987,17 @@
  "p&g - procter & gamble|data science intern - semester 2026 - p&g management internship program - bachelor's degree or above": {
   "alive": true,
   "first_seen": "2026-08-18",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "p&g - procter & gamble|data science internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "p&g - procter & gamble|data scientist - master's degree internship": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "p&g - procter & gamble|engineering internship - automation/mechanical/mechatronic/data science/chemical": {
   "alive": false,
@@ -2927,7 +3007,7 @@
  "p&g - procter & gamble|it data & analytics engineering internship - interlomas": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "parexel|intern clinical data analyst - cda": {
   "alive": false,
@@ -2937,17 +3017,17 @@
  "partly|data science intern/graduate - nz": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "partly|ml research engineer intern/graduate - nz": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "payoneer|ai intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "pear vc|ai research intern - optexity": {
   "alive": false,
@@ -2957,7 +3037,7 @@
  "pear vc|ai research intern - optexity - usa": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "penn state|ai/ml research and development intern": {
   "alive": false,
@@ -2967,7 +3047,7 @@
  "penn state|ai/ml research support intern": {
   "alive": true,
   "first_seen": "2026-07-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "peraton|generative ai engineering intern - graduate": {
   "alive": false,
@@ -2980,9 +3060,14 @@
   "last_seen": "2026-08-06"
  },
  "persona ai|machine learning intern - manipulation": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-03",
   "last_seen": "2026-08-30"
+ },
+ "persona ai|machine learning internship - manipulation": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "pfizer|commercial ai & digital innovation intern em asia": {
   "alive": false,
@@ -2997,7 +3082,7 @@
  "philips|ai imaging data scientist intern": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "philips|ai strategy & business operations mba intern": {
   "alive": false,
@@ -3010,7 +3095,7 @@
   "last_seen": "2026-08-25"
  },
  "philips|data - ai & algorithm internship - philips avent experience innovation": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-19",
   "last_seen": "2026-08-30"
  },
@@ -3032,7 +3117,7 @@
  "philips|graduate level co-op - data scientist - plymouth - mn - january 2027": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "philips|graduate level co-op - data scientist - plymouth - mn - summer 2027": {
   "alive": false,
@@ -3042,7 +3127,12 @@
  "philips|intern - ai agent development": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "philips|intern - data ai/ml engineering - plymouth - mn - summer 2027": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "philips|internship: ai & automation - non-thesis": {
   "alive": false,
@@ -3072,7 +3162,7 @@
  "philips|product innovation & ai-powered video creation internship - philips avent experience innovation": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "phonic|machine learning research intern - fall 2026": {
   "alive": false,
@@ -3082,12 +3172,12 @@
  "phonic|machine learning research intern 2027": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "pluralis research|machine learning engineer - intern": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "plus|computer vision engineer intern": {
   "alive": false,
@@ -3137,12 +3227,12 @@
  "polaris|digital & it - predictive data science internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "pony.ai|research intern - deep learning": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "postman|ai engineer - intern": {
   "alive": false,
@@ -3152,12 +3242,12 @@
  "postman|ai engineer - internship - summer 2026 - applications open now": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "prior labs|research scientist intern - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "procogia|ai intern - applied & agentic ai": {
   "alive": false,
@@ -3182,17 +3272,17 @@
  "prysmian group|intern - data analysis and artificial intelligence": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "psecu|data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-03",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "psp|intern - ai solutions for external manager selection & monitoring - may - august 2027": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "pwc|consulting - internship - ai & data science": {
   "alive": false,
@@ -3202,7 +3292,7 @@
  "pwc|data&analytics junior consultant - transaction services - milano - internship": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "pwc|fy27 - tlw - tlw ai - zürich - intern/trainee - start 01.09.2026": {
   "alive": false,
@@ -3222,12 +3312,12 @@
  "pwc|risk services - ai factory data scientist internship - jul - dec 26": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "qonto|legal intern - product & ai": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "quadric|ai inference engineer intern - model pruning": {
   "alive": false,
@@ -3239,30 +3329,35 @@
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-13"
  },
+ "qualified health pbc|clinical ai evaluation intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "qualified health pbc|medical scribe intern - clinical ai safety & evaluation": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "quantbot technologies|machine learning research engineer internship - 2027 - new york": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-13",
   "last_seen": "2026-08-30"
  },
  "quantbot technologies|quantitative researcher internship - 2027 - hong kong": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "quantbot technologies|quantitative researcher internship - 2027 - london": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "quantbot technologies|quantitative researcher internship - 2027 - new york": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "radix trading|quantitative technologist - c++ intern": {
   "alive": false,
@@ -3277,7 +3372,7 @@
  "raytheon|stage - hiver 2027 - science des donnees et analytique avancee / internship - winter 2027 - data science and advanced analytics": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "razer|ai data engineer intern": {
   "alive": false,
@@ -3292,42 +3387,42 @@
  "razer|applied ai intern": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "razer|applied ai intern - voice": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "razer|computer vision intern": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "razer|generative ai intern": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "razer|reinforcement learning intern": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|2027 winter - ecco - data scientist intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|2027 winter - grm - ai & stress testing analytics intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|2027 winter - grm - ai business analyst intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|2027 winter - grm - data scientist intern - 8 months": {
   "alive": false,
@@ -3347,12 +3442,12 @@
  "rbc - royal bank of canada|2027 winter - grm - quantitative risk intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|winter 2027 - grm - bslr liquidity data & ai intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "rbc - royal bank of canada|winter 2027 co-op student - data analyst - personal banking - 4 - 8 - 12 months": {
   "alive": false,
@@ -3362,27 +3457,27 @@
  "red bull|2026 internship - fall - data science": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "red bull|data science student - supply chain": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "red bull|estágio em data & analytics - sistemas": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "regions|2027 etp intern - technology - operations - digital - and data - analytics": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "renault|cs27 bac+5 stagiaire ai adoption & communication specialist - h/f": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "renault|internship dezvoltarea plan validare frcam pe banc adas prin integrarea ai - f/m": {
   "alive": false,
@@ -3407,12 +3502,12 @@
  "reonic|operations management intern - germany - ai x greentech - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "reonic|venture development intern - new products - ai x greentech - m/f/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "revvity|ai intern": {
   "alive": false,
@@ -3422,7 +3517,7 @@
  "rho|quantitative analyst intern": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "riverside research institute|co-op- network research scientist": {
   "alive": false,
@@ -3492,17 +3587,17 @@
  "royal bank of canada|2027 winter - ecco - data scientist intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "royal bank of canada|2027 winter - grm - ai & stress testing analytics intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "royal bank of canada|2027 winter - grm - ai business analyst intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "royal bank of canada|2027 winter - grm - data scientist intern - 8 months": {
   "alive": false,
@@ -3522,12 +3617,12 @@
  "royal bank of canada|2027 winter - grm - quantitative risk intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "royal bank of canada|winter 2027 - grm - bslr liquidity data & ai intern - 4 months": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sabre|automation & ai solutions intern": {
   "alive": false,
@@ -3537,7 +3632,7 @@
  "samsung ai research center|2026 fall intern - digital health algorithms": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "samsung ai research center|2026 fall intern - ml/nlp research": {
   "alive": false,
@@ -3572,12 +3667,12 @@
  "schonfeld|2026 bsc/msc/phd quantitative research/strat internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "scientech research capital|quantitative researcher intern-daily": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "scopely|intern - gen. ai art": {
   "alive": false,
@@ -3587,7 +3682,7 @@
  "seb|internship as ai solutions engineer for ficc markets - seb - stockholm": {
   "alive": true,
   "first_seen": "2026-08-13",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sel|data analyst intern": {
   "alive": false,
@@ -3612,7 +3707,7 @@
  "sezzle|ai engineering intern": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sharkninja|fall 2026: sharkbyte applied ai & analytics co-op - july/august to december": {
   "alive": false,
@@ -3627,37 +3722,37 @@
  "shift technologies|data scientist intern - english speaker": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "shopback|data analyst - internship - h1 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "shyftlabs|ai engineer intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "signify|seo and ai visibility intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "simular|data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "singulier|data analytics intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sixt|praktikum als applied ai engineer - m/w/d": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "snorkel ai|ai researcher — intern": {
   "alive": false,
@@ -3677,7 +3772,7 @@
  "sonio|clinical data analyst intern": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sony pictures entertainment|intern - insights - strategy & analytics - product management - data science - fall 2026": {
   "alive": false,
@@ -3687,7 +3782,7 @@
  "sony|research intern on generative and protective ai for content creation": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sourcebooks|fall internship - data analytics - remote": {
   "alive": false,
@@ -3707,22 +3802,47 @@
  "stepstone group|2027 ai initiatives phd internship": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "stevens capital management|quantitative research analyst internship": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "stevens institute of technology|summer 2026 intern: cyber security and reliable ai for uas and contested environments": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-07"
  },
+ "stryker|internship /praktikum - computer vision - machine learning & medical navigation - 6 months - start spring 2027 - 6 monate": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "stryker|internship data analytics & process improvement - 6 months - start spring 2027": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "stryker|praktikum clinical data analytics & ehealthcare insights - m/w/d - 6 monate - start frühjahr 2027": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "stryker|praktikum data analytics & manufacturing excellence - m/w/d - 6 monate - start frühjahr 2027": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
+ "stryker|summer 2027 internship - data analytics - michigan": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
+ },
  "submittable|ai automation intern - business operations": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sumup|ai product intern": {
   "alive": false,
@@ -3732,7 +3852,7 @@
  "susquehanna international group|ai co-op with drexel university": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|equity options ai co-op with drexel university": {
   "alive": false,
@@ -3745,54 +3865,54 @@
   "last_seen": "2026-08-26"
  },
  "susquehanna international group|quantitative research internship - master's: summer 2027": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-02",
   "last_seen": "2026-08-30"
  },
  "susquehanna international group|quantitative research internship - phd: summer 2027": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative research internship: summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative systematic trading internship - master's: summer 2027": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-28"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative systematic trading internship - phd: summer 2027": {
   "alive": true,
   "first_seen": "2026-08-25",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative systematic trading internship: summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative trader internship: summer 2027": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "susquehanna international group|quantitative trading internship: summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "synchrony bank|blp intern - data analytics": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "sysco|data engineer intern": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "t. rowe price|2027 quantitative equity investing internship program": {
   "alive": false,
@@ -3802,22 +3922,22 @@
  "taboola|data analyst intern - advertising optimization": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "talent-360.me|ai & automation intern - tamheer program - riyadh - ksa": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "td synnex|prácticas en bi - data analytics / e-commerce - jornada completa": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "techinsights|research scientist - semiconductor process chemistry - co-op student fall 2026": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "teledyne|ai & automation engineering co-op": {
   "alive": false,
@@ -3827,7 +3947,7 @@
  "teledyne|internship - resource - project & portfolio management - ai‑ready": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "teleperformance|data analytics intern": {
   "alive": false,
@@ -3842,7 +3962,7 @@
  "telus digital|data & ai intern - brazil - year round 2027": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tencent|ai infra intern": {
   "alive": false,
@@ -3860,29 +3980,34 @@
   "last_seen": "2026-07-29"
  },
  "tencent|data & ai analytics intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
  },
  "tencent|data science intern - safety strategies": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tencent|data scientist intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tencent|hunyuan multimodal algorithm researcher intern- omni-modal​​": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tencent|hunyuan multimodal reinforcement learning research intern": {
   "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-21"
+ },
+ "tencent|large model ai infrastructure intern": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "tencent|research intern - reinforcement learning for large foundation models": {
   "alive": false,
@@ -3897,17 +4022,17 @@
  "tencent|wechat - data & ai analytics intern": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tencent|wxg - data scientist intern - safety strategies": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "thales|ai engineer - internship - open also to protected categories - law 68/99": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "thales|alternance - data analyst f/h": {
   "alive": false,
@@ -3922,12 +4047,12 @@
  "the chemours company|ai & data science intern": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the cigna group|legal operations financial - data & ai analytics intern": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the fork|b2b marketing content & ai intern": {
   "alive": false,
@@ -3937,32 +4062,32 @@
  "the hartford|tech & data program summer 2027 - data engineer intern - charlotte": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the hartford|tech & data program summer 2027 - data engineer intern - chicago": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the hartford|tech & data program summer 2027 - data engineer intern - columbus": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the hartford|tech & data program summer 2027 - data engineer intern - hartford": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "the mosaic company|artificial intelligence co-op/intern - spring 2027": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "thomson reuters|applied research intern - nlp/ml/genai": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "thomson reuters|engineering intern - data & ai automation": {
   "alive": false,
@@ -3982,87 +4107,87 @@
  "tiktok|ai agent algorithm engineer intern - global e-commerce - affiliate - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai agent algorithm engineer intern - global e-commerce - affiliate - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai agent algorithm engineer intern - global e-commerce - conversational ai - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai agent algorithm engineer intern - global e-commerce - conversational ai - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai agent engineer intern - search - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai agent engineer intern - tiktok shop - sea - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai automation project intern - tns-ops-automation & business insights - 2026 start": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai data project intern - ai data service and operations - eco & social creation - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai engineer intern - tiktok-client arch- 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai feature/computing/storage engineer intern - tiktok recommendation ecosystem - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai feature/computing/storage engineer intern - tiktok recommendation ecosystem - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai infra engineer intern - recommendation & llm - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai infrastructure engineer intern - algorithm infrastructure - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai infrastructure engineer intern - tiktok live recommendation architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai infrastructure engineer intern - tiktok recommendation architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai infrastructure optimization engineer intern - tiktok global e-commerce recommendation & search architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai model and agent operation project intern - business integrity - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai product designer project intern - tiktok-design-ux - 2026 start - bs/ms": {
   "alive": false,
@@ -4072,12 +4197,12 @@
  "tiktok|ai product operations intern（tiktok-platform responsibility-teen experiences）- 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai security analysis intern - tiktok shop-security- 2027 start": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ai security analysis program intern - tiktok shop-security - 2027 start": {
   "alive": false,
@@ -4087,22 +4212,22 @@
  "tiktok|algorithm engineer intern - global live - strategy - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|algorithm engineer intern - global live operation intelligence - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|algorithm engineer intern - tiktok live revenue - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|anti-fraud data science project intern - tiktok shop - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|applied scientist intern - business integrity - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4122,7 +4247,7 @@
  "tiktok|applied scientist intern - recommendation ai lab - 2026 start - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|applied scientist intern - trust and safety - multimodal foundation model - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4132,82 +4257,87 @@
  "tiktok|big data engineer intern - tiktok global e-commerce recommendation & search architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|big data engineer intern - tiktok live recommendation architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|big data engineer intern - tiktok recommendation architecture - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|business data analyst project intern - gbs - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-17",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|content quality and evaluation project intern - ai data service operations - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|content understanding llm algorithm engineer intern - global e-commerce - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|content understanding llm algorithm engineer intern - global e-commerce - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "tiktok|data analyst intern - measurement - calm - 2027 start": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst intern - tiktok shop - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst intern - tiktok-live - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - ads - measurement - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - automation & business insights - 2026 start - bs/ms）": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - eco & social creation - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - measurement - calm - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - measurement - center of excellence - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - partnership/vendor management - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-02",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - tiktok live - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data analyst project intern - tiktok shop - emea data science - 2026 start - bs/ms）": {
   "alive": false,
@@ -4217,7 +4347,7 @@
  "tiktok|data engineer intern - data platform global live - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data engineer intern - data platform global live 2027 summer": {
   "alive": false,
@@ -4227,82 +4357,82 @@
  "tiktok|data engineer intern - e-commerce - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data engineer intern - monetization data - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data engineering project intern - ads targeting - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data operations - ai data operations project intern - pgc & emerging products - 2026 start - bs/ms）": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - advertisement team - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - tiktok integrity and safety - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - tiktok integrity and safety - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - tiktok live - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - tiktok live - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science intern - tiktok product - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science project intern - advertisement team - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data science project intern - tiktok shop-supply chain & logistics - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|data scientist intern - vod data - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|design engineering intern - design system & ai workflow - tiktok-design - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|general hire machine learning engineer intern - performance monetization - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|general hire machine learning engineer intern - performance monetization - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|general hire machine learning engineer intern - tiktok-recommendation - 2026 fall - bs/ms": {
   "alive": false,
@@ -4312,12 +4442,12 @@
  "tiktok|general hire machine learning engineer intern - tiktok-recommendation - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|general hire machine learning engineer intern - trust and safety - cv/nlp/multimodal llm - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|general hire research scientist intern - tiktok recommendation - 2026 start - phd": {
   "alive": false,
@@ -4327,27 +4457,27 @@
  "tiktok|generative ai researcher intern - intelligent creation-vision and graphics - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|governance track llm product intern（tiktok platform safety）- 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|intelligent audio algorithm research intern - audio innovation - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|large recommendation model algorithm engineer intern - global e-commerce - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|large recommendation model algorithm engineer intern - global e-commerce - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|live streaming ai moderation intern（tiktok platform safety）- 2027 start": {
   "alive": false,
@@ -4357,22 +4487,22 @@
  "tiktok|llm & agent algorithm intern - search - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm & agent algorithm project intern - search - 2026 start - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm machine learning engineer intern - global e-commerce - supply chain and logistics - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm machine learning engineer intern - global e-commerce - supply chain and logistics - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm post-training engineer intern - research & product - 2026 summer - bs/ms": {
   "alive": false,
@@ -4382,32 +4512,32 @@
  "tiktok|llm post-training engineer intern - research & product - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm/multimodal ai engineer intern - tiktok search - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|llm/multimodal ai engineer intern - tiktok search - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|logistics risk data analyst project intern - tiktok shop - 2026 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer - content understanding intern - tiktok live foundation sydney - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - ads signal & measurement - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - app ads - 2026 fall - bs/ms": {
   "alive": false,
@@ -4417,47 +4547,47 @@
  "tiktok|machine learning engineer intern - app ads and gaming - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - commerce ads - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - commercial ai-crm and transaction - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - data-global e-commerce-search - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - data-global e-commerce-search - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - e-commerce governance- 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-19",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - e-commerce recommendation foundation - 2027 start - phd）": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - e-commerce recommendation mall - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - e-commerce recommendation/search alliance - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - e-commerce supply chain & logistics-llm / agent - 2027 start - phd": {
   "alive": false,
@@ -4467,67 +4597,67 @@
  "tiktok|machine learning engineer intern - e-commerce supply chain & logistics-llm/agent - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - platform governance - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - platform governance - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - recommendation - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - recommendation - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - risk control - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - risk control - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - search - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - search - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - user growth - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce - user growth - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - global e-commerce content recommendation - 2026 summer - bs/ms": {
   "alive": false,
@@ -4537,7 +4667,7 @@
  "tiktok|machine learning engineer intern - lead ads - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - search ads - 2026 fall - bs/ms": {
   "alive": false,
@@ -4547,82 +4677,82 @@
  "tiktok|machine learning engineer intern - search ads - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok bric account security - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok search - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok shop - sea - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-basic ranking - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-basic ranking - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-local service - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-local service - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-recommendation - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-recommendation-global e-commerce - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-search quality - 2026 start - phd": {
   "alive": true,
   "first_seen": "2026-07-30",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-search quality - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-search quality - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-visual search - 2027 start - phd": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-06",
   "last_seen": "2026-08-30"
  },
  "tiktok|machine learning engineer intern - tiktok-data-search-visual search - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning eningeer intern - brand ads - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning mlops engineer intern - global sre - 2027 start": {
   "alive": false,
@@ -4632,12 +4762,12 @@
  "tiktok|machine learning mlops intern - global sre - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-21",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning ops engineer intern - ads infra - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning scientist intern - global e-commerce content recommendation - 2026 start - phd": {
   "alive": false,
@@ -4647,12 +4777,12 @@
  "tiktok|machine learning scientist intern - tiktok - content ecology - llm application - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning scientist intern - tiktok-local services - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|machine learning scientist intern - tiktok-recommendation - 2026 start - phd": {
   "alive": false,
@@ -4662,47 +4792,47 @@
  "tiktok|machine learning scientist intern - tiktok-recommendation - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|ml infra engineer intern - ads infra - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|multimodal llm algorithm engineer intern - global e-commerce - knowledge graph - 2027 start": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|multimodal llm algorithm engineer intern - global e-commerce - knowledge graph - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|platform governance operations - ai project intern - tiktok shop 2026 start": {
   "alive": true,
   "first_seen": "2026-08-15",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|project management project intern - ai data - eco operations - 2026 start - bs/ms": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|recommendation architecture ai/ml infrastructure engineer intern - data-arch-tiktok live - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-11",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research engineer intern - agentic systems & ai infrastructure - tiktok-generalized arch - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research engineer intern - agentic systems & ai infrastructure - tiktok-generalized arch - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research engineer intern - ai infrastructure - large model applications - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4717,7 +4847,7 @@
  "tiktok|research scientist intern - data-tns-algo-foundations & intelligence service - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - end-to-end generative search technology based on pre-trained foundation models - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4732,12 +4862,12 @@
  "tiktok|research scientist intern - monetization technology - business integrity - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - monetization technology - business integrity - 2027 summer": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - risk control vertical llm foundation and agent - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4757,22 +4887,27 @@
  "tiktok|research scientist intern - tiktok-data-content intelligence - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "tiktok|research scientist intern - tiktok-data-search-visual search - 2027 start - phd": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - tiktok-neural graphics and world models - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - tiktok-recommendation - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern - trust and safety - cv/nlp/multimodal llm - 2027 start - phd": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tiktok|research scientist intern- e-commerce recommendation- llm applications - global frontier tech recruitment program - 2027 start - phd": {
   "alive": false,
@@ -4802,7 +4937,7 @@
  "tmeic corporation americas|intern - applications - ai and machine learning - spring 2027 - et26075": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tomtom|ai productivity internship": {
   "alive": false,
@@ -4822,17 +4957,17 @@
  "tower research capital|intern - ai/ml": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tower research capital|quantitative research internship - 6 months - central execution research": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tower research capital|quantitative trader intern - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tower research capital|quantitative trader intern - summer 2027": {
   "alive": false,
@@ -4842,12 +4977,12 @@
  "tower research capital|quantitative trader/researcher intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "trend micro|applied ai engineer internship": {
   "alive": true,
   "first_seen": "2026-08-25",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "tripadvisor|b2b marketing content & ai intern": {
   "alive": false,
@@ -4857,7 +4992,7 @@
  "triple ring technologies|ai & people operations intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "true|growth marketing & ai co-op - 6-month duration": {
   "alive": false,
@@ -4867,12 +5002,12 @@
  "u.s. venture|data science intern - breakthrough": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "uline|financial data analyst internship - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "unilever|research and development internship 26' - data science - hive": {
   "alive": false,
@@ -4880,24 +5015,24 @@
   "last_seen": "2026-07-28"
  },
  "unisys|ai engineering intern": {
-  "alive": false,
+  "alive": true,
   "first_seen": "2026-08-02",
-  "last_seen": "2026-08-17"
+  "last_seen": "2026-09-01"
  },
  "univera healthcare|college intern - ai engineering - fall 2026 - multiple openings": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "univera healthcare|college intern - innovation & ai cohort - fall 2026 - multiple openings": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "universidad ieu s.c.|alternance - data analyst - h/f": {
   "alive": true,
   "first_seen": "2026-08-03",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "universidad ieu s.c.|alternance - data scientist big data & intelligence artificielle - h/f": {
   "alive": false,
@@ -4907,7 +5042,7 @@
  "university of notre dame|student - data science intern — mendoza research team": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "university of pennsylvania|ai literacy library intern": {
   "alive": false,
@@ -4947,32 +5082,32 @@
  "valeo|werkstudent - m/w/d künstliche intelligenz/ artificial intelligence": {
   "alive": true,
   "first_seen": "2026-08-07",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "valeo|werkstudent/masterand - data analytics - m/w/d": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "vanderlande|internship/graduation: improving engineering productivity with ai": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "vanguard|college to corporate it internship - data analyst - nc": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "vanguard|college to corporate it internship - data science - nc": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-08-20",
   "last_seen": "2026-08-30"
  },
  "vanguard|college to corporate it internship - data science - pa": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "veolia|alternant bachelor data analyst 12 mois - f/h": {
   "alive": false,
@@ -4987,22 +5122,22 @@
  "veolia|alternant- e - data science et plan d’experiences : modélisation des procédés de valorisation du co2 - h/f": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "veolia|stage d’exploration en generative ai - h/f": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "virtu financial|2027 internship - quantitative researcher - master or phd": {
   "alive": true,
   "first_seen": "2026-07-30",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "virtu financial|2027 internship - quantitative researcher - phd": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "virtu financial|2027 internship - quantitative strategist and research intern": {
   "alive": false,
@@ -5012,7 +5147,7 @@
  "virtu financial|2027 internship - quantitative trading": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "virtu financial|internship - quantitative trading": {
   "alive": false,
@@ -5022,7 +5157,7 @@
  "viseo|alternance - ai business analyst - f/h": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "vml|intern- data analyst": {
   "alive": false,
@@ -5032,7 +5167,7 @@
  "vo2 group|vo2 group - stagiaire data engineer & bi": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "vocal media|ai social media content intern": {
   "alive": false,
@@ -5057,17 +5192,17 @@
  "walt disney|environmental sustainability data analytics intern - spring 2027": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "walt disney|labor systems data analytics & integration intern - spring 2027": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "weave|data engineer intern": {
   "alive": true,
   "first_seen": "2026-08-23",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wells fargo|2027 quantitative analytics program intern": {
   "alive": false,
@@ -5077,12 +5212,12 @@
  "wells fargo|2027 quantitative analytics summer internship applied computational intelligence - aci masters - early careers": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wells fargo|2027 quantitative analytics summer internship applied computational intelligence - aci phd - early careers": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wells fargo|2027 quantitative analytics summer internship capital markets - masters - early careers": {
   "alive": false,
@@ -5092,7 +5227,7 @@
  "wells fargo|2027 quantitative analytics summer internship capital markets - phd - early careers": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wells fargo|2027 quantitative analytics summer internship risk analytics and decision sciences - masters - early careers": {
   "alive": false,
@@ -5102,22 +5237,22 @@
  "wells fargo|2027 quantitative analytics summer internship risk analytics and decision sciences - rads masters - early careers": {
   "alive": true,
   "first_seen": "2026-08-20",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wells fargo|2027 quantitative analytics summer internship risk analytics and decision sciences - rads phd - early careers": {
   "alive": true,
   "first_seen": "2026-08-22",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "welocalize|ai machine learning engineering intern": {
-  "alive": true,
+  "alive": false,
   "first_seen": "2026-07-26",
   "last_seen": "2026-08-30"
  },
  "wex|phd intern - ai/ml/nlp engineer": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "whiterabbit.ai|research scientist intern - 2026": {
   "alive": false,
@@ -5127,7 +5262,7 @@
  "whitewater midstream|data science intern - summer 2027": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wildlife studios|data science intern - marketing": {
   "alive": false,
@@ -5137,7 +5272,7 @@
  "wincent|quantitative research internship - quant research/trading - starting summer 2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "wintermute|defi algorithmic trading internship": {
   "alive": false,
@@ -5152,22 +5287,27 @@
  "workiva|spring 2027 intern - data analytics": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "workiva|summer 2027 intern - machine learning engineering": {
   "alive": true,
   "first_seen": "2026-08-29",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
+ },
+ "xaira therapeutics|ai scientist intern - computational protein design": {
+  "alive": true,
+  "first_seen": "2026-09-01",
+  "last_seen": "2026-09-01"
  },
  "xpansiv|product management intern - ai products": {
   "alive": true,
   "first_seen": "2026-08-27",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "xpeng|ai infra onboard performance intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "xpeng|ai intern - vla deployment": {
   "alive": false,
@@ -5177,12 +5317,12 @@
  "xsolla|ai-first engineering intern": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "xsolla|ai-first engineering intern- shanghai": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "xterra ai|research scientist - intern": {
   "alive": false,
@@ -5192,17 +5332,17 @@
  "yotta labs|research engineer intern - ai systems": {
   "alive": true,
   "first_seen": "2026-08-06",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "younited|alternance - data analyst credit risk - f/h": {
   "alive": true,
   "first_seen": "2026-08-01",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zeiss|intern computer vision and automation in electron microscopy - f/m/x": {
   "alive": true,
   "first_seen": "2026-08-12",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zeiss|internship data scientist in zurich - f/m/x": {
   "alive": false,
@@ -5212,7 +5352,7 @@
  "zeiss|internship in 3d computer vision - f/m/x": {
   "alive": true,
   "first_seen": "2026-08-28",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zeiss|internship in machine learning - visual language - action models - f/m/x": {
   "alive": false,
@@ -5222,7 +5362,7 @@
  "zeiss|internship machine learning": {
   "alive": true,
   "first_seen": "2026-08-08",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zeiss|internship machine learning - synthetic data generation - f/m/x": {
   "alive": false,
@@ -5252,12 +5392,12 @@
  "zeiss|praktikum computer vision/image processing - m/w/x": {
   "alive": true,
   "first_seen": "2026-08-14",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zeiss|praktikum strategic programs & negotiations - ai productivity & automation - m/w/x": {
   "alive": true,
   "first_seen": "2026-08-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  },
  "zendesk|machine learning engineering intern": {
   "alive": false,
@@ -5267,6 +5407,6 @@
  "zuru|ai integration summer internship 2026/2027": {
   "alive": true,
   "first_seen": "2026-07-26",
-  "last_seen": "2026-08-30"
+  "last_seen": "2026-09-01"
  }
 }
