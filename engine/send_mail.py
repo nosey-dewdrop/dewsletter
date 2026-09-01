@@ -554,8 +554,34 @@ def fetch_subscribers(service_key: str) -> list[dict]:
         "?unsubscribed_at=is.null&select=email,name,level,interests,location,"
         "unsubscribe_token,confirmed_at",
         headers=headers)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        rows = json.loads(resp.read().decode())
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            rows = json.loads(resp.read().decode())
+    except urllib.error.HTTPError as exc:
+        # The live table can be OLDER than schema.sql. confirmed_at was added by
+        # S6 and the file was never applied to the cluster, so asking for the
+        # column answered 400 and the whole run died on a raw traceback.
+        #
+        # Fail CLOSED and say why. Not falling back to the unfiltered query on
+        # purpose: that fallback is precisely the D2 hole -- one missing
+        # migration and the mailer quietly goes back to mailing people who never
+        # consented. No column means nobody is confirmed, so there is nothing
+        # honest to send anyway.
+        body = ""
+        try:
+            body = exc.read().decode()
+        except Exception:
+            pass
+        if exc.code == 400 and "confirmed_at" in body:
+            raise SystemExit(
+                "sightstone_subscribers has no confirmed_at column: engine/"
+                "schema.sql has not been applied to this cluster.\n"
+                "No mail sent -- without that column nobody is confirmed, and "
+                "mailing unconfirmed addresses is the D2 violation.\n"
+                "Fix: run engine/schema.sql in the Supabase SQL editor. It also "
+                "creates sightstone_run_invites(), which the invite loop needs."
+            ) from exc
+        raise
 
     # D2. An address that never clicked confirm has not consented, and mailing
     # it is the KVKK/GDPR violation this whole column exists to prevent. The

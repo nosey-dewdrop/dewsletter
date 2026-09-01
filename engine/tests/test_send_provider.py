@@ -921,6 +921,36 @@ class ConfirmedSubscribersOnly(unittest.TestCase):
         self.assertEqual(len(got), 1)
         self.assertNotIn("held back", out)
 
+    def test_a_cluster_without_the_column_fails_closed_with_instructions(self):
+        """The live table can be older than schema.sql. It was, and the run
+        died on a raw traceback. It must not fall back to the unfiltered
+        query: that fallback IS the D2 hole."""
+        import urllib.error
+
+        def boom(*a, **k):
+            raise urllib.error.HTTPError(
+                "u", 400, "Bad Request", {},
+                io.BytesIO(b'{"message":"column sightstone_subscribers.'
+                           b'confirmed_at does not exist"}'))
+
+        with mock.patch.object(send_mail.urllib.request, "urlopen", boom):
+            with self.assertRaises(SystemExit) as caught:
+                send_mail.fetch_subscribers("sb_secret_x")
+        msg = str(caught.exception)
+        self.assertIn("schema.sql", msg)
+        self.assertIn("No mail sent", msg)
+
+    def test_other_http_errors_are_not_swallowed(self):
+        import urllib.error
+
+        def boom(*a, **k):
+            raise urllib.error.HTTPError("u", 500, "Server Error", {},
+                                         io.BytesIO(b"{}"))
+
+        with mock.patch.object(send_mail.urllib.request, "urlopen", boom):
+            with self.assertRaises(urllib.error.HTTPError):
+                send_mail.fetch_subscribers("sb_secret_x")
+
     def test_the_query_asks_for_confirmed_at(self):
         """Dropping the column from the select would silently drop everyone."""
         self.assertIn("confirmed_at", SRC)
