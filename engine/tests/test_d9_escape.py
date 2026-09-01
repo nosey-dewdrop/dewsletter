@@ -24,7 +24,7 @@ sys.path.insert(0, str(HERE.parent))
 
 import build_site  # noqa: E402
 
-CANONICAL = "https://nosey-dewdrop.github.io/sightstone/jobs/x.html"
+CANONICAL = "https://nosey-dewdrop.github.io/dewsletter/jobs/x.html"
 
 # Five payloads plus one lossless-escaping probe. Each one is a real technique,
 # not a decoration: script break-out, case/space variant end tag, URL scheme,

@@ -23,7 +23,7 @@ from pathlib import Path
 import cv_critique
 import match
 
-BASE_URL = "https://nosey-dewdrop.github.io/sightstone"
+BASE_URL = "https://nosey-dewdrop.github.io/dewsletter"
 SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 SUPABASE_ANON = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhqd"
                  "G1xbmNmaHVpZGN0eGd0aGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTQ5NTcsImV4cCI6"
@@ -921,7 +921,7 @@ def user_feed_xml(results: list, smap: dict) -> str:
         title = xml_text(f'{r["company"]} - {r["position"]}')
         summary = xml_text(f'score {r["score"]}: ' + "; ".join(r["reasons"]))
         entries += (f"<entry><title>{title}</title>"
-                    f"<id>urn:sightstone:{ident}</id>"
+                    f"<id>urn:dewsletter:{ident}</id>"
                     f"<updated>{TODAY_ISO}T00:00:00Z</updated>"
                     f'<link rel="alternate" href="{xml_text(safe_url(target))}"/>'
                     f"<summary>{summary}</summary></entry>")

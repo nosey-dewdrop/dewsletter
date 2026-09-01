@@ -40,10 +40,10 @@ QUOTA_FILENAME = "quota_state.json"
 # Derived from DATA at call time, never bound at import: tests patch DATA,
 # and a module-level path would keep pointing at the real engine/data.
 CONFIRM_FILENAME = "confirm_state.json"
-SITE = "https://nosey-dewdrop.github.io/sightstone"
+SITE = "https://nosey-dewdrop.github.io/dewsletter"
 SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 RESEND_ENDPOINT = "https://api.resend.com/emails"
-USER_AGENT = "sightstone/1.0 (+https://nosey-dewdrop.github.io/sightstone)"
+USER_AGENT = "dewsletter/1.0 (+https://nosey-dewdrop.github.io/dewsletter)"
 RESEND_MAX_RECIPIENTS = 50  # provider limit on the `to` field
 
 

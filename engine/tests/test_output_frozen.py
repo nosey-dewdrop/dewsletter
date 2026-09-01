@@ -67,32 +67,32 @@ FROZEN_SURFACES = {
     # accept.html were dead code), and the showcase now prints the measured geo
     # cut so "matched: 1" reads as a hard profile instead of a broken engine.
     "index": (10791,
-              "d009790e8ba1f7b3a36de345b32cb40af6e4aa5ade73f4a68227181fe30c6ae4"),
+              "3d9833d02fd80098d76c4435ae64832206df7d767fefe3eb6e9bdc212127fb3e"),
     "cv": (9295,
-           "5e597f87fcdf3eb1303e08f4ec9e5d26bdcfa7c4b4896e5c5d06b1dbcc3b565b"),
+           "939ab1fd587faa3457a32fe7d8d06d2455bbc681e4bc8dc48b47df61e98e761d"),
     "jobs_index": (265046,
-                   "f4b828ed43cdf32fc57ace06a7c0e8ebbad0cbf80b1069bad4b6c44904bbc113"),
+                   "ec9c4790c3797e8356b268c189904621d311f6cb69808752a4ae78c700c551e8"),
     "job_pages": (1811188,
-                  "c2fa29e49ddd20fd42abb1ad7758b28021109eee7b004a7fcf7980ef38480cca"),
+                  "3b31542ceced7a0e91543c2e9ce6f437ce2bcc5c7d2d3914e5fa2b8b2bda7efa"),
     # re-frozen 2026-09-01 by the S10 card. ONE literal moved and it is named
     # in the diff: "One-click unsubscribe." -> "Leave in one click, on this
     # page." The old string was false -- the page is static GitHub Pages and
     # POST answers 405, so RFC 8058 one-click is impossible on it.
     "unsubscribe": (2406,
-                    "c0a7bb7dcd44c8de8923ddee47990838f47b36a0da19764cf5c62f9218247ef2"),
+                    "06cd1f67e45f45e58486e86b5e81c8f5951ccd11d6dfff3a83b6392e91b5b5cf"),
     # S5b, the sixth surface. Built off the same frozen corpus, from the base
     # slug map (main() writes the collision-suffixed one to disk).
     "user_page": (2499,
-                  "fbfda8cc3b3437fb287b07007b0aac994aae0ee3ad671c9fa2bea9f3b401590c"),
+                  "b8ec4dd7ca4f6542038b27ebba0075e54e9f3cb6b1c6eb68f1a67c9e0773e887"),
 }
 FROZEN_TOTAL_BYTES = 2101225
 FROZEN_USER_FEED = (693,
-                    "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
+                    "7c879008f9349fd3bf6892e34328aa61f00477fc61cc01eb57f5d68e9360d62b")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "327cd737597b8792c90277f2ebd93d2ff5dfbc883de5b83712b190c79d195505"
+CONSTANTS_BEFORE_S5A = "33ac27c5f33e1bec5a066d17cb902a708e576bd485eda51e6614910deb3c01a9"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.

@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://nosey-dewdrop.github.io/sightstone/sitemap.xml
+Sitemap: https://nosey-dewdrop.github.io/dewsletter/sitemap.xml
 
 User-agent: *
 Disallow: /u/

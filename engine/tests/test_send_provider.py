@@ -362,7 +362,7 @@ class ResendWire(unittest.TestCase):
         agent = seen["req"].get_header("User-agent")
         self.assertTrue(agent, "no User-Agent: Cloudflare 403s the send")
         self.assertNotIn("Python-urllib", agent)
-        self.assertIn("sightstone", agent)
+        self.assertIn("dewsletter", agent)
 
     def test_body_carries_the_documented_fields(self):
         _, seen, _ = self.deliver({"id": "x"})

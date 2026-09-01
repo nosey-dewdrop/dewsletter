@@ -13,7 +13,7 @@ import cv_critique
 import match
 
 TEMPLATE = r"""
-// sightstone cv engine — deterministic browser port of engine/cv_critique.py.
+// dewsletter cv engine — deterministic browser port of engine/cv_critique.py.
 // the CV text NEVER leaves this page: no upload, no server, no model.
 'use strict';
 const CVE = __PAYLOAD__;
