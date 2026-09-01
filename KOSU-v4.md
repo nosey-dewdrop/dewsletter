@@ -3010,3 +3010,42 @@ Kaçırma artık ölçülü ve **eşik iki tahminin arasına düşüyor**:
 `%8,7` (uniform-faz, beklenen değer) · `%13,8` (kaba üst sınır) · eşik `≤ %10`.
 Bunlar farklı sorular: biri "ortalama ne kaçırıyoruz", diğeri "en kötü ne olabilir".
 Kart hangisini bağlayıcı sayacağına karar vermeden S11 koşulamaz.
+
+## S11 — Sıram geliyor — GEÇTİ (1 Eyl)
+
+**Eşik çelişkisi çözüldü, ve kartın kendi kabul testi çözdü.** `%8,7 / %13,8`
+analitik model tek bir aboneyi 2,35 günlük sabit aralıkla varsayıyordu. Kart
+bunu değil, **200 abonelik simülasyonu** istiyor — gerçek günlük koşularla,
+gerçek kotayla. Ölçülen:
+
+```
+                kacirma   en uzun bekleme
+yaslandirmali    %0,7          2 gun
+sabit kohort     %6,7         35 gun
+esik             <= %10      <= 8 gun
+```
+
+53 gerçek anlık görüntü (26 Tem → 1 Eyl), 10 arketip × 20 = 200 abone,
+uydurma veri yok. Üç eşik de geçti, kohort ölçülebilir biçimde daha kötü.
+
+**Açlık ölçütü düzeltildi.** İlk ölçümüm "37 gün bekleme" diyordu; yanlıştı —
+hiç eşleşmesi olmayan 40 aboneyi de bekliyor sayıyordum. Kimseye gidecek ilanı
+yoksa mail gitmemesi doğru davranış, açlık değil. Doğru ölçüt: **bir ilan,
+eşleşmiş ve HÂLÂ CANLIYKEN, o kişiye ulaşmadan ne kadar bekledi.**
+
+**⚠ KARTIN ARİTMETİĞİ YANLIŞTI.** Kart "1,2×bekleme — 6 gün bekleyen +7,2 alır
+ve en yüksek kalite puanını (12) yakalar, açlık matematiksel olarak imkânsız"
+diyor. Bu, beklemeyi yalnız ilgi tavanıyla kıyaslıyor ve aynı formülün diğer
+iki terimini unutuyor. Gerçek rakip: `12 + 3,5 (bugün açılmış) + 1,5 (adet
+tavanı) = 17,0` → geçiş noktası **17,0 / 1,2 ≈ 15 gün**, 6 değil. Garanti
+ayakta (bekleme tek sınırsız terim, diğerleri tavanlı) ama sınır iki hafta.
+Ölçülen en kötü bekleme 2 gün, yani ikisinin de çok altında.
+
+**KABUL KOMUTU DEĞİŞTİ, sebebi:** kart `tools/measure.py --miss-simulated`
+diyor. O komut var olamaz — `measure.py` S1'de DONDURULDU ve hiçbir faz ona alt
+komut ekleyemez. Simülasyon `engine/tests/test_priority_queue.py`'a kondu;
+orası kartın kendi DOKUNULABİLİR listesinde.
+
+```
+KABUL : python3 -m unittest discover engine/tests   -> 429 yesil, 0 skip
+```

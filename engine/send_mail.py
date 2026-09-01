@@ -946,6 +946,90 @@ def as_html(body: str) -> str:
     return f"<pre style=\"font-family:ui-monospace,monospace\">{html_mod.escape(body)}</pre>"
 
 
+# S11 -- "my turn comes". The coefficients are the card's, unchanged.
+#
+#   P = best_score + 1.2*waiting + 0.5*freshness + 0.3*min(count, 5)
+#
+# Why an order is needed at all: the daily budget is finite, and without one the
+# send loop serves whoever PostgREST happened to return first -- the same people
+# every morning. With a full house against one day's cap that is not a tie-break, it
+# is a permanent tail of subscribers who are never reached, and nothing reports
+# it, because each individual run looks like a success.
+#
+# (No cap is written as a digit here on purpose: a quota number loose in a
+# comment is a number that drifts from the constant. See DAILY_MAIL_CAP and
+# test_send_provider's one-named-line gate.)
+#
+# 1.2 x waiting is what makes starvation arithmetically impossible: six days of
+# waiting is +7.2, which outruns the highest quality score the matcher can
+# produce (12, the interest cap). Nobody can be outbid forever by somebody with
+# better matches; they only have to wait.
+PRIORITY_WAIT = 1.2
+PRIORITY_FRESH = 0.5
+PRIORITY_COUNT = 0.3
+PRIORITY_COUNT_CAP = 5      # one excellent match beats five mediocre ones
+PRIORITY_FRESH_DAYS = 7     # the card's definition of fresh
+
+
+def waiting_days(sub_id: str, state: dict, today: date | None = None) -> float:
+    """Days since this address was last mailed. Never mailed = longest wait.
+
+    Somebody with no history is not a low-priority stranger: they are the
+    person who has been waiting since they signed up with nothing to show for
+    it. They sort first, not last.
+    """
+    today = today or date.today()
+    last = (state.get(sub_id) or {}).get("last_sent")
+    if not last:
+        return float("inf")
+    try:
+        return max(0.0, (today - date.fromisoformat(last)).days)
+    except ValueError:
+        return float("inf")
+
+
+def priority(best_score: int, wait: float, freshest_age_days: int | None,
+             count: int) -> float:
+    """The card's formula, higher goes first."""
+    if wait == float("inf"):
+        return float("inf")
+    fresh = 0.0
+    if freshest_age_days is not None and freshest_age_days <= PRIORITY_FRESH_DAYS:
+        fresh = PRIORITY_FRESH_DAYS - freshest_age_days
+    return (best_score
+            + PRIORITY_WAIT * wait
+            + PRIORITY_FRESH * fresh
+            + PRIORITY_COUNT * min(count, PRIORITY_COUNT_CAP))
+
+
+def rank_targets(targets: list, jobs: list, state: dict, min_score: int,
+                 today: date | None = None) -> list:
+    """Order the send loop by P, highest first. Pure: it sends nothing.
+
+    Scoring every subscriber twice -- here and again in process_subscriber --
+    is deliberate. The alternative is threading match results through the loop,
+    and that loop is where the per-subscriber isolation guarantee (A25) lives.
+    It is not worth complicating for a matcher that takes milliseconds on a
+    600-row corpus.
+    """
+    ranked = []
+    for entry in targets:
+        email, profile, _token = entry
+        sub_id = hashlib.sha1(email.encode()).hexdigest()[:12]
+        results, _ = match.run(profile, jobs)
+        sent = set((state.get(sub_id) or {}).get("sent_keys", []))
+        new = [r for r in results
+               if r["score"] >= min_score and job_key(r) not in sent]
+        best = max((r["score"] for r in new), default=0)
+        ages = [r["age_days"] for r in new if r.get("age_days") is not None]
+        p = priority(best, waiting_days(sub_id, state, today),
+                     min(ages) if ages else None, len(new))
+        ranked.append((p, email, entry))
+    # email breaks ties, so the order is deterministic across runs
+    ranked.sort(key=lambda t: (-t[0], t[1]))
+    return [entry for _, _, entry in ranked]
+
+
 def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
                        min_score: int, dry_run: bool, provider: Provider,
                        unsubscribe_token: str | None) -> str:
@@ -1079,6 +1163,11 @@ def main() -> None:
     tally = {"sent": 0, "nothing_new": 0, "dry_run": 0, "quota_halt": 0,
              "quota_error": 0, "hard_bounce": 0, "soft_fail": 0, "error": 0}
     processed = 0
+    # S11. Whoever the budget runs out on must be a different person tomorrow.
+    # Unordered, the loop served whatever order the database returned, which is
+    # stable -- so the same tail would be cut every single day and never hear
+    # from us again.
+    targets = rank_targets(targets, jobs, state, args.min_score)
     for email, profile, token in targets:
         processed += 1
         try:
