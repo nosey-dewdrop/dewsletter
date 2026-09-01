@@ -2905,3 +2905,53 @@ Force push YAPILMADI — yapılsaydı 34 günlük gerçek veri silinirdi.
 
 **Kod işi sağlam** (369 test, kapılar, mutasyonlar) — **sayı pinleri bayat.**
 Mantık yeniden koşmayı gerektirmiyor; eşik sayıları gerektiriyor.
+
+---
+
+## KOŞU KAPANIŞI — 1 Eyl 2026. ÜRÜN CANLI.
+
+**Gerçek mail gitti ve teslim edildi.** `news@mail.noseydewdrop.com` → Damla,
+Resend id `3c5f3815`, durum `delivered`, 17 ilanlık bülten. Boru hattı uçtan uca
+yeşil: fetch → test → build → mail → commit. **417 test, 0 skip.**
+
+### Bu oturumda kapanan ve NEDEN kapanmadan önce görünmediği
+
+| Ne | Neden gizlendi |
+|---|---|
+| Korpus 453 → **599/613** | `git fetch` çalıştırılmadan 9 faz koşuldu |
+| Resend **403 / Cloudflare 1010** | urllib'in varsayılan User-Agent'ı; hata SoftFail'e düşüp sessiz kalıyordu |
+| **D2** — onaysıza mail | `confirmed_at` S6'dan beri şemadaydı, sorgu hiç bakmadı |
+| Onay maili + `confirm.html` | D2 kapanınca ön kapı da kapandı; kimse onaylayamıyordu |
+| `accept.html` | S9b deliği ölçtü, açık bıraktı; davet ana sayfaya gidiyordu |
+| **Bekleme listesinin kapısı yok** | Tablo, D8 guard, `run_invites`, davet maili, kabul sayfası — hepsi vardı, sitede tek satır `sightstone_waitlist` yoktu |
+| **CI 52 testi hiç koşmuyordu** | ubuntu-latest postgres'i PATH'e koymuyor; `pg_harness` "yok" deyip sessizce atlıyordu. Koltuk trigger'ı, advisory lock, RLS, invite SQL — hiçbiri koşmamıştı |
+| **Başarısız mail adımı defterleri çöpe atıyordu** | `commit` adımının koşulu yoktu; S7'nin çift-gönderim koruması bir kat yukarıda yeniden kırılıyordu |
+
+### Kanunlar — sonraki faz bunları kıramaz
+
+1. **`git fetch` ile başla.** Bu koşuya 9 fazlık bedeli olan hata buydu.
+2. **Canlı korpusa literal pin YOK.** `KEYS_PER_SUB`, `LIVE_KEY_COUNT`, mail_state
+   sha'sı hepsi bayatladı; her seferinde bedeli "o sabah mail gitmedi" oldu.
+   Sayılar dosyadan okunur, şekiller sert doğrulanır. (S4 hakemi bunu coğrafya
+   testleri için zaten yapmıştı; ders iki kez öğrenildi.)
+3. **Sessiz atlama yasak.** CI'da postgres yoksa adım patlar. Kota tükendiğinde
+   defter yine de commit'lenir. Bir şey yapılmadıysa loga yazılır.
+4. **`match.py`'nin eleme bloğu ve `tools/measure.py` DONMUŞ.**
+
+### KOŞULMAYAN — sıradaki oturumun işi
+
+- **S9b hakemi hâlâ koşmadı.** Kod canlı ve testli, ama hakem doğrulaması yok.
+- **S11 kararı bekliyor:** kaçırma artık ÖLÇÜLÜ (2,35 gün aralıkta %8,7 uniform /
+  %13,8 kaba üst). Eşik "≤ %10" — uniform'da geçer, kaba üst sınırda KALIR.
+  Bu çelişki S11 koşulmadan çözülmeli.
+- **S14 kapanış** ve AÇIK MADDELER listesinin tek tek işaretlenmesi.
+- ⚠ `measure.py --unconfirmed`'in D2 satırı **yanlış pozitif** (kodda filtre var,
+  araç URL'de arıyor). Araç donmuş; hakem bunu bilmeli.
+
+### ZEMİN v2 BLOĞU ÖLÜ
+
+Yukarıdaki "ZEMİN v2 — S1 ÖLÇÜMÜ" bloğu 34 gün bayat bir kopyada ölçüldü.
+ZEMİN'in orijinal sayıları (599 / remote 21 / 89 gönderim / 39 görüntü) `ce823dec`
+commit'inde **birebir doğrulandı**. ZEMİN'in yanlış olan tek yeri ömür dağılımıydı:
+gerçek medyan **9,77 gün** (7 değil), ≤3 gün %18,9 (%26,5 değil), ≤7 gün %42,6
+(%54,5 değil), 514 tamamlanmış ömür. Ömür artık ÖLÇÜLEBİLİR — 40 anlık görüntü var.
