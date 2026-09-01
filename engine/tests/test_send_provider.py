@@ -33,6 +33,7 @@ What is nailed:
 Run: python3 -m unittest discover engine/tests -v
 """
 import io
+import hashlib
 import json
 import os
 import re
@@ -59,7 +60,11 @@ LIVE_JOBS = LIVE_DATA / "jobs.json"
 
 SIM_SUBS = 10
 FAIL_AT = 5          # the 5th delivery is the one that goes wrong
-KEYS_PER_SUB = 12    # measured: "machine learning" is eligible for 12 listings
+
+# sha of the live state BEFORE any test ran. ProductionIsUntouched asks "did
+# the SUITE write to engine/data", not "is production frozen forever" -- a
+# literal here goes red the first morning the cron actually mails something.
+LIVE_STATE_SHA_AT_IMPORT = hashlib.sha256(LIVE_STATE.read_bytes()).hexdigest()
 
 _REAL_SOCKET = socket.socket
 _REAL_DATA = send_mail.DATA
@@ -793,10 +798,10 @@ class ListUnsubscribeOnEveryMail(unittest.TestCase):
 
 class ProductionIsUntouched(unittest.TestCase):
     def test_live_state_file_hash_is_unchanged(self):
-        import hashlib
+        """The SUITE did not write to engine/data. Compared to import time."""
         self.assertEqual(hashlib.sha256(LIVE_STATE.read_bytes()).hexdigest(),
-                         "6bef88f3de4bf2d09d99e439142bad266b77d319b64c9bd68bc4220f"
-                         "0dbbb74d")
+                         LIVE_STATE_SHA_AT_IMPORT,
+                         "a test wrote to the live mail_state.json")
 
     def test_the_subscriber_query_still_excludes_the_unsubscribed(self):
         self.assertIn("unsubscribed_at=is.null", SRC)

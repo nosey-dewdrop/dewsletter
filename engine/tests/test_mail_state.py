@@ -12,15 +12,22 @@ production files written):
    valid JSON with the PREVIOUS content, so load_state() cannot die on a
    truncated file. No temp file is left behind either.
 3. PROFILE EDITS DO NOT UN-SEND. Rescoring after an interests change keeps
-   sent_keys lossless -- 22 keys in, 22 keys out.
+   sent_keys lossless -- every key in is a key out.
 4. IDENTITY NAIL. job_key and sub_id derivation are pinned against the LIVE
-   engine/data/mail_state.json (22 keys, subscriber bd235c29a8fc) and against
-   literal hashes. Later phases cannot quietly redefine either without turning
-   this file red -- redefining them means mass double-mail.
+   engine/data/mail_state.json (subscriber bd235c29a8fc) and against literal
+   hashes. Later phases cannot quietly redefine either without turning this
+   file red -- redefining them means mass double-mail.
+
+COUNTS ARE READ, NOT PINNED. daily.yml runs this suite BEFORE the mailer, and
+the cron rewrites jobs.json and mail_state.json every morning. Every literal
+count in here has already gone stale once (22 -> 89, 12 -> 55 -> 53) and each
+time it meant a red suite and a morning with no mail. Derivations and shapes
+are asserted hard; the sizes are read off the files at import.
 
 Run: python3 -m unittest discover engine/tests -v
 """
 import io
+import hashlib
 import json
 import os
 import shutil
@@ -42,16 +49,24 @@ LIVE_DATA = HERE.parent / "data"
 LIVE_STATE = LIVE_DATA / "mail_state.json"
 LIVE_JOBS = LIVE_DATA / "jobs.json"
 
-# The one real subscriber in the live state file, and the count of listings
-# already mailed to them. Both are literals on purpose: they are the anchor the
-# identity of job_key/sub_id is measured against.
+# The one real subscriber in the live state file. THIS stays a literal: it is
+# the anchor sub_id identity is measured against, and it only changes if the
+# derivation breaks -- which is the whole point of pinning it.
 LIVE_SUB_ID = "bd235c29a8fc"
-LIVE_KEY_COUNT = 89
 
-# Measured against engine/data/jobs.json: this profile is eligible for exactly
-# 12 listings at send_mail's default --min-score 5.
+# The key COUNT is read from the file, never pinned. It was 22, then 89, and it
+# grows by one every time the cron mails a new listing. A literal here is a
+# time bomb: daily.yml runs this suite BEFORE the mailer, so a stale count
+# means a red suite, a failed job, and a morning with no mail. The shape of
+# these keys is still asserted hard (unique, 16 hex chars, one subscriber).
+LIVE_KEY_COUNT = len(json.loads(LIVE_STATE.read_text())[LIVE_SUB_ID]["sent_keys"])
+
+# sha of the live state as it was BEFORE any test ran. ProductionIsUntouched
+# compares against this, not against a literal: the question it asks is "did
+# the SUITE write to engine/data", not "is production frozen forever".
+LIVE_STATE_SHA_AT_IMPORT = hashlib.sha256(LIVE_STATE.read_bytes()).hexdigest()
+
 SIM_INTERESTS = ["machine learning"]
-KEYS_PER_SUB = 55
 SIM_SUBS = 10
 CRASH_AT = 5  # the 5th delivery raises
 
@@ -192,8 +207,17 @@ class CrashDurability(unittest.TestCase):
         self.assertNotIn(sid(victim), state, "a failed send was recorded as sent")
         self.assertEqual(set(state),
                          {sid(s["email"]) for s in self.subs if s["email"] != victim})
+        # Every survivor got the SAME number of keys, and that number is not
+        # pinned to a literal: these subscribers share one filter, so whatever
+        # today's corpus offers them, they all get it. A literal here was a
+        # live-corpus pin -- the cron rewrites jobs.json every morning, the
+        # count moved 55 -> 53 overnight, and the red suite blocked the mail.
+        counts = {len(v["sent_keys"]) for v in state.values()}
+        self.assertEqual(len(counts), 1, f"survivors got different key counts: {counts}")
+        per_sub = counts.pop()
+        self.assertGreater(per_sub, 0, "every survivor was mailed an empty list")
         total = sum(len(v["sent_keys"]) for v in state.values())
-        self.assertEqual(total, (SIM_SUBS - 1) * KEYS_PER_SUB)
+        self.assertEqual(total, (SIM_SUBS - 1) * per_sub)
         self.assertIn(f"processed {SIM_SUBS}/{SIM_SUBS}", out)
         self.assertIn("error 1", out)
 
@@ -223,8 +247,9 @@ class CrashDurability(unittest.TestCase):
                          "state is not flushed before the next subscriber is touched")
         state = read_state(self.data)
         self.assertEqual(len(state), SIM_SUBS)
-        self.assertTrue(all(len(v["sent_keys"]) == KEYS_PER_SUB
-                            for v in state.values()))
+        counts = {len(v["sent_keys"]) for v in state.values()}
+        self.assertEqual(len(counts), 1, f"subscribers got different counts: {counts}")
+        self.assertGreater(counts.pop(), 0)
 
 
 class Atomicity(unittest.TestCase):
@@ -322,7 +347,12 @@ class ProfileEditKeepsHistory(unittest.TestCase):
         run_send_mail(self.data, [subscriber(self.email, ["machine learning"])])
         after = set(read_state(self.data)[self.sid]["sent_keys"])
         self.assertTrue(before <= after, "sent_keys shrank after a profile edit")
-        self.assertEqual(len(after), LIVE_KEY_COUNT + 53)  # measured: 53 genuinely new
+        # STRICTLY wider, but the width is not a literal. "+53" was a live-corpus
+        # pin: the cron rewrites jobs.json nightly, it became +51, and the red
+        # suite stopped the mail. The claim is "adds keys and loses none", and
+        # that is exactly what the two assertions around this comment say.
+        self.assertGreater(len(after), len(before),
+                           "a wider filter found nothing new at all")
         self.assertEqual(len(FakeProvider.sent), 1)
 
     def test_history_is_never_reset_to_empty(self):
@@ -411,10 +441,10 @@ class ProductionIsUntouched(unittest.TestCase):
     """No test in this file may write to engine/data or open a socket."""
 
     def test_live_state_file_hash_is_unchanged(self):
-        import hashlib
+        """The SUITE did not write to engine/data. Compared to import time."""
         self.assertEqual(hashlib.sha256(LIVE_STATE.read_bytes()).hexdigest(),
-                         "6bef88f3de4bf2d09d99e439142bad266b77d319b64c9bd68bc4220f"
-                         "0dbbb74d")
+                         LIVE_STATE_SHA_AT_IMPORT,
+                         "a test wrote to the live mail_state.json")
 
     def test_no_stray_temp_files_in_the_live_data_dir(self):
         strays = [p.name for p in LIVE_DATA.iterdir()
