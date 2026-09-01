@@ -26,6 +26,7 @@ import os
 import sys
 import tempfile
 import urllib.error
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
@@ -36,6 +37,9 @@ import match
 DATA = Path(__file__).parent / "data"
 STATE_FILE = DATA / "mail_state.json"
 QUOTA_FILENAME = "quota_state.json"
+# Derived from DATA at call time, never bound at import: tests patch DATA,
+# and a module-level path would keep pointing at the real engine/data.
+CONFIRM_FILENAME = "confirm_state.json"
 SITE = "https://nosey-dewdrop.github.io/sightstone"
 SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 RESEND_ENDPOINT = "https://api.resend.com/emails"
@@ -733,6 +737,85 @@ def compose_invite(token: str | None) -> str:
     ])
 
 
+def compose_confirm(token: str | None) -> str:
+    """Plain text; the html part is this text escaped, as everywhere else."""
+    link = f"{SITE}/confirm.html?token={token}" if token else SITE
+    return "\n".join([
+        "one click and the engine starts reading for you.",
+        "",
+        "somebody put this address into the engine. if that was you, confirm "
+        "it here:",
+        f"    {link}",
+        "",
+        "if it was not you, do nothing at all. the link dies after 48 hours "
+        "and the address is dropped -- you will not hear from us again.",
+        "",
+        "--",
+        f"the engine · {SITE}",
+    ])
+
+
+def pending_confirmations(service_key: str) -> list[dict]:
+    """Addresses that signed up, have not confirmed, and are still in time.
+
+    The 48-hour window is the schema's, not a second opinion: sightstone_confirm
+    refuses a token older than that, so mailing a link we know is already dead
+    would be a worse lie than sending nothing.
+    """
+    headers = {"apikey": service_key}
+    if service_key.startswith("eyJ"):
+        headers["Authorization"] = f"Bearer {service_key}"
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=48)).isoformat()
+    req = urllib.request.Request(
+        f"{SUPABASE_URL}/rest/v1/sightstone_subscribers"
+        "?confirmed_at=is.null&unsubscribed_at=is.null"
+        f"&created_at=gt.{urllib.parse.quote(cutoff)}"
+        "&select=email,confirm_token",
+        headers=headers)
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode())
+
+
+def send_confirmations(rows: list[dict], provider: Provider) -> dict:
+    """Mail each pending address its confirm link, at most once, ever.
+
+    Kept in its own small ledger rather than in mail_state.json: mail_state is
+    keyed by subscriber id and its shape is nailed by tests, and an unconfirmed
+    person is not a subscriber yet. Once-ever and not once-a-day because a
+    confirmation is not a reminder campaign -- the schema gives them 48 hours,
+    and nagging an address that never asked for us is how a young sending
+    domain gets burned.
+    """
+    state_file = DATA / CONFIRM_FILENAME
+    seen = {}
+    if state_file.exists():
+        seen = json.loads(state_file.read_text())
+    tally = {"sent": 0, "already": 0, "halted": 0, "failed": 0}
+    for row in rows:
+        email = row["email"]
+        if email in seen:
+            tally["already"] += 1
+            continue
+        text = compose_confirm(row.get("confirm_token"))
+        result = provider.send(email, "confirm your address · the engine",
+                               as_html(text), kind="confirm", text=text)
+        if isinstance(result, MessageId):
+            seen[email] = datetime.now(timezone.utc).isoformat()
+            tally["sent"] += 1
+            # written per address, not at the end: a crash halfway through must
+            # not re-mail the people who already got theirs.
+            state_file.parent.mkdir(parents=True, exist_ok=True)
+            state_file.write_text(json.dumps(seen, indent=1, sort_keys=True))
+        elif isinstance(result, QuotaHalt):
+            tally["halted"] += 1
+        else:
+            tally["failed"] += 1
+    if rows:
+        print(f"confirmations: sent {tally['sent']} | already {tally['already']} "
+              f"| quota halt {tally['halted']} | failed {tally['failed']}")
+    return tally
+
+
 def run_invite_loop(seats: SeatBackend, provider: Provider,
                     now: datetime | None = None) -> dict:
     """Open as many seats as today's quota can actually mail, then mail them.
@@ -969,6 +1052,21 @@ def main() -> None:
     jobs = json.loads((DATA / "jobs.json").read_text())
     state = load_state()
     book = reset_ledger()   # read AFTER DATA is settled, never before
+
+    # S10 -- CONFIRMATIONS GO FIRST, before any bulletin.
+    #
+    # D2 holds back every unconfirmed address. Without this call that hold is
+    # permanent for everyone new: they sign up, they are never mailed, and the
+    # front door is shut. It runs before the bulletins because a person who
+    # cannot confirm is lost outright, while a person whose digest slips a day
+    # is not -- the same reasoning the monthly cap already encodes.
+    if service_key and not args.dry_run:
+        try:
+            send_confirmations(pending_confirmations(service_key), provider)
+        except Exception as exc:
+            # never let the front door take the bulletins down with it
+            print(f"ERROR confirmations: {type(exc).__name__}: {exc}",
+                  file=sys.stderr)
 
     # A25 -- ABONE IZOLASYONU. Every subscriber sits inside its own try. One
     # dead address, one provider failure, one unexpected exception: the run logs

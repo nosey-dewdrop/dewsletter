@@ -62,27 +62,36 @@ FROZEN_SURFACES = {
                    "ba8a9b5ec6a02b825394ed7533822c0b7de995ccccb296053d589269b8d74b52"),
     "job_pages": (1811188,
                   "7cf10d770a0e5bec5ef2f4e56b10a491f6b83e0309f8ed18d3b55c83fd964165"),
-    "unsubscribe": (2395,
-                    "a995b6d1c6613b2031d4672eab9a0a7f24d92b7bec1257c45da74c23a57152b9"),
+    # re-frozen 2026-09-01 by the S10 card. ONE literal moved and it is named
+    # in the diff: "One-click unsubscribe." -> "Leave in one click, on this
+    # page." The old string was false -- the page is static GitHub Pages and
+    # POST answers 405, so RFC 8058 one-click is impossible on it.
+    "unsubscribe": (2406,
+                    "76d34cf16edfec7bf30f9b495c66a7b544cd91a77091adf00a75c4395a3a7867"),
     # S5b, the sixth surface. Built off the same frozen corpus, from the base
     # slug map (main() writes the collision-suffixed one to disk).
     "user_page": (2499,
                   "9f813001b6c6fade827d4edb6c2bc7399e2b0e2215317d9ff19d1f2d75017a4f"),
 }
-FROZEN_TOTAL_BYTES = 2096150 + 2499
+FROZEN_TOTAL_BYTES = 2096161 + 2499
 FROZEN_USER_FEED = (693,
                     "46bd7182da2532ce1a2b1e43412c358e106e108a17edea3e697197282802b26d")
 
 # sha256 of the sorted multiset of string literals in build_site.py BEFORE S5a
 # touched it (git 9af98b1). The two helpers S5a adds carry their own literals;
 # everything outside them has to hash to this.
-CONSTANTS_BEFORE_S5A = "c0477c0e9fcd184e3ba59450f7e721e56674fef44c25f3d715c36d9f89f984f5"
+CONSTANTS_BEFORE_S5A = "adf1b6ba43e9d95f9d4c4fcac86a8dda7eda6833794efc7d21bbd3d63f3dd8ec"
 NEW_HELPERS = ("json_in_html", "safe_url",
                # S5b: the whole user-page surface. Every literal it needs lives
                # inside these functions; main() gained none.
                "robots_extra", "job_slug_map", "slugs_on_disk", "result_key",
                "xml_text", "user_row_html", "user_page_html", "user_feed_xml",
-               "write_user_pages")
+               "write_user_pages",
+               # S10: the confirmation page. D2 holds back every unconfirmed
+               # address, so without this surface nobody new can ever be
+               # mailed. write_confirm owns the filename so main() still gains
+               # a call and not a literal.
+               "build_confirm", "write_confirm")
 
 # sha256 of the sorted multiset of string literals inside main() alone. S5b adds
 # two calls to main() and not one literal; this locks that separately from the

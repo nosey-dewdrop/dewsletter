@@ -600,9 +600,51 @@ else fetch(SB + '/rest/v1/rpc/sightstone_unsubscribe', {{
     : 'this link was already used or never existed.';
 }}).catch(() => {{ msg.textContent = 'could not reach the database. try again in a minute.'; }});
 """
-    return page("Unsubscribe · the engine", "One-click unsubscribe.",
+    # NOT "one-click": this is static GitHub Pages and POST answers 405, so
+    # RFC 8058 one-click is impossible here. Measured live 2026-09-01.
+    return page("Unsubscribe · the engine", "Leave in one click, on this page.",
                 f"{BASE_URL}/unsubscribe.html", "", "", body,
                 extra_head='<meta name="robots" content="noindex">', script=script)
+
+
+def build_confirm():
+    """S10. Without this page nobody new can ever be mailed.
+
+    D2 made send_mail drop every row whose confirmed_at is null. That closed
+    the consent hole and, on its own, also closed the front door: a stranger
+    signs up, has no way to say "yes that is me", and is held back forever.
+    This is the other half -- the link in the confirmation mail lands here.
+    """
+    body = """
+<h1 class="page rainbow">Is that you?</h1>
+<p class="lede" id="confirm-msg">one moment, the engine is checking your link&hellip;</p>
+<p class="tabnote"><a href="index.html">back to the paper</a> &middot; you only ever do this once.</p>
+<div class="version">""" + VERSION + """</div>
+"""
+    script = f"""
+const SB = '{SUPABASE_URL}';
+const SBK = '{SUPABASE_ANON}';
+const token = new URLSearchParams(location.search).get('token');
+const msg = document.getElementById('confirm-msg');
+if (!token) {{ msg.textContent = 'no token in the link. use the link from your mail.'; }}
+else fetch(SB + '/rest/v1/rpc/sightstone_confirm', {{
+  method: 'POST',
+  headers: {{apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'}},
+  body: JSON.stringify({{token: token}})
+}}).then(r => r.json()).then(ok => {{
+  msg.textContent = ok
+    ? 'confirmed. the seat is yours, and the next listing that matches comes to you.'
+    : 'this link was already used, or it expired after 48 hours. sign up again.';
+}}).catch(() => {{ msg.textContent = 'could not reach the database. try again in a minute.'; }});
+"""
+    return page("Confirm · the engine", "Confirm your address, once.",
+                f"{BASE_URL}/confirm.html", "", "", body,
+                extra_head='<meta name="robots" content="noindex">', script=script)
+
+
+def write_confirm(root):
+    """Owns the filename too, so main() gains a call and not a literal."""
+    (root / "confirm.html").write_text(build_confirm())
 
 
 def build_jobs_index(jobs):
@@ -830,6 +872,7 @@ def main() -> None:
     (ROOT / "index.html").write_text(build_index(jobs, results, stats, dupes_removed, seats))
     (ROOT / "cv.html").write_text(build_cv_page(len(jobs)))
     (ROOT / "unsubscribe.html").write_text(build_unsubscribe())
+    write_confirm(ROOT)
     import cv_engine_js
     cv_engine_js.emit(ROOT / "cv-engine.js")
     (ROOT / "jobs" / "index.html").write_text(build_jobs_index(jobs))

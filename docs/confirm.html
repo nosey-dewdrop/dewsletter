@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Unsubscribe · the engine</title>
-<meta name="description" content="Leave in one click, on this page.">
-<link rel="canonical" href="https://nosey-dewdrop.github.io/sightstone/unsubscribe.html">
+<title>Confirm · the engine</title>
+<meta name="description" content="Confirm your address, once.">
+<link rel="canonical" href="https://nosey-dewdrop.github.io/sightstone/confirm.html">
 <link rel="stylesheet" href="style.css">
 <meta name="robots" content="noindex">
 </head>
@@ -22,9 +22,9 @@
 </div></div></nav>
 <div class="sheet">
 
-<h1 class="page rainbow">Leaving?</h1>
-<p class="lede" id="unsub-msg">one moment, the engine is checking your link&hellip;</p>
-<p class="tabnote"><a href="index.html">back to the paper</a> &middot; a seat opens the moment you leave.</p>
+<h1 class="page rainbow">Is that you?</h1>
+<p class="lede" id="confirm-msg">one moment, the engine is checking your link&hellip;</p>
+<p class="tabnote"><a href="index.html">back to the paper</a> &middot; you only ever do this once.</p>
 <div class="version">v2 · built 2026-09-01</div>
 
 </div>
@@ -39,16 +39,16 @@ document.querySelectorAll('.rainbow').forEach(el => {
 const SB = 'https://xjtmqncfhuidctxgthhv.supabase.co';
 const SBK = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdG1xbmNmaHVpZGN0eGd0aGh2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTQ5NTcsImV4cCI6MjA5OTQ3MDk1N30.xQ2-SY7gT1BsI7isodRgKtaqyDSIzjDbgHyjOYMt_8g';
 const token = new URLSearchParams(location.search).get('token');
-const msg = document.getElementById('unsub-msg');
+const msg = document.getElementById('confirm-msg');
 if (!token) { msg.textContent = 'no token in the link. use the link from your mail.'; }
-else fetch(SB + '/rest/v1/rpc/sightstone_unsubscribe', {
+else fetch(SB + '/rest/v1/rpc/sightstone_confirm', {
   method: 'POST',
   headers: {apikey: SBK, Authorization: 'Bearer ' + SBK, 'Content-Type': 'application/json'},
   body: JSON.stringify({token: token})
 }).then(r => r.json()).then(ok => {
   msg.textContent = ok
-    ? 'done. no more mail, and your seat just opened for someone else.'
-    : 'this link was already used or never existed.';
+    ? 'confirmed. the seat is yours, and the next listing that matches comes to you.'
+    : 'this link was already used, or it expired after 48 hours. sign up again.';
 }).catch(() => { msg.textContent = 'could not reach the database. try again in a minute.'; });
 </script>
 </body>
