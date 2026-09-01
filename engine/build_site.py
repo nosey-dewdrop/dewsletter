@@ -96,6 +96,13 @@ p { text-align:justify; hyphens:auto; margin-bottom:.7rem; }
 .lede { font-size:16.5px; max-width:68ch; margin-bottom:2rem; }
 
 .algo { margin-bottom:2.4rem; }
+/* The form is the page's job, so it sits right under the pitch at full measure
+   instead of being one cell of a three-cell grid. Centred as a BLOCK with the
+   text still left-aligned: a centred headline over two buttons is the SaaS
+   hero this site is deliberately not. No border, no box -- separation is
+   whitespace, same as everywhere else here. */
+.algo#join { max-width:62ch; margin:0 auto 3.4rem auto; }
+.algo#join .algo-cap { font-size:17px; }
 .algo-cap { font-size:15px; margin-bottom:.5rem; }
 .seatline { font-size:13.5px; margin-bottom:1.1rem; }
 .seatline b { font-weight:bold; }
@@ -380,6 +387,8 @@ def build_index(jobs, results, stats, dupes_removed, seats):
 <b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
 you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
 
+{form_html}
+
 <div class="grid">
   <section id="why">
     <h3 class="sec rainbow">Why should this exist?</h3>
@@ -391,8 +400,6 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     Dewsletter reads every listing every morning, for everyone, so nobody wins just by
     watching job boards harder than you.</p>
   </section>
-
-  {form_html}
 
   <section id="how">
     <h3 class="sec rainbow">How does it work?</h3>
