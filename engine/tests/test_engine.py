@@ -26,8 +26,25 @@ class CVCritique(unittest.TestCase):
         self.assertLessEqual(self.empty["score"], 20)
 
     def test_reach(self):
-        self.assertGreater(self.strong["matched"], 200)
+        """A5. This asserted `matched > 200` against the LIVE corpus.
+
+        cv_critique counts against engine/data/jobs.json, which the cron
+        rewrites every morning, and daily.yml runs this suite BEFORE the
+        mailer. Measured 2026-09-01: 408 of 613. The literal 200 meant that a
+        morning fetch returning under ~300 listings turned this red, failed the
+        job, and sent no mail -- silently, with nothing in the output naming
+        the corpus as the cause. The corpus has already been as low as 437 in
+        this repo's own history.
+
+        The claim here is SEPARATION and reach, not a magnitude: a strong CV
+        reaches a large share of whatever is on the board today, an empty one
+        reaches nothing. Stated as a share, it survives the board moving.
+        """
+        corpus = len(json.loads(cv_critique.JOBS.read_text()))
         self.assertEqual(self.empty["matched"], 0)
+        self.assertGreater(self.strong["matched"], corpus // 3,
+                           "a strong CV stopped reaching even a third of the "
+                           "board; that is the engine changing, not the corpus")
 
     def test_no_false_gap_claims(self):
         """A gap may only be claimed if the CV truly has zero evidence of it."""

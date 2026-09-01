@@ -287,3 +287,14 @@ revoke execute on function sightstone_run_invites(int) from public;
 update sightstone_subscribers
    set confirmed_at = coalesce(confirmed_at, created_at, now())
  where email = 'teenagemutantdamlaturtle@gmail.com';
+
+-- ---------------------------------------------------------------------------
+-- A3 -- drop the cv_text column. Nothing has ever written to it.
+--
+-- The site's promise is that a CV is read in the browser and never uploaded;
+-- cv.html does the whole critique client-side and the engine has no code that
+-- sends CV text anywhere (measure.py's D5 scan finds zero writers). But the
+-- column sat here READY to store it, which makes the promise a matter of
+-- nobody having written the insert yet rather than the schema refusing it.
+-- Removing it makes D5 structural instead of behavioural.
+alter table sightstone_subscribers drop column if exists cv_text;

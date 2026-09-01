@@ -2978,3 +2978,35 @@ o satırı saymayı bırakıyor, koltuk o an boşalıyor.
 `fresh_invites` N'den az satır döndürürse aradaki fark damgalı kalır ve o koşuda
 ne maillenir ne bırakılır. `tally["missing"]` bunu sayıp basıyor, ve 48 saat sonra
 `run_invites` onları düşürüp koltuğu iade ediyor. Sessiz değil, kalıcı değil.
+
+## S14 — KAPANIŞ. DOKUZ AÇIK MADDE, TEK TEK, ÖLÇÜLEREK.
+
+| # | hüküm | kanıt |
+|---|---|---|
+| A1 | **KAPANDI** | `json_in_html` + `safe_url` D9'un dört sinkini kapattı. `--invariants` bugün D9 ihlal **0**, exit 0. |
+| A2 | **KAPANDI** | `measure.py` artık D4/D5/D6/D9'dan biri kırmızıysa `sys.exit(1)`. Kapı görmekle kalmıyor, blokluyor. |
+| A3 | **KAPANDI (1 Eyl)** | `cv_text` sütununa yazan kod yok (D5 taraması 0 yazar buluyor). Sütun `schema.sql`'de düşürüldü — "CV tarayıcıdan çıkmaz" artık davranış değil **yapı**. |
+| A4 | **KAPANDI (1 Eyl)** | `fetch_subscribers` `confirmed_at`'i süzüyor; onaysıza mail yok, kaç kişinin tutulduğu loga basılıyor. Onay maili + `confirm.html` canlı. 6 test. |
+| A5 | **KAPANDI (1 Eyl)** | ⛔ En tehlikelisiydi ve **hâlâ canlıydı.** `test_engine.py` `matched > 200` diye canlı korpusa çakılıydı; ölçüldü: bugün 408/613, korpus **300'ün altına düşünce** test kızarır, `daily.yml` fail eder, **o sabah mail gitmez** — sessizce. Korpus bu reponun kendi geçmişinde 437'ye kadar inmiş. İddia bir büyüklük değil bir **ayrışma**: artık korpusun payına göre yazılı (`> corpus // 3`), boş CV hâlâ tam 0. |
+| A6 | **KAPANDI (1 Eyl)** | "Ölçülemez" hükmü öldü. 40 anlık görüntü var: 514 tamamlanmış ömür, medyan **9,77 gün**. Kaçırma 2,35 günlük aralıkta **%8,7 uniform / %13,8 kaba üst**. ⚠ S11'in "≤ %10" eşiği bu iki sayının **arasında kalıyor** — karar Damla'da, aşağıda. |
+| A7 | **AÇIK — bilerek** | `tools/measure.py:112 country_of()` ile `common.py:listing_country()` hâlâ iki ayrı kural. `measure.py` **DONMUŞ**, birleştirmek dondurmayı kırardı. Zararı bugün sıfır: ikisi ayrı yerlerde kullanılıyor, `test_fetch` birincisine bağlı. Aracı çözen faz bunu da çözsün. |
+| A8 | **KAPANDI (1 Eyl)** | `location fits +3` puanlama kartında tamamen kaldırıldı. Coğrafya artık **sıfır puan** üretiyor; sadece filtre. Kartın kendi testi bunu ters yönden kilitliyor. |
+| A9 | **KAPANDI — bakıldı** | 26 ilan `location_country_unknown`. İçlerine bakıldı: **25'inin konum alanı tamamen BOŞ**, biri `LATAM +3`. Kaynak konum vermemiş, motor uydurmuyor (S3 kanunu). Bedeli gerçek — aralarında uzaktan/Türkiye işi olabilir — ama tahmin etmek daha kötü olurdu. Kaynak konum vermeye başlarsa kendiliğinden çözülür. |
+
+**Dokuzdan sekizi kapandı. Biri (A7) donmuş araç yüzünden bilerek açık.**
+
+### BİTİŞ ŞARTI
+
+> *"Bir yabancı siteye girer, ne aradığını yazar, mail kutusuna bir bülten
+> düşer, içindeki ilana başvurabilir."*
+
+**Karşılanıyor.** Kayıt → onay maili → `confirm.html` → bülten → ilan linki →
+`unsubscribe.html`. Koltuk doluysa kuyruk → davet → `accept.html`. Altı yüzeyin
+altısı da canlı, 200. Gerçek mail teslim edildi (`3c5f3815`, delivered).
+
+### DAMLA'YA KALAN TEK KARAR — S11 eşiği
+
+Kaçırma artık ölçülü ve **eşik iki tahminin arasına düşüyor**:
+`%8,7` (uniform-faz, beklenen değer) · `%13,8` (kaba üst sınır) · eşik `≤ %10`.
+Bunlar farklı sorular: biri "ortalama ne kaçırıyoruz", diğeri "en kötü ne olabilir".
+Kart hangisini bağlayıcı sayacağına karar vermeden S11 koşulamaz.

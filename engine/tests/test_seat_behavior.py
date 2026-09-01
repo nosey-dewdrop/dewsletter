@@ -453,7 +453,12 @@ class RlsRegression(ClusterCase):
 
     def test_anon_cannot_read_a_single_email_or_token(self):
         self.fill(3)
-        for col in ("email", "unsubscribe_token", "confirm_token", "cv_text"):
+        # cv_text is gone (A3). Nothing ever wrote it, but a column standing
+        # ready to hold CV text made "the CV never leaves your browser" a
+        # matter of nobody having written the insert yet rather than the schema
+        # refusing to hold one. schema.sql drops it; there is no column left
+        # here to protect.
+        for col in ("email", "unsubscribe_token", "confirm_token"):
             with self.subTest(col=col):
                 self.assertEqual(
                     self.anon_scalar(
