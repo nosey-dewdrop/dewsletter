@@ -39,6 +39,7 @@ QUOTA_FILENAME = "quota_state.json"
 SITE = "https://nosey-dewdrop.github.io/sightstone"
 SUPABASE_URL = "https://xjtmqncfhuidctxgthhv.supabase.co"
 RESEND_ENDPOINT = "https://api.resend.com/emails"
+USER_AGENT = "sightstone/1.0 (+https://nosey-dewdrop.github.io/sightstone)"
 RESEND_MAX_RECIPIENTS = 50  # provider limit on the `to` field
 
 
@@ -487,8 +488,14 @@ class ResendProvider(Provider):
         req = urllib.request.Request(
             RESEND_ENDPOINT,
             data=json.dumps(payload).encode(),
+            # User-Agent is REQUIRED, not decoration. Resend sits behind
+            # Cloudflare, which 403s urllib's default "Python-urllib/x.y" with
+            # error code 1010. Measured 2026-09-01: default UA -> 403, this UA
+            # -> 200, same key, same endpoint. Without it every send soft-fails
+            # and the bulletin silently never arrives.
             headers={"Authorization": f"Bearer {self.api_key}",
-                     "Content-Type": "application/json"},
+                     "Content-Type": "application/json",
+                     "User-Agent": USER_AGENT},
             method="POST")
         try:
             with urllib.request.urlopen(req, timeout=self.timeout) as resp:

@@ -349,6 +349,20 @@ class ResendWire(unittest.TestCase):
         self.assertEqual(req.get_header("Authorization"), "Bearer re_abc123")
         self.assertEqual(req.get_header("Content-type"), "application/json")
 
+    def test_a_user_agent_is_sent_and_it_is_not_urllibs_default(self):
+        """A delivery requirement, not decoration.
+
+        Measured 2026-09-01 against the real API, same key, same endpoint:
+        urllib's default "Python-urllib/3.12" -> 403, Cloudflare error code
+        1010. A named agent -> 200. The first live run soft-failed on exactly
+        this and the bulletin silently never arrived.
+        """
+        _, seen, _ = self.deliver({"id": "x"})
+        agent = seen["req"].get_header("User-agent")
+        self.assertTrue(agent, "no User-Agent: Cloudflare 403s the send")
+        self.assertNotIn("Python-urllib", agent)
+        self.assertIn("sightstone", agent)
+
     def test_body_carries_the_documented_fields(self):
         _, seen, _ = self.deliver({"id": "x"})
         body = json.loads(seen["req"].data.decode())
