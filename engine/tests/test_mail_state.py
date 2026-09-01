@@ -478,11 +478,17 @@ class IdentityNail(unittest.TestCase):
         self.assertEqual(send_mail.job_key(no_link), "cf1d6586dbb13472")
 
     def test_sub_id_derivation_is_pinned(self):
-        """Behavioural: the key send_mail writes for an address cannot drift."""
+        """Behavioural: the key send_mail writes for an address cannot drift.
+
+        The address is a neutral example on purpose. This repo is public and a
+        test does not need a real person's mailbox to prove that sha1 is still
+        sha1; the previous version pinned Damla's university address and its
+        hash, which published both.
+        """
         data = sandbox()
-        email = "su.bilge@ug.bilkent.edu.tr"
+        email = "someone@example.test"
         run_send_mail(data, [subscriber(email)])
-        self.assertEqual(list(read_state(data)), ["609be0e707e7"],
+        self.assertEqual(list(read_state(data)), ["fcf9eb7ccab1"],
                          "sub_id derivation changed; every subscriber becomes a new "
                          "identity with an empty history -> mass double-mail")
 

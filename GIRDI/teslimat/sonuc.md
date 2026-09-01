@@ -11,7 +11,7 @@ hesabı yok, ve "spam'e düştü mü" sorusunun tek dürüst cevabı kutuya bakm
 | Alan adı doğrulaması (Resend) | **verified** — DKIM · SPF MX · SPF TXT üçü de |
 | SPF | `v=spf1 include:amazonses.com ~all` |
 | DKIM | `resend._domainkey.mail.noseydewdrop.com`, 1024-bit RSA |
-| DMARC | `v=DMARC1; p=none; rua=mailto:su.bilge@ug.bilkent.edu.tr` |
+| DMARC | `v=DMARC1; p=none; rua=mailto:<Damla'nin adresi>` |
 | Hizalama | Gönderen `news@mail.noseydewdrop.com`; SPF ve DKIM aynı alt alanda → DMARC hizalı |
 | Apex sitesi | Etkilenmedi, MX apex'e konmadı |
 | `List-Unsubscribe` | Her mailde var, token'lı |

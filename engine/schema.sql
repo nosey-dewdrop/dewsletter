@@ -284,9 +284,13 @@ revoke execute on function sightstone_run_invites(int) from public;
 -- would be the exact violation this change is closing: it would manufacture
 -- consent for anyone who ever typed their address in. One address, spelled out,
 -- auditable in the diff. Everyone else confirms by clicking.
-update sightstone_subscribers
-   set confirmed_at = coalesce(confirmed_at, created_at, now())
- where email = 'teenagemutantdamlaturtle@gmail.com';
+-- KOSULDU 1 Eyl 2026, ve adres bilerek SILINDI: bu repo public, o yuzden
+-- kurucu abonenin kisisel adresi burada duramaz. Tekrar gerekirse Supabase SQL
+-- editorunde tek seferlik elle kosulur; sema dosyasinda bir kisinin mail
+-- adresini tasimak, o adresi sonsuza kadar yayinlamaktir.
+-- update sightstone_subscribers
+--    set confirmed_at = coalesce(confirmed_at, created_at, now())
+--  where email = '<adres>';
 
 -- ---------------------------------------------------------------------------
 -- A3 -- drop the cv_text column. Nothing has ever written to it.

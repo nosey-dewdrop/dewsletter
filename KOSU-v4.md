@@ -1668,7 +1668,7 @@ olup olmadığı offline doğrulanabiliyor.** Bir üyelik oracle'ı. Bugün 1 ab
 
 ### S5b hakeminin ölçtüğü, karara girmesi gereken diğer şeyler
 
-- **`profile.json` public ve içinde `su.bilge@ug.bilkent.edu.tr` var.**
+- **`profile.json` public ve içinde `<Damla'nin adresi>` var.**
   Repoda bilerek mi duruyor, bilinmiyor.
 - **D9 tarayıcısında ölçülmüş İKİ delik** (hakem deneyle buldu, A16 büyüdü):
   (a) değişken adı filtresi `\b(job|j|r|sub|row)\b` — yeni döngü değişkeni
@@ -2220,7 +2220,7 @@ hakem notu: Durum artık her başarılı gönderimden sonra aynı dizine tempfil
 
 ### KARTIN İKİ LİTERALİ YANLIŞTI — ajan kodu bükmedi, doğrusu bu
 
-1. **`sub_id(su.bilge@ug.bilkent.edu.tr)` = `609be0e707e7`, `bd235c29a8fc` DEĞİL.**
+1. **`sub_id(<Damla'nin adresi>)` = `609be0e707e7`, `bd235c29a8fc` DEĞİL.**
    `sub_id` düz `sha1[:12]` (`send_mail.py:130`), gizli tuz yok.
 2. **`gh_jid=8050772` `jobs.json`'da YOK** — yalnız ham fixture'da
    (`speedyapply-intern-intl.md:145`) geçiyor. Kartın literali canlı veriden
@@ -2414,7 +2414,7 @@ DOKUNULABİLİR: .github/workflows/daily.yml (YALNIZ env: bloğu) · engine/send
     Resend'in üç kaydını bire bir gir
 5.  Vercel'de dördüncüyü ELLE ekle:
     Type TXT · Name "_dmarc" · Value:
-    v=DMARC1; p=none; rua=mailto:su.bilge@ug.bilkent.edu.tr;
+    v=DMARC1; p=none; rua=mailto:<Damla'nin adresi>;
 6.  Resend → Verify. Yeşil olana kadar bekle (birkaç dakika)
 7.  Resend → API Keys → Create → izin "Sending access". re_… anahtarını kopyala
 8.  GitHub → sightstone → Settings → Secrets → Actions → New repository secret
