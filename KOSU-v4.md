@@ -2955,3 +2955,26 @@ ZEMİN'in orijinal sayıları (599 / remote 21 / 89 gönderim / 39 görüntü) `
 commit'inde **birebir doğrulandı**. ZEMİN'in yanlış olan tek yeri ömür dağılımıydı:
 gerçek medyan **9,77 gün** (7 değil), ≤3 gün %18,9 (%26,5 değil), ≤7 gün %42,6
 (%54,5 değil), 514 tamamlanmış ömür. Ömür artık ÖLÇÜLEBİLİR — 40 anlık görüntü var.
+
+## S9b — Kademeli koltuk açılışı — GEÇTİ (hakem, 1 Eyl)
+
+Hakem ajanın raporuna değil, **gerçek bir postgres kümesine** sordu. Altı iddia:
+
+```
+200 bekleyen, limit 90    -> dondu 90, invited_at damgali TAM 90     GECTI
+limit 0                   -> 0 damga                                 GECTI
+limit null                -> 0 damga (null "sinirsiz" diye OKUNMUYOR) GECTI
+davet damgasi             -> koltugu REZERVE ediyor (3. terim)        GECTI
+damga geri alininca       -> koltuk AYNI ANDA geri geliyor (5->4)     GECTI
+suresi gecmis davet       -> koltuk tutmuyor (0)                      GECTI
+anon damga silebiliyor mu -> HAYIR (RLS yalnizca insert veriyor)      GECTI
+```
+
+`release_invite` gerçekten damgayı geri alıyor, sadece saymıyor: `invited_at` ve
+`invite_expires_at` null'a çekiliyor, `sightstone_seats_taken()`'in üçüncü terimi
+o satırı saymayı bırakıyor, koltuk o an boşalıyor.
+
+**Kalan tek pürüz (delik değil, görünür kayıp):** `run_invites` N damgalayıp
+`fresh_invites` N'den az satır döndürürse aradaki fark damgalı kalır ve o koşuda
+ne maillenir ne bırakılır. `tally["missing"]` bunu sayıp basıyor, ve 48 saat sonra
+`run_invites` onları düşürüp koltuğu iade ediyor. Sessiz değil, kalıcı değil.
