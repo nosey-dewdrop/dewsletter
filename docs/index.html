@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="runhead"><div class="rh-inner">
-<div class="rh-left"><a class="wordmark" href="index.html">the engine</a><span class="rh-sub">deterministic internship matching</span></div>
+<div class="rh-left"><a class="wordmark" href="index.html">dewsletter</a><span class="rh-sub">deterministic internship matching</span></div>
 <div class="rh-links">
 <a href="index.html#why">why</a>
 <a href="index.html#how">how</a>
@@ -24,11 +24,11 @@
 
 <div class="maketitle">
   <h1>Deterministic Matching of Student Profiles<br>to Startup Internships</h1>
-  <div class="author">the engine, <a href="https://noseydewdrop.com">noseydewdrop.com</a></div>
+  <div class="author">dewsletter, <a href="https://noseydewdrop.com">noseydewdrop.com</a></div>
   <div class="date">September 01, 2026 &middot; rebuilt once a day</div>
 </div>
 
-<p class="pitch">You write down what you can do. Every morning the engine reads
+<p class="pitch">You write down what you can do. Every morning dewsletter reads
 <b>630 live AI/ML internship listings</b>, scores each one against your profile, and
 <b>mails you only the new matches</b>. Every match carries its <u>named reasons</u>, so
 you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
@@ -41,7 +41,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
     <b>people still fail to find internships</b>. The one who wins is usually not the best
     candidate. It is <u>the most alert one</u>, the one who saw the posting first, the one
     with <u>the most connections</u>. This site exists to <b>delete that advantage</b>.
-    The engine reads every listing every morning, for everyone, so nobody wins just by
+    Dewsletter reads every listing every morning, for everyone, so nobody wins just by
     watching job boards harder than you.</p>
   </section>
 
@@ -100,7 +100,7 @@ you can see exactly why it was sent. When nothing new fits, no mail is sent.</p>
   <p class="tabnote">This sample is deliberately the hardest case on the board: someone who
   cannot move countries and cannot take a US-only remote role. 531 of today's 630 listings
   are unreachable for her before a single word is scored, which is why so few survive. A profile
-  that can relocate reaches all 630. The engine would rather show one listing with a reason than
+  that can relocate reaches all 630. Dewsletter would rather show one listing with a reason than
   twenty without.</p>
   <div class="twocol"><ol class="bib"><li><span class="co">Astreya</span>. <span class="pos">AI Infrastructure DC Design Intern.</span> Remote. <a href="https://astreya.wd5.myworkdayjobs.com/en-US/life-at-astreya-opportunities/job/Remote-CA/AI-Infrastructure-DC-Design-Intern_R0015746">apply</a>. <span class="meta">score 4: ai infrastructure in title.</span></li></ol></div>
 </section>
@@ -138,10 +138,10 @@ document.getElementById('join-form').addEventListener('submit', async e => {
   const msg = document.getElementById('join-msg');
   const email = document.getElementById('f-email').value.trim();
   if (!document.getElementById('f-consent').checked) {
-    msg.textContent = 'the consent box is not decoration; the engine cannot mail you without it.';
+    msg.textContent = 'the consent box is not decoration; dewsletter cannot mail you without it.';
     return;
   }
-  if (!email) { msg.textContent = 'an e-mail address is the one thing the engine cannot infer.'; return; }
+  if (!email) { msg.textContent = 'an e-mail address is the one thing dewsletter cannot infer.'; return; }
   const body = {
     email: email,
     name: document.getElementById('f-name').value.trim() || null,

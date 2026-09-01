@@ -12,7 +12,7 @@ to a mail transport. Swapping providers is one class; the signature does not mov
 
 Env:
   RESEND_API_KEY        required for a real send (Bearer token for api.resend.com)
-  MAIL_FROM             required for a real send, e.g. 'the engine <x@domain>'
+  MAIL_FROM             required for a real send, e.g. 'dewsletter <x@domain>'
   SUPABASE_SERVICE_KEY  if set, subscribers are read from Supabase (multi-subscriber)
   SUBSCRIBER_EMAIL      fallback single recipient when no service key is set
 
@@ -727,7 +727,7 @@ def compose_invite(token: str | None) -> str:
     return "\n".join([
         "a seat opened up and it is yours for the next 48 hours.",
         "",
-        "you asked to be told when the engine had room. it has room now, and "
+        "you asked to be told when dewsletter had room. it has room now, and "
         "you are next in line.",
         f"    {link}",
         "",
@@ -735,7 +735,7 @@ def compose_invite(token: str | None) -> str:
         "lost if you miss it -- you keep your place and get asked again.",
         "",
         "--",
-        f"the engine · {SITE}",
+        f"dewsletter · {SITE}",
     ])
 
 
@@ -743,9 +743,9 @@ def compose_confirm(token: str | None) -> str:
     """Plain text; the html part is this text escaped, as everywhere else."""
     link = f"{SITE}/confirm.html?token={token}" if token else SITE
     return "\n".join([
-        "one click and the engine starts reading for you.",
+        "one click and dewsletter starts reading for you.",
         "",
-        "somebody put this address into the engine. if that was you, confirm "
+        "somebody put this address into dewsletter. if that was you, confirm "
         "it here:",
         f"    {link}",
         "",
@@ -753,7 +753,7 @@ def compose_confirm(token: str | None) -> str:
         "and the address is dropped -- you will not hear from us again.",
         "",
         "--",
-        f"the engine · {SITE}",
+        f"dewsletter · {SITE}",
     ])
 
 
@@ -799,7 +799,7 @@ def send_confirmations(rows: list[dict], provider: Provider) -> dict:
             tally["already"] += 1
             continue
         text = compose_confirm(row.get("confirm_token"))
-        result = provider.send(email, "confirm your address · the engine",
+        result = provider.send(email, "confirm your address · dewsletter",
                                as_html(text), kind="confirm", text=text)
         if isinstance(result, MessageId):
             seen[email] = datetime.now(timezone.utc).isoformat()
@@ -845,7 +845,7 @@ def run_invite_loop(seats: SeatBackend, provider: Provider,
     for row in rows:
         email, token = row.get("email"), row.get("invite_token")
         result = provider.send(
-            email, "a seat opened up · the engine",
+            email, "a seat opened up · dewsletter",
             as_html(compose_invite(token)), kind="invite",
             text=compose_invite(token), unsub_url=unsubscribe_url(None))
         if isinstance(result, MessageId):
@@ -912,7 +912,7 @@ def save_state(state: dict) -> None:
 def compose(new: list[dict], total: int, unsubscribe_token: str | None = None) -> str:
     lines = [
         f"{len(new)} new internship listing(s) matched your profile this morning.",
-        f"the engine read {total} live listings; only these are new for you, "
+        f"dewsletter read {total} live listings; only these are new for you, "
         "each with its named reasons. no black box, no language model.",
         "",
     ]
@@ -928,7 +928,7 @@ def compose(new: list[dict], total: int, unsubscribe_token: str | None = None) -
         ]
     lines += [
         "--",
-        f"the engine · {SITE}",
+        f"dewsletter · {SITE}",
         "you get mail only when something new matches. nothing new, no mail.",
     ]
     if unsubscribe_token:
@@ -1035,14 +1035,40 @@ def process_subscriber(email: str, profile: dict, jobs: list, state: dict,
                        unsubscribe_token: str | None) -> str:
     """Match, mail if anything is new, update state in place.
 
-    Returns one of: sent | nothing_new | dry_run | quota_halt | quota_error |
-    hard_bounce | soft_fail.
+    Returns one of: sent | nothing_new | already_today | dry_run | quota_halt |
+    quota_error | hard_bounce | soft_fail.
     """
     results, stats = match.run(profile, jobs)
     sub_id = hashlib.sha1(email.encode()).hexdigest()[:12]
     sent = set(state.get(sub_id, {}).get("sent_keys", []))
     eligible = [r for r in results if r["score"] >= min_score]
     new = [r for r in eligible if job_key(r) not in sent]
+
+    # ONE BULLETIN PER PERSON PER DAY. Measured 2026-09-01: three bulletins
+    # reached the live subscriber in a single day, two of them three minutes
+    # apart, because the workflow was run more than once and every run does a
+    # fresh fetch -- new listings, therefore new matches, therefore mail.
+    #
+    # Nothing in the pipeline had an opinion about this. The idempotence built
+    # in S7 is per LISTING ("never send the same one twice"), which is a
+    # different promise from the one the site makes: "a mail when something new
+    # matches", read by a human as a daily rhythm and not as one-per-workflow-
+    # run. A retry, a manual dispatch or GitHub firing the schedule twice all
+    # produced extra mail, and being mailed three times in an afternoon is how
+    # a young sending domain earns a spam complaint from the one person on it.
+    #
+    # Nothing is lost by deferring: `new` is not marked as sent, so exactly
+    # these listings go out on the next run that has not already mailed today.
+    #
+    # This IS a calendar day, and that is not the same rule as the quota's. The
+    # quota window is a rolling 24 hours because the provider's cap is; this is
+    # a promise to a person about the rhythm of their morning, and people live
+    # in calendar days. It reads last_sent, which has always been a date.
+    if not dry_run and (state.get(sub_id) or {}).get("last_sent") == date.today().isoformat():
+        if new:
+            print(f"{email}: {len(new)} new, but already mailed today -- "
+                  f"deferred to tomorrow (one bulletin a day)")
+        return "already_today"
 
     print(f"{email}: matched {stats['matched']} | eligible {len(eligible)} | "
           f"already mailed {len(eligible) - len(new)} | new {len(new)}")
@@ -1125,7 +1151,7 @@ def main() -> None:
         sys.exit(1)
 
     if args.dry_run:
-        provider = DryRunProvider("the engine <dry-run@invalid>")
+        provider = DryRunProvider("dewsletter <dry-run@invalid>")
     else:
         if not api_key:
             print("missing RESEND_API_KEY", file=sys.stderr)
@@ -1160,7 +1186,7 @@ def main() -> None:
     # somebody else. A28: there is no teardown around this loop that could
     # swallow the original exception -- the transport is a stateless POST, there
     # is nothing to quit().
-    tally = {"sent": 0, "nothing_new": 0, "dry_run": 0, "quota_halt": 0,
+    tally = {"sent": 0, "nothing_new": 0, "already_today": 0, "dry_run": 0, "quota_halt": 0,
              "quota_error": 0, "hard_bounce": 0, "soft_fail": 0, "error": 0}
     processed = 0
     # S11. Whoever the budget runs out on must be a different person tomorrow.
@@ -1209,9 +1235,11 @@ def main() -> None:
     # disk after every successful send. A write at this point could only ever be
     # reached when nothing crashed, which is exactly the case that needed no
     # protection.
-    print(f"done: {mailed} mail(s) sent, {len(targets) - mailed} had nothing new.")
+    print(f"done: {mailed} mail(s) sent, {tally['nothing_new']} had nothing new, "
+          f"{tally['already_today']} already mailed today.")
     print(f"summary: processed {processed}/{len(targets)} | sent {tally['sent']} | "
-          f"nothing new {tally['nothing_new']} | dry run {tally['dry_run']} | "
+          f"nothing new {tally['nothing_new']} | already today {tally['already_today']} | "
+          f"dry run {tally['dry_run']} | "
           f"quota halt {tally['quota_halt']} | quota error {tally['quota_error']} | "
           f"hard bounce {tally['hard_bounce']} | soft fail {tally['soft_fail']} | "
           f"error {tally['error']}")

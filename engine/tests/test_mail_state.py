@@ -28,6 +28,7 @@ Run: python3 -m unittest discover engine/tests -v
 """
 import io
 import hashlib
+from datetime import date
 import json
 import os
 import shutil
@@ -251,6 +252,64 @@ class CrashDurability(unittest.TestCase):
         counts = {len(v["sent_keys"]) for v in state.values()}
         self.assertEqual(len(counts), 1, f"subscribers got different counts: {counts}")
         self.assertGreater(counts.pop(), 0)
+
+
+class OneBulletinADay(unittest.TestCase):
+    """Measured on the live subscriber 2026-09-01: three bulletins in one day,
+    two of them three minutes apart. Every workflow run fetches a fresh corpus,
+    so every run found something new and mailed it. Nothing had an opinion.
+
+    S7's idempotence is per LISTING -- never the same one twice -- which is a
+    different promise from the one the site makes. A retry, a manual dispatch
+    or the scheduler firing twice all produced extra mail.
+    """
+
+    def setUp(self):
+        self.data = sandbox()
+        self.subs = [subscriber("one@example.test")]
+
+    def test_a_second_run_on_the_same_day_sends_nothing(self):
+        run_send_mail(self.data, self.subs)
+        first = len(FakeProvider.sent)
+        self.assertEqual(first, 1)
+        out = run_send_mail(self.data, self.subs)
+        self.assertEqual(FakeProvider.sent, [], "a second run mailed again")
+        self.assertIn("already mailed today", out)
+
+    def test_the_deferred_listings_are_not_marked_as_sent(self):
+        """Deferring must not cost anybody a listing."""
+        run_send_mail(self.data, self.subs)
+        before = set(read_state(self.data)[sid("one@example.test")]["sent_keys"])
+        run_send_mail(self.data, self.subs)
+        after = set(read_state(self.data)[sid("one@example.test")]["sent_keys"])
+        self.assertEqual(before, after)
+
+    def test_tomorrow_it_sends_again(self):
+        """The gate defers, it does not close permanently."""
+        run_send_mail(self.data, self.subs)
+        state = read_state(self.data)
+        # a new day, and listings it has not seen: both halves are needed, or
+        # the run stops at "nothing new" and proves nothing about the gate
+        state[sid("one@example.test")]["last_sent"] = "2026-01-01"
+        state[sid("one@example.test")]["sent_keys"] = []
+        (self.data / "mail_state.json").write_text(json.dumps(state))
+        run_send_mail(self.data, self.subs)
+        self.assertEqual(len(FakeProvider.sent), 1, "the gate never reopened")
+
+    def test_a_dry_run_is_never_silenced_by_it(self):
+        """--dry-run exists to SHOW the bulletin. Blocking it would mean you
+        could not inspect today's mail after today's mail had gone."""
+        import send_mail as sm
+        state = {sid("one@example.test"): {"sent_keys": [],
+                                           "last_sent": date.today().isoformat()}}
+        jobs = json.loads((self.data / "jobs.json").read_text())
+        out = io.StringIO()
+        with redirect_stdout(out):
+            outcome = sm.process_subscriber(
+                "one@example.test", sm.pseudo_profile(self.subs[0]), jobs,
+                state, 4, True, FakeProvider(), None)
+        self.assertEqual(outcome, "dry_run")
+        self.assertNotIn("already mailed today", out.getvalue())
 
 
 class Atomicity(unittest.TestCase):
