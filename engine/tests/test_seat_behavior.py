@@ -416,6 +416,47 @@ class TwoTermControl(ClusterCase):
                            "invite, so the third term is not what prevents it")
 
 
+class WaitlistCap(ClusterCase):
+    """Measured 1 Sep on a real cluster: with the seats full, anon could write
+    UNLIMITED queue rows. 20.000 rows took 3.872 kB (~198 B each), so Supabase's
+    free 500 MB fills at about 2,65 million -- reachable for a bot, and the
+    project stops when it fills."""
+
+    def setUp(self):
+        super().setUp()
+        self.pg.run("grant usage on schema public to anon; "
+                    "grant insert on sightstone_waitlist to anon;")
+        self.fill(200)          # seats full, so D8 lets the queue accept rows
+
+    def test_the_queue_stops_at_its_cap(self):
+        self.pg.run("insert into sightstone_waitlist(email, mail_consent, "
+                    "kvkk_accepted_at) select 'w'||g||'@x.test', true, now() "
+                    "from generate_series(1,2000) g;")
+        r = self.pg.run("set role anon; insert into sightstone_waitlist"
+                        "(email, mail_consent, kvkk_accepted_at) "
+                        "values ('over@x.test', true, now()); reset role;",
+                        check=False)
+        self.assertNotEqual(r.returncode, 0, "the queue accepted row 2001")
+        self.assertIn("waitlist is full", (r.stderr or "") + (r.stdout or ""))
+
+    def test_a_legitimate_queue_is_not_blocked(self):
+        self.pg.run("insert into sightstone_waitlist(email, mail_consent, "
+                    "kvkk_accepted_at) select 'w'||g||'@x.test', true, now() "
+                    "from generate_series(1,50) g;")
+        self.wait("fifty-first@x.test")
+        self.assertEqual(self.pg.count("select count(*) from sightstone_waitlist"), 51)
+
+    def test_accepted_and_dropped_rows_do_not_hold_the_cap(self):
+        """Otherwise the queue silts up permanently and nobody can ever join."""
+        self.pg.run("insert into sightstone_waitlist(email, mail_consent, "
+                    "kvkk_accepted_at, dropped_at) select 'd'||g||'@x.test', "
+                    "true, now(), now() from generate_series(1,2000) g;")
+        self.wait("after-the-dead@x.test")
+        self.assertEqual(
+            self.pg.count("select count(*) from sightstone_waitlist "
+                          "where dropped_at is null"), 1)
+
+
 class RlsRegression(ClusterCase):
     """A lock on today's behaviour, not a fix for it.
 

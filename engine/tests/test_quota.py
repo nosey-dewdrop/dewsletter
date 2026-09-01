@@ -256,6 +256,35 @@ class TheLedgerRecordsMailsNotCalls(QuotaCase):
 
 # ------------------------------------------------------- the windows roll
 
+class ConfirmationsCannotEatTheDay(QuotaCase):
+    """Measured 1 Sep against a real cluster: a bot inserting one row at a time
+    took 197 of the 200 seats. Every one of those rows is a pending
+    confirmation, so unchecked they are a whole day's budget spent on a bot's
+    addresses while real subscribers get nothing. The attack costs an afternoon
+    and silences the product; the monthly split already reserved for this, the
+    DAY did not."""
+
+    def test_confirmations_halt_at_their_own_cap(self):
+        p = self.provider()
+        for _ in range(send_mail.DAILY_CONFIRM_CAP):
+            self.assertIsInstance(p.send("a@b.c", "s", "h", kind="confirm"),
+                                  send_mail.MessageId)
+        self.assertIsInstance(p.send("a@b.c", "s", "h", kind="confirm"),
+                              send_mail.QuotaHalt)
+
+    def test_bulletins_still_go_out_after_confirmations_are_exhausted(self):
+        """The whole point: a flood of signups must not silence the product."""
+        p = self.provider()
+        for _ in range(send_mail.DAILY_CONFIRM_CAP + 5):
+            p.send("a@b.c", "s", "h", kind="confirm")
+        self.assertIsInstance(p.send("real@b.c", "s", "h", kind="bulletin"),
+                              send_mail.MessageId)
+
+    def test_the_reserve_leaves_the_larger_half_to_bulletins(self):
+        self.assertLessEqual(send_mail.DAILY_CONFIRM_CAP,
+                             send_mail.DAILY_MAIL_CAP // 2)
+
+
 class TheDailyWindowRolls(QuotaCase):
     def test_the_cap_is_ninety_not_a_hundred(self):
         self.assertEqual(send_mail.DAILY_MAIL_CAP, 90)
@@ -297,9 +326,13 @@ class TheDailyWindowRolls(QuotaCase):
         evening = datetime(2026, 9, 15, 22, 0, tzinfo=timezone.utc)
         self.clock.now = evening
         p = self.provider()
+        # kind is "bulletin" because this test is about the WINDOW, not about
+        # who may spend what. Confirmations now carry their own daily sub-cap
+        # (DAILY_CONFIRM_CAP), so 60 of them would legitimately halt here and
+        # the halt would say nothing about midnight.
         for _ in range(60):
             self.assertIsInstance(
-                p.send("a@b.c", "s", "h", kind="confirm"), send_mail.MessageId)
+                p.send("a@b.c", "s", "h", kind="bulletin"), send_mail.MessageId)
 
         # 01:00 TRT -- a NEW calendar day in Damla's timezone, and a new
         # calendar day in UTC three hours later too.

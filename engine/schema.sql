@@ -298,3 +298,29 @@ update sightstone_subscribers
 -- nobody having written the insert yet rather than the schema refusing it.
 -- Removing it makes D5 structural instead of behavioural.
 alter table sightstone_subscribers drop column if exists cv_text;
+
+-- ---------------------------------------------------------------------------
+-- KUYRUK TAVANI. Ölçüldü (1 Eyl, gerçek küme): koltuklar dolduğu anda anon
+-- kuyruğa SINIRSIZ satır yazabiliyordu. 20.000 satır 3.872 kB yer kapladı,
+-- satır başı ~198 bayt; Supabase'in bedava 500 MB'ı ~2,65 milyon satırda dolar.
+-- Bir bot için erişilebilir bir sayı, ve dolduğunda proje durur.
+--
+-- Tavan koltuk sayısının on katı: gerçek bir kuyruk asla o kadar uzun olmaz
+-- (200 koltuk, 48 saatte devreden davetler), ama meşru bir yığılmayı da
+-- kesmez. Koltuk tavanı gibi advisory kilitle sayılıyor, yoksa eşzamanlı
+-- insert'ler kendi anlık görüntülerinde tavanın altını görür ve hep birlikte
+-- geçerler -- koltuk trigger'ında ölçülen 119/100 hatası.
+create or replace function sightstone_waitlist_cap() returns trigger
+language plpgsql security definer as $$
+begin
+  perform pg_advisory_xact_lock(hashtext('sightstone_waitlist_len'));
+  if (select count(*) from sightstone_waitlist
+       where accepted_at is null and dropped_at is null) >= 2000 then
+    raise exception 'waitlist is full';
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists sightstone_waitlist_len on sightstone_waitlist;
+create trigger sightstone_waitlist_len before insert on sightstone_waitlist
+  for each row execute function sightstone_waitlist_cap();

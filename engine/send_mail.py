@@ -73,6 +73,13 @@ RESEND_DAILY_QUOTA = 100      # provider free tier, per rolling 24 hours
 DAILY_MAIL_CAP = 90           # the daily quota minus a ten-mail safety margin
 RESEND_MONTHLY_QUOTA = 3000   # hard ceiling; nothing at all passes this
 MONTHLY_BULLETIN_CAP = 2550   # 15% reserve for the inbound mail we cannot see
+# Confirmations may not eat the whole day. Measured 1 Sep against a real
+# cluster: a bot inserting one row at a time took 197 of the 200 seats, and
+# every one of those rows is a pending confirmation. Unchecked, that is a day's
+# entire budget spent on a bot's addresses while real subscribers get nothing
+# -- the attack costs an afternoon and silences the product. The monthly split
+# already reserves for this; the DAY did not.
+DAILY_CONFIRM_CAP = 45        # half the day; bulletins keep the other half
 
 # The unit that is spent is a MAIL, never a call: one request may carry up to
 # RESEND_MAX_RECIPIENTS addresses, and counting it as 1 would overshoot by 50x.
@@ -276,19 +283,24 @@ class QuotaLedger:
             return None
         return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
-    def _sum(self, predicate) -> int:
+    def _sum(self, predicate, kind: str | None = None) -> int:
         total = 0
         for rec in self.sends:
             when = self._stamp(rec)
-            if when is not None and predicate(when):
-                total += int(rec.get("count") or 0)
+            if when is None or not predicate(when):
+                continue
+            if kind is not None and rec.get("kind") != kind:
+                continue
+            total += int(rec.get("count") or 0)
         return total
 
-    def used_today(self, now: datetime | None = None) -> int:
+    def used_today(self, now: datetime | None = None,
+                   kind: str | None = None) -> int:
         """Mails in the last 24 HOURS. Rolling, so a UTC/UTC+3 midnight cannot
-        hand the same real day two fresh buckets."""
+        hand the same real day two fresh buckets. `kind` narrows it to one
+        sort, which is how the confirmation sub-cap is measured."""
         now = now or _now()
-        return self._sum(lambda w: w > now - DAILY_WINDOW)
+        return self._sum(lambda w: w > now - DAILY_WINDOW, kind)
 
     def used_month(self, now: datetime | None = None) -> int:
         """The TIGHTER of the rolling 30 days and the calendar month.
@@ -317,6 +329,8 @@ class QuotaLedger:
         """"daily" | "monthly" | None -- asked BEFORE anything is attempted."""
         now = now or _now()
         if self.used_today(now) + count > DAILY_MAIL_CAP:
+            return "daily"
+        if kind == "confirm" and self.used_today(now, kind) + count > DAILY_CONFIRM_CAP:
             return "daily"
         if self.used_month(now) + count > self.monthly_cap(kind):
             return "monthly"
