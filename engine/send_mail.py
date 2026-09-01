@@ -551,10 +551,29 @@ def fetch_subscribers(service_key: str) -> list[dict]:
         headers["Authorization"] = f"Bearer {service_key}"
     req = urllib.request.Request(
         f"{SUPABASE_URL}/rest/v1/sightstone_subscribers"
-        "?unsubscribed_at=is.null&select=email,name,level,interests,location,unsubscribe_token",
+        "?unsubscribed_at=is.null&select=email,name,level,interests,location,"
+        "unsubscribe_token,confirmed_at",
         headers=headers)
     with urllib.request.urlopen(req, timeout=30) as resp:
-        return json.loads(resp.read().decode())
+        rows = json.loads(resp.read().decode())
+
+    # D2. An address that never clicked confirm has not consented, and mailing
+    # it is the KVKK/GDPR violation this whole column exists to prevent. The
+    # schema has had confirmed_at, confirm_token and sightstone_confirm() since
+    # S6; the query simply never used them, so every address ever mailed was by
+    # definition unconfirmed.
+    #
+    # Filtered HERE and not in the URL on purpose: the count of who was held
+    # back has to be printable. A silent `&confirmed_at=not.is.null` would turn
+    # "nobody has confirmed yet" into "zero subscribers today" with no line in
+    # the log saying why, and the bulletin would just stop with nothing to
+    # explain it.
+    confirmed = [r for r in rows if r.get("confirmed_at")]
+    held = len(rows) - len(confirmed)
+    if held:
+        print(f"held back {held} unconfirmed subscriber(s): no confirm click, "
+              f"no mail (D2)")
+    return confirmed
 
 
 # ------------------------------------------------------------ seats / invites
@@ -802,7 +821,12 @@ def compose(new: list[dict], total: int, unsubscribe_token: str | None = None) -
         "you get mail only when something new matches. nothing new, no mail.",
     ]
     if unsubscribe_token:
-        lines.append(f"one-click unsubscribe: {SITE}/unsubscribe.html?token={unsubscribe_token}")
+        # NOT "one-click". One-click is a POST (RFC 8058) and this page is
+        # static GitHub Pages: measured live 2026-09-01, POST -> 405, GET -> 200.
+        # It said "one-click unsubscribe" in every mail that ever went out,
+        # which was a promise the page could not keep. It opens and you click
+        # once on the page; that is what it now says.
+        lines.append(f"unsubscribe: {SITE}/unsubscribe.html?token={unsubscribe_token}")
     return "\n".join(lines)
 
 

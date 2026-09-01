@@ -796,6 +796,19 @@ class ListUnsubscribeOnEveryMail(unittest.TestCase):
         self.assertEqual(code_lines, [],
                          f"the source advertises one-click unsubscribe: {code_lines}")
 
+    def test_the_mail_body_does_not_promise_one_click_either(self):
+        """The header was honest; the BODY was not, in every mail ever sent.
+
+        Measured live 2026-09-01 on the real page: POST -> 405, GET -> 200.
+        "one-click unsubscribe" is a POST by RFC 8058, so the last line of the
+        bulletin promised something GitHub Pages cannot do.
+        """
+        body = send_mail.compose([], 599, unsubscribe_token="tok123")
+        self.assertIn("unsubscribe: ", body)
+        self.assertIn("token=tok123", body)
+        self.assertNotIn("one-click", body.lower())
+
+
     def test_the_header_survives_whatever_the_caller_forgets(self):
         """build_payload is the only assembler, so it cannot be bypassed."""
         p = RecordingProvider()
@@ -863,6 +876,74 @@ class ProductionIsUntouched(unittest.TestCase):
             round(send_mail.RESEND_MONTHLY_QUOTA * 0.15),
             "the reserve is 15%, not 5%: inbound mail eats the same quota and "
             "this ledger cannot see it")
+
+
+
+class ConfirmedSubscribersOnly(unittest.TestCase):
+    """D2 -- an address that never clicked confirm never gets mail."""
+
+    def _rows(self, rows):
+        payload = json.dumps(rows).encode()
+
+        class FakeResp:
+            def read(self):
+                return payload
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+        out = io.StringIO()
+        with mock.patch.object(send_mail.urllib.request, "urlopen",
+                               lambda *a, **k: FakeResp()), \
+                redirect_stdout(out):
+            got = send_mail.fetch_subscribers("sb_secret_x")
+        return got, out.getvalue()
+
+    def test_unconfirmed_rows_are_dropped(self):
+        got, _ = self._rows([
+            {"email": "yes@example.test", "confirmed_at": "2026-09-01T00:00:00Z"},
+            {"email": "no@example.test", "confirmed_at": None},
+        ])
+        self.assertEqual([r["email"] for r in got], ["yes@example.test"])
+
+    def test_holding_someone_back_is_printed_not_silent(self):
+        """"zero subscribers today" with no reason is the failure mode here."""
+        _, out = self._rows([{"email": "no@example.test", "confirmed_at": None}])
+        self.assertIn("held back 1", out)
+        self.assertIn("D2", out)
+
+    def test_a_fully_confirmed_list_prints_nothing_extra(self):
+        got, out = self._rows(
+            [{"email": "yes@example.test", "confirmed_at": "2026-09-01T00:00:00Z"}])
+        self.assertEqual(len(got), 1)
+        self.assertNotIn("held back", out)
+
+    def test_the_query_asks_for_confirmed_at(self):
+        """Dropping the column from the select would silently drop everyone."""
+        self.assertIn("confirmed_at", SRC)
+        seen = {}
+
+        class FakeResp:
+            def read(self):
+                return b"[]"
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+        def spy(req, *a, **k):
+            seen["url"] = req.full_url
+            return FakeResp()
+
+        with mock.patch.object(send_mail.urllib.request, "urlopen", spy):
+            send_mail.fetch_subscribers("sb_secret_x")
+        self.assertIn("confirmed_at", seen["url"])
+        self.assertIn("unsubscribed_at=is.null", seen["url"])
 
 
 if __name__ == "__main__":

@@ -269,3 +269,21 @@ begin
   return sent;
 end $$;
 revoke execute on function sightstone_run_invites(int) from public;
+
+-- ---------------------------------------------------------------------------
+-- D2 BACKFILL -- one address, once, by name.
+--
+-- send_mail.fetch_subscribers now drops every row whose confirmed_at is null,
+-- because mailing an address that never clicked confirm is the KVKK/GDPR
+-- violation confirmed_at exists to prevent. The founding subscriber signed up
+-- on 2026-07-27, BEFORE the confirm flow existed (S6 added the column), so her
+-- row has no confirmed_at and would go silent the moment the filter shipped.
+--
+-- She is named here on purpose. A blanket
+--   update sightstone_subscribers set confirmed_at = now() where confirmed_at is null
+-- would be the exact violation this change is closing: it would manufacture
+-- consent for anyone who ever typed their address in. One address, spelled out,
+-- auditable in the diff. Everyone else confirms by clicking.
+update sightstone_subscribers
+   set confirmed_at = coalesce(confirmed_at, created_at, now())
+ where email = 'teenagemutantdamlaturtle@gmail.com';
