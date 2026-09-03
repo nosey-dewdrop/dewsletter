@@ -1,4 +1,10 @@
 {
- "sends": [],
+ "sends": [
+  {
+   "at": "2026-09-03T10:34:17.056946+00:00",
+   "kind": "bulletin",
+   "count": 1
+  }
+ ],
  "halted": null
 }
